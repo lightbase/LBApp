@@ -7,9 +7,9 @@ def main(global_config, **settings):
     config = Configurator(settings=settings)
     config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_route('pyramid', '/')
-	#grehghre
     config.add_route('home', 'home')
     config.add_route('teste', 'teste')
+    #fhgstrhwsgf
     config.add_route('criabase', 'criabase')
     config.scan()
     return config.make_wsgi_app()
