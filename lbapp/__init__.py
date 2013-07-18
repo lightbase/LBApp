@@ -7,6 +7,7 @@ def main(global_config, **settings):
     config = Configurator(settings=settings)
     config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_route('pyramid', '/')
+	#11111
     config.add_route('home', 'home')
     config.add_route('teste', 'teste')
     config.add_route('criabase', 'criabase')
