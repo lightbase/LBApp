@@ -4,7 +4,7 @@ from pyramid.view import view_config
 @view_config(route_name='pyramid', renderer='templates/mytemplate.pt')
 def temp1(request):
     return {'project': 'LBApp'}
-@view_config(route_name='teste', renderer='templates/acemaster.pt')
+@view_config(route_name='teste', renderer='templates/hometeste.pt')
 def temp2(request):
     return {'project': 'LBApp'}
 @view_config(route_name='home', renderer='templates/home.pt')

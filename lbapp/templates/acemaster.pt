@@ -1,18 +1,24 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html lang="en"
-	xmlns="http://www.w3.org/1999/xhtml" 
-	xmlns:tal="http://xml.zope.org/namespaces/tal"
-	xmlns:metal="http://xml.zope.org/namespaces/metal"
-	xmlns:i18n="http://xml.zope.org/namespaces/i18n">
-
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:tal="http://xml.zope.org/namespaces/tal"
+            xmlns:metal="http://xml.zope.org/namespaces/metal"
+            xmlns:i18n="http://xml.zope.org/namespaces/i18n">
 	<head>
 		<meta charset="utf-8" />
 		<title>Dashboard - W8 Admin</title>
 		<meta name="description" content="This is page-header (.page-header &gt; h1)" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<!--basic styles-->
+		
+        <!-- Javascript -->
 
+        
+        <script type="text/javascript" src="static/ext-4.2/ext-all.js"></script>
+
+
+        <!--basic styles-->
+        <link href="static/ext-4.2/resources/css/ext-all-gray.css" type="text/css" rel="stylesheet">
 		<link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="static/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="static/themes/font-awesome/css/font-awesome.min.css" />
@@ -534,13 +540,31 @@
 								<i class="icon-search" id="nav-search-icon"></i>
 							</span>
 						</form>
-					</div><!--#nav-search-->
+					</div><!--nav-search-->
+                    <div>
 				</div>
-				<div id="centro">
-				<div id="page-content" class="clearfix">
-				<metal:content define-slot="page-content" />	
+
+				<div id="page-content">
+					<div class="page-header position-relative">
+						<h1>
+							Dashboard
+							<small>
+								<i class="icon-double-angle-right"></i>
+								overview &amp; stats
+							</small>
+						</h1>
+					</div><!--/.page-header-->
+                    
+
+                    <!-- Área de modificação do master -->
+
+
+					<div class="conteudo">
+						<!--PAGE CONTENT BEGINS HERE-->
+                        <h1>teste</h1>
+                        <metal:content define-slot="conteudo" />
+					</div><!--/row-->
 				</div><!--/#page-content-->
-				</div>
 
 				<div id="ace-settings-container">
 					<div class="btn btn-app btn-mini btn-warning" id="ace-settings-btn">
@@ -776,5 +800,6 @@
 				}
 			})
 		</script>
+        <metal:content define-slot="javascript" />
 	</body>
 </html>

@@ -9,7 +9,6 @@ def main(global_config, **settings):
     config.add_route('pyramid', '/')
     config.add_route('home', 'home')
     config.add_route('teste', 'teste')
-    #fhgstrhwsgf
     config.add_route('criabase', 'criabase')
     config.scan()
     return config.make_wsgi_app()
