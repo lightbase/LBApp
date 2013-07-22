@@ -12,10 +12,9 @@ def temp2(request):
 @view_config(route_name='listarbase', renderer='templates/listarbase.pt')
 def temp3(request):
 
-
-    
     req = conn.request_encode_url('GET', '/api/base', fields={'$$':'{"select":["nome_base","id_base"]}'})
     req = req.data
+    
 
     return {'project': 'LBApp', 'req': req}
 

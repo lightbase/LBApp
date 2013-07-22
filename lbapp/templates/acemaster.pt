@@ -14,11 +14,9 @@
         <!-- Javascript -->
 
         
-        <script type="text/javascript" src="static/ext-4.2/ext-all.js"></script>
 
 
         <!--basic styles-->
-        <link href="static/ext-4.2/resources/css/ext-all-gray.css" type="text/css" rel="stylesheet">
 		<link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="static/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="static/themes/font-awesome/css/font-awesome.min.css" />
@@ -29,7 +27,7 @@
 
 		<!--page specific plugin styles-->
 
-		<link rel="stylesheet" href="themes/css/prettify.css" />
+		<link rel="stylesheet" href="static/themes/css/prettify.css" />
 
 		<!--fonts-->
 
@@ -211,7 +209,7 @@
 
 								<li>
 									<a href="#">
-										<img src="themes/images/avatar.png" class="msg-photo" alt="Alex's Avatar" />
+										<img src="static/themes/images/avatar.png" class="msg-photo" alt="Alex's Avatar" />
 										<span class="msg-body">
 											<span class="msg-title">
 												<span class="blue">Alex:</span>
@@ -228,7 +226,7 @@
 
 								<li>
 									<a href="#">
-										<img src="themes/images/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
+										<img src="static/themes/images/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
 										<span class="msg-body">
 											<span class="msg-title">
 												<span class="blue">Susan:</span>
@@ -245,7 +243,7 @@
 
 								<li>
 									<a href="#">
-										<img src="themes/images/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
+										<img src="static/themes/images/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
 										<span class="msg-body">
 											<span class="msg-title">
 												<span class="blue">Bob:</span>
@@ -271,7 +269,7 @@
 
 						<li class="light-blue user-profile">
 							<a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
-								<img class="nav-user-photo" src="themes/images/user.png" alt="Jason's Photo" />
+								<img class="nav-user-photo" src="static/themes/images/user.png" alt="Jason's Photo" />
 								<span id="user_info">
 									<small>Welcome,</small>
 									Jason
@@ -605,24 +603,24 @@
 
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script type="text/javascript">
-			window.jQuery || document.write("<script src='themes/js/jquery-1.9.1.min.js'>"+"<"+"/script>");
+			window.jQuery || document.write("<script src='static/themes/js/jquery-1.9.1.min.js'>"+"<"+"/script>");
 		</script>
-		<script src="bootstrap/js/bootstrap.min.js"></script>
-		<script src="themes/js/jquery-ui-1.10.3.custom.min.js"></script>
-		<script src="themes/js/jquery.ui.touch-punch.min.js"></script>
+		<script src="static/bootstrap/js/bootstrap.min.js"></script>
+		<script src="static/themes/js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="static/themes/js/jquery.ui.touch-punch.min.js"></script>
 		
-		<script src="themes/js/jquery.slimscroll.min.js"></script>
-		<script src="themes/js/jquery.easy-pie-chart.min.js"></script>
-		<script src="themes/js/jquery.sparkline.min.js"></script>
+		<script src="static/themes/js/jquery.slimscroll.min.js"></script>
+		<script src="static/themes/js/jquery.easy-pie-chart.min.js"></script>
+		<script src="static/themes/js/jquery.sparkline.min.js"></script>
 		
-		<script src="themes/js/jquery.flot.min.js"></script>
-		<script src="themes/js/jquery.flot.pie.min.js"></script>
-		<script src="themes/js/jquery.flot.resize.min.js"></script>
+		<script src="static/themes/js/jquery.flot.min.js"></script>
+		<script src="static/themes/js/jquery.flot.pie.min.js"></script>
+		<script src="static/themes/js/jquery.flot.resize.min.js"></script>
 
 		<!--w8 scripts-->
 
-		<script src="themes/js/w8-elements.min.js"></script>
-		<script src="themes/js/w8.min.js"></script>
+		<script src="static/themes/js/w8-elements.min.js"></script>
+		<script src="static/themes/js/w8.min.js"></script>
 
 		<!--inline scripts related to this page-->
 
