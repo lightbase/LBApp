@@ -1,0 +1,26 @@
+<metal:main use-macro="load: acemaster.pt">
+ <!-- Insere JavaScript -->
+<script metal:fill-slot="javascript" type="text/javascript" src="static/tabelabootstrap.js"></script>
+
+ <div metal:fill-slot="conteudo" id="widgets">${req}
+<!--<table id="bases" class="table table-condensed table-striped table-bordered">
+   <thead>
+      <tr>
+         <td><b>Id</b></td>
+         <td><b>Nome</b></td>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td><a id="bases-1" data-type="text" data-pk="1" data-original-title="Enter data" class="editable editable-click" style="display: inline;">[object Object]</a></td>
+         <td><a id="bases-22" data-type="text" data-pk="1" data-original-title="Enter data" class="editable editable-click" style="display: inline;">[object Object]</a></td>
+      </tr>
+      <tr>
+         <td><a id="bases-1" data-type="text" data-pk="1" data-original-title="Enter data" class="editable editable-click" style="display: inline;">[object Object]</a></td>
+         <td><a id="bases-22" data-type="text" data-pk="1" data-original-title="Enter data" class="editable editable-click" style="display: inline;">[object Object]</a></td>
+      </tr>
+   </tbody>
+</table>-->
+</div>
+</metal:main>
+
