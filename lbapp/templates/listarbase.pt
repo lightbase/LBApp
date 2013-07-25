@@ -2,6 +2,8 @@
  <!-- Insere JavaScript -->
 <script metal:fill-slot="javascript" type="text/javascript" src="static/tabelabootstrap.js"></script>
 
- <div metal:fill-slot="conteudo" id="widgets"></div>
+<div metal:fill-slot="conteudo" id="widgets">
+    <script type="text/javascript" src="static/requisicaoajax.js"></script>
+</div>
 </metal:main>
 

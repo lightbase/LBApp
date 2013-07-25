@@ -22,7 +22,7 @@ function tabela(){
    
         thead_td = document.createElement('td');
         h1 = document.createElement('b');
-        h1.innerText = 'ID';
+        h1.innerText = ' ';
         thead_td.appendChild(h1);
         thead_tr.appendChild(thead_td);
         thead.appendChild(thead_tr);
