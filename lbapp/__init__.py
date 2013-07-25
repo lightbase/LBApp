@@ -9,5 +9,7 @@ def main(global_config, **settings):
     config.add_route('home', 'home')
     config.add_route('teste', 'teste')
     config.add_route('listarbase', 'listarbase')
+    config.add_route('criarbase', 'criarbase')
+    config.add_route('conquer', 'conquer')
     config.scan()
     return config.make_wsgi_app()

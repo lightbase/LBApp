@@ -1,7 +1,5 @@
 var widgets = document.getElementById('widgets');
     widgets.appendChild(tabela());
-ajax_response = ajax_response.results;
-ajax_response = JSON.stringify(ajax_response);
 console.log(ajax_response);
 function tabela(){
 
@@ -23,13 +21,13 @@ function tabela(){
 
    
         thead_td = document.createElement('td');
-        h1 = document.createElement('h1');
+        h1 = document.createElement('b');
         h1.innerText = 'ID';
         thead_td.appendChild(h1);
         thead_tr.appendChild(thead_td);
         thead.appendChild(thead_tr);
         thead_td = document.createElement('td');
-        h1 = document.createElement('h1');
+        h1 = document.createElement('b');
         h1.innerText = 'BASE';
         thead_td.appendChild(h1);
         thead_tr.appendChild(thead_td);
@@ -39,8 +37,9 @@ function tabela(){
 
     // inicio tbody
 
-    for (field in ajax_response){
-        for (i = 2; i > 0 ; i--){
+    for (result in ajax_response.results){
+        field = ajax_response.results[result];
+        console.log(field);
             tbody_tr = document.createElement('tr');
             tbody_td = document.createElement('td');
             h2 = document.createElement('b');
@@ -53,7 +52,6 @@ function tabela(){
             tbody_td.appendChild(h2);
             tbody_tr.appendChild(tbody_td);
             tbody.appendChild(tbody_tr);
-        }
     }
 
     // fim tbody
