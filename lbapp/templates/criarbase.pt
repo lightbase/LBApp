@@ -1,6 +1,7 @@
 <metal:main use-macro="load: acemaster.pt">
- <!-- Insere JavaScript -->
+
 <script metal:fill-slot="javascript" type="text/javascript" src="static/criarbase.js"></script>
+<script metal:fill-slot="javascript" type="text/javascript" src="static/nestable-theme/jquery-1.8.3.min(1).js"></script>
 
  <div metal:fill-slot="conteudo" id="widgets">
 
@@ -21,8 +22,17 @@
 
                                 <!-- END Linking CSS's -->
 
-                                
+                <!-- Insere JavaScript -->
 
+                
+
+               <div class="row-fluid">
+                  <div class="span12">
+                     <h3>Serialised Output (per list)</h3>
+                     <textarea id="nestable_list_1_output" class="m-wrap span12"></textarea>
+                     <textarea id="nestable_list_2_output" class="m-wrap span12"></textarea>
+                  </div>
+               </div>
 
 
 <div class="row-fluid">    <!-- nestablelist 1 and 2 -->
@@ -111,40 +121,80 @@
 
                     <!-- DADOS DA BASE VÃO AQUI -->
 
+                <form>
+                  <fieldset>
+                    <legend>Bases</legend>
+                    <label>Nome : 
+                    <input type="text" placeholder="Nome Base">
+                    </label>
+                    <label>Descrição : 
+                    <input type="text" placeholder="Descrição">
+                    </label>
+                    <label>Tipo : 
+                    <select>
+                        <option>Alfa Numerico</option>
+                        <option>Documento</option>
+                        <option>Inteiro</option>
+                        <option>Decimal</option>
+                        <option>Moeda</option>
+                        <option>Alto Enumerado</option>
+                        <option>Data</option>
+                        <option>Hora</option>
+                        <option>Imagem</option>
+                        <option>Som</option>
+                        <option>Video</option>
+                        <option>URL</option>
+                        <option>Verdadeiro/Falso</option>
+                        <option>Texto</option>
+                        <option>Arquivo</option>
+                        <option>HTML</option>
+                        <option>Email</option>
+                    </select>
+                    </label>
+                    <label class="checkbox">
+                      <input type="checkbox"> Check me out
+                    </label>
+                    <label>
+                    Indexação :
+                    </label>
+
+                    <label class="checkbox">
+                    <input type="checkbox" id="inlineCheckbox1" value="option1"> 1
+                    </label>
+
+                    <button type="submit" class="btn">Submit</button>
+                  </fieldset>
+                </form>
+
+
+
                         </div>
                      </div>
                   </div>
                </div>
-
-
-
-
-
-
-
-
 </div>
+
 </metal:main>
 
                                                         <!-- Linking Javascript's -->
-   <script type="text/javascript" async="" src="static/nestable-theme/dc.js"></script><script src="static/nestable-theme/jquery-1.8.3.min(1).js" type="text/javascript"></script>   
+   <!--<script type="text/javascript" async="" src="static/nestable-theme/dc.js"></script>-->
    <!-- IMPORTANT! Load jquery-ui-1.10.1.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->  
-   <script src="static/nestable-theme/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>      
-   <script src="static/nestable-theme/bootstrap.min.js" type="text/javascript"></script>
+   <!--<script src="static/nestable-theme/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>-->
+   <script src="static/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
    <!--[if lt IE 9]>
    <script src="assets/plugins/excanvas.js"></script>
    <script src="assets/plugins/respond.js"></script>  
    <![endif]-->   
-   <script src="static/nestable-theme/breakpoints.js" type="text/javascript"></script>  
+   <script src="static/nestable-theme/breakpoints.js" type="text/javascript"></script>
    <!-- IMPORTANT! jquery.slimscroll.min.js depends on jquery-ui-1.10.1.custom.min.js --> 
-   <script src="static/nestable-theme/jquery.slimscroll.min.js" type="text/javascript"></script>
-   <script src="static/nestable-theme/jquery.blockui.js" type="text/javascript"></script>  
+   <!--<script src="static/nestable-theme/jquery.slimscroll.min.js" type="text/javascript"></script>-->
+   <!--<script src="static/nestable-theme/jquery.blockui.js" type="text/javascript"></script>-->
    <script src="static/nestable-theme/jquery.cookie.js" type="text/javascript"></script>
-   <script src="static/nestable-theme/jquery.uniform.min.js" type="text/javascript"></script> 
+   <!--<script src="static/nestable-theme/jquery.uniform.min.js" type="text/javascript"></script>--> 
    <!-- END CORE PLUGINS -->
    <!-- END PAGE LEVEL PLUGINS -->
    <!-- BEGIN PAGE LEVEL SCRIPTS -->
-   <script src="static/nestable-theme/jquery.nestable.js"></script>  
+   <script src="static/nestable-theme/jquery.nestable.js"></script>
    <!-- END PAGE LEVEL SCRIPTS -->     
    <script src="static/nestable-theme/ui-nestable.js"></script>    
    <script src="static/nestable-theme/app(1).js"></script>
@@ -155,7 +205,7 @@
          UINestable.init();
       });
    </script>
-   <script type="text/javascript">
+   <!--<script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-37564768-1']);
   _gaq.push(['_setDomainName', 'keenthemes.com']);
@@ -166,7 +216,7 @@
     ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
-</script>
+</script>-->
 
 
                                                         <!-- END Linking Javascript's -->
