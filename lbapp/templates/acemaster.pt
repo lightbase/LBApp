@@ -26,11 +26,11 @@
 
 		<!--page specific plugin styles-->
 
-		<link rel="stylesheet" href="static/themes/css/prettify.css" />
+		<!--<link rel="stylesheet" href="static/themes/css/prettify.css" />-->
 
 		<!--fonts-->
 
-		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
+		<!--<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />-->
 
 		<!--ace styles-->
 
@@ -600,12 +600,12 @@
 
 		<!--basic scripts-->
 
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script type="text/javascript">
 			window.jQuery || document.write("<script src='static/themes/js/jquery-1.9.1.min.js'>"+"<"+"/script>");
 		</script>
-		<script src="static/bootstrap/js/bootstrap.min.js"></script>
-		<script src="static/themes/js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="static/bootstrap/js/bootstrap.min.js"></script>-->
+		<!--<script src="static/themes/js/jquery-ui-1.10.3.custom.min.js"></script>
 		<script src="static/themes/js/jquery.ui.touch-punch.min.js"></script>
 		
 		<script src="static/themes/js/jquery.slimscroll.min.js"></script>
@@ -614,16 +614,16 @@
 		
 		<script src="static/themes/js/jquery.flot.min.js"></script>
 		<script src="static/themes/js/jquery.flot.pie.min.js"></script>
-		<script src="static/themes/js/jquery.flot.resize.min.js"></script>
+		<script src="static/themes/js/jquery.flot.resize.min.js"></script>-->
 
 		<!--w8 scripts-->
 
-		<script src="static/themes/js/w8-elements.min.js"></script>
-		<script src="static/themes/js/w8.min.js"></script>
+		<!--<script src="static/themes/js/w8-elements.min.js"></script>-->
+		<!--<script src="static/themes/js/w8.min.js"></script>-->
 
 		<!--inline scripts related to this page-->
 
-		<script type="text/javascript">
+		<!--<script type="text/javascript">
 			$(function() {
 			
 				$('.dialogs,.comments').slimScroll({
@@ -795,7 +795,7 @@
 					return 'left';
 				}
 			})
-		</script>
+		</script>-->
         <metal:content define-slot="javascript" />
 	</body>
 </html>
