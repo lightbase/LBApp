@@ -11,18 +11,6 @@ function is_array(object){
     return Array.prototype.isPrototypeOf(object);
 }
 
-function FormField(id, placeholder){
-
-    var input = document.createElement('input')
-    input.setAttribute('type', 'text');
-    input.setAttribute('id', id);
-    if(placeholder) input.setAttribute('placeholder', placeholder);
-
-    this.id = id;
-    this.placeholder = placeholder;
-    this.html = input
-}
-
 function InlineHelp(text){
 
     // <span class="help-inline">[text]</span>
@@ -46,21 +34,18 @@ function Label(field_id, text){
     this.html = label;
 }
 
-function Controls(form_field, help){
+function Controls(fields){
 
-    // <div class="controls"> [form_field] [help]</div>
+    // <div class="controls"> [fields]</div>
+    if (!is_array(fields)) throw new TypeError('fields must be instance of Array');
     var controls = document.createElement('div');
     controls.setAttribute('class', 'controls');
 
-    if (form_field instanceof FormField) controls.appendChild(form_field.html);
-    else throw new TypeError('form_field is not instance of FormField');
-    if (help){
-        if (help instanceof InlineHelp) controls.appendChild(help.html);
-        else throw new TypeError('help is not instance of InlineHelp');
+    for (var f in fields){
+        controls.appendChild(fields[f]);
     }
 
-    this.form_field = form_field;
-    this.help = help;
+    this.fields = fields;
     this.html = controls;
 }
 
@@ -84,13 +69,15 @@ function Form(id, control_group_list){
 
     // <form id=[id] class="form-horizontal"> [control_group_list] </form>
     var form = document.createElement('form');
-    form.setAttribute('class','form-horizantal');
-    form.setAttribute('id', id);
+    form.setAttribute('class','form-horizontal');
+    form.setAttribute('id', id + '-form');
 
     if (is_array(control_group_list)){
         for (var g in control_group_list){
             var control_group = control_group_list[g];
-            if(control_group instanceof ControlGroup) form.appendChild(control_group.html);
+            if(control_group.control_group instanceof ControlGroup){
+                form.appendChild(control_group.control_group.html);
+            }
             else throw new TypeError('control_group is not instance of ControlGroup');
         }
     }
@@ -101,73 +88,140 @@ function Form(id, control_group_list){
     this.html = form;
 }
 
+function NameField(id, cls){
 
+    this.id = id + '-name';
+    this.class = cls;
 
-function Radio(id){
-
-    var radio = document.createElement('label');
-    checkbox.setAttribute('class', 'checkbox');
-    var label = document.createElement('label');
     var input = document.createElement('input');
+    input.setAttribute('id', this.id);
+    input.setAttribute('name', this.id);
+    input.setAttribute('type', 'text');
+    if (this.class) input.setAttribute('class', this.class);
+    else input.setAttribute('class', 'span2');
+
+    this.label = new Label(this.id, text='Nome');
+    this.controls = new Controls([input]);
+    this.control_group = new ControlGroup(this.label, this.controls);
 }
 
-function BaseDataForm(id, base_fields){
+function DescriptionField(id, cls){
 
-    /*
-    Class for redering a new base form.
-    Base fields example:
-    [
-        {
-            name:'Nome',
-            placeholder: 'Nome da base',
-            help: 'O nome deve ser único',
-        },
-        {
-            name:'Descrição',
-            placeholder: 'Descrição da base',
-        }
+    this.id = id + '-description';
+    this.class = cls;
+
+    var input = document.createElement('input');
+    input.setAttribute('id', this.id);
+    input.setAttribute('name', this.id);
+    input.setAttribute('type', 'text');
+    if (this.class) input.setAttribute('class', this.class);
+    else input.setAttribute('class', 'span4');
+
+    this.label = new Label(this.id, text='Descrição');
+    this.controls = new Controls([input]);
+    this.control_group = new ControlGroup(this.label, this.controls);
+}
+
+function DataTypeField(id){
+    this.id = id + '-datatype';
+    this.datatypes = [
+        'AlfaNumerico',
+        'Documento',
+        'Inteiro',
+        'Decimal',
+        'Moeda',
+        'AutoEnumerado',
+        'Data',
+        'Hora',
+        'Imagem',
+        'Som',
+        'Video',
+        'URL',
+        'Verdadeiro/Falso',
+        'Texto',
+        'Arquivo',
+        'HTML',
+        'Email'
     ]
-    */
 
-    this.id = id;
-    this.base_fields = base_fields;
-    this.control_group_list = new Array();
-
-    for (var f in this.base_fields){
-        var field = base_fields[f];
-
-        // Get main info.
-        var field_id = this.id + '.' + field.name ;
-        var text = field.name;
-
-        // Build field's label.
-        var label = new Label(field_id, text);
-
-        // Build field.
-        var placeholder = field.placeholder? field.placeholder: null;
-        var form_field = new FormField(field_id, placeholder=placeholder);
-
-        // Wrap field.
-        var help = field.help? new InlineHelp(field.help): null;
-        var controls = new Controls(form_field, help=help);
-
-        // Append to Group.
-        var control_group = new ControlGroup(label, controls);
-        this.control_group_list.push(control_group);
+    var select = document.createElement('select');
+    select.setAttribute('name', this.id);
+    select.setAttribute('class', 'span2');
+    for (var t in this.datatypes){
+        var option = document.createElement('option');
+        option.setAttribute('id', this.id + '-' + this.datatypes[t]);
+        option.setAttribute('value', this.datatypes[t]);
+        option.innerText = this.datatypes[t];
+        select.appendChild(option);
     }
 
-    this.form = new Form(this.id, this.control_group_list);
+    this.label = new Label(this.id, text='Tipo');
+    this.controls = new Controls([select]);
+    this.control_group = new ControlGroup(this.label, this.controls);
 }
 
-function Field(val){
+function IndicesField(id){
 
-    this.__defineGetter__("value", function(){
-        return this._value;
-    });
+    this.id = id + '-indices';
+    this.indices = [
+        'SemIndice',
+        'Textual',
+        'Ordenado',
+        'Unico',
+        'Fonetico',
+        'Fuzzy',
+        'Vazio',
+    ]
 
-    this.__defineSetter__("value", function(val){
-        this._value = val +1;
-    });
+    var controls = new Array();
+    for (var i in this.indices){
+        var label = document.createElement('label');
+        var checkbox = document.createElement('input');
+        checkbox.setAttribute('id', this.id + '-' + this.indices[i]);
+        checkbox.setAttribute('name', this.id);
+        checkbox.setAttribute('type', 'checkbox');
+        checkbox.setAttribute('value', this.indices[i]);
+        label.appendChild(checkbox);
+        controls.push(label);
+    }
 
-    this.value = val
+    this.label = new Label(this.id, text='Índices');
+    this.controls = new Controls(controls);
+    this.control_group = new ControlGroup(this.label, this.controls);
+
 }
+
+function MultivaluedField(id){
+
+    this.id = id + '-multivalued';
+
+    var label = document.createElement('label');
+    var checkbox = document.createElement('input');
+    checkbox.setAttribute('id', this.id);
+    checkbox.setAttribute('name', this.id);
+    checkbox.setAttribute('type', 'checkbox');
+    checkbox.setAttribute('value', '1');
+    label.appendChild(checkbox);
+
+    this.label = new Label(this.id, text='Multivalorado');
+    this.controls = new Controls([label]);
+    this.control_group = new ControlGroup(this.label, this.controls);
+}
+
+
+// Example usage
+
+id = 'base-metadata';
+
+base_fields = [
+
+    new NameField(id),
+    new DescriptionField(id),
+    new DataTypeField(id),
+    new IndicesField(id),
+    new MultivaluedField(id)
+
+]
+
+_form = new Form(id, base_fields);
+
