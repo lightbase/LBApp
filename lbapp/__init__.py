@@ -11,5 +11,6 @@ def main(global_config, **settings):
     config.add_route('listarbase', 'listarbase')
     config.add_route('criarbase', 'criarbase')
     config.add_route('conquer', 'conquer')
+    config.add_route('nestable', 'nestable')
     config.scan()
     return config.make_wsgi_app()

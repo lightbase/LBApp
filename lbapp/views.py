@@ -15,3 +15,6 @@ def temp4(request):
 @view_config(route_name='conquer', renderer='templates/ui_elements_nestable.pt')
 def temp5(request):
     return {'project': 'LBApp'}
+@view_config(route_name='nestable', renderer='templates/nestable.pt')
+def temp5(request):
+    return {'project': 'LBApp'}
