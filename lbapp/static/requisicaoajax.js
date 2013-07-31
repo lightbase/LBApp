@@ -7,7 +7,6 @@ function ajax_call(type, url, data){
                 dataType: "jsonp",
                 cache: false,
                 success: function(data, textStatus, jqXHR ){
-                    //console.log(data, textStatus, jqXHR);
                     window.ajax_response = data;
                 },
                 error: function(jqXHR, textStatus, errorThrown){

@@ -168,11 +168,10 @@ fieldset.appendChild(label);
 
 
 form.appendChild(fieldset);
-infobase.appendChild(form);
 
 
 
-
+return form
 
 
 

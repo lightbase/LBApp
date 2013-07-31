@@ -1,6 +1,5 @@
 var widgets = document.getElementById('widgets');
     widgets.appendChild(tabela());
-console.log(ajax_response);
 function tabela(){
 
     var div = document.createElement('div');

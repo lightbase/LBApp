@@ -3,6 +3,7 @@ var infobase = document.getElementById('infobase1');
 
 
 
+
 function criarbase(){
 
 var form = document.createElement('form');
@@ -78,10 +79,10 @@ fieldset.appendChild(label);
 
 
 form.appendChild(fieldset);
-infobase.appendChild(form);
+//infobase.appendChild(form);
 
 
-
+return form
 
 
 
