@@ -35,7 +35,7 @@ function InlineHelp(text){
 
 function Label(field_id, text){
 
-    // <label class="control-label" for=[text]> [text] </label>
+    // <label class="control-label" for=[field_id]> [text] </label>
     var label = document.createElement('label');
     label.setAttribute('class', 'control-label');
     label.setAttribute('for', field_id);
@@ -48,7 +48,7 @@ function Label(field_id, text){
 
 function Controls(form_field, help){
 
-    // <div class="controls"> [form_field] </div>
+    // <div class="controls"> [form_field] [help]</div>
     var controls = document.createElement('div');
     controls.setAttribute('class', 'controls');
 
@@ -102,7 +102,16 @@ function Form(id, control_group_list){
 }
 
 
-function BaseDataForm(base_fields){
+
+function Radio(id){
+
+    var radio = document.createElement('label');
+    checkbox.setAttribute('class', 'checkbox');
+    var label = document.createElement('label');
+    var input = document.createElement('input');
+}
+
+function BaseDataForm(id, base_fields){
 
     /*
     Class for redering a new base form.
@@ -120,7 +129,7 @@ function BaseDataForm(base_fields){
     ]
     */
 
-    this.id = 'base.metadata';
+    this.id = id;
     this.base_fields = base_fields;
     this.control_group_list = new Array();
 
@@ -147,6 +156,18 @@ function BaseDataForm(base_fields){
         this.control_group_list.push(control_group);
     }
 
-    this.form = new Form(this.id, this.control_group_list)
+    this.form = new Form(this.id, this.control_group_list);
 }
 
+function Field(val){
+
+    this.__defineGetter__("value", function(){
+        return this._value;
+    });
+
+    this.__defineSetter__("value", function(val){
+        this._value = val +1;
+    });
+
+    this.value = val
+}
