@@ -212,6 +212,7 @@ function MultivaluedField(id){
 // Example usage
 
 id = 'base-metadata';
+//id = 'base-context-1';
 
 base_fields = [
 
@@ -223,5 +224,90 @@ base_fields = [
 
 ]
 
+base_metadata = $('#base-metadata-form').serializeArray()
+
 _form = new Form(id, base_fields);
+
+function BaseContext(context_space){
+
+    this.context_space = context_space;
+    this.show_form = function(form){
+        this.context_space.innerHTML = '';
+        this.context_space.appendChild(form.html)
+    }
+
+
+}
+
+function NestableBase(nestable_space, context){
+
+    this.id = 1;
+    this.nestable_space = nestable_space;
+    this.context = context;
+    this.elements = [];
+
+    this.create_field = function(){
+
+        var element_id = 'nestable-field-' + this.id
+
+        var li = document.createElement("li");
+        li.setAttribute('id', element_id + '-item');
+        li.setAttribute('class', "dd-item");
+        li.setAttribute('data-id', this.id );
+
+        var div = document.createElement("div");
+        div.setAttribute('id', element_id + '-handle');
+        div.setAttribute('class', "dd-handle");
+        div.innerText = 'Campo' + this.id;
+
+        li.appendChild(div);
+        this.nestable_space.appendChild(li)
+        this.elements.push(element_id)
+        this.id = this.id + 1;
+
+        var context_id = 'base-context-' + this.id;
+        var field_form = [
+            new NameField(context_id),
+            new DescriptionField(context_id),
+            new DataTypeField(context_id),
+            new IndicesField(context_id),
+            new MultivaluedField(context_id)
+        ]
+
+        var form = new Form(context_id, field_form);
+        this.context.show_form(form);
+
+    }
+
+    this.remove_element = function(id){
+        var id = 'nestable-field-' + id + '-item';
+        var field = document.getElementById(id);
+        field.parentNode.removeChild(field);
+        var element_index = this.elements.indexOf(id);
+        delete this.elements[element_index];
+    }
+
+    this.__defineGetter__('structure', function(){
+        return $('.dd').nestable('serialize');
+    });
+
+}
+
+nestable_space = document.getElementById('ol1');
+context_space = document.getElementById('infobase2');
+
+context = new BaseContext(context_space)
+
+nest = new NestableBase(nestable_space, context)
+
+
+
+
+
+
+
+
+
+
+
 
