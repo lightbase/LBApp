@@ -11,6 +11,11 @@ function is_array(object){
     return Array.prototype.isPrototypeOf(object);
 }
 
+function FluidRowWrapper(){
+    var div = document.createElement('div');
+    div.setAttribute('class', 'row-fluid');
+    this.html = div;
+}
 function InlineHelp(text){
 
     // <span class="help-inline">[text]</span>
@@ -65,65 +70,57 @@ function ControlGroup(label, controls){
     this.html = control_group;
 }
 
-function Form(id, control_group_list){
+function Form(id, elements){
 
-    // <form id=[id] class="form-horizontal"> [control_group_list] </form>
+    // <form id=[id] > [control_group_list] </form>
     var form = document.createElement('form');
-    form.setAttribute('class','form-horizontal');
     form.setAttribute('id', id + '-form');
 
-    if (is_array(control_group_list)){
-        for (var g in control_group_list){
-            var control_group = control_group_list[g];
-            if(control_group.control_group instanceof ControlGroup){
-                form.appendChild(control_group.control_group.html);
-            }
-            else throw new TypeError('control_group is not instance of ControlGroup');
-        }
-    }
-    else throw new TypeError('control_group_list must be instance of Array');
+    for (var e in elements) form.appendChild(elements[e].html);
 
     this.id = id;
-    this.control_group_list = control_group_list;
+    this.elements = elements;
     this.html = form;
 }
 
-function NameField(id, cls){
+function NameField(id, value){
 
     this.id = id + '-name';
-    this.class = cls;
+    this.wrapper = new FluidRowWrapper();
+    this.label = new Label(this.id, text='Nome');
 
     var input = document.createElement('input');
     input.setAttribute('id', this.id);
     input.setAttribute('name', this.id);
     input.setAttribute('type', 'text');
-    if (this.class) input.setAttribute('class', this.class);
-    else input.setAttribute('class', 'span2');
+    input.value = value
 
-    this.label = new Label(this.id, text='Nome');
-    this.controls = new Controls([input]);
-    this.control_group = new ControlGroup(this.label, this.controls);
+    this.wrapper.html.appendChild(this.label.html);
+    this.wrapper.html.appendChild(input);
+    this.html = this.wrapper.html;
 }
 
-function DescriptionField(id, cls){
+function DescriptionField(id, value){
 
     this.id = id + '-description';
-    this.class = cls;
+    this.wrapper = new FluidRowWrapper();
+    this.label = new Label(this.id, text='Descrição');
 
     var input = document.createElement('input');
     input.setAttribute('id', this.id);
     input.setAttribute('name', this.id);
     input.setAttribute('type', 'text');
-    if (this.class) input.setAttribute('class', this.class);
-    else input.setAttribute('class', 'span4');
+    input.value = value
 
-    this.label = new Label(this.id, text='Descrição');
-    this.controls = new Controls([input]);
-    this.control_group = new ControlGroup(this.label, this.controls);
+    this.wrapper.html.appendChild(this.label.html);
+    this.wrapper.html.appendChild(input);
+    this.html = this.wrapper.html;
 }
 
 function DataTypeField(id){
     this.id = id + '-datatype';
+    this.wrapper = new FluidRowWrapper();
+    this.label = new Label(this.id, text='Tipo');
     this.datatypes = [
         'AlfaNumerico',
         'Documento',
@@ -146,7 +143,7 @@ function DataTypeField(id){
 
     var select = document.createElement('select');
     select.setAttribute('name', this.id);
-    select.setAttribute('class', 'span2');
+    select.setAttribute('class', 'span5');
     for (var t in this.datatypes){
         var option = document.createElement('option');
         option.setAttribute('id', this.id + '-' + this.datatypes[t]);
@@ -155,9 +152,9 @@ function DataTypeField(id){
         select.appendChild(option);
     }
 
-    this.label = new Label(this.id, text='Tipo');
-    this.controls = new Controls([select]);
-    this.control_group = new ControlGroup(this.label, this.controls);
+    this.wrapper.html.appendChild(this.label.html);
+    this.wrapper.html.appendChild(select);
+    this.html = this.wrapper.html;
 }
 
 function IndicesField(id){
@@ -187,7 +184,7 @@ function IndicesField(id){
 
     this.label = new Label(this.id, text='Índices');
     this.controls = new Controls(controls);
-    this.control_group = new ControlGroup(this.label, this.controls);
+    this.html = new ControlGroup(this.label, this.controls).html;
 
 }
 
@@ -205,37 +202,57 @@ function MultivaluedField(id){
 
     this.label = new Label(this.id, text='Multivalorado');
     this.controls = new Controls([label]);
-    this.control_group = new ControlGroup(this.label, this.controls);
+    this.html = new ControlGroup(this.label, this.controls).html;
 }
-
-
-// Example usage
-
-id = 'base-metadata';
-//id = 'base-context-1';
-
-base_fields = [
-
-    new NameField(id),
-    new DescriptionField(id),
-    new DataTypeField(id),
-    new IndicesField(id),
-    new MultivaluedField(id)
-
-]
-
-base_metadata = $('#base-metadata-form').serializeArray()
-
-_form = new Form(id, base_fields);
 
 function BaseContext(context_space){
 
     this.context_space = context_space;
-    this.show_form = function(form){
-        this.context_space.innerHTML = '';
+    //this.elements = [];
+
+    this.push_form = function(form){
+        for (var f in this.context_space.childNodes){
+            if (this.context_space.childNodes[f].id){
+                this.hide(this.context_space.childNodes[f]);
+            }
+        }
         this.context_space.appendChild(form.html)
+        //this.elements.push(form.id);
     }
 
+    this.pop_form = function(form_id){
+        for (var f in this.context_space.childNodes){
+            if (this.context_space.childNodes[f].id == form_id){
+                this.remove_element(this.context_space.childNodes[f]);
+            }
+        }
+    }
+
+    this.focus_on = function(form_id){
+        for (var f in this.context_space.childNodes){
+            var _form_id = this.context_space.childNodes[f].id
+            if (_form_id){
+                if (_form_id == form_id){
+                    this.show(this.context_space.childNodes[f]);
+                }
+                else{
+                    this.hide(this.context_space.childNodes[f]);
+                }
+            }
+        }
+    }
+
+    this.remove_element = function(element){
+        element.parentNode.removeChild(element);
+    }
+
+    this.show = function(element){
+        element.style.display = 'block';
+    }
+
+    this.hide = function(element){
+        element.style.display = 'none';
+    }
 
 }
 
@@ -248,7 +265,10 @@ function NestableBase(nestable_space, context){
 
     this.create_field = function(){
 
-        var element_id = 'nestable-field-' + this.id
+        var element_id = 'nestable-' + this.id
+
+        var field_name = 'Campo' + this.id;
+        var field_desc = 'Descrição do campo ' + this.id;
 
         var li = document.createElement("li");
         li.setAttribute('id', element_id + '-item');
@@ -258,32 +278,34 @@ function NestableBase(nestable_space, context){
         var div = document.createElement("div");
         div.setAttribute('id', element_id + '-handle');
         div.setAttribute('class', "dd-handle");
-        div.innerText = 'Campo' + this.id;
+        div.innerText = field_name;
 
         li.appendChild(div);
         this.nestable_space.appendChild(li)
         this.elements.push(element_id)
-        this.id = this.id + 1;
 
         var context_id = 'base-context-' + this.id;
         var field_form = [
-            new NameField(context_id),
-            new DescriptionField(context_id),
+            new NameField(context_id, value=field_name),
+            new DescriptionField(context_id, value=field_desc),
             new DataTypeField(context_id),
             new IndicesField(context_id),
             new MultivaluedField(context_id)
         ]
 
         var form = new Form(context_id, field_form);
-        this.context.show_form(form);
-
+        this.context.push_form(form);
+        this.id = this.id + 1;
     }
 
     this.remove_element = function(id){
-        var id = 'nestable-field-' + id + '-item';
-        var field = document.getElementById(id);
+        var item_id = 'nestable-' + id + '-item';
+        var form_id = 'base-context-' + id + '-form';
+        var field = document.getElementById(item_id);
         field.parentNode.removeChild(field);
-        var element_index = this.elements.indexOf(id);
+
+        this.context.pop_form(form_id)
+        var element_index = this.elements.indexOf(item_id);
         delete this.elements[element_index];
     }
 
@@ -298,6 +320,7 @@ context_space = document.getElementById('infobase2');
 
 context = new BaseContext(context_space)
 
+//base_metadata = $('#base-metadata-form').serializeArray()
 nest = new NestableBase(nestable_space, context)
 
 
