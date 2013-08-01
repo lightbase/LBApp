@@ -20,12 +20,19 @@
                 }
             };
 
+           var drop_callback = function(drop_info){
+                //console.log(sourceId, destId, sourceEl, destParent, destRoot, sourceRoot)
+                nest.context.focus_on('base-context-' + drop_info.sourceId + '-form');
+            }
+
             // activate Nestable for list 1
             $('#nestable').nestable({
                 group: 1,
                 maxDepth: 20,
+                dropCallback: drop_callback
             })
             .on('change', updateOutput);
+
             
             // output initial serialised data
             updateOutput($('#nestable').data('output', $('#nestable-output')));
@@ -120,52 +127,18 @@ height: 1%;
 
                     <!-- DADOS DA BASE VÃO AQUI -->
 
-                <!--<form>
-                  <fieldset>
-                    <legend>Grupos</legend>
-                    <label>Nome : 
-                    <input type="text" placeholder="Nome Base">
-                    </label>
-                    <label>Descrição : 
-                    <input type="text" placeholder="Descrição">
-                    </label>
-                    <label>
-                    Multivalorado :
-                    </label>
-                    <label>
-                    <input type="checkbox" value="option1">
-                    <label>
-                    <button type="submit" class="btn">Submit</button>
-                  </fieldset>
-                </form>-->
-
-
-
-
-
-
         <label class="checkbox">
             <input type="checkbox" style="opacity: 1; width: auto; height: auto;"> yes
         </label>
 
-
-
-
-
-
-
+        <script type="text/javascript" src="static/base_form.js"></script>
 
                         </div>
                      </div>
                   </div>
 
-
-
-
-
                </div>
             </div>
 </metal:main>
 
-                                                        <!-- Tabelas -->
 
