@@ -9,6 +9,10 @@
         $(document).ready(function()
         {
 
+            $("button").click(function(){
+                nest.create_field();
+            });
+
             var updateOutput = function(e)
             {
                 var list   = e.length ? e : $(e.target),
@@ -21,14 +25,13 @@
             };
 
            var drop_callback = function(drop_info){
-                //console.log(sourceId, destId, sourceEl, destParent, destRoot, sourceRoot)
                 nest.context.focus_on('base-context-' + drop_info.sourceId + '-form');
             }
 
             // activate Nestable for list 1
             $('#nestable').nestable({
                 group: 1,
-                maxDepth: 20,
+                maxDepth: 10,
                 dropCallback: drop_callback
             })
             .on('change', updateOutput);
