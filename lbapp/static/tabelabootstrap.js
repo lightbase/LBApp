@@ -38,7 +38,6 @@ function tabela(){
 
     for (result in ajax_response.results){
         field = ajax_response.results[result];
-        console.log(field);
             tbody_tr = document.createElement('tr');
             tbody_td = document.createElement('td');
             h2 = document.createElement('b');

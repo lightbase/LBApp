@@ -1,9 +1,7 @@
 <metal:main use-macro="load: acemaster.pt">
  <!-- Insere JavaScript -->
-<script metal:fill-slot="javascript" type="text/javascript" src="static/tabelabootstrap.js"></script>
+    <script metal:fill-slot="javascript" type="text/javascript" src="static/tabelabootstrap.js"></script>
 
-<div metal:fill-slot="conteudo" id="widgets">
-<script type="text/javascript" src="static/requisicaoajax.js"></script>
-</div>
+    <div metal:fill-slot="conteudo" id="widgets"></div>
 </metal:main>
 

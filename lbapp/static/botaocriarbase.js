@@ -1,7 +1,7 @@
 
 
 function Nestables(){
-    this.id = 13;
+    this.id = 1;
     this.create_base = function(){
         var li = document.createElement("li");
         var div = document.createElement("div");

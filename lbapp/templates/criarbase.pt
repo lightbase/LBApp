@@ -4,10 +4,55 @@
 
  <div metal:fill-slot="conteudo" id="widgets">
 
+<header>
+        <script type="text/javascript">
+        $(document).ready(function()
+        {
+
+            var updateOutput = function(e)
+            {
+                var list   = e.length ? e : $(e.target),
+                    output = list.data('output');
+                if (window.JSON) {
+                    output.val(window.JSON.stringify(list.nestable('serialize')));//, null, 2));
+                } else {
+                    output.val('JSON browser support required for this demo.');
+                }
+            };
+
+            // activate Nestable for list 1
+            $('#nestable').nestable({
+                group: 1,
+                maxDepth: 20,
+            })
+            .on('change', updateOutput);
+            
+            // output initial serialised data
+            updateOutput($('#nestable').data('output', $('#nestable-output')));
+
+            $('#nestable-menu').on('click', function(e)
+            {
+                var target = $(e.target),
+                    action = target.data('action');
+                if (action === 'expand-all') {
+                    $('.dd').nestable('expandAll');
+                }
+                if (action === 'collapse-all') {
+                    $('.dd').nestable('collapseAll');
+                }
+            });
+
+
+        });
+
+        </script>
                                 <!-- Linking CSS's -->
+
    <!--<link href="static/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">-->
-   <link rel="stylesheet" type="text/css" href="static/nestable-theme/jquery.nestable.css">
+        <link rel="stylesheet" type="text/css" href="static/nestable-theme/jquery.nestable.css">
                                 <!-- END Linking CSS's -->
+
+</header>
 
 
 
@@ -27,11 +72,11 @@
                            <div id="nestable-menu" class="tools">
 
                                 <!-- Botão Criar -->
-                             <button id="criarbase" type="button" class="btn btn-primary btn-small" data-loading-text="Loading...">+ 1</button>
+                             <button id="criarbase" type="button" class="btn btn-primary btn-small" data-loading-text="Carregando...">+ 1</button>
                              <script src="static/botaocriarbase.js" type="text/javascript"></script>
                                 <!-- Fim Botão -->
-                                <button type="button" class="btn btn-primary btn-small" data-action="expand-all">Expand All</button>
-                                <button type="button" class="btn btn-primary btn-small" data-action="collapse-all">Collapse All</button>
+                                <button type="button" class="btn btn-primary btn-small" data-loading-text="Carregando..." data-action="expand-all">Expand All</button>
+                                <button type="button" class="btn btn-primary btn-small" data-loading-text="Carregando..." data-action="collapse-all">Collapse All</button>
                            </div>
                         </div>
 
@@ -122,46 +167,5 @@ height: 1%;
             </div>
 </metal:main>
 
-<script type="text/javascript">
-$(document).ready(function()
-{
-
-    var updateOutput = function(e)
-    {
-        var list   = e.length ? e : $(e.target),
-            output = list.data('output');
-        if (window.JSON) {
-            output.val(window.JSON.stringify(list.nestable('serialize')));//, null, 2));
-        } else {
-            output.val('JSON browser support required for this demo.');
-        }
-    };
-
-    // activate Nestable for list 1
-    $('#nestable').nestable({
-        group: 1,
-        maxDepth: 20,
-    })
-    .on('change', updateOutput);
-    
-    // output initial serialised data
-    updateOutput($('#nestable').data('output', $('#nestable-output')));
-
-    $('#nestable-menu').on('click', function(e)
-    {
-        var target = $(e.target),
-            action = target.data('action');
-        if (action === 'expand-all') {
-            $('.dd').nestable('expandAll');
-        }
-        if (action === 'collapse-all') {
-            $('.dd').nestable('collapseAll');
-        }
-    });
-
-
-});
-
-</script>
                                                         <!-- Tabelas -->
 
