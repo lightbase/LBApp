@@ -83,7 +83,7 @@ function Form(id, elements){
     this.html = form;
 }
 
-function NameField(id, value){
+function NameField(id, placeholder){
 
     this.id = id + '-name';
     this.wrapper = new FluidRowWrapper();
@@ -93,14 +93,14 @@ function NameField(id, value){
     input.setAttribute('id', this.id);
     input.setAttribute('name', this.id);
     input.setAttribute('type', 'text');
-    input.value = value
+    input.setAttribute('placeholder', placeholder);
 
     this.wrapper.html.appendChild(this.label.html);
     this.wrapper.html.appendChild(input);
     this.html = this.wrapper.html;
 }
 
-function DescriptionField(id, value){
+function DescriptionField(id, placeholder){
 
     this.id = id + '-description';
     this.wrapper = new FluidRowWrapper();
@@ -110,7 +110,7 @@ function DescriptionField(id, value){
     input.setAttribute('id', this.id);
     input.setAttribute('name', this.id);
     input.setAttribute('type', 'text');
-    input.value = value
+    input.setAttribute('placeholder', placeholder);
 
     this.wrapper.html.appendChild(this.label.html);
     this.wrapper.html.appendChild(input);
@@ -286,8 +286,8 @@ function NestableBase(nestable_space, context){
 
         var context_id = 'base-context-' + this.id;
         var field_form = [
-            new NameField(context_id, value=field_name),
-            new DescriptionField(context_id, value=field_desc),
+            new NameField(context_id, placeholder=field_name),
+            new DescriptionField(context_id, placeholder=field_desc),
             new DataTypeField(context_id),
             new IndicesField(context_id),
             new MultivaluedField(context_id)
