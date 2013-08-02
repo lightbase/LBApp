@@ -383,6 +383,39 @@ function BaseStructure(nestable_space, context){
         this.context.pop_form(form.id)
     }
 
+
+    this.refresh = function(){
+        var data,
+            depth = 0,
+            list  = this;
+            step  = function(level, depth)
+            {
+                var array = [ ],
+                    items = level.children('li');
+                items.each(function(i)
+                {
+                    var li   = $(this),
+                        item = $.extend({}, li.data()),
+                        sub  = li.children('ol'),
+                        context_id = ['base', 'context', item.id, 'name'].join('-'),
+                        item_name = $('#' + context_id)[0].value;
+
+                    if(item_name){
+                        $(items[i]).children('div')[0].innerText = item_name;
+                    }
+                    if (sub.length) {
+                        item.children = step(sub, depth + 1);
+                    }
+                    array.push(item);
+                });
+                return array;
+            };
+        var parse_list = $('#' + this.nestable_space.id);
+        data = step(parse_list, depth);
+        return data;
+     };
+
+
     this.__defineGetter__('structure', function(){
         return $('.dd').nestable('serialize');
     });
