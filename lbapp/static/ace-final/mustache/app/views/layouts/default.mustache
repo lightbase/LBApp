@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	{{> layout._template.header}}
+
+	<body>
+	{{> layout.topbar}}
+
+		<div class="main-container container-fluid">
+		{{> layout.sidenav}}
+
+			<div class="main-content">
+				{{> layout.breadcrumbs}}
+
+				<div class="page-content">
+					{{^page.no-header}}{{!if no such thing as "no-header", then print header}}
+					<div class="page-header position-relative">
+						<h1>{{page.title}} {{#page.description}}<small><i class="icon-double-angle-right"></i> {{page.description}}</small>{{/page.description}}</h1>
+					</div><!--/.page-header-->
+					{{/page.no-header}}
+
+					<div class="row-fluid">
+					 <div class="span12">
+<!-- PAGE CONTENT BEGINS -->
+{{> page.content }}
+<!-- PAGE CONTENT ENDS -->
+					 </div><!--/.span-->
+					</div><!--/.row-fluid-->
+
+				</div><!--/.page-content-->
+
+				{{> layout.settings}}
+			</div><!--/.main-content -->
+
+		</div><!--/.main-container-->
+
+
+
+		<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-small btn-inverse">
+			<i class="icon-double-angle-up icon-only bigger-110"></i>
+		</a>
+
+
+		{{> layout._template.footer}}
+
+	</body>
+</html>
