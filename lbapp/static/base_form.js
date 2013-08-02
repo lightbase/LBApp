@@ -208,14 +208,23 @@ function MultivaluedField(id){
 function BaseContext(context_space){
 
     this.context_space = context_space;
-    //this.elements = [];
 
-    this.__defineGetter__('serialize', function(){
-
-        for (var f in nestable_space){
-            $el = $(nestable_space[f]);
-            console.log($el.is('form'))
+    this.__defineGetter__('context', function(){
+        this._context = {};
+        for (var f in this.context_space.childNodes){
+            var el = this.context_space.childNodes[f];
+            if (el.id && $(el).is('form')){
+                var el_id = el.id.split('-')[2]
+                var serial = $('#' + el.id).serializeArray();
+                this._context[el_id] = {};
+                for (var s in serial){
+                    var f_name = serial[s].name.split('-')[serial[s].name.split('-').length-1];
+                    this._context[el_id][f_name] = serial[s].value;
+                }
+            }
         }
+        return this._context;
+
     });
 
     this.push_form = function(form){
@@ -225,7 +234,6 @@ function BaseContext(context_space){
             }
         }
         this.context_space.appendChild(form.html)
-        //this.elements.push(form.id);
     }
 
     this.pop_form = function(form_id){
@@ -269,41 +277,98 @@ function BaseStructure(nestable_space, context){
     this.id = 1;
     this.nestable_space = nestable_space;
     this.context = context;
-    this.elements = [];
 
+    this.dd_list = function(){
+        var ol = document.createElement('ol');
+        ol.setAttribute('class', 'dd-list');
+        return ol;
+    }
 
-    this.create_field = function(){
+    this.toggle_button = function(data_action, display){
+        var button = document.createElement('button');
+        button.setAttribute('data-action', data_action);
+        button.setAttribute('type', 'button');
+        button.setAttribute('style', 'display:' + display);
+        return button;
+    }
 
-        var element_id = 'nestable-' + this.id
-        var field_name = 'Campo' + this.id;
-        var field_desc = 'Descrição do campo ' + this.id;
-
+    this.dd_item = function(id){
         var li = document.createElement("li");
-        li.setAttribute('id', element_id + '-item');
+        li.setAttribute('id', ['nestable', id, 'item'].join('-'));
         li.setAttribute('class', "dd-item");
-        li.setAttribute('data-id', this.id );
+        li.setAttribute('data-id', id );
+        return li;
+    }
 
+    this.dd_handle = function(id, text){
         var div = document.createElement("div");
-        div.setAttribute('id', element_id + '-handle');
+        div.setAttribute('id', ['nestable', id, 'handle'].join('-'));
         div.setAttribute('class', "dd-handle");
-        div.innerText = field_name;
+        div.innerText = text;
+        return div;
+    }
 
-        li.appendChild(div);
-        this.nestable_space.appendChild(li)
-        this.elements.push(element_id)
-
-        var context_id = 'base-context-' + this.id;
-        var field_form = [
+    this.field_form = function(id, field_name, field_desc){
+        var context_id = ['base', 'context', id].join('-');
+        return new Form(context_id, [
             new NameField(context_id, placeholder=field_name),
             new DescriptionField(context_id, placeholder=field_desc),
             new DataTypeField(context_id),
             new IndicesField(context_id),
             new MultivaluedField(context_id)
-        ]
+        ]);
+    }
 
-        var form = new Form(context_id, field_form);
-        this.context.push_form(form);
+    this.group_form = function(id, group_name, group_desc){
+        var context_id = ['base', 'context', id].join('-');
+        return new Form(context_id, [
+            new NameField(context_id, placeholder=group_name),
+            new DescriptionField(context_id, placeholder=group_desc),
+            new MultivaluedField(context_id)
+        ]);
+    }
+
+    this.create_field = function(remand){
+
+        var field_name = 'Campo' + this.id;
+        var field_desc = 'Descrição do campo ' + this.id;
+
+        var li = this.dd_item(this.id);
+        var div = this.dd_handle(this.id, field_name);
+        li.appendChild(div);
+
+        var field_form = this.field_form(this.id, field_name, field_desc);
+        this.context.push_form(field_form);
         this.id = this.id + 1;
+        if(remand) return li;
+
+        this.nestable_space.appendChild(li)
+    }
+
+    this.create_group = function(){
+        var group_name = 'Grupo' + this.id;
+        var group_desc = 'Descrição do grupo ' + this.id;
+        var group_id = this.id;
+        this.id = this.id + 1;
+
+        var li = this.dd_item(group_id);
+        var collapse_btn = this.toggle_button('collapse', 'block');
+        var expand_btn = this.toggle_button('expand', 'none');
+        var div = this.dd_handle(group_id, group_name);
+        var ol = this.dd_list();
+        var field1 = this.create_field(remand=true);
+        var field2 = this.create_field(remand=true);
+        ol.appendChild(field1);
+        ol.appendChild(field2);
+
+        li.appendChild(collapse_btn);
+        li.appendChild(expand_btn);
+        li.appendChild(div);
+        li.appendChild(ol);
+
+        this.nestable_space.appendChild(li)
+        var group_form = this.group_form(group_id, group_name, group_desc);
+        this.context.push_form(group_form);
     }
 
     this.remove_element = function(id){
@@ -311,10 +376,7 @@ function BaseStructure(nestable_space, context){
         var form_id = 'base-context-' + id + '-form';
         var field = document.getElementById(item_id);
         field.parentNode.removeChild(field);
-
         this.context.pop_form(form_id)
-        var element_index = this.elements.indexOf(item_id);
-        delete this.elements[element_index];
     }
 
     this.__defineGetter__('structure', function(){
@@ -328,7 +390,6 @@ context_space = document.getElementById('infobase2');
 
 context = new BaseContext(context_space)
 
-//base_metadata = $('#base-metadata-form').serializeArray()
 nest = new BaseStructure(nestable_space, context)
 
 
