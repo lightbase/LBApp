@@ -75,6 +75,7 @@ function Form(id, elements){
     // <form id=[id] > [control_group_list] </form>
     var form = document.createElement('form');
     form.setAttribute('id', id + '-form');
+    form.setAttribute('style', 'display:block');
 
     for (var e in elements) form.appendChild(elements[e].html);
 
@@ -292,10 +293,11 @@ function BaseStructure(nestable_space, context){
         return button;
     }
 
-    this.dd_item = function(id){
+    this.dd_item = function(id, no_children){
         var li = document.createElement("li");
         li.setAttribute('id', ['nestable', id, 'item'].join('-'));
-        li.setAttribute('class', "dd-item");
+        li_class = no_children ? 'dd-item dd-nochildren': 'dd-item';
+        li.setAttribute('class', li_class);
         li.setAttribute('data-id', id );
         return li;
     }
@@ -333,7 +335,7 @@ function BaseStructure(nestable_space, context){
         var field_name = 'Campo' + this.id;
         var field_desc = 'Descrição do campo ' + this.id;
 
-        var li = this.dd_item(this.id);
+        var li = this.dd_item(this.id, no_children=true);
         var div = this.dd_handle(this.id, field_name);
         li.appendChild(div);
 
@@ -371,12 +373,14 @@ function BaseStructure(nestable_space, context){
         this.context.push_form(group_form);
     }
 
-    this.remove_element = function(id){
-        var item_id = 'nestable-' + id + '-item';
-        var form_id = 'base-context-' + id + '-form';
+    this.remove_element = function(){
+        var form = $('form[style*="block"]')[0];
+        if(!form) return false;
+        var nestable_id = form.id.split('-')[form.id.split('-').length - 2];
+        var item_id = 'nestable-' + nestable_id + '-item';
         var field = document.getElementById(item_id);
         field.parentNode.removeChild(field);
-        this.context.pop_form(form_id)
+        this.context.pop_form(form.id)
     }
 
     this.__defineGetter__('structure', function(){
