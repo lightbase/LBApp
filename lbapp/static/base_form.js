@@ -259,6 +259,17 @@ function BaseContext(context_space){
         }
     }
 
+    this.__defineGetter__('current_form', function(){
+        return $('form[style*="block"]')[0];
+    });
+
+    this.__defineGetter__('last_form', function(){
+        var forms = $(this.context_space).children('form');
+        if (forms.length){
+            return forms[forms.length-1].id;
+        }
+    });
+
     this.remove_element = function(element){
         element.parentNode.removeChild(element);
     }
@@ -374,15 +385,18 @@ function BaseStructure(nestable_space, context){
     }
 
     this.remove_element = function(){
-        var form = $('form[style*="block"]')[0];
+        var form = this.context.current_form;
         if(!form) return false;
         var nestable_id = form.id.split('-')[form.id.split('-').length - 2];
-        var item_id = 'nestable-' + nestable_id + '-item';
+        var item_id = ['nestable', nestable_id, 'item'].join('-');
         var field = document.getElementById(item_id);
         field.parentNode.removeChild(field);
         this.context.pop_form(form.id)
+        var last_form = this.context.last_form;
+        if (last_form){
+            this.context.focus_on(last_form);
+        }
     }
-
 
     this.refresh = function(){
         var data,
@@ -415,9 +429,16 @@ function BaseStructure(nestable_space, context){
         return data;
      };
 
-
     this.__defineGetter__('structure', function(){
         return $('.dd').nestable('serialize');
+    });
+
+    this.__defineGetter__('current_item', function(){
+        var current_form = this.context.current_form;
+        if (current_form){
+                var item_id = current_form.id.split('-')[current_form.id.split('-').length-2];
+                return $('#' + ['nestable', item_id, 'item'].join('-'))[0];
+        }
     });
 
 }
