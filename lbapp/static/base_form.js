@@ -210,6 +210,14 @@ function BaseContext(context_space){
     this.context_space = context_space;
     //this.elements = [];
 
+    this.__defineGetter__('serialize', function(){
+
+        for (var f in nestable_space){
+            $el = $(nestable_space[f]);
+            console.log($el.is('form'))
+        }
+    });
+
     this.push_form = function(form){
         for (var f in this.context_space.childNodes){
             if (this.context_space.childNodes[f].id){
@@ -256,17 +264,17 @@ function BaseContext(context_space){
 
 }
 
-function NestableBase(nestable_space, context){
+function BaseStructure(nestable_space, context){
 
     this.id = 1;
     this.nestable_space = nestable_space;
     this.context = context;
     this.elements = [];
 
+
     this.create_field = function(){
 
         var element_id = 'nestable-' + this.id
-
         var field_name = 'Campo' + this.id;
         var field_desc = 'Descrição do campo ' + this.id;
 
@@ -321,7 +329,7 @@ context_space = document.getElementById('infobase2');
 context = new BaseContext(context_space)
 
 //base_metadata = $('#base-metadata-form').serializeArray()
-nest = new NestableBase(nestable_space, context)
+nest = new BaseStructure(nestable_space, context)
 
 
 
