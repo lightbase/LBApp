@@ -8,9 +8,9 @@
 <header>
 		<!--basic styles-->
 
-		<link href="static/ace-final/assets/css/bootstrap.min.css" rel="stylesheet" />
+		<!--<link href="static/ace-final/assets/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="static/ace-final/assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
-		<link rel="stylesheet" href="static/ace-final/assets/css/font-awesome.min.css" />
+		<lin rel="stylesheet" href="static/ace-final/assets/css/font-awesome.min.css" />-->
 
 		<!--[if IE 7]>
 		  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
@@ -20,13 +20,13 @@
 
 		<!--fonts-->
 
-		<link rel="stylesheet" href="static/ace-final/assets/css/ace-fonts.css" />
+		<!--<link rel="stylesheet" href="static/ace-final/assets/css/ace-fonts.css" />-->
 
 		<!--ace styles-->
 
-		<link rel="stylesheet" href="static/ace-final/assets/css/ace.min.css" />
+		<!--<link rel="stylesheet" href="static/ace-final/assets/css/ace.min.css" />
 		<link rel="stylesheet" href="static/ace-final/assets/css/ace-responsive.min.css" />
-		<link rel="stylesheet" href="static/ace-final/assets/css/ace-skins.min.css" />
+		<link rel="stylesheet" href="static/ace-final/assets/css/ace-skins.min.css" />-->
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
@@ -38,13 +38,10 @@
 		<!--[if !IE]>-->
 
 
-							<script type="text/javascript">
-								var $assets = "assets";//this will be used in fuelux.tree-sampledata.js
-							</script>
 
-		<script type="text/javascript">
+		<!--<script type="text/javascript">
 			window.jQuery || document.write("<script src='static/ace-final/assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
-		</script>
+		</script>-->
 
 		<!--<![endif]-->
 
@@ -54,26 +51,21 @@
 </script>
 <![endif]-->
 
-		<script type="text/javascript">
+		<!--<script type="text/javascript">
 			if("ontouchend" in document) document.write("<script src='static/ace-final/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 		</script>
-		<script src="static/ace-final/assets/js/bootstrap.min.js"></script>
+		<script src="static/ace-final/assets/js/bootstrap.min.js"></script>-->
 
 		<!--page specific plugin scripts-->
 
-		<script src="static/ace-final/assets/js/fuelux/data/fuelux.tree-sampledata.js"></script>
-		<script src="static/ace-final/assets/js/fuelux/fuelux.tree.min.js"></script>
 
 		<!--ace scripts-->
 
-		<script src="static/ace-final/assets/js/ace-elements.min.js"></script>
-		<script src="static/ace-final/assets/js/ace.min.js"></script>
+		<!--<script src="static/ace-final/assets/js/ace-elements.min.js"></script>
+		<script src="static/ace-final/assets/js/ace.min.js"></script>-->
 
 		<!--inline scripts related to this page-->
 
-		<script type="text/javascript">
-			$(function(){		$('#tree1').ace_tree({			dataSource: treeDataSource ,			multiSelect:true,			loadingHTML:'<div class="tree-loading"><i class="icon-refresh icon-spin blue"></i></div>',			'open-icon' : 'icon-minus',			'close-icon' : 'icon-plus',			'selectable' : true,			'selected-icon' : 'icon-ok',			'unselected-icon' : 'icon-remove'		});		$('#tree2').ace_tree({			dataSource: treeDataSource2 ,			loadingHTML:'<div class="tree-loading"><i class="icon-refresh icon-spin blue"></i></div>',			'open-icon' : 'icon-folder-open',			'close-icon' : 'icon-folder-close',			'selectable' : false,			'selected-icon' : null,			'unselected-icon' : null		});		/**		$('#tree1').on('loaded', function (evt, data) {		});		$('#tree1').on('opened', function (evt, data) {		});		$('#tree1').on('closed', function (evt, data) {		});		$('#tree1').on('selected', function (evt, data) {		});		*/});
-		</script>
 </header>
 
 				<div class="page-content">
@@ -124,3 +116,17 @@
 				</div><!--/.page-content-->
 </div>
 </metal:main>
+
+
+							<script type="text/javascript">
+								var $assets = "assets";//this will be used in fuelux.tree-sampledata.js
+							</script>
+
+
+		<script src="static/ace-final/assets/js/fuelux/data/fuelux.tree-sampledata.js"></script>
+		<script src="static/ace-final/assets/js/fuelux/fuelux.tree.min.js"></script>
+
+
+		<script type="text/javascript">
+			$(function(){		$('#tree1').ace_tree({			dataSource: treeDataSource ,			multiSelect:true,			loadingHTML:'<div class="tree-loading"><i class="icon-refresh icon-spin blue"></i></div>',			'open-icon' : 'icon-minus',			'close-icon' : 'icon-plus',			'selectable' : true,			'selected-icon' : 'icon-ok',			'unselected-icon' : 'icon-remove'		});		$('#tree2').ace_tree({			dataSource: treeDataSource2 ,			loadingHTML:'<div class="tree-loading"><i class="icon-refresh icon-spin blue"></i></div>',			'open-icon' : 'icon-folder-open',			'close-icon' : 'icon-folder-close',			'selectable' : false,			'selected-icon' : null,			'unselected-icon' : null		});		/**		$('#tree1').on('loaded', function (evt, data) {		});		$('#tree1').on('opened', function (evt, data) {		});		$('#tree1').on('closed', function (evt, data) {		});		$('#tree1').on('selected', function (evt, data) {		});		*/});
+		</script>

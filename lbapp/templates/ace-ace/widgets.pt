@@ -7,9 +7,9 @@
 <header>
 		<!--basic styles-->
 
-		<link href="static/ace-final/assets/css/bootstrap.min.css" rel="stylesheet" />
+		<!--<link href="static/ace-final/assets/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="static/ace-final/assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
-		<link rel="stylesheet" href="static/ace-final/assets/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="static/ace-final/assets/css/font-awesome.min.css" />-->
 
 		<!--[if IE 7]>
 		  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
@@ -19,13 +19,13 @@
 
 		<!--fonts-->
 
-		<link rel="stylesheet" href="static/ace-final/assets/css/ace-fonts.css" />
+		<!--<link rel="stylesheet" href="static/ace-final/assets/css/ace-fonts.css" />-->
 
 		<!--ace styles-->
 
-		<link rel="stylesheet" href="static/ace-final/assets/css/ace.min.css" />
+		<!--<link rel="stylesheet" href="static/ace-final/assets/css/ace.min.css" />
 		<link rel="stylesheet" href="static/ace-final/assets/css/ace-responsive.min.css" />
-		<link rel="stylesheet" href="static/ace-final/assets/css/ace-skins.min.css" />
+		<link rel="stylesheet" href="static/ace-final/assets/css/ace-skins.min.css" />-->
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
@@ -36,9 +36,9 @@
 
 		<!--[if !IE]>-->
 
-		<script type="text/javascript">
+		<!--<script type="text/javascript">
 			window.jQuery || document.write("<script src='static/ace-final/assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
-		</script>
+		</script>-->
 
 		<!--<![endif]-->
 
@@ -48,61 +48,21 @@
 </script>
 <![endif]-->
 
-		<script type="text/javascript">
+		<!--<script type="text/javascript">
 			if("ontouchend" in document) document.write("<script src='static/ace-final/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 		</script>
-		<script src="static/ace-final/assets/js/bootstrap.min.js"></script>
+		<script src="static/ace-final/assets/js/bootstrap.min.js"></script>-->
 
 		<!--page specific plugin scripts-->
 
-		<script src="static/ace-final/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
-		<script src="static/ace-final/assets/js/jquery.ui.touch-punch.min.js"></script>
-		<script src="static/ace-final/assets/js/jquery.slimscroll.min.js"></script>
 
 		<!--ace scripts-->
 
-		<script src="static/ace-final/assets/js/ace-elements.min.js"></script>
-		<script src="static/ace-final/assets/js/ace.min.js"></script>
+		<!--<script src="static/ace-final/assets/js/ace-elements.min.js"></script>
+		<script src="static/ace-final/assets/js/ace.min.js"></script>-->
 
 		<!--inline scripts related to this page-->
 
-		<script type="text/javascript">
-			$(function() {
-			
-				$('#simple-colorpicker-1').ace_colorpicker({pull_right:true}).on('change', function(){
-					var color_class = $(this).find('option:selected').data('class');
-					var new_class = 'widget-header';
-					if(color_class != 'default')  new_class += ' header-color-'+color_class;
-					$(this).closest('.widget-header').attr('class', new_class);
-				});
-			
-			
-				// scrollables
-				$('.slim-scroll').each(function () {
-					var $this = $(this);
-					$this.slimScroll({
-						height: $this.data('height') || 100,
-						railVisible:true
-					});
-				});
-			
-				  
-				  
-			
-				// Portlets (boxes)
-			    $('.widget-container-span').sortable({
-			        connectWith: '.widget-container-span',
-					items:'> .widget-box',
-					opacity:0.8,
-					revert:true,
-					forceHelperSize:true,
-					placeholder: 'widget-placeholder',
-					forcePlaceholderSize:true,
-					tolerance:'pointer'
-			    });
-			
-			});
-		</script>
 </header>
 
 				<div class="page-content">
@@ -770,3 +730,47 @@
 				</div><!--/.page-content-->
 </div>
 </metal:main>
+
+
+		<script src="static/ace-final/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="static/ace-final/assets/js/jquery.ui.touch-punch.min.js"></script>
+		<script src="static/ace-final/assets/js/jquery.slimscroll.min.js"></script>
+
+
+		<script type="text/javascript">
+			$(function() {
+			
+				$('#simple-colorpicker-1').ace_colorpicker({pull_right:true}).on('change', function(){
+					var color_class = $(this).find('option:selected').data('class');
+					var new_class = 'widget-header';
+					if(color_class != 'default')  new_class += ' header-color-'+color_class;
+					$(this).closest('.widget-header').attr('class', new_class);
+				});
+			
+			
+				// scrollables
+				$('.slim-scroll').each(function () {
+					var $this = $(this);
+					$this.slimScroll({
+						height: $this.data('height') || 100,
+						railVisible:true
+					});
+				});
+			
+				  
+				  
+			
+				// Portlets (boxes)
+			    $('.widget-container-span').sortable({
+			        connectWith: '.widget-container-span',
+					items:'> .widget-box',
+					opacity:0.8,
+					revert:true,
+					forceHelperSize:true,
+					placeholder: 'widget-placeholder',
+					forcePlaceholderSize:true,
+					tolerance:'pointer'
+			    });
+			
+			});
+		</script>

@@ -8,9 +8,9 @@
 <header>
 		<!--basic styles-->
 
-		<link href="static/ace-final/assets/css/bootstrap.min.css" rel="stylesheet" />
+		<!--<link href="static/ace-final/assets/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="static/ace-final/assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
-		<link rel="stylesheet" href="static/ace-final/assets/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="static/ace-final/assets/css/font-awesome.min.css" />-->
 
 		<!--[if IE 7]>
 		  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
@@ -20,13 +20,13 @@
 
 		<!--fonts-->
 
-		<link rel="stylesheet" href="static/ace-final/assets/css/ace-fonts.css" />
+		<!--<link rel="stylesheet" href="static/ace-final/assets/css/ace-fonts.css" />-->
 
 		<!--ace styles-->
 
-		<link rel="stylesheet" href="static/ace-final/assets/css/ace.min.css" />
+		<!--<link rel="stylesheet" href="static/ace-final/assets/css/ace.min.css" />
 		<link rel="stylesheet" href="static/ace-final/assets/css/ace-responsive.min.css" />
-		<link rel="stylesheet" href="static/ace-final/assets/css/ace-skins.min.css" />
+		<link rel="stylesheet" href="static/ace-final/assets/css/ace-skins.min.css" />-->
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
@@ -37,9 +37,9 @@
 
 		<!--[if !IE]>-->
 
-		<script type="text/javascript">
+		<!--<script type="text/javascript">
 			window.jQuery || document.write("<script src='static/ace-final/assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
-		</script>
+		</script>-->
 
 		<!--<![endif]-->
 
@@ -49,17 +49,17 @@
 </script>
 <![endif]-->
 
-		<script type="text/javascript">
+		<!--<script type="text/javascript">
 			if("ontouchend" in document) document.write("<script src='static/ace-final/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 		</script>
-		<script src="static/ace-final/assets/js/bootstrap.min.js"></script>
+		<script src="static/ace-final/assets/js/bootstrap.min.js"></script>-->
 
 		<!--page specific plugin scripts-->
 
 		<!--ace scripts-->
 
-		<script src="static/ace-final/assets/js/ace-elements.min.js"></script>
-		<script src="static/ace-final/assets/js/ace.min.js"></script>
+		<!--<script src="static/ace-final/assets/js/ace-elements.min.js"></script>
+		<script src="static/ace-final/assets/js/ace.min.js"></script>-->
 
 		<!--inline scripts related to this page-->
 </header>

@@ -7,9 +7,9 @@
 <header>
   	<!--basic styles-->
 
-  	<link href="static/ace-final/assets/css/bootstrap.min.css" rel="stylesheet" />
+  	<!--<link href="static/ace-final/assets/css/bootstrap.min.css" rel="stylesheet" />
   	<link href="static/ace-final/assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
-  	<link rel="stylesheet" href="static/ace-final/assets/css/font-awesome.min.css" />
+  	<link rel="stylesheet" href="static/ace-final/assets/css/font-awesome.min.css" />-->
 
   	<!--[if IE 7]>
   	  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
@@ -21,13 +21,13 @@
 
   	<!--fonts-->
 
-  	<link rel="stylesheet" href="static/ace-final/assets/css/ace-fonts.css" />
+  	<!--<link rel="stylesheet" href="static/ace-final/assets/css/ace-fonts.css" />-->
 
   	<!--ace styles-->
 
-  	<link rel="stylesheet" href="static/ace-final/assets/css/ace.min.css" />
+  	<!--<link rel="stylesheet" href="static/ace-final/assets/css/ace.min.css" />
   	<link rel="stylesheet" href="static/ace-final/assets/css/ace-responsive.min.css" />
-  	<link rel="stylesheet" href="static/ace-final/assets/css/ace-skins.min.css" />
+  	<link rel="stylesheet" href="static/ace-final/assets/css/ace-skins.min.css" />-->
 
   	<!--[if lte IE 8]>
   	  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
@@ -39,9 +39,9 @@
 
   	<!--[if !IE]>-->
 
-  	<script type="text/javascript">
+  	<!--<script type="text/javascript">
   		window.jQuery || document.write("<script src='static/ace-final/assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
-  	</script>
+  	</script>-->
 
   	<!--<![endif]-->
 
@@ -51,26 +51,115 @@ indow.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"
 script>
 [endif]-->
 
-  	<script type="text/javascript">
+  	<!--<script type="text/javascript">
   		if("ontouchend" in document) document.write("<script src='static/ace-final/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
   	</script>
-  	<script src="static/ace-final/assets/js/bootstrap.min.js"></script>
+  	<script src="static/ace-final/assets/js/bootstrap.min.js"></script>-->
 
-  	<!--page specific plugin scripts-->
+  	
+  	<!--ace scripts-->
+
+  	<!--<script src="static/ace-final/assets/js/ace-elements.min.js"></script>
+  	<script src="static/ace-final/assets/js/ace.min.js"></script>-->
+
+  	<!--inline scripts related to this page-->
+
+		
+</header>
+
+
+  			<div class="page-content">
+  				<div class="page-header position-relative">
+  					<h1>
+  						Full Calendar
+  						<small>
+  							<i class="icon-double-angle-right"></i>
+  							with draggable and editable events
+  						</small>
+  					</h1>
+  				</div><!--/.page-header-->
+
+  				<div class="row-fluid">
+  					<div class="span12">
+  						<!--PAGE CONTENT BEGINS-->
+
+  						<div class="row-fluid">
+  							<div class="span9">
+  								<div class="space"></div>
+
+  								<div id="calendar"></div>
+  							</div>
+
+  							<div class="span3">
+  								<div class="widget-box transparent">
+  									<div class="widget-header">
+  										<h4>Draggable events</h4>
+  									</div>
+
+  									<div class="widget-main">
+  										<div id="external-events">
+  											<div class="external-event label-grey" data-class="label-grey">
+  												<i class="icon-move"></i>
+  												My Event 1
+  											</div>
+
+  											<div class="external-event label-success" data-class="label-success">
+  												<i class="icon-move"></i>
+  												My Event 2
+  											</div>
+
+  											<div class="external-event label-important" data-class="label-important">
+  												<i class="icon-move"></i>
+  												My Event 3
+  											</div>
+
+  											<div class="external-event label-purple" data-class="label-purple">
+  												<i class="icon-move"></i>
+  												My Event 4
+  											</div>
+
+  											<div class="external-event label-yellow" data-class="label-yellow">
+  												<i class="icon-move"></i>
+  												My Event 5
+  											</div>
+
+  											<div class="external-event label-pink" data-class="label-pink">
+  												<i class="icon-move"></i>
+  												My Event 6
+  											</div>
+
+  											<div class="external-event label-info" data-class="label-info">
+  												<i class="icon-move"></i>
+  												My Event 7
+  											</div>
+
+  											<label>
+  												<input type="checkbox" class="ace-checkbox" id="drop-remove" />
+  												<span class="lbl"> Remove after drop</span>
+  											</label>
+  										</div>
+  									</div>
+  								</div>
+  							</div>
+  						</div>
+
+  						<!--PAGE CONTENT ENDS-->
+  					</div><!--/.span-->
+  				</div><!--/.row-fluid-->
+  			</div><!--/.page-content-->
+</div>
+</metal:main>
+
+<!--page specific plugin scripts-->
 
   	<script src="static/ace-final/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
   	<script src="static/ace-final/assets/js/jquery.ui.touch-punch.min.js"></script>
   	<script src="static/ace-final/assets/js/fullcalendar.min.js"></script>
   	<script src="static/ace-final/assets/js/bootbox.min.js"></script>
 
-  	<!--ace scripts-->
 
-  	<script src="static/ace-final/assets/js/ace-elements.min.js"></script>
-  	<script src="static/ace-final/assets/js/ace.min.js"></script>
 
-  	<!--inline scripts related to this page-->
-
-		<script type="text/javascript">
+<script type="text/javascript">
 			$(function() {
 
 /* initialize the external events
@@ -241,87 +330,3 @@ script>
 
 })
 		</script>
-</header>
-
-
-  			<div class="page-content">
-  				<div class="page-header position-relative">
-  					<h1>
-  						Full Calendar
-  						<small>
-  							<i class="icon-double-angle-right"></i>
-  							with draggable and editable events
-  						</small>
-  					</h1>
-  				</div><!--/.page-header-->
-
-  				<div class="row-fluid">
-  					<div class="span12">
-  						<!--PAGE CONTENT BEGINS-->
-
-  						<div class="row-fluid">
-  							<div class="span9">
-  								<div class="space"></div>
-
-  								<div id="calendar"></div>
-  							</div>
-
-  							<div class="span3">
-  								<div class="widget-box transparent">
-  									<div class="widget-header">
-  										<h4>Draggable events</h4>
-  									</div>
-
-  									<div class="widget-main">
-  										<div id="external-events">
-  											<div class="external-event label-grey" data-class="label-grey">
-  												<i class="icon-move"></i>
-  												My Event 1
-  											</div>
-
-  											<div class="external-event label-success" data-class="label-success">
-  												<i class="icon-move"></i>
-  												My Event 2
-  											</div>
-
-  											<div class="external-event label-important" data-class="label-important">
-  												<i class="icon-move"></i>
-  												My Event 3
-  											</div>
-
-  											<div class="external-event label-purple" data-class="label-purple">
-  												<i class="icon-move"></i>
-  												My Event 4
-  											</div>
-
-  											<div class="external-event label-yellow" data-class="label-yellow">
-  												<i class="icon-move"></i>
-  												My Event 5
-  											</div>
-
-  											<div class="external-event label-pink" data-class="label-pink">
-  												<i class="icon-move"></i>
-  												My Event 6
-  											</div>
-
-  											<div class="external-event label-info" data-class="label-info">
-  												<i class="icon-move"></i>
-  												My Event 7
-  											</div>
-
-  											<label>
-  												<input type="checkbox" class="ace-checkbox" id="drop-remove" />
-  												<span class="lbl"> Remove after drop</span>
-  											</label>
-  										</div>
-  									</div>
-  								</div>
-  							</div>
-  						</div>
-
-  						<!--PAGE CONTENT ENDS-->
-  					</div><!--/.span-->
-  				</div><!--/.row-fluid-->
-  			</div><!--/.page-content-->
-</div>
-</metal:main>
