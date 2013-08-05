@@ -12,6 +12,15 @@
             $("#criarbase").click(function(){
                 nest.create_field();
             });
+            $("#criargrupo").click(function(){
+                nest.create_group();
+            });
+            $("#context-delete").click(function(){
+                nest.remove_element();
+            });
+            $("#nestable-refresh").click(function(){
+                nest.refresh();
+            });
 
             var updateOutput = function(e)
             {
@@ -79,31 +88,24 @@
                      <div class="widget">
                         <div class="widget-title">
                            <h4><i class="icon-edit"></i> Campos e Grupos</h4>
+
                            <div id="nestable-menu" class="tools">
 
                                 <!-- Botão Criar -->
-                             <button id="criarbase" type="button" class="btn btn-primary btn-small" data-loading-text="Carregando...">+ 1</button>
+                             <button id="criarbase" type="button" class="btn btn-primary btn-small" data-loading-text="Carregando...">+ 1 Campo</button>
+                             <button id="criargrupo" type="button" class="btn btn-primary btn-small" data-loading-text="Carregando...">+ 1 Grupo</button>
                                 <!-- Fim Botão -->
-                                <button type="button" class="btn btn-primary btn-small" data-loading-text="Carregando..." data-action="expand-all">Expand All</button>
-                                <button type="button" class="btn btn-primary btn-small" data-loading-text="Carregando..." data-action="collapse-all">Collapse All</button>
+                                <button type="button" class="btn btn-primary btn-small" data-action="expand-all">+ Expandir
+                            <i class="icon-only icon-collapse-top bigger-110"></i>
+                                </button>
+                                <button type="button" class="btn btn-primary btn-small" data-loading-text="Carregando..." data-action="collapse-all">- Colapsar
+                            <i class="icon-only icon-collapse bigger-110"></i>
+                                </button>
+                           <button id='nestable-refresh' class="btn btn-small" type="button">
+                            <i class="icon-only icon-refresh bigger-110"></i>
+                           </button>
                            </div>
                         </div>
-
-<!--               organização das divs que o jquery.nestable.js usa                          -->
-
-<!--<style type="text/css">
-#div-to-scroll
-{
-position: fixed;
-top: 10%;
-right: 50%;
-width: 85%;
-height: 1%;
-}
-
-</style>-->
-
-
 
                         <div id="div-to-scroll" class="widget-body" style="height:425px; overflow:auto;">
                            <div class="dd" id="nestable">
@@ -125,13 +127,13 @@ height: 1%;
                               <a href="javascript:;" class="remove"></a>
                            </div>
                         </div>
+                           <div id="context-menu" class="tools">
+                             <button id="context-delete" type="button" class="btn btn-small btn-danger">Deletar</button>
+                           </div>
                         <div id="infobase2" class="widget-body" style="height:350px;">
 
                     <!-- DADOS DA BASE VÃO AQUI -->
 
-        <label class="checkbox">
-            <input type="checkbox" style="opacity: 1; width: auto; height: auto;"> yes
-        </label>
 
         <script type="text/javascript" src="static/base_form.js"></script>
 

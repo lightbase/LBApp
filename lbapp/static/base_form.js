@@ -387,15 +387,29 @@ function BaseStructure(nestable_space, context){
     }
 
     this.get_item_children = function(item_id){
-        var li_item = $('#'+item_id).children('ol');
-        return this.refresh(li_item, remand_children=true);
+        return this.refresh(
+            parse_list=$('#'+item_id).children('ol'),
+            remand_children=true
+        );
     }
 
     this.remove_element = function(){
         var form = this.context.current_form;
-        if(!form) return false; // Nothing to delete
+        if(!form) return false; // Nothing to delete.
 
         var item_id = ['nestable', form.getAttribute('data-id'), 'item'].join('-');
+
+        var list_item = $('#' + item_id);
+
+        // Check and block if is user is trying to delete a field which is within a group, 
+        // and this group only has one child field.
+        if (
+            (list_item.parent().children().length == 1) &&
+            (list_item.parent()[0].id != this.nestable_space.id)
+           ){
+            alert('grupos devem ter ao menos 1 campo');
+            return false
+        }
 
         // Remove Element Children.
         var item_children = this.get_item_children(item_id);
@@ -421,8 +435,8 @@ function BaseStructure(nestable_space, context){
             children_list = [],
             depth = 0,
             list  = this;
-            step  = function(level, depth)
-            {
+            step  = function(level, depth){
+
                 var array = [ ],
                     items = level.children('li');
                 items.each(function(i)
@@ -471,7 +485,6 @@ context_space = document.getElementById('infobase2');
 
 context = new BaseContext(context_space)
 nest = new BaseStructure(nestable_space, context)
-
 
 
 
