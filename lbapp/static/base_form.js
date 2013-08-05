@@ -73,20 +73,22 @@ function ControlGroup(label, controls){
 function Form(id, elements){
 
     // <form id=[id] > [control_group_list] </form>
+    var form_id = ['base', 'context', id, 'form'].join('-');
     var form = document.createElement('form');
-    form.setAttribute('id', id + '-form');
+    form.setAttribute('id', form_id);
+    form.setAttribute('data-id', id);
     form.setAttribute('style', 'display:block');
 
     for (var e in elements) form.appendChild(elements[e].html);
 
-    this.id = id;
+    this.id = form_id;
     this.elements = elements;
     this.html = form;
 }
 
 function NameField(id, placeholder){
 
-    this.id = id + '-name';
+    this.id = ['base', 'context', id, 'name'].join('-');
     this.wrapper = new FluidRowWrapper();
     this.label = new Label(this.id, text='Nome');
 
@@ -103,7 +105,7 @@ function NameField(id, placeholder){
 
 function DescriptionField(id, placeholder){
 
-    this.id = id + '-description';
+    this.id = ['base', 'context', id, 'description'].join('-');
     this.wrapper = new FluidRowWrapper();
     this.label = new Label(this.id, text='Descrição');
 
@@ -119,7 +121,7 @@ function DescriptionField(id, placeholder){
 }
 
 function DataTypeField(id){
-    this.id = id + '-datatype';
+    this.id = ['base', 'context', id, 'datatype'].join('-');
     this.wrapper = new FluidRowWrapper();
     this.label = new Label(this.id, text='Tipo');
     this.datatypes = [
@@ -160,7 +162,7 @@ function DataTypeField(id){
 
 function IndicesField(id){
 
-    this.id = id + '-indices';
+    this.id = ['base', 'context', id, 'indices'].join('-');
     this.indices = [
         'SemIndice',
         'Textual',
@@ -173,8 +175,9 @@ function IndicesField(id){
 
     var controls = new Array();
     for (var i in this.indices){
-        var label = document.createElement('label');
-        var checkbox = document.createElement('input');
+        var label = document.createElement('label'),
+            checkbox = document.createElement('input');
+
         checkbox.setAttribute('id', this.id + '-' + this.indices[i]);
         checkbox.setAttribute('name', this.id);
         checkbox.setAttribute('type', 'checkbox');
@@ -191,10 +194,10 @@ function IndicesField(id){
 
 function MultivaluedField(id){
 
-    this.id = id + '-multivalued';
+    this.id = ['base', 'context', id, 'multivalued'].join('-');
+    var label = document.createElement('label'),
+        checkbox = document.createElement('input');
 
-    var label = document.createElement('label');
-    var checkbox = document.createElement('input');
     checkbox.setAttribute('id', this.id);
     checkbox.setAttribute('name', this.id);
     checkbox.setAttribute('type', 'checkbox');
@@ -322,55 +325,54 @@ function BaseStructure(nestable_space, context){
     }
 
     this.field_form = function(id, field_name, field_desc){
-        var context_id = ['base', 'context', id].join('-');
-        return new Form(context_id, [
-            new NameField(context_id, placeholder=field_name),
-            new DescriptionField(context_id, placeholder=field_desc),
-            new DataTypeField(context_id),
-            new IndicesField(context_id),
-            new MultivaluedField(context_id)
+        return new Form(id, [
+            new NameField(id, placeholder=field_name),
+            new DescriptionField(id, placeholder=field_desc),
+            new DataTypeField(id),
+            new IndicesField(id),
+            new MultivaluedField(id)
         ]);
     }
 
     this.group_form = function(id, group_name, group_desc){
-        var context_id = ['base', 'context', id].join('-');
-        return new Form(context_id, [
-            new NameField(context_id, placeholder=group_name),
-            new DescriptionField(context_id, placeholder=group_desc),
-            new MultivaluedField(context_id)
+        return new Form(id, [
+            new NameField(id, placeholder=group_name),
+            new DescriptionField(id, placeholder=group_desc),
+            new MultivaluedField(id)
         ]);
     }
 
     this.create_field = function(remand){
 
-        var field_name = 'Campo' + this.id;
-        var field_desc = 'Descrição do campo ' + this.id;
+        var field_name = 'Campo' + this.id,
+            field_desc = 'Descrição do campo ' + this.id,
+            li = this.dd_item(this.id, no_children=true),
+            div = this.dd_handle(this.id, field_name);
 
-        var li = this.dd_item(this.id, no_children=true);
-        var div = this.dd_handle(this.id, field_name);
         li.appendChild(div);
 
         var field_form = this.field_form(this.id, field_name, field_desc);
         this.context.push_form(field_form);
         this.id = this.id + 1;
         if(remand) return li;
-
         this.nestable_space.appendChild(li)
     }
 
     this.create_group = function(){
-        var group_name = 'Grupo' + this.id;
-        var group_desc = 'Descrição do grupo ' + this.id;
-        var group_id = this.id;
+        var group_name = 'Grupo' + this.id,
+            group_desc = 'Descrição do grupo ' + this.id,
+            group_id = this.id;
+
         this.id = this.id + 1;
 
-        var li = this.dd_item(group_id);
-        var collapse_btn = this.toggle_button('collapse', 'block');
-        var expand_btn = this.toggle_button('expand', 'none');
-        var div = this.dd_handle(group_id, group_name);
-        var ol = this.dd_list();
-        var field1 = this.create_field(remand=true);
-        var field2 = this.create_field(remand=true);
+        var li = this.dd_item(group_id),
+            collapse_btn = this.toggle_button('collapse', 'block'),
+            expand_btn = this.toggle_button('expand', 'none'),
+            div = this.dd_handle(group_id, group_name),
+            ol = this.dd_list(),
+            field1 = this.create_field(remand=true),
+            field2 = this.create_field(remand=true);
+
         ol.appendChild(field1);
         ol.appendChild(field2);
 
@@ -379,27 +381,44 @@ function BaseStructure(nestable_space, context){
         li.appendChild(div);
         li.appendChild(ol);
 
-        this.nestable_space.appendChild(li)
+        this.nestable_space.appendChild(li);
         var group_form = this.group_form(group_id, group_name, group_desc);
         this.context.push_form(group_form);
     }
 
+    this.get_item_children = function(item_id){
+        var li_item = $('#'+item_id).children('ol');
+        return this.refresh(li_item, remand_children=true);
+    }
+
     this.remove_element = function(){
         var form = this.context.current_form;
-        if(!form) return false;
-        var nestable_id = form.id.split('-')[form.id.split('-').length - 2];
-        var item_id = ['nestable', nestable_id, 'item'].join('-');
-        var field = document.getElementById(item_id);
-        field.parentNode.removeChild(field);
-        this.context.pop_form(form.id)
+        if(!form) return false; // Nothing to delete
+
+        var item_id = ['nestable', form.getAttribute('data-id'), 'item'].join('-');
+
+        // Remove Element Children.
+        var item_children = this.get_item_children(item_id);
+        $(item_children).each(function(){
+            var form_id = ['base', 'context', this.getAttribute('data-id'), 'form'].join('-');
+            $('#'+ form_id).remove();
+            $(this).remove();
+        });
+
+        // Remove Element.
+        $('#' + item_id).remove();
+        this.context.pop_form(form.id);
+
+        // Focus on last form.
         var last_form = this.context.last_form;
         if (last_form){
             this.context.focus_on(last_form);
         }
     }
 
-    this.refresh = function(){
+    this.refresh = function(parse_list, remand_children){
         var data,
+            children_list = [],
             depth = 0,
             list  = this;
             step  = function(level, depth)
@@ -414,6 +433,8 @@ function BaseStructure(nestable_space, context){
                         context_id = ['base', 'context', item.id, 'name'].join('-'),
                         item_name = $('#' + context_id)[0].value;
 
+                    children_list.push(li[0]);
+
                     if(item_name){
                         $(items[i]).children('div')[0].innerText = item_name;
                     }
@@ -424,8 +445,11 @@ function BaseStructure(nestable_space, context){
                 });
                 return array;
             };
-        var parse_list = $('#' + this.nestable_space.id);
+
+        var parse_list = parse_list? parse_list :$('#' + this.nestable_space.id);
         data = step(parse_list, depth);
+        if (remand_children) return children_list;
+
         return data;
      };
 
@@ -436,8 +460,7 @@ function BaseStructure(nestable_space, context){
     this.__defineGetter__('current_item', function(){
         var current_form = this.context.current_form;
         if (current_form){
-                var item_id = current_form.id.split('-')[current_form.id.split('-').length-2];
-                return $('#' + ['nestable', item_id, 'item'].join('-'))[0];
+            return $('#' + ['nestable', current_form.getAttribute('data-id'), 'item'].join('-'))[0];
         }
     });
 
@@ -447,7 +470,6 @@ nestable_space = document.getElementById('ol1');
 context_space = document.getElementById('infobase2');
 
 context = new BaseContext(context_space)
-
 nest = new BaseStructure(nestable_space, context)
 
 
