@@ -830,7 +830,7 @@
 							</div>
 
 							<script type="text/javascript">
-								var $assets = "assets";//this will be used in gritter alerts containing images
+								var $assets = "static/ace-final/assets";//this will be used in gritter alerts containing images
 							</script>
 
 							<!--PAGE CONTENT ENDS-->

@@ -63,3 +63,9 @@ def temp21(request):
 @view_config(route_name='wysiwyg', renderer='templates/ace-ace/wysiwyg.pt')
 def temp22(request):
     return {'project': 'LBApp'}
+@view_config(route_name='error-404', renderer='templates/ace-ace/error-404.pt')
+def temp23(request):
+    return {'project': 'LBApp'}
+@view_config(route_name='error-500', renderer='templates/ace-ace/error-500.pt')
+def temp24(request):
+    return {'project': 'LBApp'}

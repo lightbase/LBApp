@@ -1,80 +1,9 @@
 <metal:main use-macro="load: blank.pt">
  <!-- Insere JavaScript -->
-    <script metal:fill-slot="javascript" type="text/javascript" src="static/tabelabootstrap.js"></script>
+    <script metal:fill-slot="javascript" type="text/javascript" src=""></script>
 
     <div metal:fill-slot="conteudo" id="widgets">
 
-<header>
-		<!--basic styles-->
-
-		<!--<link href="static/ace-final/assets/css/bootstrap.min.css" rel="stylesheet" />
-		<link href="static/ace-final/assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
-		<link rel="stylesheet" href="static/ace-final/assets/css/font-awesome.min.css" />-->
-
-		<!--[if IE 7]>
-		  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
-		<![endif]-->
-
-		<!--page specific plugin styles-->
-
-		<!--fonts-->
-
-		<!--<link rel="stylesheet" href="static/ace-final/assets/css/ace-fonts.css" />-->
-
-		<!--ace styles-->
-
-		<!--<link rel="stylesheet" href="static/ace-final/assets/css/ace.min.css" />
-		<link rel="stylesheet" href="static/ace-final/assets/css/ace-responsive.min.css" />
-		<link rel="stylesheet" href="static/ace-final/assets/css/ace-skins.min.css" />-->
-
-		<!--[if lte IE 8]>
-		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
-		<![endif]-->
-
-		<!--inline styles related to this page-->
-		<!--basic scripts-->
-
-		<!--[if !IE]>-->
-
-		<!--<script type="text/javascript">
-			window.jQuery || document.write("<script src='static/ace-final/assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
-		</script>-->
-
-		<!--<![endif]-->
-
-		<!--[if IE]>
-<script type="text/javascript">
- window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
-</script>
-<![endif]-->
-
-		<!--<script type="text/javascript">
-			if("ontouchend" in document) document.write("<script src='static/ace-final/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
-		</script>
-		<script src="static/ace-final/assets/js/bootstrap.min.js"></script>-->
-
-		<!--page specific plugin scripts-->
-
-
-		<!--ace scripts-->
-
-		<!--<script src="static/ace-final/assets/js/ace-elements.min.js"></script>
-		<script src="static/ace-final/assets/js/ace.min.js"></script>-->
-
-		<!--inline scripts related to this page-->
-
-</header>
-
-				<div class="page-content">
-					<div class="page-header position-relative">
-						<h1>
-							Widgets
-							<small>
-								<i class="icon-double-angle-right"></i>
-								Draggabble Widget Boxes &amp; Containers
-							</small>
-						</h1>
-					</div><!--/.page-header-->
 
 					<div class="row-fluid">
 						<div class="span12">
@@ -717,8 +646,7 @@
 															Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis. Nullam interdum massa vel nisl fringilla sed viverra erat tincidunt. Phasellus in ipsum velit. Maecenas id erat vel sem convallis blandit. Nunc aliquam enim ut arcu aliquet adipiscing. Fusce dignissim volutpat justo non consectetur.
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis. Nullam interdum massa vel nisl fringilla sed viverra erat tincidunt. Phasellus in ipsum velit. Maecenas id erat vel sem convallis blandit. Nunc aliquam enim ut arcu aliquet adipiscing. Fusce dignissim volutpat justo non consectetur.
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis. Nullam interdum massa vel nisl fringilla sed viverra erat tincidunt. Phasellus in ipsum velit. Maecenas id erat vel sem convallis blandit. Nunc aliquam enim ut arcu aliquet adipiscing. Fusce dignissim volutpat justo non consectetur.
-														</div>
-													</div>
+												    </div>
 												</div>
 											</div>
 										</div>
@@ -728,6 +656,8 @@
 						</div><!--/.span-->
 					</div><!--/.row-fluid-->
 				</div><!--/.page-content-->
+
+
 </div>
 </metal:main>
 
