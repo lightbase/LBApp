@@ -272,6 +272,8 @@ function BaseStructure(nestable_space, context){
     this.id = 1;
     this.nestable_space = nestable_space;
     this.context = context;
+    this.auto_append = false;
+    this.auto_append_el = undefined;
 
     this.nestable_space.scroll_top = function(){
         var scroll_div = $(this).parent().parent();
@@ -336,19 +338,32 @@ function BaseStructure(nestable_space, context){
         ]);
     };
 
+    this.get_auto_append_element = function(){
+        var append_element = this.nestable_space;
+        if(this.auto_append){
+            if(this.auto_append_el){
+                append_element = this.auto_append_el;
+            }
+            else{
+                if(this.current_item){
+                    append_element = this.current_item.is_group?
+                        $(this.current_item).children('ol')[0]:
+                        this.nestable_space;
+                }
+                this.auto_append_el = append_element;
+            }
+        }
+        return append_element;
+    };
+
     this.create_field = function(remand){
 
         var field_name = 'Campo' + this.id,
             field_desc = 'Descrição do campo ' + this.id,
             li = this.dd_item(this.id, no_children=true),
             div = this.dd_handle(this.id, field_name),
-            append_element;
+            append_element = this.get_auto_append_element();
 
-        this.auto_append = true;
-        if ($(this.current_item).children('ol').length && this.auto_append)
-            append_element = $(this.current_item).children('ol')[0];
-        else
-            append_element = this.nestable_space;
         li.appendChild(div);
 
         var field_form = this.field_form(this.id, field_name, field_desc);
@@ -373,7 +388,8 @@ function BaseStructure(nestable_space, context){
             div = this.dd_handle(group_id, group_name),
             ol = this.dd_list(),
             field1 = this.create_field(remand=true),
-            field2 = this.create_field(remand=true);
+            field2 = this.create_field(remand=true),
+            append_element = this.get_auto_append_element();
 
         ol.appendChild(field1);
         ol.appendChild(field2);
@@ -383,10 +399,13 @@ function BaseStructure(nestable_space, context){
         li.appendChild(div);
         li.appendChild(ol);
 
-        this.nestable_space.appendChild(li);
+        append_element.appendChild(li);
         var group_form = this.group_form(group_id, group_name, group_desc);
         this.context.push_form(group_form);
         this.nestable_space.scroll_bottom();
+
+        if(this.auto_append)
+            this.auto_append_el = ol;
     };
 
     this.get_item_children = function(item_id){
@@ -425,6 +444,9 @@ function BaseStructure(nestable_space, context){
         // Remove Element.
         $('#' + item_id).remove();
         this.context.pop_form(form.id);
+
+        if(!document.contains(this.auto_append_el))
+            this.auto_append_el = undefined;
 
         // Focus on last form.
         var last_form = this.context.last_form;
@@ -475,10 +497,18 @@ function BaseStructure(nestable_space, context){
     });
 
     this.__defineGetter__('current_item', function(){
-        var current_form = this.context.current_form;
+        var item_id,
+            _current_item,
+            current_form = this.context.current_form;
         if (current_form){
-            return $('#' + ['nestable', current_form.getAttribute('data-id'), 'item'].join('-'))[0];
+            item_id = ['nestable', current_form.getAttribute('data-id'), 'item'].join('-');
+            _current_item = $('#' + item_id)[0];
+            if (_current_item){
+                _current_item.is_group = $(_current_item).children('ol').length > 0;
+            }
+            return _current_item;
         }
+        return undefined;
     });
 
 }
