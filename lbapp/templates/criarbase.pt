@@ -9,6 +9,9 @@
         $(document).ready(function()
         {
 
+            $("#nestable-auto-append").click(function(){
+                nest.auto_append = this.checked;
+            });
             $("#criarbase").click(function(){
                 nest.create_field();
             });
@@ -34,7 +37,17 @@
             };
 
            var drop_callback = function(drop_info){
+                // Select list-item and focus on form
                 nest.context.focus_on('base-context-' + drop_info.sourceId + '-form');
+                if(nest.auto_append){
+                    if(nest.current_item.is_group){
+                        nest.auto_append_el = $(nest.current_item).children('ol')[0]; 
+                    }
+                    else{
+                        nest.auto_append_el = undefined; 
+                    }
+                }
+
             }
 
             // activate Nestable for list 1
@@ -104,6 +117,8 @@
                            <button id='nestable-refresh' class="btn btn-small" type="button">
                             <i class="icon-only icon-refresh bigger-110"></i>
                            </button>
+                           <input id='nestable-auto-append' type="checkbox">
+                           </input>
                            </div>
                         </div>
 
