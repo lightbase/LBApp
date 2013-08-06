@@ -408,9 +408,11 @@
                 }
                 // decrease horizontal level
                 if (mouse.distX < 0) {
+                    // we can't decrease level if an item has only one child
+                    var singleChild = this.placeEl.parent(opt.listNodeName).children(opt.itemNodeName).length == 0;
                     // we can't decrease a level if an item preceeds the current one
                     next = this.placeEl.next(opt.itemNodeName);
-                    if (!next.length) {
+                    if ((!next.length) && (!singleChild)) {
                         parent = this.placeEl.parent();
                         this.placeEl.closest(opt.itemNodeName).after(this.placeEl);
                         if (!parent.children().length) {
@@ -421,23 +423,27 @@
             }
 
             var isEmpty = false;
+            var singleChild = this.placeEl.parent().children(opt.itemNodeName).length == 0;
 
-            // find list item under cursor
-            if (!hasPointerEvents) {
-                this.dragEl[0].style.visibility = 'hidden';
-            }
-            this.pointEl = $(document.elementFromPoint(e.pageX - document.body.scrollLeft, e.pageY - (window.pageYOffset || document.documentElement.scrollTop)));
-            if (!hasPointerEvents) {
-                this.dragEl[0].style.visibility = 'visible';
-            }
-            if (this.pointEl.hasClass(opt.handleClass)) {
-                this.pointEl = this.pointEl.parent(opt.itemNodeName);
-            }
-            if (this.pointEl.hasClass(opt.emptyClass)) {
-                isEmpty = true;
-            }
-            else if (!this.pointEl.length || !this.pointEl.hasClass(opt.itemClass)) {
-                return;
+            // we can't move level if an item has only one child
+            if (!singleChild){
+                // find list item under cursor
+                if (!hasPointerEvents) {
+                    this.dragEl[0].style.visibility = 'hidden';
+                }
+                this.pointEl = $(document.elementFromPoint(e.pageX - document.body.scrollLeft, e.pageY - (window.pageYOffset || document.documentElement.scrollTop)));
+                if (!hasPointerEvents) {
+                    this.dragEl[0].style.visibility = 'visible';
+                }
+                if (this.pointEl.hasClass(opt.handleClass)) {
+                    this.pointEl = this.pointEl.parent(opt.itemNodeName);
+                }
+                if (this.pointEl.hasClass(opt.emptyClass)) {
+                    isEmpty = true;
+                }
+                else if (!this.pointEl.length || !this.pointEl.hasClass(opt.itemClass)) {
+                    return;
+                }
             }
 
             // find parent list of item under cursor
