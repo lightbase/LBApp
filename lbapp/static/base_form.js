@@ -293,6 +293,20 @@ function BaseStructure(nestable_space, context){
     this.nestable_space = nestable_space;
     this.context = context;
 
+    this.nestable_space.scroll_top = function(){
+        var scroll_div = $(this).parent().parent()
+        $(scroll_div).stop().animate({
+          scrollTop: -$(scroll_div)[0].scrollHeight
+        }, 800);
+    };
+
+    this.nestable_space.scroll_bottom = function(){
+        var scroll_div = $(this).parent().parent()
+        $(scroll_div).stop().animate({
+          scrollTop: $(scroll_div)[0].scrollHeight
+        }, 800);
+    };
+
     this.dd_list = function(){
         var ol = document.createElement('ol');
         ol.setAttribute('class', 'dd-list');
@@ -355,7 +369,9 @@ function BaseStructure(nestable_space, context){
         this.context.push_form(field_form);
         this.id = this.id + 1;
         if(remand) return li;
-        this.nestable_space.appendChild(li)
+        this.nestable_space.appendChild(li);
+        this.nestable_space.scroll_bottom();
+
     }
 
     this.create_group = function(){
@@ -384,6 +400,7 @@ function BaseStructure(nestable_space, context){
         this.nestable_space.appendChild(li);
         var group_form = this.group_form(group_id, group_name, group_desc);
         this.context.push_form(group_form);
+        this.nestable_space.scroll_bottom();
     }
 
     this.get_item_children = function(item_id){
