@@ -444,49 +444,49 @@
                 else if (!this.pointEl.length || !this.pointEl.hasClass(opt.itemClass)) {
                     return;
                 }
-            }
 
-            // find parent list of item under cursor
-            var pointElRoot = this.pointEl.closest('.' + opt.rootClass),
-                isNewRoot   = this.dragRootEl.data('nestable-id') !== pointElRoot.data('nestable-id');
+                // find parent list of item under cursor
+                var pointElRoot = this.pointEl.closest('.' + opt.rootClass),
+                    isNewRoot   = this.dragRootEl.data('nestable-id') !== pointElRoot.data('nestable-id');
 
-            /**
-             * move vertical
-             */
-            if (!mouse.dirAx || isNewRoot || isEmpty) {
-                // check if groups match if dragging over new root
-                if (isNewRoot && opt.group !== pointElRoot.data('nestable-group')) {
-                    return;
-                }
-                // check depth limit
-                depth = this.dragDepth - 1 + this.pointEl.parents(opt.listNodeName).length;
-                if (depth > opt.maxDepth) {
-                    return;
-                }
-                var before = e.pageY < (this.pointEl.offset().top + this.pointEl.height() / 2);
-                    parent = this.placeEl.parent();
-                // if empty create new list to replace empty placeholder
-                if (isEmpty) {
-                    list = $(document.createElement(opt.listNodeName)).addClass(opt.listClass);
-                    list.append(this.placeEl);
-                    this.pointEl.replaceWith(list);
-                }
-                else if (before) {
-                    this.pointEl.before(this.placeEl);
-                }
-                else {
-                    this.pointEl.after(this.placeEl);
-                }
-                if (!parent.children().length) {
-                    this.unsetParent(parent.parent());
-                }
-                if (!this.dragRootEl.find(opt.itemNodeName).length) {
-                    this.dragRootEl.append('<div class="' + opt.emptyClass + '"/>');
-                }
-                // parent root list has changed
-                if (isNewRoot) {
-                    this.dragRootEl = pointElRoot;
-                    this.hasNewRoot = this.el[0] !== this.dragRootEl[0];
+                /**
+                 * move vertical
+                 */
+                if (!mouse.dirAx || isNewRoot || isEmpty) {
+                    // check if groups match if dragging over new root
+                    if (isNewRoot && opt.group !== pointElRoot.data('nestable-group')) {
+                        return;
+                    }
+                    // check depth limit
+                    depth = this.dragDepth - 1 + this.pointEl.parents(opt.listNodeName).length;
+                    if (depth > opt.maxDepth) {
+                        return;
+                    }
+                    var before = e.pageY < (this.pointEl.offset().top + this.pointEl.height() / 2);
+                        parent = this.placeEl.parent();
+                    // if empty create new list to replace empty placeholder
+                    if (isEmpty) {
+                        list = $(document.createElement(opt.listNodeName)).addClass(opt.listClass);
+                        list.append(this.placeEl);
+                        this.pointEl.replaceWith(list);
+                    }
+                    else if (before) {
+                        this.pointEl.before(this.placeEl);
+                    }
+                    else {
+                        this.pointEl.after(this.placeEl);
+                    }
+                    if (!parent.children().length) {
+                        this.unsetParent(parent.parent());
+                    }
+                    if (!this.dragRootEl.find(opt.itemNodeName).length) {
+                        this.dragRootEl.append('<div class="' + opt.emptyClass + '"/>');
+                    }
+                    // parent root list has changed
+                    if (isNewRoot) {
+                        this.dragRootEl = pointElRoot;
+                        this.hasNewRoot = this.el[0] !== this.dragRootEl[0];
+                    }
                 }
             }
         }
