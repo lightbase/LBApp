@@ -3,37 +3,13 @@ function log(l){
     console.log(l)
 }
 
-function is_dict(object){
-    return Object.prototype.isPrototypeOf(object) && !Array.prototype.isPrototypeOf(object);
-}
-
-function is_array(object){
-    return Array.prototype.isPrototypeOf(object);
-}
-
-function FluidRowWrapper(){
-    var div = document.createElement('div');
-    div.setAttribute('class', 'row-fluid');
-    this.html = div;
-}
-function InlineHelp(text){
-
-    // <span class="help-inline">[text]</span>
-    var help = document.createElement('span');
-    help.setAttribute('help-inline', text);
-
-    this.text = text;
-    this.html = help;
-}
 
 function Label(field_id, text){
-
-    // <label class="control-label" for=[field_id]> [text] </label>
-    var label = document.createElement('label');
-    label.setAttribute('class', 'control-label');
+    var label = document.createElement('label'),
+        bold = document.createElement('b');
     label.setAttribute('for', field_id);
-    label.innerText = text;
-
+    bold.innerText = text;
+    label.appendChild(bold);
     this.field_id = field_id;
     this.text = text;
     this.html = label;
@@ -41,8 +17,7 @@ function Label(field_id, text){
 
 function Controls(fields){
 
-    // <div class="controls"> [fields]</div>
-    if (!is_array(fields)) throw new TypeError('fields must be instance of Array');
+    if (!$.isArray(fields)) throw new TypeError('fields must be instance of Array');
     var controls = document.createElement('div');
     controls.setAttribute('class', 'controls');
 
@@ -56,7 +31,6 @@ function Controls(fields){
 
 function ControlGroup(label, controls){
 
-    // <div class="control-group"> [label] [controls]</div>
     var control_group = document.createElement('div');
     control_group.setAttribute('class', 'control-group');
 
@@ -72,9 +46,8 @@ function ControlGroup(label, controls){
 
 function Form(id, elements){
 
-    // <form id=[id] > [control_group_list] </form>
-    var form_id = ['base', 'context', id, 'form'].join('-');
-    var form = document.createElement('form');
+    var form_id = ['base', 'context', id, 'form'].join('-'),
+        form = document.createElement('form');
     form.setAttribute('id', form_id);
     form.setAttribute('data-id', id);
     form.setAttribute('style', 'display:block');
@@ -90,40 +63,47 @@ function Form(id, elements){
 function NameField(id, placeholder){
 
     this.id = ['base', 'context', id, 'name'].join('-');
-    this.wrapper = new FluidRowWrapper();
     this.label = new Label(this.id, text='Nome');
-
-    var input = document.createElement('input');
-    input.setAttribute('id', this.id);
-    input.setAttribute('name', this.id);
-    input.setAttribute('type', 'text');
-    input.setAttribute('placeholder', placeholder);
-
-    this.wrapper.html.appendChild(this.label.html);
-    this.wrapper.html.appendChild(input);
-    this.html = this.wrapper.html;
+    var input = document.createElement('input'),
+        attributes = {
+        'id'           : this.id,
+        'name'         : this.id,
+        'class'        : 'input-medium',
+        'type'         : 'text',
+        'placeholder'  : placeholder
+    };
+    $.each(attributes, function(k, v){
+        input.setAttribute(k, v);
+    });
+    this.input = input;
+    this.controls = new Controls([this.input]);
+    this.html = new ControlGroup(this.label, this.controls).html;
 }
 
 function DescriptionField(id, placeholder){
 
     this.id = ['base', 'context', id, 'description'].join('-');
-    this.wrapper = new FluidRowWrapper();
     this.label = new Label(this.id, text='Descrição');
+    var input = document.createElement('input'),
+        attributes = {
+        'id'          : this.id,
+        'name'        : this.id,
+        'class'       : 'input-xlarge',
+        'type'        : 'text',
+        'placeholder' : placeholder
+    };
+    $.each(attributes, function(k, v){
+        input.setAttribute(k, v);
+    });
 
-    var input = document.createElement('input');
-    input.setAttribute('id', this.id);
-    input.setAttribute('name', this.id);
-    input.setAttribute('type', 'text');
-    input.setAttribute('placeholder', placeholder);
-
-    this.wrapper.html.appendChild(this.label.html);
-    this.wrapper.html.appendChild(input);
-    this.html = this.wrapper.html;
+    this.input = input;
+    this.controls = new Controls([this.input]);
+    this.html = new ControlGroup(this.label, this.controls).html;
 }
 
 function DataTypeField(id){
+
     this.id = ['base', 'context', id, 'datatype'].join('-');
-    this.wrapper = new FluidRowWrapper();
     this.label = new Label(this.id, text='Tipo');
     this.datatypes = [
         'AlfaNumerico',
@@ -144,10 +124,9 @@ function DataTypeField(id){
         'HTML',
         'Email'
     ]
-
     var select = document.createElement('select');
     select.setAttribute('name', this.id);
-    select.setAttribute('class', 'span5');
+    select.setAttribute('class', 'span7');
     for (var t in this.datatypes){
         var option = document.createElement('option');
         option.setAttribute('id', this.id + '-' + this.datatypes[t]);
@@ -156,13 +135,12 @@ function DataTypeField(id){
         select.appendChild(option);
     }
 
-    this.wrapper.html.appendChild(this.label.html);
-    this.wrapper.html.appendChild(select);
-    this.html = this.wrapper.html;
+    this.input = select;
+    this.controls = new Controls([this.input]);
+    this.html = new ControlGroup(this.label, this.controls).html;
 }
 
 function IndicesField(id){
-
     this.id = ['base', 'context', id, 'indices'].join('-');
     this.indices = [
         'SemIndice',
@@ -173,38 +151,50 @@ function IndicesField(id){
         'Fuzzy',
         'Vazio',
     ]
-
     var controls = new Array();
     for (var i in this.indices){
         var label = document.createElement('label'),
             checkbox = document.createElement('input');
-
-        checkbox.setAttribute('id', this.id + '-' + this.indices[i]);
-        checkbox.setAttribute('name', this.id);
-        checkbox.setAttribute('type', 'checkbox');
-        checkbox.setAttribute('value', this.indices[i]);
+            span = document.createElement('span');
+            attributes = {
+                'id'   : this.id + '-' + this.indices[i],
+                'name' : this.id,
+                'type' : 'checkbox',
+                'value': this.indices[i]
+            };
+        $.each(attributes, function(k, v){
+            checkbox.setAttribute(k, v);
+        });
+        if(this.indices[i] == 'SemIndice') checkbox.setAttribute('checked', '');
+        label.setAttribute('class', 'span4');
         label.appendChild(checkbox);
+        span.setAttribute('class', 'lbl')
+        span.innerText = ' ' + this.indices[i];
+        label.appendChild(span);
         controls.push(label);
     }
-
     this.label = new Label(this.id, text='Índices');
     this.controls = new Controls(controls);
     this.html = new ControlGroup(this.label, this.controls).html;
-
 }
 
 function MultivaluedField(id){
-
     this.id = ['base', 'context', id, 'multivalued'].join('-');
     var label = document.createElement('label'),
-        checkbox = document.createElement('input');
-
-    checkbox.setAttribute('id', this.id);
-    checkbox.setAttribute('name', this.id);
-    checkbox.setAttribute('type', 'checkbox');
-    checkbox.setAttribute('value', '1');
+        checkbox = document.createElement('input'),
+        span = document.createElement('span'),
+        attributes = {
+            'id'   : this.id,
+            'name' : this.id,
+            'type' : 'checkbox',
+            'class': 'ace-switch ace-switch-6'
+        };
+    $.each(attributes, function(k, v){
+        checkbox.setAttribute(k, v);
+    });
+    span.setAttribute('class', 'lbl');
     label.appendChild(checkbox);
-
+    label.appendChild(span);
     this.label = new Label(this.id, text='Multivalorado');
     this.controls = new Controls([label]);
     this.html = new ControlGroup(this.label, this.controls).html;
@@ -213,6 +203,7 @@ function MultivaluedField(id){
 function BaseContext(context_space){
 
     this.context_space = context_space;
+    var self = this;
 
     this.__defineGetter__('context', function(){
         var _context = {},
@@ -221,29 +212,45 @@ function BaseContext(context_space){
             fname;
         $(this.context_space).children('form').each(function(){
             data_id = this.getAttribute('data-id');
-            serial = $(this).serializeArray();
             _context[data_id] = {};
-            for (var s in serial){
-                f_name = serial[s].name.split('-')[serial[s].name.split('-').length-1];
-                _context[data_id][f_name] = serial[s].value;
-            }
+            _context[data_id].indices = [];
+            _context[data_id].multivalued = false;
+            $.each($(this).serializeArray(), function(k,v){
+                f_name = v.name.split('-'+ data_id +'-')[1];
+                if (f_name == 'indices')
+                    _context[data_id][f_name].push(v.value);
+                else
+                    _context[data_id][f_name] = f_name == 'multivalued'? true: v.value;
+            });
         });
         return _context;
     });
+
+    this.validate = function(){
+        var is_valid = true;
+        $(this.context_space).children('form').each(function(){
+            self.focus_on(this.id);
+            if (!$(this).valid()){
+                is_valid = false;
+                return false;
+            }
+        });
+        return is_valid;
+    };
 
     this.push_form = function(form){
         $(this.context_space).children('form').each(function(){
             $(this).hide();
         });
         this.context_space.appendChild(form.html);
-    }
+    };
 
     this.pop_form = function(form_id){
         $(this.context_space).children('form').each(function(){
             if (this.id == form_id)
                 $(this).remove();
         });
-    }
+    };
 
     this.focus_on = function(form_id){
         $(this.context_space).children('form').each(function(){
@@ -325,8 +332,8 @@ function BaseStructure(nestable_space, context){
             new NameField(id, placeholder=field_name),
             new DescriptionField(id, placeholder=field_desc),
             new DataTypeField(id),
-            new IndicesField(id),
-            new MultivaluedField(id)
+            new MultivaluedField(id),
+            new IndicesField(id)
         ]);
     };
 
@@ -356,26 +363,87 @@ function BaseStructure(nestable_space, context){
         return append_element;
     };
 
-    this.create_field = function(remand){
+    this.add_rules = function(form){
+
+        $.validator.addMethod('alphanumeric', function (value, element) {
+            return /^[a-z0-9]+$/i.test(value);
+        }, "Preencha com alfanumérico válido");
+
+        $.validator.addMethod('indices', function (value, element) {
+            console.log(value, element);
+            return true;
+        }, " ");
+
+        $(form.html).validate({
+            invalidHandler: function (event, validator) { //display error alert on form submit   
+                //$('.alert-error', $('.login-form')).show();
+            },
+            highlight: function (e) {
+                $(e).closest('.control-group').removeClass('info').addClass('error');
+            },
+            success: function (e) {
+                $(e).closest('.control-group').removeClass('error').addClass('info');
+                $(e).remove();
+            },
+        });
+
+        $(form.elements).each(function(k,v){
+            if(v instanceof NameField){
+                $(v.input).rules('add', {
+                    required: true,
+                    alphanumeric: 'required',
+                    messages: {
+                        required: 'Preencha o campo Nome'
+                    }
+                });
+            }
+            if(v instanceof DescriptionField){
+                $(v.input).rules('add', {
+                    required: true,
+                    messages: {
+                        required: 'Preencha o campo Descrição'
+                    }
+                });
+            }
+            if(v instanceof DataTypeField){}
+            if(v instanceof MultivaluedField){}
+            if(v instanceof IndicesField){
+                $(v.controls.fields[0]).children('input').rules('add', {
+                    indices: 'required',
+                    messages: {
+                        required: 'Preencha o campo Descrição'
+                    }
+                });
+            }
+        });
+    };
+
+    this.create_field = function(remand, check_valid){
+
+        if(check_valid){
+            if(!this.context.validate()) return false;
+        }
 
         var field_name = 'Campo' + this.id,
             field_desc = 'Descrição do campo ' + this.id,
             li = this.dd_item(this.id, no_children=true),
             div = this.dd_handle(this.id, field_name),
-            append_element = this.get_auto_append_element();
+            append_element = this.get_auto_append_element(),
+            field_form = this.field_form(this.id, field_name, field_desc);
 
         li.appendChild(div);
-
-        var field_form = this.field_form(this.id, field_name, field_desc);
         this.context.push_form(field_form);
+        this.add_rules(field_form);
         this.id = this.id + 1;
         if(remand) return li;
         append_element.appendChild(li);
         this.nestable_space.scroll_bottom();
-
     };
 
     this.create_group = function(){
+
+        if(!this.context.validate()) return;
+
         var group_name = 'Grupo' + this.id,
             group_desc = 'Descrição do grupo ' + this.id,
             group_id = this.id;
@@ -402,6 +470,7 @@ function BaseStructure(nestable_space, context){
         append_element.appendChild(li);
         var group_form = this.group_form(group_id, group_name, group_desc);
         this.context.push_form(group_form);
+        this.add_rules(group_form);
         this.nestable_space.scroll_bottom();
 
         if(this.auto_append)
@@ -513,8 +582,8 @@ function BaseStructure(nestable_space, context){
 
 }
 
-nestable_space = document.getElementById('ol1');
-context_space = document.getElementById('infobase2');
+nestable_space = document.getElementById('base-structure');
+context_space = document.getElementById('base-context');
 
 context = new BaseContext(context_space)
 nest = new BaseStructure(nestable_space, context)
