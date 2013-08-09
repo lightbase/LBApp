@@ -4,6 +4,7 @@ function log(l){
 }
 
 function Label(field_id, text){
+
     var label = document.createElement('label'),
         bold = document.createElement('b');
     label.setAttribute('for', field_id);
@@ -19,11 +20,8 @@ function Controls(fields){
     if (!$.isArray(fields)) throw new TypeError('fields must be instance of Array');
     var controls = document.createElement('div');
     controls.setAttribute('class', 'controls');
-
-    for (var f in fields){
+    for (var f in fields)
         controls.appendChild(fields[f]);
-    }
-
     this.fields = fields;
     this.html = controls;
 }
@@ -267,7 +265,7 @@ function BaseContext(context_space){
             onfocusout: function(e){
                 var is_valid = $(e).valid();
                 if (is_valid && e.name.split('-' + e.getAttribute('data-id') + '-')[1] == 'name'){
-                    nest.refresh();
+                    base.refresh();
                 }
             }
         });
@@ -358,7 +356,6 @@ function BaseContext(context_space){
             return forms[forms.length-1].id;
         }
     });
-
 }
 
 function BaseStructure(nestable_space, context){
@@ -453,9 +450,8 @@ function BaseStructure(nestable_space, context){
 
     this.create_field = function(remand, check_valid){
 
-        if(check_valid){
+        if(check_valid)
             if(!this.context.validate()) return false;
-        }
 
         var field_name = 'Campo' + this.id,
             field_desc = 'Descrição do campo ' + this.id,
@@ -615,11 +611,11 @@ function BaseStructure(nestable_space, context){
 
 }
 
-nestable_space = document.getElementById('base-structure');
-context_space = document.getElementById('base-context');
+var nestable_space = document.getElementById('base-structure');
+var context_space = document.getElementById('base-context');
 
-context = new BaseContext(context_space)
-nest = new BaseStructure(nestable_space, context)
+var context = new BaseContext(context_space);
+base = new BaseStructure(nestable_space, context)
 
 
 
