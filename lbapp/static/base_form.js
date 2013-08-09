@@ -251,6 +251,21 @@ function BaseContext(context_space){
             return /^[a-z0-9-_]+$/i.test(value);
         }, "Preencha com alfanumérico válido");
 
+        $.validator.addMethod('single_level_field', function (value, element) {
+            var data_id = element.getAttribute('data-id'),
+                parent = $('#nestable-' + data_id + '-item').parent(),
+                response = true,
+                sibling;
+                $(parent).children('li').each(function(){
+                    sibling = this.getAttribute('data-id');
+                    if(sibling != data_id){
+                        if ($('#base-context-' + sibling + '-name')[0].value == value)
+                            response = false;
+                    }
+                });
+            return response;
+        }, "Proibido repetir no mesmo nível");
+
         $(form.html).validate({
             invalidHandler: function (event, validator) { //display error alert on form submit   
                 //$('.alert-error', $('.login-form')).show();
@@ -275,6 +290,7 @@ function BaseContext(context_space){
                 $(v.input).rules('add', {
                     required: true,
                     alphanumeric: 'required',
+                    single_level_field: 'required',
                     messages: {
                         required: 'Preencha o campo Nome'
                     }
@@ -611,11 +627,12 @@ function BaseStructure(nestable_space, context){
 
 }
 
-var nestable_space = document.getElementById('base-structure');
-var context_space = document.getElementById('base-context');
+/* Initialize plugin */
 
-var context = new BaseContext(context_space);
-base = new BaseStructure(nestable_space, context)
+var nestable_space = document.getElementById('base-structure'),
+    context_space = document.getElementById('base-context'),
+    context = new BaseContext(context_space),
+    base = new BaseStructure(nestable_space, context);
 
 
 
