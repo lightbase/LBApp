@@ -3,7 +3,6 @@ function log(l){
     console.log(l)
 }
 
-
 function Label(field_id, text){
     var label = document.createElement('label'),
         bold = document.createElement('b');
@@ -48,9 +47,14 @@ function Form(id, elements){
 
     var form_id = ['base', 'context', id, 'form'].join('-'),
         form = document.createElement('form');
-    form.setAttribute('id', form_id);
-    form.setAttribute('data-id', id);
-    form.setAttribute('style', 'display:block');
+        attributes = {
+            'id'     : form_id,
+            'data-id': id,
+            'style'  : 'display:block'
+        }
+    $.each(attributes, function(k, v){
+        form.setAttribute(k, v);
+    });
 
     for (var e in elements) form.appendChild(elements[e].html);
 
@@ -238,6 +242,53 @@ function BaseContext(context_space){
         return is_valid;
     };
 
+    this.add_rules = function(form){
+
+        $.validator.addMethod('alphanumeric', function (value, element) {
+            return /^[a-z0-9]+$/i.test(value);
+        }, "Preencha com alfanumérico válido");
+
+        $(form.html).validate({
+            invalidHandler: function (event, validator) { //display error alert on form submit   
+                //$('.alert-error', $('.login-form')).show();
+            },
+            highlight: function (e) {
+                $(e).closest('.control-group').removeClass('info').addClass('error');
+            },
+            success: function (e) {
+                $(e).closest('.control-group').removeClass('error').addClass('info');
+                $(e).remove();
+            },
+            onfocusout: function(){
+                nest.refresh();
+            }
+        });
+
+        $(form.elements).each(function(k,v){
+            if(v instanceof NameField){
+                $(v.input).rules('add', {
+                    required: true,
+                    alphanumeric: 'required',
+                    messages: {
+                        required: 'Preencha o campo Nome'
+                    }
+                });
+            }
+            if(v instanceof DescriptionField){
+                $(v.input).rules('add', {
+                    required: true,
+                    messages: {
+                        required: 'Preencha o campo Descrição'
+                    }
+                });
+            }
+            if(v instanceof DataTypeField){}
+            if(v instanceof MultivaluedField){}
+            if(v instanceof IndicesField){
+            }
+        });
+    };
+
     this.push_form = function(form){
         $(this.context_space).children('form').each(function(){
             $(this).hide();
@@ -363,60 +414,6 @@ function BaseStructure(nestable_space, context){
         return append_element;
     };
 
-    this.add_rules = function(form){
-
-        $.validator.addMethod('alphanumeric', function (value, element) {
-            return /^[a-z0-9]+$/i.test(value);
-        }, "Preencha com alfanumérico válido");
-
-        $.validator.addMethod('indices', function (value, element) {
-            console.log(value, element);
-            return true;
-        }, " ");
-
-        $(form.html).validate({
-            invalidHandler: function (event, validator) { //display error alert on form submit   
-                //$('.alert-error', $('.login-form')).show();
-            },
-            highlight: function (e) {
-                $(e).closest('.control-group').removeClass('info').addClass('error');
-            },
-            success: function (e) {
-                $(e).closest('.control-group').removeClass('error').addClass('info');
-                $(e).remove();
-            },
-        });
-
-        $(form.elements).each(function(k,v){
-            if(v instanceof NameField){
-                $(v.input).rules('add', {
-                    required: true,
-                    alphanumeric: 'required',
-                    messages: {
-                        required: 'Preencha o campo Nome'
-                    }
-                });
-            }
-            if(v instanceof DescriptionField){
-                $(v.input).rules('add', {
-                    required: true,
-                    messages: {
-                        required: 'Preencha o campo Descrição'
-                    }
-                });
-            }
-            if(v instanceof DataTypeField){}
-            if(v instanceof MultivaluedField){}
-            if(v instanceof IndicesField){
-                $(v.controls.fields[0]).children('input').rules('add', {
-                    indices: 'required',
-                    messages: {
-                        required: 'Preencha o campo Descrição'
-                    }
-                });
-            }
-        });
-    };
 
     this.create_field = function(remand, check_valid){
 
@@ -433,7 +430,7 @@ function BaseStructure(nestable_space, context){
 
         li.appendChild(div);
         this.context.push_form(field_form);
-        this.add_rules(field_form);
+        this.context.add_rules(field_form);
         this.id = this.id + 1;
         if(remand) return li;
         append_element.appendChild(li);
@@ -470,7 +467,7 @@ function BaseStructure(nestable_space, context){
         append_element.appendChild(li);
         var group_form = this.group_form(group_id, group_name, group_desc);
         this.context.push_form(group_form);
-        this.add_rules(group_form);
+        this.context.add_rules(group_form);
         this.nestable_space.scroll_bottom();
 
         if(this.auto_append)
