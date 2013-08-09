@@ -72,6 +72,7 @@ function NameField(id, placeholder){
         attributes = {
         'id'           : this.id,
         'name'         : this.id,
+        'data-id'      : id,
         'class'        : 'input-medium',
         'type'         : 'text',
         'placeholder'  : placeholder
@@ -155,16 +156,18 @@ function IndicesField(id){
         'Fuzzy',
         'Vazio',
     ]
-    var controls = new Array();
+    var controls = new Array(),
+        input = [];
     for (var i in this.indices){
         var label = document.createElement('label'),
             checkbox = document.createElement('input');
             span = document.createElement('span');
             attributes = {
-                'id'   : this.id + '-' + this.indices[i],
-                'name' : this.id,
-                'type' : 'checkbox',
-                'value': this.indices[i]
+                'id'        : this.id + '-' + this.indices[i],
+                'name'      : this.id,
+                'index-name': this.indices[i],
+                'type'      : 'checkbox',
+                'value'     : this.indices[i]
             };
         $.each(attributes, function(k, v){
             checkbox.setAttribute(k, v);
@@ -172,11 +175,13 @@ function IndicesField(id){
         if(this.indices[i] == 'SemIndice') checkbox.setAttribute('checked', '');
         label.setAttribute('class', 'span4');
         label.appendChild(checkbox);
+        input.push(checkbox);
         span.setAttribute('class', 'lbl')
         span.innerText = ' ' + this.indices[i];
         label.appendChild(span);
         controls.push(label);
     }
+    this.input = input;
     this.label = new Label(this.id, text='Índices');
     this.controls = new Controls(controls);
     this.html = new ControlGroup(this.label, this.controls).html;
@@ -245,7 +250,7 @@ function BaseContext(context_space){
     this.add_rules = function(form){
 
         $.validator.addMethod('alphanumeric', function (value, element) {
-            return /^[a-z0-9]+$/i.test(value);
+            return /^[a-z0-9-_]+$/i.test(value);
         }, "Preencha com alfanumérico válido");
 
         $(form.html).validate({
@@ -259,8 +264,11 @@ function BaseContext(context_space){
                 $(e).closest('.control-group').removeClass('error').addClass('info');
                 $(e).remove();
             },
-            onfocusout: function(){
-                nest.refresh();
+            onfocusout: function(e){
+                var is_valid = $(e).valid();
+                if (is_valid && e.name.split('-' + e.getAttribute('data-id') + '-')[1] == 'name'){
+                    nest.refresh();
+                }
             }
         });
 
@@ -285,6 +293,34 @@ function BaseContext(context_space){
             if(v instanceof DataTypeField){}
             if(v instanceof MultivaluedField){}
             if(v instanceof IndicesField){
+                var no_index_ipt,
+                    index_name;
+                $.each(v.input, function(i, input){
+                    index_name = input.getAttribute('index-name');
+                    if (index_name != 'SemIndice')
+                        input.disabled = true;
+                    else
+                        no_index_ipt = input;
+                });
+                $(no_index_ipt).change(function(){
+                    if (this.checked == true){
+                        $.each(v.input, function(i, input){
+                            index_name = input.getAttribute('index-name');
+                            if (index_name != 'SemIndice'){
+                                input.checked = false;
+                                input.disabled = true;
+                            }
+                        });
+                    }
+                    else{
+                        $.each(v.input, function(i, input){
+                            index_name = input.getAttribute('index-name');
+                            if (index_name != 'SemIndice'){
+                                input.disabled = false;
+                            }
+                        });
+                    }
+                });
             }
         });
     };
