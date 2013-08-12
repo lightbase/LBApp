@@ -370,6 +370,8 @@ function BaseContext(context_space){
                 else
                     _context[data_id][f_name] = v.value;
             });
+            if (_context[data_id].indices.length == 0)
+                _context[data_id].indices.push('Nenhum');
         });
         return _context;
     });
@@ -391,7 +393,7 @@ function BaseContext(context_space){
         $.validator.addMethod('alphanumeric', function (value, element) {
             /*http://stackoverflow.com/questions/4977898/check-for-valid-sql-column-name*/
             return /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(value);
-        }, "Preencha com alfanumérico válido");
+        }, "Preencha com caracteres válidos");
 
         $.validator.addMethod('single_level_field', function (value, element) {
             var data_id = element.getAttribute('data-id'),
@@ -449,6 +451,7 @@ function BaseContext(context_space){
             if(v instanceof DataTypeField){
                 var data_id = v.input.getAttribute('data-id'),
                     index_el,
+                    required_el,
                     forbidden_indices;
                 $(v.input).change(function(e){
                     forbidden_indices = PROHIBITIONS[this.value];
@@ -462,8 +465,10 @@ function BaseContext(context_space){
                         else{
                             // Nothing to worry about.
                             if (index != 'Nenhum')
-                                index_el[0].disabled = $.inArray('Nenhum', forbidden_indices)!=-1? false: true
-                            index_el.parent().show();
+                                index_el[0].disabled = $.inArray('Nenhum', forbidden_indices)!=-1? false: true;
+                            required_el = $(['#base-context', data_id, 'required'].join('-'));
+                            if (!((index == 'Vazio') && required_el[0].checked))
+                                index_el.parent().show();
                         }
                     });
                 });
@@ -473,10 +478,16 @@ function BaseContext(context_space){
                 $(v.input).change(function(){
                     var data_id = this.getAttribute('data-id'),
                         empty_index_el = $(['#base-context', data_id, 'indices-Vazio'].join('-'));
-                        if (empty_index_el[0].checked){
+                        if(v.input.checked){
+                            empty_index_el[0].checked = false;
+                            empty_index_el.parent().hide();
+                        }
+                        else
+                            empty_index_el.parent().show();
+                        /*if (empty_index_el[0].checked){
                             alert('Desmarque a opcão "índice Vazio".');
                             this.checked = false;
-                        }
+                        }*/
                 });
             }
             if(v instanceof IndicesField){
@@ -795,6 +806,48 @@ function BaseStructure(nestable_space, context){
 
     this.__defineGetter__('structure', function(){
         return $('.dd').nestable('serialize');
+    });
+
+    this.__defineGetter__('json', function(){
+        var structure = this.structure,
+            context = this.context.context,
+            metadata = this.metadata,
+            base = {},
+            go_further = function(_structure){
+                var frame_data,
+                    _content = [];
+                $.each(_structure, function(i, frame){
+                    frame_data = context[frame.id];
+                    if (frame.children){
+                        _content.push({
+                            group: {
+                                metadata: {
+                                    name: frame_data.name,
+                                    description: frame_data.description,
+                                    multivalued: frame_data.multivalued,
+                                },
+                                content: go_further(frame.children)
+                            }
+                        });
+                    }
+                    else{
+                        _content.push({
+                            field: {
+                                name: frame_data.name,
+                                description: frame_data.description,
+                                datatype: frame_data.datatype,
+                                required: frame_data.required,
+                                multivalued: frame_data.multivalued,
+                                indices: frame_data.indices
+                            }
+                        });
+                    }
+                });
+                return _content;
+            };
+        base.metadata = metadata;
+        base.content = go_further(structure);
+        return JSON.stringify(base);
     });
 
     this.__defineGetter__('current_item', function(){
