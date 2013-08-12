@@ -552,11 +552,17 @@ function BaseContext(context_space){
     };
 
     this.focus_on = function(form_id){
+        var item_handle;
         $(this.context_space).children('form').each(function(){
-            if (this.id == form_id)
+            item_handle = $(['#nestable', this.getAttribute('data-id'), 'handle'].join('-'));
+            if (this.id == form_id){
                 $(this).show();
-            else
+                item_handle.css('background', 'rgb(149, 206, 243)');
+            }
+            else{
                 $(this).hide();
+                item_handle.css('background', '');
+            }
         });
     };
 
@@ -681,6 +687,7 @@ function BaseStructure(nestable_space, context){
         this.id = this.id + 1;
         if(remand) return li;
         append_element.appendChild(li);
+        this.context.focus_on(field_form.id);
         this.nestable_space.scroll_bottom();
     };
 
@@ -716,6 +723,7 @@ function BaseStructure(nestable_space, context){
         this.context.push_form(group_form);
         this.context.add_rules(group_form);
         this.nestable_space.scroll_bottom();
+        this.context.focus_on(group_form.id);
 
         if(this.auto_append)
             this.auto_append_el = ol;
