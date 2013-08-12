@@ -1,7 +1,135 @@
 
+/* DataType Defaults */
+
+var DATATYPES= [
+    'AlfaNumerico',
+    'Documento',
+    'Inteiro',
+    'Decimal',
+    'Moeda',
+    'AutoEnumerado',
+    'Data',
+    'Hora',
+    'Imagem',
+    'Som',
+    'Video',
+    'URL',
+    'Verdadeiro/Falso',
+    'Texto',
+    'Arquivo',
+    'HTML',
+    'Email',
+    'JSON'
+];
+
+/* Indices Defaults */
+
+var INDICES = [
+    'Nenhum',
+    'Textual',
+    'Ordenado',
+    'Unico',
+    'Fonetico',
+    'Fuzzy',
+    'Vazio',
+];
+
+/* Index Versus Datatypes prohibitions Defaults.
+   Each datatype cannot be created with related index. */
+
+var PROHIBITIONS= {
+    'AlfaNumerico': [
+    ],
+    'Documento': [
+        'Ordenado',
+        'Unico',
+    ],
+    'Inteiro': [
+        'Fonetico',
+        'Fuzzy',
+    ],
+    'Decimal': [
+        'Fonetico',
+        'Fuzzy',
+    ],
+    'Moeda': [
+        'Fonetico',
+        'Fuzzy',
+    ],
+    'AutoEnumerado': [
+        'Nenhum',
+        'Fonetico',
+        'Fuzzy',
+        'Vazio'
+    ],
+    'Data/Hora': [
+        'Fonetico',
+        'Fuzzy',
+    ],
+    'Data': [
+        'Fonetico',
+        'Fuzzy',
+    ],
+    'Hora': [
+        'Fonetico',
+        'Fuzzy',
+    ],
+    'Imagem': [
+        'Ordenado',
+        'Unico',
+        'Fonetico',
+        'Fuzzy',
+    ],
+    'Som': [
+        'Ordenado',
+        'Unico',
+        'Fonetico',
+        'Fuzzy',
+    ],
+    'Video': [
+        'Ordenado',
+        'Unico',
+        'Fonetico',
+        'Fuzzy',
+    ],
+    'URL': [
+        'Fonetico',
+        'Fuzzy',
+    ],
+    'Verdadeiro/Falso': [
+        'Unico',
+        'Fonetico',
+        'Fuzzy',
+    ],
+    'Texto': [
+        'Ordenado',
+        'Unico',
+    ],
+    'Arquivo': [
+        'Ordenado',
+        'Unico',
+    ],
+    'HTML': [
+        'Ordenado',
+        'Unico',
+    ],
+    'Email': [
+    ],
+    'JSON': [
+        'Ordenado',
+        'Unico',
+    ]
+}
+
+
 function log(l){
     console.log(l)
 }
+
+
+/*
+    Form Classes and html definitions. 
+*/
 
 function Label(field_id, text){
 
@@ -108,27 +236,11 @@ function DataTypeField(id){
 
     this.id = ['base', 'context', id, 'datatype'].join('-');
     this.label = new Label(this.id, text='Tipo');
-    this.datatypes = [
-        'AlfaNumerico',
-        'Documento',
-        'Inteiro',
-        'Decimal',
-        'Moeda',
-        'AutoEnumerado',
-        'Data',
-        'Hora',
-        'Imagem',
-        'Som',
-        'Video',
-        'URL',
-        'Verdadeiro/Falso',
-        'Texto',
-        'Arquivo',
-        'HTML',
-        'Email'
-    ]
+    this.datatypes = DATATYPES;
+
     var select = document.createElement('select');
     select.setAttribute('name', this.id);
+    select.setAttribute('data-id', id);
     select.setAttribute('class', 'span7');
     for (var t in this.datatypes){
         var option = document.createElement('option');
@@ -145,15 +257,7 @@ function DataTypeField(id){
 
 function IndicesField(id){
     this.id = ['base', 'context', id, 'indices'].join('-');
-    this.indices = [
-        'SemIndice',
-        'Textual',
-        'Ordenado',
-        'Unico',
-        'Fonetico',
-        'Fuzzy',
-        'Vazio',
-    ]
+    this.indices = INDICES;
     var controls = new Array(),
         input = [];
     for (var i in this.indices){
@@ -170,7 +274,7 @@ function IndicesField(id){
         $.each(attributes, function(k, v){
             checkbox.setAttribute(k, v);
         });
-        if(this.indices[i] == 'SemIndice') checkbox.setAttribute('checked', '');
+        if(this.indices[i] == 'Nenhum') checkbox.setAttribute('checked', '');
         label.setAttribute('class', 'span4');
         label.appendChild(checkbox);
         input.push(checkbox);
@@ -182,6 +286,28 @@ function IndicesField(id){
     this.input = input;
     this.label = new Label(this.id, text='Índices');
     this.controls = new Controls(controls);
+    this.html = new ControlGroup(this.label, this.controls).html;
+}
+
+function RequiredField(id){
+    this.id = ['base', 'context', id, 'required'].join('-');
+    var label = document.createElement('label'),
+        checkbox = document.createElement('input'),
+        span = document.createElement('span'),
+        attributes = {
+            'id'   : this.id,
+            'name' : this.id,
+            'type' : 'checkbox',
+            'class': 'ace-switch ace-switch-6'
+        };
+    $.each(attributes, function(k, v){
+        checkbox.setAttribute(k, v);
+    });
+    span.setAttribute('class', 'lbl');
+    label.appendChild(checkbox);
+    label.appendChild(span);
+    this.label = new Label(this.id, text='Obrigatório');
+    this.controls = new Controls([label]);
     this.html = new ControlGroup(this.label, this.controls).html;
 }
 
@@ -207,6 +333,12 @@ function MultivaluedField(id){
     this.html = new ControlGroup(this.label, this.controls).html;
 }
 
+/*
+    Plugin Classes.
+    BaseContext: Properties from each Base field.
+    BaseStructure: Base items that composite its structure.
+*/
+
 function BaseContext(context_space){
 
     this.context_space = context_space;
@@ -222,12 +354,17 @@ function BaseContext(context_space){
             _context[data_id] = {};
             _context[data_id].indices = [];
             _context[data_id].multivalued = false;
+            _context[data_id].required = false;
             $.each($(this).serializeArray(), function(k,v){
-                f_name = v.name.split('-'+ data_id +'-')[1];
+                f_name = v.name.split('-' + data_id + '-')[1];
                 if (f_name == 'indices')
                     _context[data_id][f_name].push(v.value);
+                else if (f_name == 'required')
+                    _context[data_id][f_name] = true;
+                else if (f_name == 'multivalued')
+                    _context[data_id][f_name] = true;
                 else
-                    _context[data_id][f_name] = f_name == 'multivalued'? true: v.value;
+                    _context[data_id][f_name] = v.value;
             });
         });
         return _context;
@@ -304,14 +441,35 @@ function BaseContext(context_space){
                     }
                 });
             }
-            if(v instanceof DataTypeField){}
+            if(v instanceof DataTypeField){
+                var data_id = v.input.getAttribute('data-id'),
+                    index_el,
+                    forbidden_indices;
+                $(v.input).change(function(e){
+                    forbidden_indices = PROHIBITIONS[this.value];
+                    $.each(INDICES, function(i, index){
+                        index_el = $(['#base', 'context', data_id, 'indices', index].join('-'));
+                        index_el[0].checked = index == 'Nenhum'? true: false;
+                        if ($.inArray(index, forbidden_indices) != -1){
+                            // Forbidden index detected.
+                            index_el.parent().hide();
+                        }
+                        else{
+                            // Nothing to worry about.
+                            if (index != 'Nenhum')
+                                index_el[0].disabled = $.inArray('Nenhum', forbidden_indices)!=-1? false: true
+                            index_el.parent().show();
+                        }
+                    });
+                });
+            }
             if(v instanceof MultivaluedField){}
             if(v instanceof IndicesField){
                 var no_index_ipt,
                     index_name;
                 $.each(v.input, function(i, input){
                     index_name = input.getAttribute('index-name');
-                    if (index_name != 'SemIndice')
+                    if (index_name != 'Nenhum')
                         input.disabled = true;
                     else
                         no_index_ipt = input;
@@ -320,7 +478,7 @@ function BaseContext(context_space){
                     if (this.checked == true){
                         $.each(v.input, function(i, input){
                             index_name = input.getAttribute('index-name');
-                            if (index_name != 'SemIndice'){
+                            if (index_name != 'Nenhum'){
                                 input.checked = false;
                                 input.disabled = true;
                             }
@@ -329,7 +487,7 @@ function BaseContext(context_space){
                     else{
                         $.each(v.input, function(i, input){
                             index_name = input.getAttribute('index-name');
-                            if (index_name != 'SemIndice'){
+                            if (index_name != 'Nenhum'){
                                 input.disabled = false;
                             }
                         });
@@ -432,6 +590,7 @@ function BaseStructure(nestable_space, context){
             new NameField(id, placeholder=field_name),
             new DescriptionField(id, placeholder=field_desc),
             new DataTypeField(id),
+            new RequiredField(id),
             new MultivaluedField(id),
             new IndicesField(id)
         ]);
