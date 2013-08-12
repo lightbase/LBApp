@@ -267,6 +267,7 @@ function IndicesField(id){
             attributes = {
                 'id'        : this.id + '-' + this.indices[i],
                 'name'      : this.id,
+                'data-id'   : id,
                 'index-name': this.indices[i],
                 'type'      : 'checkbox',
                 'value'     : this.indices[i]
@@ -295,10 +296,11 @@ function RequiredField(id){
         checkbox = document.createElement('input'),
         span = document.createElement('span'),
         attributes = {
-            'id'   : this.id,
-            'name' : this.id,
-            'type' : 'checkbox',
-            'class': 'ace-switch ace-switch-6'
+            'id'     : this.id,
+            'name'   : this.id,
+            'data-id': id,
+            'type'   : 'checkbox',
+            'class'  : 'ace-switch ace-switch-6'
         };
     $.each(attributes, function(k, v){
         checkbox.setAttribute(k, v);
@@ -306,6 +308,7 @@ function RequiredField(id){
     span.setAttribute('class', 'lbl');
     label.appendChild(checkbox);
     label.appendChild(span);
+    this.input = checkbox;
     this.label = new Label(this.id, text='Obrigatório');
     this.controls = new Controls([label]);
     this.html = new ControlGroup(this.label, this.controls).html;
@@ -464,15 +467,39 @@ function BaseContext(context_space){
                 });
             }
             if(v instanceof MultivaluedField){}
+            if(v instanceof RequiredField){
+                $(v.input).change(function(){
+                    var data_id = this.getAttribute('data-id'),
+                        empty_index_el = $(['#base-context', data_id, 'indices-Vazio'].join('-'));
+                        if (empty_index_el[0].checked){
+                            alert('Desmarque a opcão "índice Vazio".');
+                            this.checked = false;
+                        }
+                });
+            }
             if(v instanceof IndicesField){
                 var no_index_ipt,
+                    empty_index_ipt,
                     index_name;
                 $.each(v.input, function(i, input){
                     index_name = input.getAttribute('index-name');
-                    if (index_name != 'Nenhum')
+                    if (index_name != 'Nenhum'){
                         input.disabled = true;
+                        if (index_name == 'Vazio')
+                            empty_index_ipt = input;
+                    }
                     else
                         no_index_ipt = input;
+                });
+                $(empty_index_ipt).change(function(){
+                        if(this.checked){
+                            var data_id = this.getAttribute('data-id'),
+                                required_el = $(['#base', 'context', data_id, 'required'].join('-'));
+                            if (required_el[0].checked){
+                                alert('Desmarque a opção "Obrigatório".')
+                                this.checked = false;
+                            }
+                        }
                 });
                 $(no_index_ipt).change(function(){
                     if (this.checked == true){
