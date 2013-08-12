@@ -25,13 +25,13 @@ var DATATYPES= [
 /* Indices Defaults */
 
 var INDICES = [
-    'Nenhum',
+    'Nenhum', // Update document on change.
     'Textual',
     'Ordenado',
     'Unico',
     'Fonetico',
     'Fuzzy',
-    'Vazio',
+    'Vazio', // Update document on change.
 ];
 
 /* Index Versus Datatypes prohibitions Defaults.
@@ -172,17 +172,17 @@ function ControlGroup(label, controls){
 function Form(id, elements){
 
     var form_id = ['base', 'context', id, 'form'].join('-'),
-        form = document.createElement('form');
+        form = document.createElement('form'),
         attributes = {
             'id'     : form_id,
             'data-id': id,
             'style'  : 'display:block'
-        }
+        };
     $.each(attributes, function(k, v){
         form.setAttribute(k, v);
     });
-
-    for (var e in elements) form.appendChild(elements[e].html);
+    for (var e in elements)
+        form.appendChild(elements[e].html);
 
     this.id = form_id;
     this.data_id = id;
@@ -320,10 +320,11 @@ function MultivaluedField(id){
         checkbox = document.createElement('input'),
         span = document.createElement('span'),
         attributes = {
-            'id'   : this.id,
-            'name' : this.id,
-            'type' : 'checkbox',
-            'class': 'ace-switch ace-switch-6'
+            'id'     : this.id,
+            'name'   : this.id,
+            'data-id': id,
+            'type'   : 'checkbox',
+            'class'  : 'ace-switch ace-switch-6'
         };
     $.each(attributes, function(k, v){
         checkbox.setAttribute(k, v);
@@ -388,7 +389,8 @@ function BaseContext(context_space){
     this.add_rules = function(form){
 
         $.validator.addMethod('alphanumeric', function (value, element) {
-            return /^[a-z0-9-_]+$/i.test(value);
+            /*http://stackoverflow.com/questions/4977898/check-for-valid-sql-column-name*/
+            return /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(value);
         }, "Preencha com alfanumérico válido");
 
         $.validator.addMethod('single_level_field', function (value, element) {
@@ -719,9 +721,8 @@ function BaseStructure(nestable_space, context){
         var form = this.context.current_form;
         if(!form) return false; // Nothing to delete.
 
-        var item_id = ['nestable', form.getAttribute('data-id'), 'item'].join('-');
-
-        var list_item = $('#' + item_id);
+        var item_id = ['nestable', form.getAttribute('data-id'), 'item'].join('-'),
+            list_item = $('#' + item_id);
 
         // Check and block if is user is trying to delete a field which is within a group, 
         // and this group only has one child field.
