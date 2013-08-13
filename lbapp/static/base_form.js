@@ -745,8 +745,14 @@ function BaseStructure(nestable_space, context){
     };
 
     this.remove_element = function(){
-        var form = this.context.current_form;
+        var form = this.context.current_form, 
+            forms = $(this.context.context_space).children('form');
+
         if(!form) return false; // Nothing to delete.
+        if (forms.length == 1){
+            alert('A base precisa de ao menos um campo.')
+            return false;
+        }
 
         var item_id = ['nestable', form.getAttribute('data-id'), 'item'].join('-'),
             list_item = $('#' + item_id);
