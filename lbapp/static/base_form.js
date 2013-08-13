@@ -370,8 +370,12 @@ function BaseContext(context_space){
                 else
                     _context[data_id][f_name] = v.value;
             });
-            if (_context[data_id].indices.length == 0)
-                _context[data_id].indices.push('Nenhum');
+            if (_context[data_id].indices.length == 0){
+                if (_context[data_id].datatype == 'AutoEnumerado')
+                    _context[data_id].indices.push('Ordenado');
+                else
+                    _context[data_id].indices.push('Nenhum');
+            }
         });
         return _context;
     });
@@ -452,12 +456,17 @@ function BaseContext(context_space){
                 var data_id = v.input.getAttribute('data-id'),
                     index_el,
                     required_el,
+                    datatype,
                     forbidden_indices;
                 $(v.input).change(function(e){
                     forbidden_indices = PROHIBITIONS[this.value];
+                    datatype = this.value;
                     $.each(INDICES, function(i, index){
                         index_el = $(['#base', 'context', data_id, 'indices', index].join('-'));
-                        index_el[0].checked = index == 'Nenhum'? true: false;
+                        if (datatype === 'AutoEnumerado')
+                            index_el[0].checked = false;
+                        else
+                            index_el[0].checked = index == 'Nenhum'? true: false;
                         if ($.inArray(index, forbidden_indices) != -1){
                             // Forbidden index detected.
                             index_el.parent().hide();
@@ -557,7 +566,7 @@ function BaseContext(context_space){
             item_handle = $(['#nestable', this.getAttribute('data-id'), 'handle'].join('-'));
             if (this.id == form_id){
                 $(this).show();
-                item_handle.css('background', 'rgb(149, 206, 243)');
+                item_handle.css('background', 'rgb(219, 241, 255)');
             }
             else{
                 $(this).hide();
@@ -667,7 +676,6 @@ function BaseStructure(nestable_space, context){
         }
         return append_element;
     };
-
 
     this.create_field = function(remand, check_valid){
 
