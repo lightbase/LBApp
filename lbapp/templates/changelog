@@ -1,0 +1,61 @@
+v1.1.2
+ * New:
+	Profile page with 3 styles
+	Inline editable plugin with 4 new custom editables (image, wysiwyg, spinner and slider)
+	Tag input plugin
+	Select2 plugin
+	RTL support for right to left languages
+
+ * Enhancements:
+	File input control
+		Added some methods and callbacks for better customization
+	Wysiwyg
+		Easier and more customizable creation of wysiwyg editor control
+		Added resize functionality to images on browsers that don't support (Webkit based browsers)
+	---
+	Using jQuery mobile events to use 'tap' event instead of 'click' when possible for quicker response (esp. for side menu)
+	Login social buttons on login page
+	Side navigation with 3rd & 4th level submenu
+	Fixed position breadcrumbs
+
+ * Fixes:
+	File input fixes
+	Wizard fixes
+	Browser compatibility fixes
+	Some other fixes
+
+ * CSS Changes:
+	Side menu and menu toggler text was a "span" element. Now it should have the ".menu-text" class value
+	Removed "id"s from CSS files and replaced with classes, but HTML elements still have the "id".
+	Icons inside buttons don't have default font sizes. Specify using classes such as .bigger-110 ... .bigger-300
+
+  * Docs & Examples:
+     Documentation Updated.
+     Added a few examples inside the examples folder. More examples will be available on later updates.
+
+ * Updates:
+	jQuery 2.0.3 (with fallback to 1.10.2 for IE 8)
+	Font Awesome v3.2.1
+	jQuery Sparklines 2.1.2
+	Easy Pie Chart 1.2.1
+	jQuery ColorBox 1.4.26
+	Chosen v0.11.1
+	jQuery AutoSize v1.17.1
+	Bootbox 3.3.0
+	jQuery slimScroll 1.2
+	Toopay markdown editor 1.1.1
+
+ * Known Issues:
+	Latest version of Opera is having problems with Treeview and Colorbox when using jQuery 2.x .
+	  >> Problem will be resolved when we use jQuery 1.x .
+	Android's default browser "sometimes" shows the ".label" element with some delay.
+	Internet Explorer (9/10) have problems with wysiwyg editor's link and image input as well as resizing images.
+	  >> Another wysiwyg plugin will be included on next update.
+
+
+v1.1
+ * Added LESS files
+ * Added Mustache templates with relevant PHP and Javascript compilation files
+ * Added Wysiwyg plugin
+ * Added Treeview plguin
+ * Added Markdown editor
