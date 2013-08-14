@@ -125,9 +125,7 @@ function log(l){
 }
 
 
-/*
-    Form Classes and html definitions. 
-*/
+/* Form Classes and html definitions. */
 
 function Label(field_id, text){
 
@@ -188,18 +186,73 @@ function Form(id, elements){
     this.html = form;
 }
 
+function FormActions(id){
+    this.id = ['base-context', id, 'form-actions'].join('-');
+    this.confirm = new ConfirmButton(id);
+    this.cancel = new CancelButton(id);
+
+    var div = document.createElement('div'),
+        span = document.createElement('span');
+
+    span.innerText = '   ';
+    div.setAttribute('class', 'row-fluid span12');
+    div.appendChild(this.confirm.html);
+    div.appendChild(span);
+    div.appendChild(this.cancel.html);
+
+    this.html = div;
+}
+
+function ConfirmButton(id){
+    this.id = ['base-context', id, 'confirm-button'].join('-');
+    var button = document.createElement('button'),
+        icon = document.createElement('i'),
+        attributes = {
+            'id'    : this.id,
+            'class' : 'btn btn-info btn-small',
+            'type'  : 'button'
+        }
+    $.each(attributes, function(k, v){
+        button.setAttribute(k, v);
+    });
+    icon.setAttribute('class', 'icon-ok');
+    icon.innerText = ' Confirmar';
+    button.appendChild(icon);
+    this.html = button;
+}
+
+function CancelButton(id){
+    this.id = ['base-context', id, 'confirm-button'].join('-');
+    var button = document.createElement('button'),
+        icon = document.createElement('i'),
+        attributes = {
+            'id'    : this.id,
+            'class' : 'btn btn-small',
+            'type'  : 'button'
+        }
+    $.each(attributes, function(k, v){
+        button.setAttribute(k, v);
+    });
+    icon.setAttribute('class', 'icon-undo');
+    icon.innerText = ' Cancelar';
+    button.appendChild(icon);
+    this.html = button;
+}
+
+
 function NameField(id, placeholder){
 
     this.id = ['base', 'context', id, 'name'].join('-');
     this.label = new Label(this.id, text='Nome');
     var input = document.createElement('input'),
         attributes = {
-        'id'           : this.id,
-        'name'         : this.id,
-        'data-id'      : id,
-        'class'        : 'input-medium',
-        'type'         : 'text',
-        'placeholder'  : placeholder
+        'id'         : this.id,
+        'name'       : this.id,
+        'data-id'    : id,
+        'class'      : 'input-medium',
+        'type'       : 'text',
+        'init-value' : '',
+        'placeholder': placeholder
     };
     $.each(attributes, function(k, v){
         input.setAttribute(k, v);
@@ -215,11 +268,12 @@ function DescriptionField(id, placeholder){
     this.label = new Label(this.id, text='Descrição');
     var input = document.createElement('input'),
         attributes = {
-        'id'          : this.id,
-        'name'        : this.id,
-        'class'       : 'input-xlarge',
-        'type'        : 'text',
-        'placeholder' : placeholder
+        'id'         : this.id,
+        'name'       : this.id,
+        'class'      : 'input-xlarge',
+        'type'       : 'text',
+        'init-value' : '',
+        'placeholder': placeholder
     };
     $.each(attributes, function(k, v){
         input.setAttribute(k, v);
@@ -235,11 +289,16 @@ function DataTypeField(id){
     this.id = ['base', 'context', id, 'datatype'].join('-');
     this.label = new Label(this.id, text='Tipo');
     this.datatypes = DATATYPES;
-
-    var select = document.createElement('select');
-    select.setAttribute('name', this.id);
-    select.setAttribute('data-id', id);
-    select.setAttribute('class', 'span7');
+    var select = document.createElement('select'),
+        attributes = {
+            'name'      : this.id,
+            'data-id'   : id,
+            'init-value': '',
+            'class'     : 'span7'
+        };
+    $.each(attributes, function(k, v){
+        select.setAttribute(k, v);
+    });
     for (var t in this.datatypes){
         var option = document.createElement('option');
         option.setAttribute('id', this.id + '-' + this.datatypes[t]);
@@ -294,11 +353,12 @@ function RequiredField(id){
         checkbox = document.createElement('input'),
         span = document.createElement('span'),
         attributes = {
-            'id'     : this.id,
-            'name'   : this.id,
-            'data-id': id,
-            'type'   : 'checkbox',
-            'class'  : 'ace-switch ace-switch-6'
+            'id'        : this.id,
+            'name'      : this.id,
+            'data-id'   : id,
+            'init-value': '',
+            'type'      : 'checkbox',
+            'class'     : 'ace-switch ace-switch-6'
         };
     $.each(attributes, function(k, v){
         checkbox.setAttribute(k, v);
@@ -318,11 +378,12 @@ function MultivaluedField(id){
         checkbox = document.createElement('input'),
         span = document.createElement('span'),
         attributes = {
-            'id'     : this.id,
-            'name'   : this.id,
-            'data-id': id,
-            'type'   : 'checkbox',
-            'class'  : 'ace-switch ace-switch-6'
+            'id'        : this.id,
+            'name'      : this.id,
+            'data-id'   : id,
+            'init-value': '',
+            'type'      : 'checkbox',
+            'class'     : 'ace-switch ace-switch-6'
         };
     $.each(attributes, function(k, v){
         checkbox.setAttribute(k, v);
@@ -426,7 +487,7 @@ function BaseContext(context_space){
             onfocusout: function(e){
                 var is_valid = $(e).valid();
                 if (is_valid && e.name.split('-' + e.getAttribute('data-id') + '-')[1] == 'name'){
-                    base.refresh();
+                    //base.refresh();
                 }
             }
         });
@@ -436,7 +497,7 @@ function BaseContext(context_space){
                 $(v.input).rules('add', {
                     required: true,
                     alphanumeric: 'required',
-                    maxlength: 4,
+                    maxlength: 30,
                     single_level_field: 'required',
                     messages: {
                         required: 'Preencha o campo Nome.',
@@ -460,7 +521,7 @@ function BaseContext(context_space){
                     required_el,
                     datatype,
                     forbidden_indices;
-                $(v.input).change(function(e){
+                $(v.input).on('change',function(e){
                     forbidden_indices = PROHIBITIONS[this.value];
                     datatype = this.value;
                     $.each(INDICES, function(i, index){
@@ -495,36 +556,43 @@ function BaseContext(context_space){
                         }
                         else
                             empty_index_el.parent().show();
-                        /*if (empty_index_el[0].checked){
-                            alert('Desmarque a opcão "índice Vazio".');
-                            this.checked = false;
-                        }*/
                 });
             }
-            if(v instanceof IndicesField){
-                var no_index_ipt,
-                    empty_index_ipt,
-                    index_name;
-                $.each(v.input, function(i, input){
-                    index_name = input.getAttribute('index-name');
-                    if (index_name != 'Textual'){
-                        //input.disabled = true;
-                        if (index_name == 'Vazio')
-                            empty_index_ipt = input;
-                    }
-                    else
-                        no_index_ipt = input;
+            if(v instanceof IndicesField){}
+            if(v instanceof FormActions){
+                $(v.confirm.html).click(function(){
+                    $(v.html).parent('form').find('select').each(function(i, el){
+                        el.setAttribute('init-value', el.value);
+                    });
+                    $(v.html).parent('form').find('input').each(function(i, el){
+                        if (el.type == 'text')
+                            el.setAttribute('init-value', el.value);
+                        else if (el.type == 'checkbox')
+                            el.setAttribute('init-value', el.checked);
+                    });
+                    base.refresh();
                 });
-                $(empty_index_ipt).change(function(){
-                        if(this.checked){
-                            var data_id = this.getAttribute('data-id'),
-                                required_el = $(['#base', 'context', data_id, 'required'].join('-'));
-                            if (required_el[0].checked){
-                                alert('Desmarque a opção "Obrigatório".')
-                                this.checked = false;
+                $(v.cancel.html).click(function(){
+                    $(v.html).parent('form').find('select').each(function(i, el){
+                        var init_value = el.getAttribute('init-value');
+                        if (init_value)
+                            el.value = init_value;
+                            $(el).change();
+                    });
+                    $(v.html).parent('form').find('input').each(function(i, el){
+                        var init_value = el.getAttribute('init-value');
+                        if (init_value){
+                            if (el.type == 'text')
+                                el.value = init_value;
+                            else if (el.type == 'checkbox'){
+                                if(init_value == 'true')
+                                    el.checked = true;
+                                if(init_value == 'false')
+                                    el.checked = false;
                             }
                         }
-                });
+                    });
+                })
             }
         });
     };
@@ -630,7 +698,8 @@ function BaseStructure(nestable_space, context){
             new DataTypeField(id),
             new RequiredField(id),
             new MultivaluedField(id),
-            new IndicesField(id)
+            new IndicesField(id),
+            new FormActions(id)
         ]);
     };
 
@@ -638,7 +707,8 @@ function BaseStructure(nestable_space, context){
         return new Form(id, [
             new NameField(id, placeholder=group_name),
             new DescriptionField(id, placeholder=group_desc),
-            new MultivaluedField(id)
+            new MultivaluedField(id),
+            new FormActions(id)
         ]);
     };
 
