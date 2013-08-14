@@ -68,16 +68,6 @@
 
 
 				<div class="page-content">
-					<div class="page-header position-relative">
-						<h1>
-							Form Wizard
-							<small>
-								<i class="icon-double-angle-right"></i>
-								and Validation
-							</small>
-						</h1>
-					</div><!--/.page-header-->
-
 					<div class="row-fluid">
 						<div class="span12">
 							<!--PAGE CONTENT BEGINS-->
@@ -107,17 +97,17 @@
 													<div id="fuelux-wizard" class="row-fluid hide" data-target="#step-container">
 														<ul class="wizard-steps">
 															<li data-target="#step1" class="active">
-																<span class="step">1</span>
+																<span id="step1-button" class="step">1</span>
 																<span class="title">Metadados</span>
 															</li>
 
 															<li data-target="#step2">
-																<span class="step">2</span>
+																<span id="step2-button" class="step">2</span>
 																<span class="title">Estrutura</span>
 															</li>
 
 															<li data-target="#step3">
-																<span class="step">3</span>
+																<span id="step3-button" class="step">3</span>
 																<span class="title">Salvar Base</span>
 															</li>
 
@@ -236,56 +226,6 @@
 																</div>
                                                             </div>
 
-																<!--<div class="control-group">
-																	<label class="control-label" for="phone">Phone Number:</label>
-
-																	<div class="controls">
-																		<div class="span3 input-prepend">
-																			<span class="add-on">
-																				<i class="icon-phone"></i>
-																			</span>
-
-																			<input class="span12" type="tel" id="phone" name="phone" />
-																		</div>
-																	</div>
-																</div>-->
-
-
-																<!--<div class="control-group">
-																	<label class="control-label">Subscribe to</label>
-
-																	<div class="controls">
-																		<span class="span12">
-																			<label>
-																				<input name="subscription" value="1" type="checkbox" />
-																				<span class="lbl"> Latest news and announcements</span>
-																			</label>
-
-																			<label>
-																				<input name="subscription" value="2" type="checkbox" />
-																				<span class="lbl"> Product offers and discounts</span>
-																			</label>
-																		</span>
-																	</div>
-																</div>
-
-																<div class="control-group">
-																	<label class="control-label">Gender</label>
-
-																	<div class="controls">
-																		<span class="span12">
-																			<label class="blue">
-																				<input name="gender" value="1" type="radio" />
-																				<span class="lbl"> Male</span>
-																			</label>
-
-																			<label class="blue">
-																				<input name="gender" value="2" type="radio" />
-																				<span class="lbl"> Female</span>
-																			</label>
-																		</span>
-																	</div>
-																</div>-->
 
 																<div class="control-group">
 																	<label class="control-label">Extrair texto do documento:</label>
@@ -314,108 +254,6 @@
 																</div>
                                                             </div>
 
-																<!--<div class="control-group">
-																	<label class="control-label" for="state">State</label>
-
-																	<div class="controls">
-																		<span class="span12">
-																			<select id="state" name="state" class="select2" data-placeholder="Click to Choose...">
-																				<option value=""></option>
-																				<option value="AL">Alabama</option>
-																				<option value="AK">Alaska</option>
-																				<option value="AZ">Arizona</option>
-																				<option value="AR">Arkansas</option>
-																				<option value="CA">California</option>
-																				<option value="CO">Colorado</option>
-																				<option value="CT">Connecticut</option>
-																				<option value="DE">Delaware</option>
-																				<option value="FL">Florida</option>
-																				<option value="GA">Georgia</option>
-																				<option value="HI">Hawaii</option>
-																				<option value="ID">Idaho</option>
-																				<option value="IL">Illinois</option>
-																				<option value="IN">Indiana</option>
-																				<option value="IA">Iowa</option>
-																				<option value="KS">Kansas</option>
-																				<option value="KY">Kentucky</option>
-																				<option value="LA">Louisiana</option>
-																				<option value="ME">Maine</option>
-																				<option value="MD">Maryland</option>
-																				<option value="MA">Massachusetts</option>
-																				<option value="MI">Michigan</option>
-																				<option value="MN">Minnesota</option>
-																				<option value="MS">Mississippi</option>
-																				<option value="MO">Missouri</option>
-																				<option value="MT">Montana</option>
-																				<option value="NE">Nebraska</option>
-																				<option value="NV">Nevada</option>
-																				<option value="NH">New Hampshire</option>
-																				<option value="NJ">New Jersey</option>
-																				<option value="NM">New Mexico</option>
-																				<option value="NY">New York</option>
-																				<option value="NC">North Carolina</option>
-																				<option value="ND">North Dakota</option>
-																				<option value="OH">Ohio</option>
-																				<option value="OK">Oklahoma</option>
-																				<option value="OR">Oregon</option>
-																				<option value="PA">Pennsylvania</option>
-																				<option value="RI">Rhode Island</option>
-																				<option value="SC">South Carolina</option>
-																				<option value="SD">South Dakota</option>
-																				<option value="TN">Tennessee</option>
-																				<option value="TX">Texas</option>
-																				<option value="UT">Utah</option>
-																				<option value="VT">Vermont</option>
-																				<option value="VA">Virginia</option>
-																				<option value="WA">Washington</option>
-																				<option value="WV">West Virginia</option>
-																				<option value="WI">Wisconsin</option>
-																				<option value="WY">Wyoming</option>
-																			</select>
-																		</span>
-																	</div>
-																</div>
-
-																<div class="control-group">
-																	<label class="control-label" for="platform">Platform</label>
-
-																	<div class="controls">
-																		<span class="span12">
-																			<select class="span3" id="platform" name="platform">
-																				<option value="">State</option>
-																				<option value="linux">Linux</option>
-																				<option value="windows">Windows</option>
-																				<option value="mac">Mac OS</option>
-																				<option value="ios">iOS</option>
-																				<option value="android">Android</option>
-																			</select>
-																		</span>
-																	</div>
-																</div>
-
-																<div class="control-group">
-																	<label class="control-label" for="comment">Comment</label>
-
-																	<div class="controls">
-																		<span class="span12">
-																			<textarea class="span8" name="comment" id="comment"></textarea>
-																		</span>
-																	</div>
-																</div>
-
-																<div class="control-group">
-																	<div class="controls">
-																		<span class="span6">
-																			<label>
-																				<input name="agree" id="agree" type="checkbox" />
-																				<span class="lbl"> I accept the policy</span>
-																			</label>
-																		</span>
-																	</div>
-																</div>-->
-
-
-<!--<button type="submit">next-next</button>-->
 															</form>
 														</div>
 
@@ -443,9 +281,6 @@
                 <div class="widget-header">
                     <h4>Estrutura da Base</h4>
                     <span class="widget-toolbar">
-                    <a href="#" data-action="collapse">
-                    <i class="icon-chevron-up"></i>
-                    </a>
                     </span>
                 </div>
                 <div class="widget-body">
@@ -509,9 +344,6 @@
                 <div class="widget-header">
                     <h4>Propriedades</h4>
                     <span class="widget-toolbar">
-                    <a href="#" data-action="collapse">
-                    <i class="icon-chevron-up"></i>
-                    </a>
                     </span>
                 </div>
                 <div class="widget-body">
@@ -568,11 +400,11 @@
 													<div id="submit-buttons" class="row-fluid wizard-actions">
 														<button id="button-prev" class="btn btn-prev">
 															<i class="icon-arrow-left"></i>
-															Prev
+															Anterior
 														</button>
 
 														<button id="button-submit" class="btn btn-success" data-last="Finish ">
-															Next
+															Próximo
 															<i class="icon-arrow-right icon-on-right"></i>
 														</button>
 													</div>
@@ -691,10 +523,12 @@
 					rules: {
 						name: {
 							required: true,
-                            alphanumeric: "required"
+                            alphanumeric: "required",
+                            maxlength: 23
 						},
 						description: {
 							required: true,
+                            maxlength: 256
 						},
 						index_export: {
                             required: false
@@ -742,7 +576,7 @@
 							required: "É necessario preencher o campo"
 						},
                         index_url: {
-                            url: "É necessario preencher o campo"
+                            required: "É necessario preencher o campo"
                         }
 					},
 			
@@ -902,9 +736,16 @@
                         var textarea = document.getElementById("nestable-output");
                         textarea.value = base.json;
                         button.setAttribute('style','display:none;');
+                        textarea.disabled = true;
                     }
                 });
 
+                $("#step1-button").click(function(){
+                        button.setAttribute('style','display:inline;');
+                });
+                $("#step2-button").click(function(){
+                        button.setAttribute('style','display:inline;');
+                });
 
                 $("#button-prev").click(function(){
                     if ($('#fuelux-wizard').wizard("selectedItem").step == 2){
