@@ -2,6 +2,7 @@
 /* DataType Defaults */
 
 var DATATYPES= [
+    'Texto',
     'AlfaNumerico',
     'Documento',
     'Inteiro',
@@ -15,7 +16,6 @@ var DATATYPES= [
     'Video',
     'URL',
     'Verdadeiro/Falso',
-    'Texto',
     'Arquivo',
     'HTML',
     'Email',
@@ -25,9 +25,8 @@ var DATATYPES= [
 /* Indices Defaults */
 
 var INDICES = [
-    'Nenhum', // Update document on change.
-    'Textual',
-    'Ordenado',
+    'Textual', // Update document on change.
+    'Ordenado', // Update document on change.
     'Unico',
     'Fonetico',
     'Fuzzy',
@@ -57,7 +56,6 @@ var PROHIBITIONS= {
         'Fuzzy',
     ],
     'AutoEnumerado': [
-        'Nenhum',
         'Fonetico',
         'Fuzzy',
         'Vazio'
@@ -154,10 +152,10 @@ function Controls(fields){
     this.html = controls;
 }
 
-function ControlGroup(label, controls){
+function ControlGroup(label, controls, cls){
 
     var control_group = document.createElement('div');
-    control_group.setAttribute('class', 'control-group');
+    control_group.setAttribute('class', 'control-group ' + cls);
 
     if(label instanceof Label) control_group.appendChild(label.html);
     else throw new TypeError('label is not instance of Label');
@@ -275,8 +273,8 @@ function IndicesField(id){
         $.each(attributes, function(k, v){
             checkbox.setAttribute(k, v);
         });
-        if(this.indices[i] == 'Nenhum') checkbox.setAttribute('checked', '');
-        label.setAttribute('class', 'span4');
+        if(this.indices[i] == 'Textual') checkbox.setAttribute('checked', '');
+        label.setAttribute('class', 'span5');
         label.appendChild(checkbox);
         input.push(checkbox);
         span.setAttribute('class', 'lbl')
@@ -311,7 +309,7 @@ function RequiredField(id){
     this.input = checkbox;
     this.label = new Label(this.id, text='Obrigatório');
     this.controls = new Controls([label]);
-    this.html = new ControlGroup(this.label, this.controls).html;
+    this.html = new ControlGroup(this.label, this.controls, cls='pull-left span4').html;
 }
 
 function MultivaluedField(id){
@@ -334,7 +332,7 @@ function MultivaluedField(id){
     label.appendChild(span);
     this.label = new Label(this.id, text='Multivalorado');
     this.controls = new Controls([label]);
-    this.html = new ControlGroup(this.label, this.controls).html;
+    this.html = new ControlGroup(this.label, this.controls, cls='pull-center span7').html;
 }
 
 /*
@@ -374,7 +372,7 @@ function BaseContext(context_space){
                 if (_context[data_id].datatype == 'AutoEnumerado')
                     _context[data_id].indices.push('Ordenado');
                 else
-                    _context[data_id].indices.push('Nenhum');
+                    _context[data_id].indices.push('Textual');
             }
         });
         return _context;
@@ -451,7 +449,7 @@ function BaseContext(context_space){
                     required: true,
                     maxlength: 256,
                     messages: {
-                        required: 'Preencha o campo Descrição',
+                        required: 'Preencha o campo Descrição.',
                         maxlength: 'Máximo de caracteres excedido.'
                     }
                 });
@@ -470,15 +468,15 @@ function BaseContext(context_space){
                         if (datatype === 'AutoEnumerado')
                             index_el[0].checked = false;
                         else
-                            index_el[0].checked = index == 'Nenhum'? true: false;
+                            index_el[0].checked = index == 'Textual'? true: false;
                         if ($.inArray(index, forbidden_indices) != -1){
                             // Forbidden index detected.
                             index_el.parent().hide();
                         }
                         else{
                             // Nothing to worry about.
-                            if (index != 'Nenhum')
-                                index_el[0].disabled = $.inArray('Nenhum', forbidden_indices)!=-1? false: true;
+                            if (index != 'Textual')
+                                //index_el[0].disabled = $.inArray('Textual', forbidden_indices)!=-1? false: true;
                             required_el = $(['#base-context', data_id, 'required'].join('-'));
                             if (!((index == 'Vazio') && required_el[0].checked))
                                 index_el.parent().show();
@@ -509,8 +507,8 @@ function BaseContext(context_space){
                     index_name;
                 $.each(v.input, function(i, input){
                     index_name = input.getAttribute('index-name');
-                    if (index_name != 'Nenhum'){
-                        input.disabled = true;
+                    if (index_name != 'Textual'){
+                        //input.disabled = true;
                         if (index_name == 'Vazio')
                             empty_index_ipt = input;
                     }
@@ -526,25 +524,6 @@ function BaseContext(context_space){
                                 this.checked = false;
                             }
                         }
-                });
-                $(no_index_ipt).change(function(){
-                    if (this.checked == true){
-                        $.each(v.input, function(i, input){
-                            index_name = input.getAttribute('index-name');
-                            if (index_name != 'Nenhum'){
-                                input.checked = false;
-                                input.disabled = true;
-                            }
-                        });
-                    }
-                    else{
-                        $.each(v.input, function(i, input){
-                            index_name = input.getAttribute('index-name');
-                            if (index_name != 'Nenhum'){
-                                input.disabled = false;
-                            }
-                        });
-                    }
                 });
             }
         });
