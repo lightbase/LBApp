@@ -438,17 +438,21 @@ function BaseContext(context_space){
                 $(v.input).rules('add', {
                     required: true,
                     alphanumeric: 'required',
+                    maxlength: 4,
                     single_level_field: 'required',
                     messages: {
-                        required: 'Preencha o campo Nome'
+                        required: 'Preencha o campo Nome.',
+                        maxlength: 'Máximo de caracteres excedido.'
                     }
                 });
             }
             if(v instanceof DescriptionField){
                 $(v.input).rules('add', {
                     required: true,
+                    maxlength: 256,
                     messages: {
-                        required: 'Preencha o campo Descrição'
+                        required: 'Preencha o campo Descrição',
+                        maxlength: 'Máximo de caracteres excedido.'
                     }
                 });
             }
