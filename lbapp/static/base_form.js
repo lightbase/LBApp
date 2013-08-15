@@ -539,10 +539,13 @@ function BaseContext(context_space){
                     index_el,
                     required_el,
                     datatype,
+                    datatype_icon_el,
                     forbidden_indices;
                 $(v.input).on('change',function(e){
                     forbidden_indices = PROHIBITIONS[this.value];
                     datatype = this.value;
+                    datatype_icon_el = $(['#nestable', data_id, 'datatype-icon'].join('-'))[0];
+                    datatype_icon_el.setAttribute('class', 'bigger-140 blue normal-icon ' + DATATYPE_ICONS[datatype] );
                     $.each(INDICES, function(i, index){
                         index_el = $(['#base', 'context', data_id, 'indices', index].join('-'));
                         if (datatype === 'AutoEnumerado')
@@ -644,14 +647,14 @@ function BaseContext(context_space){
     this.focus_on = function(form_id){
         var item_handle;
         $(this.context_space).children('form').each(function(){
-            item_handle = $(['#nestable', this.getAttribute('data-id'), 'handle'].join('-'));
+            item_content = $(['#nestable', this.getAttribute('data-id'), 'content'].join('-'));
             if (this.id == form_id){
                 $(this).show();
-                item_handle.css('background', 'rgb(219, 241, 255)');
+                item_content[0].setAttribute('class','dd2-content btn-info no-hover');
             }
             else{
                 $(this).hide();
-                item_handle.css('background', '');
+                item_content[0].setAttribute('class','dd2-content no-hover');
             }
         });
     };
@@ -707,18 +710,33 @@ function BaseStructure(nestable_space, context){
     this.dd_item = function(id, no_children){
         var li = document.createElement("li");
         li.setAttribute('id', ['nestable', id, 'item'].join('-'));
-        li_class = no_children ? 'dd-item dd-nochildren': 'dd-item';
+        li_class = no_children ? 'dd-item dd2-item dd-nochildren': 'dd-item dd2-item';
         li.setAttribute('class', li_class);
         li.setAttribute('data-id', id );
         return li;
     };
 
-    this.dd_handle = function(id, text){
-        var div = document.createElement("div");
+    this.dd_handle = function(id){
+        var div = document.createElement("div"),
+            datatype_icon = document.createElement('i'),
+            move_icon = document.createElement('i');
+
+        datatype_icon.setAttribute('id', ['nestable', id, 'datatype-icon'].join('-'));
+        datatype_icon.setAttribute('class', 'normal-icon icon-edit');
+        move_icon.setAttribute('class', 'drag-icon icon-move');
         div.setAttribute('id', ['nestable', id, 'handle'].join('-'));
-        div.setAttribute('class', "dd-handle");
-        div.innerText = text;
+        div.setAttribute('class', "dd-handle dd2-handle");
+        div.appendChild(datatype_icon);
+        div.appendChild(move_icon);
         return div;
+    };
+
+    this.dd_content = function(id, text){
+        var div = document.createElement("div");
+        div.setAttribute('id', ['nestable', id, 'content'].join('-'));
+        div.setAttribute('class', 'dd2-content btn-info no-hover');
+        div.innerText = text;
+        return div
     };
 
     this.field_form = function(id, field_name, field_desc){
@@ -768,11 +786,13 @@ function BaseStructure(nestable_space, context){
         var field_name = 'Campo' + this.id,
             field_desc = 'Descrição do campo ' + this.id,
             li = this.dd_item(this.id, no_children=true),
-            div = this.dd_handle(this.id, field_name),
+            handle = this.dd_handle(this.id),
+            content = this.dd_content(this.id, field_name),
             append_element = this.get_auto_append_element(),
             field_form = this.field_form(this.id, field_name, field_desc);
 
-        li.appendChild(div);
+        li.appendChild(handle);
+        li.appendChild(content);
         this.context.push_form(field_form);
         this.context.add_rules(field_form);
         this.id = this.id + 1;
@@ -795,7 +815,8 @@ function BaseStructure(nestable_space, context){
         var li = this.dd_item(group_id),
             collapse_btn = this.toggle_button('collapse', 'block'),
             expand_btn = this.toggle_button('expand', 'none'),
-            div = this.dd_handle(group_id, group_name),
+            handle = this.dd_handle(group_id),
+            content = this.dd_content(group_id, group_name),
             ol = this.dd_list(),
             field1 = this.create_field(remand=true),
             field2 = this.create_field(remand=true),
@@ -806,7 +827,8 @@ function BaseStructure(nestable_space, context){
 
         li.appendChild(collapse_btn);
         li.appendChild(expand_btn);
-        li.appendChild(div);
+        li.appendChild(handle);
+        li.appendChild(content);
         li.appendChild(ol);
 
         append_element.appendChild(li);
@@ -892,7 +914,7 @@ function BaseStructure(nestable_space, context){
                     children_list.push(li[0]);
 
                     if(item_name){
-                        $(items[i]).children('div')[0].innerText = item_name;
+                        $(items[i]).children('div')[1].innerText = item_name;
                     }
                     if (sub.length) {
                         item.children = step(sub, depth + 1);
