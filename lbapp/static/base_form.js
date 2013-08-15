@@ -561,14 +561,25 @@ function BaseContext(context_space){
             if(v instanceof IndicesField){}
             if(v instanceof FormActions){
                 $(v.confirm.html).click(function(){
+                    if (!$(form.html).valid())
+                        return false;
+                    var all_el = [];
                     $(v.html).parent('form').find('select').each(function(i, el){
                         el.setAttribute('init-value', el.value);
+                        all_el.push(el);
                     });
                     $(v.html).parent('form').find('input').each(function(i, el){
-                        if (el.type == 'text')
+                        if (el.type == 'text'){
                             el.setAttribute('init-value', el.value);
-                        else if (el.type == 'checkbox')
+                            all_el.push(el);
+                        }
+                        else if (el.type == 'checkbox'){
                             el.setAttribute('init-value', el.checked);
+                            all_el.push(el);
+                        }
+                    });
+                    $.each(all_el, function(i, el){
+                        el.disabled = true;
                     });
                     base.refresh();
                 });
@@ -798,7 +809,7 @@ function BaseStructure(nestable_space, context){
     };
 
     this.remove_element = function(){
-        var form = this.context.current_form, 
+        var form = this.context.current_form,
             forms = $(this.context.context_space).children('form');
 
         if(!form) return false; // Nothing to delete.
