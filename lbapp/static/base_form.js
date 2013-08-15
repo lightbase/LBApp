@@ -211,6 +211,7 @@ function FormActions(id){
     this.id = ['base-context', id, 'form-actions'].join('-');
     this.confirm = new ConfirmButton(id);
     this.cancel = new CancelButton(id);
+    this.edit = new EditButton(id);
 
     var div = document.createElement('div'),
         span = document.createElement('span');
@@ -220,6 +221,7 @@ function FormActions(id){
     div.appendChild(this.confirm.html);
     div.appendChild(span);
     div.appendChild(this.cancel.html);
+    div.appendChild(this.edit.html);
 
     this.html = div;
 }
@@ -229,9 +231,10 @@ function ConfirmButton(id){
     var button = document.createElement('button'),
         icon = document.createElement('i'),
         attributes = {
-            'id'    : this.id,
-            'class' : 'btn btn-info btn-small',
-            'type'  : 'button'
+            'id'     : this.id,
+            'data-id':  id,
+            'class'  : 'btn btn-info btn-small',
+            'type'   : 'button'
         }
     $.each(attributes, function(k, v){
         button.setAttribute(k, v);
@@ -243,13 +246,14 @@ function ConfirmButton(id){
 }
 
 function CancelButton(id){
-    this.id = ['base-context', id, 'confirm-button'].join('-');
+    this.id = ['base-context', id, 'cancel-button'].join('-');
     var button = document.createElement('button'),
         icon = document.createElement('i'),
         attributes = {
-            'id'    : this.id,
-            'class' : 'btn btn-small',
-            'type'  : 'button'
+            'id'     : this.id,
+            'class'  : 'btn btn-small',
+            'type'   : 'button',
+            'data-id':  id,
         }
     $.each(attributes, function(k, v){
         button.setAttribute(k, v);
@@ -260,6 +264,25 @@ function CancelButton(id){
     this.html = button;
 }
 
+function EditButton(id){
+    this.id = ['base-context', id, 'edit-button'].join('-');
+    var button = document.createElement('button'),
+        icon = document.createElement('i'),
+        attributes = {
+            'id'     : this.id,
+            'data-id':  id,
+            'class'  : 'btn btn-success btn-small',
+            'type'   : 'button',
+            'style'  : 'display: none'
+        }
+    $.each(attributes, function(k, v){
+        button.setAttribute(k, v);
+    });
+    icon.setAttribute('class', 'icon-edit');
+    icon.innerText = ' Editar';
+    button.appendChild(icon);
+    this.html = button;
+}
 
 function NameField(id){
 
@@ -351,9 +374,12 @@ function IndicesField(id){
         $.each(attributes, function(k, v){
             checkbox.setAttribute(k, v);
         });
-        if(this.indices[i] == 'Textual') checkbox.setAttribute('checked', '');
+        if(this.indices[i] == 'Textual')
+            checkbox.setAttribute('checked', '');
         label.setAttribute('class', 'span5');
         label.appendChild(checkbox);
+        if (PROHIBITIONS[DATATYPES[0]].indexOf(this.indices[i])>-1)
+            label.setAttribute('style', 'display: none');
         input.push(checkbox);
         span.setAttribute('class', 'lbl')
         span.innerText = ' ' + this.indices[i];
@@ -430,9 +456,11 @@ function BaseContext(context_space){
         var _context = {},
             data_id,
             serial,
+            disabled,
             fname;
         $(this.context_space).children('form').each(function(){
             data_id = this.getAttribute('data-id');
+            disabled = $(this).find(':input:disabled').removeAttr('disabled');
             _context[data_id] = {};
             _context[data_id].indices = [];
             _context[data_id].multivalued = false;
@@ -448,6 +476,7 @@ function BaseContext(context_space){
                 else
                     _context[data_id][f_name] = v.value;
             });
+            disabled.attr('disabled','disabled');
             if (_context[data_id].indices.length == 0){
                 if (_context[data_id].datatype == 'AutoEnumerado')
                     _context[data_id].indices.push('Ordenado');
@@ -585,24 +614,22 @@ function BaseContext(context_space){
                 $(v.confirm.html).click(function(){
                     if (!$(form.html).valid())
                         return false;
-                    var all_el = [];
                     $(v.html).parent('form').find('select').each(function(i, el){
                         el.setAttribute('init-value', el.value);
-                        all_el.push(el);
                     });
                     $(v.html).parent('form').find('input').each(function(i, el){
                         if (el.type == 'text'){
                             el.setAttribute('init-value', el.value);
-                            all_el.push(el);
                         }
                         else if (el.type == 'checkbox'){
                             el.setAttribute('init-value', el.checked);
-                            all_el.push(el);
                         }
                     });
-                    $.each(all_el, function(i, el){
-                        el.disabled = true;
-                    });
+                    $(this).hide();
+                    $(['#base-context', $(this).attr('data-id'), 'cancel-button'].join('-')).hide();
+                    $(['#base-context', $(this).attr('data-id'), 'edit-button'].join('-')).show();
+                    $(v.html).parent('form').find('input').attr('disabled', 'disabled');
+                    $(v.html).parent('form').find('select').attr('disabled', 'disabled');
                     base.refresh();
                 });
                 $(v.cancel.html).click(function(){
@@ -625,7 +652,13 @@ function BaseContext(context_space){
                             }
                         }
                     });
-                })
+                });
+                $(v.edit.html).click(function(){
+                    $(this).hide();
+                    $(v.html).parent('form').find(':input:disabled').removeAttr('disabled');
+                    $(['#base-context', $(this).attr('data-id'), 'confirm-button'].join('-')).show();
+                    $(['#base-context', $(this).attr('data-id'), 'cancel-button'].join('-')).show();
+                });
             }
         });
     };
@@ -716,13 +749,17 @@ function BaseStructure(nestable_space, context){
         return li;
     };
 
-    this.dd_handle = function(id){
+    this.dd_handle = function(id, group){
         var div = document.createElement("div"),
             datatype_icon = document.createElement('i'),
             move_icon = document.createElement('i');
 
+        for(var init_icon in DATATYPE_ICONS) break;
+        if (group)
+            datatype_icon.setAttribute('class', 'bigger-140 red normal-icon icon-indent-right');
+        else
+            datatype_icon.setAttribute('class', 'bigger-140 blue normal-icon ' + DATATYPE_ICONS[init_icon]);
         datatype_icon.setAttribute('id', ['nestable', id, 'datatype-icon'].join('-'));
-        datatype_icon.setAttribute('class', 'normal-icon icon-edit');
         move_icon.setAttribute('class', 'drag-icon icon-move');
         div.setAttribute('id', ['nestable', id, 'handle'].join('-'));
         div.setAttribute('class', "dd-handle dd2-handle");
@@ -815,7 +852,7 @@ function BaseStructure(nestable_space, context){
         var li = this.dd_item(group_id),
             collapse_btn = this.toggle_button('collapse', 'block'),
             expand_btn = this.toggle_button('expand', 'none'),
-            handle = this.dd_handle(group_id),
+            handle = this.dd_handle(group_id, group=true),
             content = this.dd_content(group_id, group_name),
             ol = this.dd_list(),
             field1 = this.create_field(remand=true),
