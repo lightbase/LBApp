@@ -22,6 +22,27 @@ var DATATYPES= [
     'JSON'
 ];
 
+var DATATYPE_ICONS = {
+    'Texto'            :'icon-text-width',
+    'AlfaNumerico'     :'icon-font',
+    'Documento'        :'icon-file-text',
+    'Inteiro'          :'icon-info',
+    'Decimal'          :'iDecimal',
+    'Moeda'            :'icon-usd',
+    'AutoEnumerado'    :'icon-list-ol',
+    'Data'             :'icon-calendar',
+    'Hora'             :'icon-time',
+    'Imagem'           :'icon-picture',
+    'Som'              :'icon-volume-up',
+    'Video'            :'icon-film',
+    'URL'              :'iURL',
+    'Verdadeiro/Falso' :'icon-check',
+    'Arquivo'          :'icon-file',
+    'HTML'             :'icon-code',
+    'Email'            :'iEmail',
+    'JSON'             :'iJSON'
+};
+
 /* Indices Defaults */
 
 var INDICES = [
@@ -240,7 +261,7 @@ function CancelButton(id){
 }
 
 
-function NameField(id, placeholder){
+function NameField(id){
 
     this.id = ['base', 'context', id, 'name'].join('-');
     this.label = new Label(this.id, text='Nome');
@@ -251,8 +272,7 @@ function NameField(id, placeholder){
         'data-id'    : id,
         'class'      : 'input-medium',
         'type'       : 'text',
-        'init-value' : '',
-        'placeholder': placeholder
+        'init-value' : ''
     };
     $.each(attributes, function(k, v){
         input.setAttribute(k, v);
@@ -262,7 +282,7 @@ function NameField(id, placeholder){
     this.html = new ControlGroup(this.label, this.controls).html;
 }
 
-function DescriptionField(id, placeholder){
+function DescriptionField(id){
 
     this.id = ['base', 'context', id, 'description'].join('-');
     this.label = new Label(this.id, text='Descrição');
@@ -272,8 +292,7 @@ function DescriptionField(id, placeholder){
         'name'       : this.id,
         'class'      : 'input-xlarge',
         'type'       : 'text',
-        'init-value' : '',
-        'placeholder': placeholder
+        'init-value' : ''
     };
     $.each(attributes, function(k, v){
         input.setAttribute(k, v);
@@ -704,8 +723,8 @@ function BaseStructure(nestable_space, context){
 
     this.field_form = function(id, field_name, field_desc){
         return new Form(id, [
-            new NameField(id, placeholder=field_name),
-            new DescriptionField(id, placeholder=field_desc),
+            new NameField(id),
+            new DescriptionField(id),
             new DataTypeField(id),
             new RequiredField(id),
             new MultivaluedField(id),
@@ -716,8 +735,8 @@ function BaseStructure(nestable_space, context){
 
     this.group_form = function(id, group_name, group_desc){
         return new Form(id, [
-            new NameField(id, placeholder=group_name),
-            new DescriptionField(id, placeholder=group_desc),
+            new NameField(id),
+            new DescriptionField(id),
             new MultivaluedField(id),
             new FormActions(id)
         ]);
