@@ -35,7 +35,7 @@ var DATATYPE_ICONS = {
     'Imagem'           :'icon-picture',
     'Som'              :'icon-volume-up',
     'Video'            :'icon-film',
-    'URL'              :'iURL',
+    'URL'              :'icon-globe',
     'Verdadeiro/Falso' :'icon-check',
     'Arquivo'          :'icon-file',
     'HTML'             :'icon-code',
@@ -532,11 +532,8 @@ function BaseContext(context_space){
                 $(e).closest('.control-group').removeClass('error').addClass('info');
                 $(e).remove();
             },
-            onfocusout: function(e){
-                var is_valid = $(e).valid();
-                if (is_valid && e.name.split('-' + e.getAttribute('data-id') + '-')[1] == 'name'){
-                    //base.refresh();
-                }
+            onkeyup: function(e){
+                $(e).valid();
             }
         });
 
@@ -630,7 +627,7 @@ function BaseContext(context_space){
                     $(['#base-context', $(this).attr('data-id'), 'edit-button'].join('-')).show();
                     $(v.html).parent('form').find('input').attr('disabled', 'disabled');
                     $(v.html).parent('form').find('select').attr('disabled', 'disabled');
-                    base.refresh();
+                    base.refresh_item($(this).attr('data-id'));
                 });
                 $(v.cancel.html).click(function(){
                     $(v.html).parent('form').find('select').each(function(i, el){
@@ -888,25 +885,20 @@ function BaseStructure(nestable_space, context){
 
     this.remove_element = function(){
         var form = this.context.current_form,
-            forms = $(this.context.context_space).children('form');
-
-        if(!form) return false; // Nothing to delete.
-        if (forms.length == 1){
-            alert('A base precisa de ao menos um campo.')
-            return false;
-        }
-
-        var item_id = ['nestable', form.getAttribute('data-id'), 'item'].join('-'),
+            item_id = ['nestable', form.getAttribute('data-id'), 'item'].join('-'),
             list_item = $('#' + item_id);
 
         // Check and block if is user is trying to delete a field which is within a group, 
         // and this group only has one child field.
-        if (
-            (list_item.parent().children().length == 1) &&
-            (list_item.parent()[0].id != this.nestable_space.id)
-           ){
-            alert('grupos devem ter ao menos 1 campo');
-            return false
+        if ( list_item.parent().children().length == 1){
+            if (list_item.parent()[0].id == this.nestable_space.id){
+                alert('A base precisa de ao menos um campo.')
+                return false
+            }
+            else {
+                alert('grupos devem ter ao menos 1 campo');
+                return false
+            }
         }
 
         // Remove Element Children.
@@ -929,6 +921,11 @@ function BaseStructure(nestable_space, context){
         if (last_form){
             this.context.focus_on(last_form);
         }
+    };
+
+    this.refresh_item = function(data_id){
+        var inner_text = $(['#base-context', data_id, 'name'].join('-'))[0].value;
+        $(['#nestable', data_id, 'content'].join('-'))[0].innerText = inner_text;
     };
 
     this.refresh = function(parse_list, remand_children){
