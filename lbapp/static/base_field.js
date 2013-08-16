@@ -22,6 +22,18 @@ var json ={
                    }
                 },
                 {
+                   "field":{
+                      "name":"d",
+                      "description":"d",
+                      "datatype":"AlfaNumerico",
+                      "required":false,
+                      "multivalued":false,
+                      "indices":[
+                         "Nenhum"
+                      ]
+                   }
+                },
+                {
                    "group":{
                       "metadata":{
                          "name":"d",
@@ -55,18 +67,99 @@ var json ={
                          }
                       ]
                    }
-                }
+                },
+                {
+                   "field":{
+                      "name":"e",
+                      "description":"e",
+                      "datatype":"AlfaNumerico",
+                      "required":false,
+                      "multivalued":false,
+                      "indices":[
+                         "Nenhum"
+                      ]
+                   }
+                },
              ]
           };
 
 function base_field(){
-        for ( in json){
-            var element = base.create_field(remand=true);
-            var to_input = document.getElementById("base-structure");
-            to_input.appendChild(element);
-            var element_id = element.getAttribute("data-id");
-            var input_to_append = "base-context-" + element_id + "-name";
-            var field_id = document.getElementById(input_to_append);
-            field_id.value = json.content[0].field.name;
-        }
+var element = base.create_field(remand=true);
+var to_input = document.getElementById("base-structure");
+var element_id = element.getAttribute("data-id");
+var input_to_append = "base-context-" + element_id + "-name";
+var field_id = document.getElementById(input_to_append);
+        $.each(json, function(k, v){
+            if (k == "content"){
+                $.each(v, function(k, v){
+                    $.each(v, function(k, v){
+                        if (k == "field"){
+                            console.log(JSON.stringify(v));
+                            element = base.create_field(remand=true);
+                            to_input = document.getElementById("base-structure");
+                            to_input.appendChild(element);
+                            element_id = element.getAttribute("data-id");
+                            name_to_append = "base-context-" + element_id + "-name";
+                            desc_to_append = "base-context-" + element_id + "-description";
+                            field_name = document.getElementById(name_to_append);
+                            field_desc = document.getElementById(desc_to_append);
+                            field_name.value = v.name;
+                            field_desc.value = v.description;
+                        }else if (k == "group"){
+                           base_group(k, v);
+                        }
+                    });
+                });
+            }
+        });
 }
+
+function base_group(k, v){
+    $.each(v.content, function(k, v){
+        $.each(v, function(k, v){
+            if (k == "field"){
+            }
+        });
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////
+
+            /*if (k == "content"){
+            console.log(JSON.stringify(k) + JSON.stringify(v));
+            }*/
+
+            /*if("field" in v){
+                var element = base.create_field(remand=true);
+                var to_input = document.getElementById("base-structure");
+                to_input.appendChild(element);
+                var element_id = element.getAttribute("data-id");
+                var input_to_append = "base-context-" + element_id + "-name";
+                var field_id = document.getElementById(input_to_append);
+             //   field_id.value = JSON.stringify(v.field.name);
+                console.log(JSON.stringify(k) + ":" + JSON.stringify(v));
+            }*/
+
+            /*if("group" in v){
+                var element = base.create_field(remand=true);
+                var to_input = document.getElementById("base-structure");
+                to_input.appendChild(element);
+                var element_id = element.getAttribute("data-id");
+                var input_to_append = "base-context-" + element_id + "-name";
+                var field_id = document.getElementById(input_to_append);
+                //field_id.value = JSON.stringify(v.content.group.name);
+            }
+            console.log(JSON.stringify(v.group));*/
