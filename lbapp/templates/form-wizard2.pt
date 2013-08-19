@@ -78,17 +78,6 @@
 									<div class="widget-box">
 										<div class="widget-header widget-header-blue widget-header-flat">
 											<h4 class="lighter">Criar Base</h4>
-
-										  	<!--<div class="widget-toolbar">
-												<label>
-													<small class="green">
-														<b>Validation</b>
-													</small>
-
-													<input id="skip-validation" type="checkbox" class="ace-switch ace-switch-4" />
-													<span class="lbl"></span>
-												</label>
-											</div>-->
 										</div>
 
 										<div class="widget-body">
@@ -274,7 +263,7 @@
             }
         </style>
     </header>
-<!--      ------------------------------------------------------------------------         -->
+
     <div id="nestable-to-validate" class="row-fluid">
         <div class="span7">
             <div class="widget-box">
@@ -390,10 +379,6 @@
 														</div>
 
 														<div class="step-pane" id="step4">
-															<div class="center">
-																<h3 class="green">Congrats!</h3>
-																Your product is ready to ship! Click finish to continue!
-															</div>
 														</div>
 													</div>
 
@@ -416,55 +401,6 @@
 							</div>
 
 							<div id="modal-wizard" class="modal hide">
-								<div class="modal-header" data-target="#modal-step-contents">
-									<ul class="wizard-steps clearfix">
-										<li data-target="#modal-step1" class="active">
-											<span class="step">1</span>
-											<span class="title">Validation states</span>
-										</li>
-
-										<li data-target="#modal-step2">
-											<span class="step">2</span>
-											<span class="title">Alerts</span>
-										</li>
-
-										<li data-target="#modal-step3">
-											<span class="step">3</span>
-											<span class="title">Payment Info</span>
-										</li>
-
-										<li data-target="#modal-step4">
-											<span class="step">4</span>
-											<span class="title">Other Info</span>
-										</li>
-									</ul>
-								</div>
-
-								<div class="modal-body step-content" id="modal-step-contents">
-									<div class="step-pane active" id="modal-step1">
-										<div class="center">
-											<h4 class="blue">Step 1</h4>
-										</div>
-									</div>
-
-									<div class="step-pane" id="modal-step2">
-										<div class="center">
-											<h4 class="blue">Step 2</h4>
-										</div>
-									</div>
-
-									<div class="step-pane" id="modal-step3">
-										<div class="center">
-											<h4 class="blue">Step 3</h4>
-										</div>
-									</div>
-
-									<div class="step-pane" id="modal-step4">
-										<div class="center">
-											<h4 class="blue">Step 4</h4>
-										</div>
-									</div>
-								</div>
 
 								<div class="modal-footer wizard-actions">
 									<button class="btn btn-small btn-prev">
@@ -783,7 +719,7 @@
 
 		<script type="text/javascript">
 			$(function() {
-				$('#id-disable-check').on('click', function() {
+				/*$('#id-disable-check').on('click', function() {
 					var inp = $('#form-input-readonly').get(0);
 					if(inp.hasAttribute('disabled')) {
 						inp.setAttribute('readonly' , 'true');
@@ -795,7 +731,7 @@
 						inp.removeAttribute('readonly');
 						inp.value="This text field is disabled!";
 					}
-				});
+				});*/
 			
 			
 				$(".chzn-select").chosen(); 
@@ -931,7 +867,7 @@
 			
 				//dynamically change allowed formats by changing before_change callback function
 				$('#id-file-format').removeAttr('checked').on('change', function() {
-					var before_change
+					/*var before_change
 					var btn_choose
 					var no_icon
 					if(this.checked) {
@@ -949,7 +885,7 @@
 									var type = $.trim(file.type);
 									if( ( type.length > 0 && ! (/^image\/(jpe?g|png|gif|bmp)$/i).test(type) )
 											|| ( type.length == 0 && ! (/\.(jpe?g|png|gif|bmp)$/i).test(file.name) )//for android's default browser which gives an empty string for file.type
-										) continue;//not an image so don't keep this file
+					i					) continue;//not an image so don't keep this file
 								}
 								
 								allowed_files.push(file);
@@ -965,7 +901,7 @@
 						before_change = function(files, dropped) {
 							return files;
 						}
-					}
+					}*/
 					var file_input = $('#id-input-file-3');
 					file_input.ace_file_input('update_settings', {'before_change':before_change, 'btn_choose': btn_choose, 'no_icon':no_icon})
 					file_input.ace_file_input('reset_input');
@@ -990,25 +926,25 @@
 				
 				//we could just set the data-provide="tag" of the element inside HTML, but IE8 fails!
 				/////////
-				$('#modal-form input[type=file]').ace_file_input({
+				/*$('#modal-form input[type=file]').ace_file_input({
 					style:'well',
 					btn_choose:'Drop files here or click to choose',
 					btn_change:null,
 					no_icon:'icon-cloud-upload',
 					droppable:true,
 					thumbnail:'large'
-				})
+				})*/
 				
 				//chosen plugin inside a modal will have a zero width because the select element is originally hidden
 				//and its width cannot be determined.
 				//so we set the width after modal is show
-				$('#modal-form').on('show', function () {
+				/*$('#modal-form').on('show', function () {
 					$(this).find('.chzn-container').each(function(){
 						$(this).find('a:first-child').css('width' , '200px');
 						$(this).find('.chzn-drop').css('width' , '210px');
 						$(this).find('.chzn-search input').css('width' , '200px');
 					});
-				})
+				})*/
 				/**
 				//or you can activate the chosen plugin after modal is shown
 				//this way select element has a width now and chosen works as expected
