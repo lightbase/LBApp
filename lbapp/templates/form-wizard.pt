@@ -559,13 +559,7 @@
 					if(info.step == 1 && $validation) {
 						if(!$('#validation-form').valid()) return false;
 					}
-				})/*.on('finished', function(e) {
-					bootbox.dialog("Thank you! Your information was successfully saved!", [{
-						"label" : "OK",
-						"class" : "btn-small btn-primary",
-						}]
-					);
-				})*/.on('stepclick', function(e){
+				}).on('stepclick', function(e){
 					//return false;//prevent clicking on steps
 				});
 			
