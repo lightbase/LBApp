@@ -153,7 +153,7 @@ function Label(field_id, text){
     var label = document.createElement('label'),
         bold = document.createElement('b');
     label.setAttribute('for', field_id);
-    bold.innerText = text;
+    $(bold).text(text);
     label.appendChild(bold);
     this.field_id = field_id;
     this.text = text;
@@ -216,7 +216,7 @@ function FormActions(id){
     var div = document.createElement('div'),
         span = document.createElement('span');
 
-    span.innerText = '   ';
+    $(span).text('   ');
     div.setAttribute('class', 'row-fluid span12');
     div.appendChild(this.confirm.html);
     div.appendChild(span);
@@ -240,7 +240,7 @@ function ConfirmButton(id){
         button.setAttribute(k, v);
     });
     icon.setAttribute('class', 'icon-ok');
-    icon.innerText = ' Confirmar';
+    $(icon).text(' Confirmar');
     button.appendChild(icon);
     this.html = button;
 }
@@ -260,7 +260,7 @@ function CancelButton(id){
         button.setAttribute(k, v);
     });
     icon.setAttribute('class', 'icon-undo');
-    icon.innerText = ' Cancelar';
+    $(icon).text(' Cancelar');
     button.appendChild(icon);
     this.html = button;
 }
@@ -280,7 +280,7 @@ function EditButton(id){
         button.setAttribute(k, v);
     });
     icon.setAttribute('class', 'icon-edit');
-    icon.innerText = ' Editar';
+    $(icon).text(' Editar');
     button.appendChild(icon);
     this.html = button;
 }
@@ -333,6 +333,7 @@ function DataTypeField(id){
     var select = document.createElement('select'),
         attributes = {
             'name'      : this.id,
+            'id'        : this.id,
             'data-id'   : id,
             'class'     : 'span7'
         };
@@ -343,7 +344,7 @@ function DataTypeField(id){
         var option = document.createElement('option');
         option.setAttribute('id', this.id + '-' + this.datatypes[t]);
         option.setAttribute('value', this.datatypes[t]);
-        option.innerText = this.datatypes[t];
+        $(option).text(this.datatypes[t]);
         select.appendChild(option);
     }
 
@@ -380,7 +381,7 @@ function IndicesField(id){
             label.setAttribute('style', 'display: none');
         input.push(checkbox);
         span.setAttribute('class', 'lbl')
-        span.innerText = ' ' + this.indices[i];
+        $(span).text(' ' + this.indices[i]);
         label.appendChild(span);
         controls.push(label);
     }
@@ -486,11 +487,13 @@ function BaseContext(context_space){
     this.validate = function(){
         var is_valid = true;
         $(this.context_space).children('form').each(function(){
-            self.focus_on(this.id);
+            if (!self.edit_mode)
+                self.focus_on(this.id);
             if (!$(this).valid())
                 is_valid = false;
             if (!$(this).attr('disabled') ){
                 is_valid = false;
+                if (!self.edit_mode)
                 bootbox.alert('Por favor confirme todos os campos.');
                 return false;
             }
@@ -537,7 +540,7 @@ function BaseContext(context_space){
                 if (is_valid && (field_name[field_name.length -1] == 'name')){
                     var data_id = $(e).attr('data-id');
                     var item_content =  $(['#nestable', data_id, 'content'].join('-'))[0];
-                    item_content.innerText = $(e)[0].value;
+                    $(item_content).text($(e).val());
                 }
             }
         });
@@ -618,12 +621,10 @@ function BaseContext(context_space){
                         el.setAttribute('init-value', el.value);
                     });
                     $(v.html).parent('form').find('input').each(function(i, el){
-                        if (el.type == 'text'){
+                        if (el.type == 'text')
                             el.setAttribute('init-value', el.value);
-                        }
-                        else if (el.type == 'checkbox'){
+                        else if (el.type == 'checkbox')
                             el.setAttribute('init-value', el.checked);
-                        }
                     });
                     $(this).hide();
                     $(['#base-context', $(this).attr('data-id'), 'cancel-button'].join('-')).hide();
@@ -721,6 +722,7 @@ function BaseStructure(nestable_space, context){
     this.context = context;
     this.auto_append = false;
     this.auto_append_el = undefined;
+    self = this;
 
     this.nestable_space.scroll_top = function(){
         var scroll_div = $(this).parent().parent();
@@ -782,7 +784,7 @@ function BaseStructure(nestable_space, context){
         var div = document.createElement("div");
         div.setAttribute('id', ['nestable', id, 'content'].join('-'));
         div.setAttribute('class', 'dd2-content btn-info no-hover');
-        div.innerText = text;
+        $(div).text(text);
         return div
     };
 
@@ -849,9 +851,9 @@ function BaseStructure(nestable_space, context){
         this.nestable_space.scroll_bottom();
     };
 
-    this.create_group = function(){
+    this.create_group = function(remand){
 
-        if(!this.context.validate()) return;
+        if(!this.context.validate() && !remand) return;
 
         var group_name = 'Grupo' + this.id,
             group_desc = 'Descrição do grupo ' + this.id,
@@ -864,8 +866,21 @@ function BaseStructure(nestable_space, context){
             expand_btn = this.toggle_button('expand', 'none'),
             handle = this.dd_handle(group_id, group=true),
             content = this.dd_content(group_id, group_name),
-            ol = this.dd_list(),
-            field1 = this.create_field(remand=true),
+            ol = this.dd_list();
+        if (remand){
+            li.appendChild(collapse_btn);
+            li.appendChild(expand_btn);
+            li.appendChild(handle);
+            li.appendChild(content);
+            li.appendChild(ol);
+
+            var group_form = this.group_form(group_id, group_name, group_desc);
+            this.context.push_form(group_form);
+            this.context.add_rules(group_form);
+            return li;
+        }
+
+        var field1 = this.create_field(remand=true),
             field2 = this.create_field(remand=true),
             append_element = this.get_auto_append_element();
 
@@ -938,7 +953,7 @@ function BaseStructure(nestable_space, context){
 
     this.refresh_item = function(data_id){
         var inner_text = $(['#base-context', data_id, 'name'].join('-'))[0].value;
-        $(['#nestable', data_id, 'content'].join('-'))[0].innerText = inner_text;
+        $(['#nestable', data_id, 'content'].join('-')).text(inner_text);
     };
 
     this.refresh = function(parse_list, remand_children){
@@ -1039,6 +1054,70 @@ function BaseStructure(nestable_space, context){
         return undefined;
     });
 
+    this.context_element = function(data_id, field_name, index){
+        var id_list = ['#base-context', data_id, field_name];
+        if (index)
+            id_list.push(index);
+        return $(id_list.join('-'));
+    }
+
+    this.build_from_json = function(json_base){
+        var data,
+            ids = [],
+            step  = function(content){
+                var field,
+                    group,
+                    child,
+                    children,
+                    data_id,
+                    response = [];
+
+                $(content).each(function(){
+                    if(this.field){
+                        field = self.create_field(remand=true);
+                        data_id = $(field).attr('data-id');
+                        ids.push(data_id);
+
+                        self.context_element(data_id, 'name').val(this.field.name);
+                        self.context_element(data_id, 'description').val(this.field.description);
+                        self.context_element(data_id, 'datatype').val(this.field.datatype);
+                        self.context_element(data_id, 'multivalued').val(this.field.multivalued);
+                        self.context_element(data_id, 'required').val(this.field.required);
+
+                        $.each(this.field.indices, function(i, index){
+                            self.context_element(data_id, 'indices', index).attr('checked', true);
+                        });
+                        response.push(field);
+                    }
+                    else if(this.group){
+                        group = self.create_group(remand=true);
+
+                        data_id = $(group).attr('data-id');
+                        ids.push(data_id);
+                        self.context_element(data_id, 'name').val(this.group.metadata.name);
+                        self.context_element(data_id, 'description').val(this.group.metadata.description);
+                        self.context_element(data_id, 'multivalued').attr('checked',
+                            this.group.metadata.multivalued);
+
+                        children = step(this.group.content);
+                        $.each(children, function(i, child){
+                            $(group).children('ol')[0].appendChild(child);
+                        });
+                        response.push(group);
+                    }
+                });
+                return response;
+            };
+        items = step(json_base.content);
+        $.each(items, function(i, item){
+            self.nestable_space.appendChild(item);
+        });
+        $.each(ids, function(i, id){
+            self.context_element(id, 'confirm-button').click();
+        });
+        self.context.focus_on(self.context.last_form);
+        return items;
+    };
 }
 
 /* Initialize plugin */
