@@ -303,20 +303,20 @@
       <!--/.page-content-->
    </div>
 </metal:main>
-<script src="static/ace-final/assets/js/fuelux/fuelux.wizard.min.js"></script>
-<script src="static/ace-final/assets/js/jquery.validate.min.js"></script>
-<script type="text/javascript" src="static/base_form.js"></script>
-<script src="static/codigo-nestable/Nestable/jquery.nestable.js"></script>
-<script src="static/ace-final/assets/js/additional-methods.min.js"></script>
-<script src="static/ace-final/assets/js/bootbox.min.js"></script>
-<script src="static/requisicaoajax.js"></script>
+<script src="static/js/ace/fuelux.wizard.min.js"></script>
+<script src="static/js/ace/jquery.validate.min.js"></script>
+<script type="text/javascript" src="static/js/lightbase/base_form.js"></script>
+<script src="static/js/lightbase/jquery.nestable.js"></script>
+<script src="static/js/ace/additional-methods.min.js"></script>
+<script src="static/js/ace/bootbox.min.js"></script>
+<script src="static/js/lightbase/requisicaoajax.js"></script>
 <!-- counting -->
-<script src="static/ace-final/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
-<script src="static/ace-final/assets/js/chosen.jquery.min.js"></script>
-<script src="static/ace-final/assets/js/fuelux/fuelux.spinner.min.js"></script>
-<script src="static/ace-final/assets/js/jquery.autosize-min.js"></script>
-<script src="static/ace-final/assets/js/jquery.maskedinput.min.js"></script>
-<script src="static/base_field.js"></script>
+<script src="static/js/ace/jquery-ui-1.10.3.custom.min.js"></script>
+<script src="static/js/ace/chosen.jquery.min.js"></script>
+<script src="static/js/ace/fuelux.spinner.min.js"></script>
+<script src="static/js/ace/jquery.autosize-min.js"></script>
+<script src="static/js/ace/jquery.maskedinput.min.js"></script>
+<script src="static/js/lightbase/base_field.js"></script>
 <script type="text/javascript">
    $(function() {
    

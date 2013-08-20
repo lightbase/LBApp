@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+	{{> layout._template.header}}
+
+	<body>
+	{{> layout.topbar}}
+
+		<div class="main-container container-fluid">
+		{{> layout.sidenav}}
+
+			<div class="main-content">
+				<div class="page-content ">
+				 <div class="row-fluid">
+				   <div class="span12">
+{{> page.content }}
+				   </div><!--/.span-->
+				 </div><!--/.row-fluid-->
+				</div><!--/.page-content-->
+
+				{{> layout.settings}}
+			</div><!--/.main-content -->
+
+		</div><!--/.main-container-->
+
+
+		{{> layout._template.footer}}
+
+	</body>
+</html>
