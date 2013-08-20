@@ -634,7 +634,6 @@ function BaseContext(context_space){
                     base.refresh_item($(this).attr('data-id'));
                 });
                 $(v.cancel.html).click(function(){
-                    if($(v.html).parent('form').attr('disabled')){
                         $(v.html).parent('form').find('select').each(function(i, el){
                             var init_value = el.getAttribute('init-value');
                             if (init_value)
@@ -656,19 +655,16 @@ function BaseContext(context_space){
                         });
                         if (!$(form.html).valid())
                             return false;
+                        $(v.html).parent('form').attr('disabled', 'disabled');
                         $(v.html).parent('form').find('input').attr('disabled', 'disabled');
                         $(v.html).parent('form').find('select').attr('disabled', 'disabled');
                         $(this).hide();
                         $(['#base-context', $(this).attr('data-id'), 'confirm-button'].join('-')).hide();
                         $(['#base-context', $(this).attr('data-id'), 'edit-button'].join('-')).show();
-                    }
-                    else{
-                        bootbox.alert('Por favor, confirme primeiro.')
-                    }
-                        
                 });
                 $(v.edit.html).click(function(){
                     $(this).hide();
+                    $(v.html).parent('form').removeAttr('disabled');
                     $(v.html).parent('form').find(':input:disabled').removeAttr('disabled');
                     $(['#base-context', $(this).attr('data-id'), 'confirm-button'].join('-')).show();
                     $(['#base-context', $(this).attr('data-id'), 'cancel-button'].join('-')).show();
