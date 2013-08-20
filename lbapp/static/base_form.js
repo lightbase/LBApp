@@ -253,6 +253,7 @@ function CancelButton(id){
             'id'     : this.id,
             'class'  : 'btn btn-small',
             'type'   : 'button',
+            'style'  : 'display: none',
             'data-id':  id,
         }
     $.each(attributes, function(k, v){
@@ -295,7 +296,6 @@ function NameField(id){
         'data-id'    : id,
         'class'      : 'input-medium',
         'type'       : 'text',
-        'init-value' : ''
     };
     $.each(attributes, function(k, v){
         input.setAttribute(k, v);
@@ -315,7 +315,6 @@ function DescriptionField(id){
         'name'       : this.id,
         'class'      : 'input-xlarge',
         'type'       : 'text',
-        'init-value' : ''
     };
     $.each(attributes, function(k, v){
         input.setAttribute(k, v);
@@ -335,7 +334,6 @@ function DataTypeField(id){
         attributes = {
             'name'      : this.id,
             'data-id'   : id,
-            'init-value': '',
             'class'     : 'span7'
         };
     $.each(attributes, function(k, v){
@@ -401,7 +399,6 @@ function RequiredField(id){
             'id'        : this.id,
             'name'      : this.id,
             'data-id'   : id,
-            'init-value': '',
             'type'      : 'checkbox',
             'class'     : 'ace-switch ace-switch-6'
         };
@@ -426,7 +423,6 @@ function MultivaluedField(id){
             'id'        : this.id,
             'name'      : this.id,
             'data-id'   : id,
-            'init-value': '',
             'type'      : 'checkbox',
             'class'     : 'ace-switch ace-switch-6'
         };
@@ -491,8 +487,11 @@ function BaseContext(context_space){
         var is_valid = true;
         $(this.context_space).children('form').each(function(){
             self.focus_on(this.id);
-            if (!$(this).valid()){
+            if (!$(this).valid())
                 is_valid = false;
+            if (!$(this).attr('disabled') ){
+                is_valid = false;
+                bootbox.alert('Por favor confirme todos os campos.');
                 return false;
             }
         });
@@ -533,7 +532,13 @@ function BaseContext(context_space){
                 $(e).remove();
             },
             onkeyup: function(e){
-                $(e).valid();
+                var is_valid = $(e).valid();
+                var field_name = $(e).attr('name').split('-');
+                if (is_valid && (field_name[field_name.length -1] == 'name')){
+                    var data_id = $(e).attr('data-id');
+                    var item_content =  $(['#nestable', data_id, 'content'].join('-'))[0];
+                    item_content.innerText = $(e)[0].value;
+                }
             }
         });
 
@@ -584,8 +589,6 @@ function BaseContext(context_space){
                         }
                         else{
                             // Nothing to worry about.
-                            if (index != 'Textual')
-                                //index_el[0].disabled = $.inArray('Textual', forbidden_indices)!=-1? false: true;
                             required_el = $(['#base-context', data_id, 'required'].join('-'));
                             if (!((index == 'Vazio') && required_el[0].checked))
                                 index_el.parent().show();
@@ -627,28 +630,42 @@ function BaseContext(context_space){
                     $(['#base-context', $(this).attr('data-id'), 'edit-button'].join('-')).show();
                     $(v.html).parent('form').find('input').attr('disabled', 'disabled');
                     $(v.html).parent('form').find('select').attr('disabled', 'disabled');
+                    $(v.html).parent('form').attr('disabled', 'disabled');
                     base.refresh_item($(this).attr('data-id'));
                 });
                 $(v.cancel.html).click(function(){
-                    $(v.html).parent('form').find('select').each(function(i, el){
-                        var init_value = el.getAttribute('init-value');
-                        if (init_value)
-                            el.value = init_value;
-                            $(el).change();
-                    });
-                    $(v.html).parent('form').find('input').each(function(i, el){
-                        var init_value = el.getAttribute('init-value');
-                        if (init_value){
-                            if (el.type == 'text')
+                    if($(v.html).parent('form').attr('disabled')){
+                        $(v.html).parent('form').find('select').each(function(i, el){
+                            var init_value = el.getAttribute('init-value');
+                            if (init_value)
                                 el.value = init_value;
-                            else if (el.type == 'checkbox'){
-                                if(init_value == 'true')
+                                $(el).change();
+                        });
+                        $(v.html).parent('form').find('input').each(function(i, el){
+                            var init_value = el.getAttribute('init-value');
+                            if (init_value){
+                                if (el.type == 'text')
+                                    el.value = init_value;
+                                else if (el.type == 'checkbox'){
+                                    if(init_value == 'true')
                                     el.checked = true;
-                                if(init_value == 'false')
+                                    if(init_value == 'false')
                                     el.checked = false;
+                                }
                             }
-                        }
-                    });
+                        });
+                        if (!$(form.html).valid())
+                            return false;
+                        $(v.html).parent('form').find('input').attr('disabled', 'disabled');
+                        $(v.html).parent('form').find('select').attr('disabled', 'disabled');
+                        $(this).hide();
+                        $(['#base-context', $(this).attr('data-id'), 'confirm-button'].join('-')).hide();
+                        $(['#base-context', $(this).attr('data-id'), 'edit-button'].join('-')).show();
+                    }
+                    else{
+                        bootbox.alert('Por favor, confirme primeiro.')
+                    }
+                        
                 });
                 $(v.edit.html).click(function(){
                     $(this).hide();
