@@ -72,3 +72,6 @@ def temp24(request):
 @view_config(route_name='f', renderer='templates/form-wizard2.pt')
 def temp25(request):
     return {'project': 'LBApp'}
+@view_config(route_name='jqgrid', renderer='templates/jqgrid.pt')
+def temp26(request):
+    return {'project': 'LBApp'}

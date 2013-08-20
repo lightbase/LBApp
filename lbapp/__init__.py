@@ -30,5 +30,6 @@ def main(global_config, **settings):
     config.add_route('error-404', 'error-404')
     config.add_route('error-500', 'error-500')
     config.add_route('f', 'f')
+    config.add_route('jqgrid', 'jqgrid')
     config.scan()
     return config.make_wsgi_app()

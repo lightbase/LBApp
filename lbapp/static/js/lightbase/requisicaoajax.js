@@ -4,10 +4,11 @@ function ajax_call(type, url, data){
                 type: 'GET',
                 url: 'http://neo.lightbase.cc/api/base',
                 data: data,
+                crossDomain: true,
                 dataType: "jsonp",
                 cache: false,
                 success: function(data, textStatus, jqXHR ){
-                    window.ajax_response = data;
+                    ajax_response = data;
                 },
                 error: function(jqXHR, textStatus, errorThrown){
                 }
@@ -15,6 +16,6 @@ function ajax_call(type, url, data){
 }
 
 
-x = ajax_call('GET', "http://neo.lightbase.cc/api/reg/base1", data = {"$$":'{"select":["nome_base","id_base"]}'});
+x = ajax_call('GET', "http://neo.lightbase.cc/api/base", data = {"$$":'{"select":["nome_base","id_base", "dt_base"]}'});
 
 

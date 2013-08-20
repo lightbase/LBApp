@@ -512,6 +512,7 @@
                     if ($('#fuelux-wizard').wizard("selectedItem").step == 3){
                         var textarea = document.getElementById("nestable-output");
                         textarea.value = base.json;
+                        textarea.setAttribute('style','height: 100px;');
                         button.setAttribute('style','display:none;');
                         textarea.disabled = true;
                     }
