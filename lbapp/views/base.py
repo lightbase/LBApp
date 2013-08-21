@@ -37,7 +37,9 @@ def edit_base(request):
 
 @view_config(route_name='list_base', renderer='../templates/base/list.pt')
 def list_base(request):
-    return {'json_base': 'json_base'}
+    response = requests.get('%s/base' %(rest_url), params=request.params).json()
+    result = response['results']
+    return {'r': json.dumps(result)}
 
 
 
