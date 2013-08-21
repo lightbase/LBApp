@@ -10,6 +10,10 @@ def main(global_config, **settings):
     # BASE
 
     config.add_route('edit_base', '{base_name}/edit')
+    config.add_route('create_base', 'new')
+
+
+    # OTHER
     config.add_route('listarbase', 'listarbase')
     config.add_route('criarbase', 'criarbase')
     config.add_route('blank', 'blank')
@@ -35,5 +39,5 @@ def main(global_config, **settings):
     config.add_route('error-500', 'error-500')
     config.add_route('f', 'f')
     config.add_route('jqgrid', 'jqgrid')
-    config.scan()
+    config.scan('lbapp')
     return config.make_wsgi_app()
