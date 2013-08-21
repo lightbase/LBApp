@@ -10,6 +10,6 @@ def main(global_config, **settings):
 
     config = Configurator(settings=settings)
     routing.make_routes(config)
-    config.scan('lbapp')
+    config.scan()
 
     return config.make_wsgi_app()

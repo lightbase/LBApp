@@ -8,6 +8,9 @@ def create_base(request):
 def edit_base(request):
     return {'json_base': 'json_base'}
 
+@view_config(route_name='list_base', renderer='../templates/base/list.pt')
+def edit_base(request):
+    return {'json_base': 'json_base'}
 
 
 

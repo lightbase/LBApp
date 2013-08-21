@@ -3,10 +3,11 @@ def make_routes(config):
 
     config.add_static_view('static', 'static', cache_max_age=3600)
 
-    # BASE
+    # ** BASE **
 
-    config.add_route('edit_base', '{base_name}/edit')
-    config.add_route('create_base', 'new')
+    config.add_route('create_base', 'base/new')
+    config.add_route('list_base', 'base/list')
+    config.add_route('edit_base', 'base/{base_name}/edit')
 
 
     # ACE
