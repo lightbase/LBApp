@@ -4,14 +4,15 @@ def make_routes(config):
     config.add_static_view('static', 'static', cache_max_age=3600)
 
     # ** BASE **
-
     config.add_route('create_base', 'base/new')
     config.add_route('list_base', 'base/list')
     config.add_route('edit_base', 'base/{base_name}/edit')
 
+    # ** ERROR **
+    config.add_route('error-404', 'error-404')
+    config.add_route('error-500', 'error-500')
 
     # ACE
-
     config.add_route('listarbase', 'listarbase')
     config.add_route('criarbase', 'criarbase')
     config.add_route('blank', 'blank')
@@ -33,7 +34,5 @@ def make_routes(config):
     config.add_route('typography', 'typography')
     config.add_route('widgets', 'widgets')
     config.add_route('wysiwyg', 'wysiwyg')
-    config.add_route('error-404', 'error-404')
-    config.add_route('error-500', 'error-500')
     config.add_route('f', 'f')
     config.add_route('jqgrid', 'jqgrid')

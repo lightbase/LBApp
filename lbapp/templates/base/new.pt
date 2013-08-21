@@ -1,5 +1,5 @@
 
-<metal:main use-macro="load: ../blank.pt">
+<metal:main use-macro="load: ../master.pt">
    <!-- Insere JavaScript -->
    <div metal:fill-slot="conteudo" id="widgets">
       <header>
