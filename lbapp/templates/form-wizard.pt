@@ -316,7 +316,6 @@
 <script src="static/js/ace/fuelux.spinner.min.js"></script>
 <script src="static/js/ace/jquery.autosize-min.js"></script>
 <script src="static/js/ace/jquery.maskedinput.min.js"></script>
-<script src="static/js/lightbase/base_field.js"></script>
 <script type="text/javascript">
    $(function() {
    
@@ -559,9 +558,9 @@
 <script type="text/javascript">
    $(document).ready(function()
    {
-   $('#spinner1').ace_spinner({value:0,min:0,max:200,step:10, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
+        $('#spinner1').ace_spinner({value:0,min:0,max:200,step:10, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
    
-   $('#spinner2').ace_spinner({value:0,min:0,max:200,step:10, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
+        $('#spinner2').ace_spinner({value:0,min:0,max:200,step:10, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
        $('button[data-action="create-field"]').click(function(){
            base.create_field(remand=false, check_valid=true);
        });

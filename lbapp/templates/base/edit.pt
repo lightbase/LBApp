@@ -1,0 +1,612 @@
+
+<metal:main use-macro="load: ../blank.pt">
+   <!-- Insere JavaScript -->
+   <div metal:fill-slot="conteudo" id="widgets">
+      <header>
+         <!--basic styles-->
+         <!--<link href="static/ace-final/assets/css/bootstrap.min.css" rel="stylesheet" />
+            <link href="static/ace-final/assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
+            <link rel="stylesheet" href="static/ace-final/assets/css/font-awesome.min.css" />-->
+         <!--[if IE 7]>
+         <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
+         <![endif]-->
+         <!--page specific plugin styles-->
+         <!--fonts-->
+         <!--<link rel="stylesheet" href="static/ace-final/assets/css/ace-fonts.css" />-->
+         <!--ace styles-->
+         <!--<link rel="stylesheet" href="static/ace-final/assets/css/ace.min.css" />
+            <link rel="stylesheet" href="static/ace-final/assets/css/ace-responsive.min.css" />
+            <link rel="stylesheet" href="static/ace-final/assets/css/ace-skins.min.css" />-->
+         <!--[if lte IE 8]>
+         <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
+         <![endif]-->
+         <!--inline styles related to this page-->
+         <!--basic scripts-->
+         <!--[if !IE]>-->
+         <!--<script type="text/javascript">
+            window.jQuery || document.write("<script src='static/ace-final/assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+            </script>-->
+         <!--<![endif]-->
+         <!--[if IE]>
+         <script type="text/javascript">
+            window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
+         </script>
+         <![endif]-->
+         <!--<script type="text/javascript">
+            if("ontouchend" in document) document.write("<script src='static/ace-final/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+            </script>
+            <script src="static/ace-final/assets/js/bootstrap.min.js"></script>-->
+         <!--page specific plugin scripts-->
+         <!--ace scripts-->
+         <!--<script src="static/ace-final/assets/js/ace-elements.min.js"></script>
+            <script src="static/ace-final/assets/js/ace.min.js"></script>-->
+         <!--inline scripts related to this page-->
+      </header>
+      <div class="page-content">
+         <div class="row-fluid">
+            <div class="span12">
+               <!--PAGE CONTENT BEGINS-->
+               <div class="row-fluid" id="all-form">
+                  <div class="span12">
+                     <div class="widget-box">
+                        <div class="widget-header widget-header-blue widget-header-flat">
+                           <h4 class="lighter">Criar Base</h4>
+                        </div>
+                        <div class="widget-body">
+                           <div class="widget-main">
+                              <div class="row-fluid">
+                                 <div id="fuelux-wizard" class="row-fluid hide" data-target="#step-container">
+                                    <ul class="wizard-steps">
+                                       <li data-target="#step1" class="active">
+                                          <span id="step1-button" class="step">1</span>
+                                          <span class="title">Metadados</span>
+                                       </li>
+                                       <li data-target="#step2">
+                                          <span id="step2-button" class="step">2</span>
+                                          <span class="title">Estrutura</span>
+                                       </li>
+                                       <li data-target="#step3">
+                                          <span id="step3-button" class="step">3</span>
+                                          <span class="title">Salvar Base</span>
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <div class="step-content row-fluid position-relative" id="step-container">
+                                    <div class="step-pane active" id="step1">
+                                       <h3 class="lighter block green">Informações da Base</h3>
+                                       <form class="form-horizontal" id="validation-form" method="get">
+                                          <div class="control-group">
+                                             <label class="control-label" for="email">Nome:</label>
+                                             <div class="controls">
+                                                <div class="span6">
+                                                   <input type="text" name="name" id="name" class="span6" />
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="control-group">
+                                             <label class="control-label">Descrição:</label>
+                                             <div class="controls">
+                                                <div class="span12">
+                                                   <input class="span6" type="text" name="description" id="password" class="span4" />
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="control-group">
+                                             <label class="control-label">Exportar Indice:</label>
+                                             <div class="controls">
+                                                <span class="span12">
+                                                <label>
+                                                <input name="index_export" id="index_export" class="ace-switch ace-switch-6" type="checkbox" />
+                                                <span class="lbl"></span>
+                                                </label>
+                                                </span>
+                                             </div>
+                                          </div>
+                                          <div id="control-group-URL">
+                                             <div class="control-group">
+                                                <label id="URL_label" class="control-label" for="URL">URL do indexador:</label>
+                                                <div class="controls">
+                                                   <span class="span12">
+                                                   <input class="span6" type="text" id="URL_input" name="index_url" />
+                                                   </span>
+                                                </div>
+                                             </div>
+                                             <div class="control-group">
+                                                <label class="control-label" for="name">Tempo de espera da indexação:</label>
+                                                <div class="controls">
+                                                   <span class="span12">
+                                                      <input name="index_time" type="text" class="input-mini" id="spinner1" />
+                                                      <div class="space-6"></div>
+                                                   </span>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="control-group">
+                                             <label class="control-label">Extrair texto do documento:</label>
+                                             <div class="controls">
+                                                <span class="span12">
+                                                <label>
+                                                <input name="doc_extract" id="doc_extract" class="ace-switch ace-switch-6" type="checkbox" />
+                                                <span class="lbl"></span>
+                                                </label>
+                                                </span>
+                                             </div>
+                                          </div>
+                                          <div id="control-group-DOC">
+                                             <div class="control-group">
+                                                <label class="control-label" for="name">Tempo de espera da extração:</label>
+                                                <div class="controls">
+                                                   <span class="span12">
+                                                      <input name="extract_time" type="text" class="input-mini" id="spinner2" />
+                                                      <div class="space-6"></div>
+                                                   </span>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </form>
+                                    </div>
+                                    <div class="step-pane" id="step2">
+                                       <div class="row-fluid">
+                                          <!-- BASE STRUCTURE AND CONTEXT -->
+                                          <div id="base-widget">
+                                             <header>
+                                                <link rel="stylesheet" type="text/css" href="/static/nestable-theme/jquery.nestable.css">
+                                                <style>
+                                                   .error{
+                                                   color:#db8978;
+                                                   }
+                                                </style>
+                                             </header>
+                                             <div id="nestable-to-validate" class="row-fluid">
+                                                <div class="span7">
+                                                   <div class="widget-box">
+                                                      <div class="widget-header">
+                                                         <h4>Estrutura da Base</h4>
+                                                         <span class="widget-toolbar">
+                                                         </span>
+                                                      </div>
+                                                      <div class="widget-body">
+                                                         <div class="widget-toolbox">
+                                                            <div class="btn-toolbar">
+                                                               <div class="btn-group">
+                                                                  <button class="btn btn-small btn-info" data-action="create-field">
+                                                                  <i class="icon-plus"></i>
+                                                                  Campo
+                                                                  </button>
+                                                                  <button class="btn btn-small btn-info" data-action="create-group">
+                                                                  <i class="icon-plus bigger-110"></i>
+                                                                  Grupo
+                                                                  </button>
+                                                               </div>
+                                                               <div class="btn-group">
+                                                                  <button class="btn btn-small" data-action="collapse-all">
+                                                                  <i class="icon-collapse-top"></i>
+                                                                  Colapsar
+                                                                  </button>
+                                                                  <button class="btn btn-small" data-action="expand-all">
+                                                                  <i class="icon-collapse"></i>
+                                                                  Expandir
+                                                                  </button>
+                                                               </div>
+                                                               <div class="btn-group">
+                                                                  <button class="btn btn-small btn-danger" data-action="remove-element">
+                                                                  <i class="icon-remove"></i>
+                                                                  Deletar
+                                                                  </button>
+                                                               </div>
+                                                               <div class="btn-group open">
+                                                                  <button data-toggle="dropdown" class="btn btn-small btn-grey dropdown-toggle">
+                                                                  <i class="icon-caret-down icon-only bigger-110"></i>
+                                                                  </button>
+                                                                  <ul class="dropdown-menu pull-right dropdown-caret dropdown-close">
+                                                                     <li>
+                                                                        <a href='javascript:void(0);' data-action="auto-append">
+                                                                        <i class="icon-indent-right"></i>
+                                                                        Auto indentação
+                                                                        </a>
+                                                                     </li>
+                                                                  </ul>
+                                                               </div>
+                                                            </div>
+                                                         </div>
+                                                         <div id="div-to-scroll" class="widget-main" style="height:425px; overflow:auto;">
+                                                            <!-- nestable list -->
+                                                            <div class="dd" id="nestable">
+                                                               <ol id="base-structure" class="dd-list"></ol>
+                                                            </div>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="span5">
+                                                   <div class="widget-box">
+                                                      <div class="widget-header">
+                                                         <h4>Propriedades</h4>
+                                                         <span class="widget-toolbar">
+                                                         </span>
+                                                      </div>
+                                                      <div class="widget-body">
+                                                         <div id="base-context" class="widget-main" style="overflow:auto;">
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <!-- BASE STRUCTURE AND CONTEXT ENDS-->
+                                       </div>
+                                    </div>
+                                    <div class="step-pane" id="step3">
+                                       <div class="center">
+                                          <h3 class="blue lighter">Você esta prestes a salvar uma base!</h3>
+                                          <div class="row-fluid center">
+                                             <div class="span12">
+                                                <textarea id="nestable-output" class="m-wrap span12"></textarea>
+                                             </div>
+                                             <div id="auto-append-info" class="control-group info" hidden>
+                                                <div class="controls">
+                                                   <span class="span6 input-icon input-icon-right">
+                                                   <input class="span12" type="text" value="Auto indentação ativada">
+                                                   <i class="icon-info-sign"></i>
+                                                   </span>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <p>
+                                             <button id="save-data" type="submit" class="btn btn-purple" style="width: 37%;">Salvar Base</button>
+                                          </p>
+                                       </div>
+                                    </div>
+                                    <div class="step-pane" id="step4">
+                                    </div>
+                                 </div>
+                                 <div id="submit-buttons" class="row-fluid wizard-actions">
+                                    <button id="button-prev" class="btn btn-prev">
+                                    <i class="icon-arrow-left"></i>
+                                    Anterior
+                                    </button>
+                                    <button id="button-submit" class="btn btn-success" data-last="Finish ">
+                                    Próximo
+                                    <i class="icon-arrow-right icon-on-right"></i>
+                                    </button>
+                                 </div>
+                              </div>
+                           </div>
+                           <!--/widget-main-->
+                        </div>
+                        <!--/widget-body-->
+                     </div>
+                  </div>
+               </div>
+               <div id="modal-wizard" class="modal hide">
+                  <div class="modal-footer wizard-actions">
+                     <button class="btn btn-small btn-prev">
+                     <i class="icon-arrow-left"></i>
+                     Prev
+                     </button>
+                     <button class="btn btn-success btn-small" data-last="Finish ">
+                     Next
+                     <i class="icon-arrow-right icon-on-right"></i>
+                     </button>
+                     <button class="btn btn-danger btn-small pull-left" data-dismiss="modal">
+                     <i class="icon-remove"></i>
+                     Cancel
+                     </button>
+                  </div>
+               </div>
+               <!--PAGE CONTENT ENDS-->
+            </div>
+            <!--/.span-->
+         </div>
+         <!--/.row-fluid-->
+      </div>
+      <!--/.page-content-->
+   </div>
+</metal:main>
+<script src="/static/js/ace/fuelux.wizard.min.js"></script>
+<script src="/static/js/ace/jquery.validate.min.js"></script>
+<script src="/static/js/lightbase/base_form.js"></script>
+<script src="/static/js/lightbase/jquery.nestable.js"></script>
+<script src="/static/js/ace/additional-methods.min.js"></script>
+<script src="/static/js/ace/bootbox.min.js"></script>
+<script src="/static/js/lightbase/requisicaoajax.js"></script>
+<!-- countings-->
+<script src="/static/js/ace/jquery-ui-1.10.3.custom.min.js"></script>
+<script src="/static/js/ace/chosen.jquery.min.js"></script>
+<script src="/static/js/ace/fuelux.spinner.min.js"></script>
+<script src="/static/js/ace/jquery.autosize-min.js"></script>
+<script src="/static/js/ace/jquery.maskedinput.min.js"></script>
+<script type="text/javascript">
+   $(function() {
+   
+   
+                $.validator.addMethod('alphanumeric', function (value, element) {
+                    /*http://stackoverflow.com/questions/4977898/check-for-valid-sql-column-name*/
+                    return /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(value);
+                }, "Preencha com caracteres válidos");
+              basedata = new Object();
+              var x = {   
+        errorElement: 'span',
+        errorClass: 'help-inline',
+        focusInvalid: false,
+        rules: {
+            name: {
+                required: true,
+                            alphanumeric: "required",
+                            maxlength: 23
+            },
+            description: {
+                required: true,
+                            maxlength: 256
+            },
+            index_export: {
+                            required: false
+            },
+            index_url: {
+                            url: true,
+                required: {
+                                     depends: function(element){
+                                                  var checked = false;
+                                                  if ($("#index_export:checked").val() !== undefined){
+                                                     checked = true
+                                                  }
+                                                  return checked
+                                              }                                        
+                            }
+            },
+            index_time: {
+                            required: false
+            },
+            document_extract: {
+                required: false
+                
+            },
+            extraction_time: {
+                required: false
+            },
+            state: {
+                required: false
+            },
+            platform: {
+                required: false
+            },
+            subscription: {
+                required: false
+            },
+            gender: 'required',
+            agree: 'required'
+        },
+   
+        messages: {
+            name: {
+                required: "É necessario preencher o campo"
+            },
+            description: {
+                required: "É necessario preencher o campo"
+            },
+                        index_url: {
+                            required: "É necessario preencher o campo"
+                        }
+        },
+   
+        invalidHandler: function (event, validator) { //display error alert on form submit   
+            $('.alert-error', $('.login-form')).show();
+        },
+   
+        highlight: function (e) {
+            $(e).closest('.control-group').removeClass('info').addClass('error');
+        },
+   
+        success: function (e) {
+            $(e).closest('.control-group').removeClass('error').addClass('info');
+            $(e).remove();
+        },
+   
+        errorPlacement: function (error, element) {
+            if(element.is(':checkbox') || element.is(':radio')) {
+                var controls = element.closest('.controls');
+                if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+                else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+            }
+            else if(element.is('.chzn-select')) {
+                error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
+            }
+            else error.insertAfter(element);
+        },
+   
+        submitHandler: function (form) {
+        },
+        invalidHandler: function (form) {
+        }
+                };
+   
+    $('[data-rel=tooltip]').tooltip();
+   
+   
+    var $validation = true;
+    $('#fuelux-wizard').ace_wizard().on('change' , function(e, info){
+        if(info.step == 1 && $validation) {
+            if(!$('#validation-form').valid()) return false;
+        }
+    }).on('stepclick', function(e){
+        //return false;//prevent clicking on steps
+    });
+   
+   
+    $('#sample-form').hide();
+       $('#validation-form').show();
+   
+    $('#modal-wizard .modal-header').ace_wizard();
+    $('#modal-wizard .wizard-actions .btn[data-dismiss=modal]').removeAttr('disabled');
+                
+                $('#validation-form').submit(function() {
+                    var formdata = $("#validation-form").serializeArray();
+                    var returnArray = new Object();
+                    $.each(formdata, function(i, v){
+                        if (v.name == "doc_extract"){
+                            v.value = true
+                        }
+                        if (v.name == "index_export"){
+                            v.value = true
+                        }
+                        returnArray[v.name] = v.value;
+                    });
+                        if (!("doc_extract" in returnArray)){
+                            returnArray["doc_extract"] = false;
+                        }
+                        if (!("index_export" in returnArray)){
+                            returnArray["index_export"] = false;
+                        }
+                        return returnArray;
+                });
+                $("#control-group-URL").hide();
+                $("#index_export").click(function(){
+                    if ($("#index_export:checked").val() == undefined){
+                        $("#control-group-URL").hide();
+                    }else{
+                        $("#control-group-URL").show();
+                    }
+                });
+   
+                $("#control-group-DOC").hide();
+                $("#doc_extract").click(function(){
+                    if ($("#doc_extract:checked").val() == undefined){
+                        $("#control-group-DOC").hide();
+                    }else{
+                        $("#control-group-DOC").show();
+                    }
+                });
+   
+                var button = document.getElementById("button-submit");
+                $("#button-submit").click(function(){
+                    if ($("#fuelux-wizard").wizard("selectedItem").step == 1){
+                        $('#validation-form').validate(x);
+                        $("#fuelux-wizard").wizard("next");
+                        var formdata = $("#validation-form").serializeArray();
+                        var returnArray = new Object();
+                        $.each(formdata, function(i, v){
+                            if (v.name == "doc_extract"){
+                                v.value = true
+                            }
+                            if (v.name == "index_export"){
+                                v.value = true
+                            }
+                            returnArray[v.name] = v.value;
+                        });
+                        if (!("doc_extract" in returnArray)){
+                            returnArray["doc_extract"] = false;
+                        }
+                        if (!("index_export" in returnArray)){
+                            returnArray["index_export"] = false;
+                        }
+                        basedata["metadata"] = returnArray;
+                        basedata["structure"] = base.structure; 
+                        basedata["context"] = base.context.context;
+                        base.metadata = returnArray;
+                        return false;
+                    }
+                    if ($("#fuelux-wizard").wizard("selectedItem").step == 2 && base.context.validate() == true){
+                        $("#fuelux-wizard").wizard("next");
+                    }
+                    if ($('#fuelux-wizard').wizard("selectedItem").step == 3){
+                        var textarea = document.getElementById("nestable-output");
+                        textarea.value = base.json;
+                        textarea.setAttribute('style','height: 100px;');
+                        button.setAttribute('style','display:none;');
+                        textarea.disabled = true;
+                    }
+                });
+   
+                $("#step1-button").click(function(){
+                        button.setAttribute('style','display:inline;');
+                });
+                $("#step2-button").click(function(){
+                        button.setAttribute('style','display:inline;');
+                });
+   
+                $("#button-prev").click(function(){
+                    if ($('#fuelux-wizard').wizard("selectedItem").step == 2){
+                        button.setAttribute('style','display:inline;');
+                    }
+                });
+   
+                $("#save-data").click( function(){
+                    $("#button-submit").click();
+                    $.ajax({
+                        type: 'post',
+                        url: '/api/base',
+                        data: {
+                            json_base: base.json
+                        },
+                        success: function(data, textStatus, jqXHR ){
+                            bootbox.dialog("Obrigado! Sua base foi salva com sucesso!", [{
+                                "label" : "OK",
+                                "class" : "btn-small btn-primary",
+                                "href": "/lb/form-wizard",
+                                }]
+                            );
+                        },
+                        error: function(jqXHR, textStatus, errorThrown){
+                            window.location.href = '/lb/error-500';
+                        }
+                    });
+                });
+   
+   
+                }); 
+</script>
+<script type="text/javascript">
+   $(document).ready(function()
+   {
+        $('#spinner1').ace_spinner({value:0,min:0,max:200,step:10, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
+   
+        $('#spinner2').ace_spinner({value:0,min:0,max:200,step:10, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
+       $('button[data-action="create-field"]').click(function(){
+           base.create_field(remand=false, check_valid=true);
+       });
+       $('button[data-action="create-group"]').click(function(){
+           base.create_group();
+       });
+       $('button[data-action="expand-all"]').click(function(){
+           $('.dd').nestable('expandAll');
+       });
+       $('button[data-action="collapse-all"]').click(function(){
+           $('.dd').nestable('collapseAll');
+       });
+       $('button[data-action="remove-element"]').click(function(){
+           base.remove_element();
+       });
+       $('a[data-action="auto-append"]').click(function(){
+           if (base.auto_append){
+               base.auto_append = false;
+               $('#auto-append-info').hide();
+           }
+           else{
+               base.auto_append = true;
+               $('#auto-append-info').show();
+           }
+       });
+   
+          var drop_callback = function(drop_info){
+               // Select list-item and focus on form
+               base.context.focus_on('base-context-' + drop_info.sourceId + '-form');
+               if(base.auto_append){
+                   if(base.current_item.is_group){
+                       base.auto_append_el = $(base.current_item).children('ol')[0]; 
+                   }
+                   else{
+                       base.auto_append_el = undefined; 
+                   }
+               }
+   
+           }
+   
+       $('#nestable').nestable({
+           group: 1,
+           maxDepth: 10,
+           dropCallback: drop_callback
+       })
+   
+   });
+   
+</script>
