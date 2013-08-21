@@ -447,6 +447,7 @@ function MultivaluedField(id){
 function BaseContext(context_space){
 
     this.context_space = context_space;
+    this.edit_mode = false;
     var self = this;
 
     this.__defineGetter__('context', function(){
@@ -1108,6 +1109,8 @@ function BaseStructure(nestable_space, context){
                 });
                 return response;
             };
+        $('#base-name').val(json_base.metadata.name)
+        $('#base-description').val(json_base.metadata.description)
         items = step(json_base.content);
         $.each(items, function(i, item){
             self.nestable_space.appendChild(item);

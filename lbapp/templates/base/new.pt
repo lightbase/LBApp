@@ -79,7 +79,7 @@
                                              <label class="control-label" for="email">Nome:</label>
                                              <div class="controls">
                                                 <div class="span6">
-                                                   <input type="text" name="name" id="name" class="span6" />
+                                                   <input type="text" name="name" id="base-name" class="span6" />
                                                 </div>
                                              </div>
                                           </div>
@@ -87,7 +87,7 @@
                                              <label class="control-label">Descrição:</label>
                                              <div class="controls">
                                                 <div class="span12">
-                                                   <input class="span6" type="text" name="description" id="password" class="span4" />
+                                                   <input class="span6" type="text" name="description" id="base-description" class="span4" />
                                                 </div>
                                              </div>
                                           </div>
@@ -534,7 +534,7 @@
                     $("#button-submit").click();
                     $.ajax({
                         type: 'post',
-                        url: '/api/base',
+                        url: window.location,
                         data: {
                             json_base: base.json
                         },
@@ -542,12 +542,13 @@
                             bootbox.dialog("Obrigado! Sua base foi salva com sucesso!", [{
                                 "label" : "OK",
                                 "class" : "btn-small btn-primary",
-                                "href": "/lb/form-wizard",
+                                "href": 'base/'+base.metadata.name+'/edit',
                                 }]
                             );
                         },
                         error: function(jqXHR, textStatus, errorThrown){
-                            window.location.href = '/lb/error-500';
+                            console.log(jqXHR, textStatus, errorThrown)
+                            //window.location.href = '/lb/error-500';
                         }
                     });
                 });

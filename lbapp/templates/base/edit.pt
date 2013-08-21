@@ -42,6 +42,9 @@
             <script src="static/ace-final/assets/js/ace.min.js"></script>-->
          <!--inline scripts related to this page-->
       </header>
+      <div id="controller-data" style="display:none" >
+        ${base_json}
+      </div>
       <div class="page-content">
          <div class="row-fluid">
             <div class="span12">
@@ -79,7 +82,7 @@
                                              <label class="control-label" for="email">Nome:</label>
                                              <div class="controls">
                                                 <div class="span6">
-                                                   <input type="text" name="name" id="name" class="span6" />
+                                                   <input type="text" name="name" id="base-name" class="span6" />
                                                 </div>
                                              </div>
                                           </div>
@@ -87,7 +90,7 @@
                                              <label class="control-label">Descrição:</label>
                                              <div class="controls">
                                                 <div class="span12">
-                                                   <input class="span6" type="text" name="description" id="password" class="span4" />
+                                                   <input class="span6" type="text" name="description" id="base-description" class="span4" />
                                                 </div>
                                              </div>
                                           </div>
@@ -606,6 +609,11 @@
            maxDepth: 10,
            dropCallback: drop_callback
        })
+
+        var base_json = JSON.parse($('#controller-data').text());
+        base.context.edit_mode = true;
+        base.build_from_json(base_json);
+        base.context.edit_mode = false;
    
    });
    
