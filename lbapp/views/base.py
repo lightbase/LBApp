@@ -4,12 +4,12 @@ import requests
 import json
 from pyramid.response import Response
 
-
 @view_config(route_name='create_base', renderer='../templates/base/new.pt')
 def create_base(request):
     if request.params:
         response = requests.post('%s/base' %(rest_url), params=request.params).json()
-    print(response)
+        if response.get('_status') == 500:
+            return Response(status=500)
         
     return {'json_base': 'json_base'}
 
