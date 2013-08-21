@@ -534,7 +534,7 @@
                     $("#button-submit").click();
                     $.ajax({
                         type: 'post',
-                        url: window.location,
+                        url: '/base/new',
                         data: {
                             json_base: base.json
                         },
@@ -542,13 +542,13 @@
                             bootbox.dialog("Obrigado! Sua base foi salva com sucesso!", [{
                                 "label" : "OK",
                                 "class" : "btn-small btn-primary",
-                                "href": 'base/'+base.metadata.name+'/edit',
+                                "href": '/base/'+base.metadata.name+'/edit',
                                 }]
                             );
                         },
                         error: function(jqXHR, textStatus, errorThrown){
                             console.log(jqXHR, textStatus, errorThrown)
-                            //window.location.href = '/lb/error-500';
+                            //window.location.href = '/error-500';
                         }
                     });
                 });

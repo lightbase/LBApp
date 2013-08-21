@@ -537,7 +537,7 @@
                     $("#button-submit").click();
                     $.ajax({
                         type: 'post',
-                        url: '/api/base',
+                        url: '/base/'+base.metadata.name+'/edit',
                         data: {
                             json_base: base.json
                         },
@@ -545,7 +545,7 @@
                             bootbox.dialog("Obrigado! Sua base foi salva com sucesso!", [{
                                 "label" : "OK",
                                 "class" : "btn-small btn-primary",
-                                "href": "/lb/form-wizard",
+                                "href": '/base/'+base.metadata.name+'/edit',
                                 }]
                             );
                         },
