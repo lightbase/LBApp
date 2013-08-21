@@ -579,8 +579,8 @@ function BaseContext(context_space){
                 $(v.input).on('change',function(e){
                     forbidden_indices = PROHIBITIONS[this.value];
                     datatype = this.value;
-                    datatype_icon_el = $(['#nestable', data_id, 'datatype-icon'].join('-'))[0];
-                    datatype_icon_el.setAttribute('class', 'bigger-140 blue normal-icon ' + DATATYPE_ICONS[datatype] );
+                    datatype_icon_el = $(['#nestable', data_id, 'datatype-icon'].join('-'));
+                    datatype_icon_el.attr('class', 'bigger-140 blue normal-icon ' + DATATYPE_ICONS[datatype] );
                     $.each(INDICES, function(i, index){
                         index_el = $(['#base', 'context', data_id, 'indices', index].join('-'));
                         if (datatype === 'AutoEnumerado')
@@ -1071,6 +1071,9 @@ function BaseStructure(nestable_space, context){
                     child,
                     children,
                     data_id,
+                    datatype_el,
+                    required_el,
+                    field_indices,
                     response = [];
 
                 $(content).each(function(){
@@ -1081,12 +1084,23 @@ function BaseStructure(nestable_space, context){
 
                         self.context_element(data_id, 'name').val(this.field.name);
                         self.context_element(data_id, 'description').val(this.field.description);
-                        self.context_element(data_id, 'datatype').val(this.field.datatype);
-                        self.context_element(data_id, 'multivalued').val(this.field.multivalued);
-                        self.context_element(data_id, 'required').val(this.field.required);
 
-                        $.each(this.field.indices, function(i, index){
-                            self.context_element(data_id, 'indices', index).attr('checked', true);
+                        datatype_el = self.context_element(data_id, 'datatype')
+                        datatype_el.val(this.field.datatype);
+                        datatype_el.change();
+
+                        self.context_element(data_id, 'multivalued').attr('checked', this.field.multivalued);
+
+                        required_el = self.context_element(data_id, 'required')
+                        required_el.attr('checked', this.field.required);
+                        required_el.change(); 
+
+                        field_indices = this.field.indices;
+                        $.each(INDICES, function(i, index){
+                            if ($.inArray(index, field_indices) > -1)
+                                self.context_element(data_id, 'indices', index).attr('checked', true);
+                            else
+                                self.context_element(data_id, 'indices', index).attr('checked', false);
                         });
                         response.push(field);
                     }

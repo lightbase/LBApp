@@ -9,6 +9,7 @@ from pyramid.response import Response
 def create_base(request):
     if request.params:
         response = requests.post('%s/base' %(rest_url), params=request.params).json()
+    print(response)
         
     return {'json_base': 'json_base'}
 
