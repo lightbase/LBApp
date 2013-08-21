@@ -1,4 +1,6 @@
 from pyramid.view import view_config
+from lbapp import rest_url
+
 
 @view_config(route_name='create_base', renderer='../templates/base/new.pt')
 def create_base(request):
