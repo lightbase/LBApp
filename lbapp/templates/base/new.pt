@@ -586,6 +586,9 @@
                $('#auto-append-info').show();
            }
        });
+
+       // Initialize first field
+       base.create_field();
    
           var drop_callback = function(drop_info){
                // Select list-item and focus on form
