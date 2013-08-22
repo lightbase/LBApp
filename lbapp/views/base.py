@@ -7,8 +7,11 @@ from pyramid.response import Response
 @view_config(route_name='create_base', renderer='../templates/base/new.pt')
 def create_base(request):
     if request.params:
-        response = requests.post('%s/base' %(rest_url), params=request.params).json()
-        if response.get('_status') == 500:
+        response = requests.post('%s/base' %(rest_url), params=request.params)
+        try:
+            int(response.text)
+            return Response(response.text, status=200)
+        except:
             return Response(status=500)
         
     return {'json_base': 'json_base'}
@@ -18,22 +21,21 @@ def edit_base(request):
 
     if request.params:
         base_json = request.params['json_base']
-        base_id = request.params['id_base']
-        params = {'json_base': base_json}
-        response = requests.put('%s/base/%s' %(rest_url, base_id), params=params).json()
-        if response.get('_status') == 500:
-            pass
-        return Response(status=500)
+        base_id = request.matchdict['base_id']
+        params = dict(
+            json_base = base_json,
+        )
+        response = requests.put('%s/base/%s' %(rest_url, base_id), params=params)
+        if response.text == 'UPDATED':
+            return Response(status=200)
+        else:
+            return Response(status=500)
 
-    base_name = request.matchdict['base_name']
-    search = '{"select": ["id_base", "json_base"], "literal": "nome_base=\'%s\'"}' %(base_name)
+    base_id = request.matchdict['base_id']
+    response = requests.get('%s/base/%s' %(rest_url, base_id)).json()
+    base_json = response['json_base']
 
-    params = {'$$': search}
-    response = requests.get('%s/base' %(rest_url), params=params).json()
-    
-    base_json = response['results'][0]['json_base']
-    base_id = response['results'][0]['id_base']
-    return {'base_json': json.dumps(base_json), 'base_id': base_id}
+    return {'base_json': json.dumps(base_json)}
 
 @view_config(route_name='list_base', renderer='../templates/base/list.pt')
 def list_base(request):

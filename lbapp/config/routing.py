@@ -6,7 +6,7 @@ def make_routes(config):
     # ** BASE **
     config.add_route('create_base', 'base/new')
     config.add_route('list_base', 'base/list')
-    config.add_route('edit_base', 'base/{base_name}/edit')
+    config.add_route('edit_base', 'base/{base_id}/edit')
 
     # ** ERROR **
     config.add_route('error-404', 'error-404')

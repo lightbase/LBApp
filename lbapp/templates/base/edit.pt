@@ -42,11 +42,8 @@
             <script src="static/ace-final/assets/js/ace.min.js"></script>-->
          <!--inline scripts related to this page-->
       </header>
-      <div id="controller-data-base-json" style="display:none">
+      <div id="controller-data" style="display:none">
         ${base_json}
-      </div>
-      <div id="controller-data-base-id" style="display:none">
-        ${base_id}
       </div>
       <div class="page-content">
          <div class="row-fluid">
@@ -540,16 +537,15 @@
                     $("#button-submit").click();
                     $.ajax({
                         type: 'post',
-                        url: '/base/'+base.metadata.name+'/edit',
+                        url: window.location,
                         data: {
                             json_base: base.json,
-                            id_base: parseInt($('#controller-data-base-id').text())
                         },
                         success: function(data, textStatus, jqXHR ){
                             bootbox.dialog("Obrigado! Sua base foi salva com sucesso!", [{
                                 "label" : "OK",
                                 "class" : "btn-small btn-primary",
-                                "href": '/base/'+base.metadata.name+'/edit',
+                                "href": window.location,
                                 }]
                             );
                         },
@@ -614,7 +610,7 @@
            dropCallback: drop_callback
        })
 
-        var base_json = JSON.parse($('#controller-data-base-json').text());
+        var base_json = JSON.parse($('#controller-data').text());
         base.context.edit_mode = true;
         base.build_from_json(base_json);
         base.context.edit_mode = false;

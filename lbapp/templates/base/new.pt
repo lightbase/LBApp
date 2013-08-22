@@ -542,7 +542,7 @@
                             bootbox.dialog("Obrigado! Sua base foi salva com sucesso!", [{
                                 "label" : "OK",
                                 "class" : "btn-small btn-primary",
-                                "href": '/base/'+base.metadata.name+'/edit',
+                                "href": '/base/'+data+'/edit',
                                 }]
                             );
                         },
