@@ -42,7 +42,7 @@ def edit_base(request):
 
 @view_config(route_name='list_base', renderer='../templates/base/list.pt')
 def list_base(request):
-    response = requests.get('%s/base' %(rest_url), params=request.params).json()
+    response = requests.get('%s/base' %("http://neo.lightbase.cc/api"), params=request.params).json()
     result = response['results']
     return {'r': json.dumps(result)}
 
