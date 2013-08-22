@@ -1,4 +1,4 @@
-<metal:main use-macro="load: acemaster.pt">
+<metal:main use-macro="load: master.pt">
  <!-- Insere JavaScript -->
     <script metal:fill-slot="javascript" type="text/javascript" src="static/tabelabootstrap.js"></script>
 
