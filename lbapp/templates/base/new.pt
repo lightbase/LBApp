@@ -43,6 +43,7 @@
          <!--inline scripts related to this page-->
       </header>
       <div class="page-content">
+         <div id="base_names" style="display: none">${base_names}</div>
          <div class="row-fluid">
             <div class="span12">
                <!--PAGE CONTENT BEGINS-->
@@ -324,6 +325,17 @@
                     /*http://stackoverflow.com/questions/4977898/check-for-valid-sql-column-name*/
                     return /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(value);
                 }, "Preencha com caracteres válidos");
+                $.validator.addMethod('base_repetition', function (value, element) {
+                    var base_names = JSON.parse($('#base_names').text()),
+                        not_exists = true;
+                    $.each(base_names, function(k, v){
+                        if (v.nome_base == value){
+                            not_exists = false;
+                            return false;
+                        }
+                    });
+                    return not_exists;
+                }, "Esta base já existe.");
               basedata = new Object();
               var x = {   
         errorElement: 'span',
@@ -333,6 +345,7 @@
             name: {
                 required: true,
                             alphanumeric: "required",
+                            base_repetition: "required",
                             maxlength: 23
             },
             description: {
@@ -542,7 +555,7 @@
                             bootbox.dialog("Obrigado! Sua base foi salva com sucesso!", [{
                                 "label" : "OK",
                                 "class" : "btn-small btn-primary",
-                                "href": '/base/'+data+'/edit',
+                                "href": '/base/list',
                                 }]
                             );
                         },

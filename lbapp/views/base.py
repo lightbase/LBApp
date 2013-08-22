@@ -3,6 +3,7 @@ from lbapp import rest_url
 import requests
 import json
 from pyramid.response import Response
+from pyramid.exceptions import HTTPNotFound
 
 @view_config(route_name='create_base', renderer='../templates/base/new.pt')
 def create_base(request):
@@ -13,8 +14,15 @@ def create_base(request):
             return Response(response.text, status=200)
         except:
             return Response(status=500)
+
+    search = {'select': ['nome_base']}
+    response = requests.get('%s/base' %(rest_url), params={'$$': json.dumps(search)}).json()
+    if response.get('_status') == 500 or response.get('_status') == 404:
+        raise Exception(str(response))
+
+    base_names = response['results']
         
-    return {'json_base': 'json_base'}
+    return {'base_names': json.dumps(base_names)}
 
 @view_config(route_name='edit_base', renderer='../templates/base/edit.pt')
 def edit_base(request):
@@ -22,9 +30,7 @@ def edit_base(request):
     if request.params:
         base_json = request.params['json_base']
         base_id = request.matchdict['base_id']
-        params = dict(
-            json_base = base_json,
-        )
+        params = {'json_base': base_json}
         response = requests.put('%s/base/%s' %(rest_url, base_id), params=params)
         if response.text == 'UPDATED':
             return Response(status=200)

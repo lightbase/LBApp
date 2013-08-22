@@ -545,7 +545,7 @@
                             bootbox.dialog("Obrigado! Sua base foi salva com sucesso!", [{
                                 "label" : "OK",
                                 "class" : "btn-small btn-primary",
-                                "href": window.location,
+                                "href": '/base/list',
                                 }]
                             );
                         },
