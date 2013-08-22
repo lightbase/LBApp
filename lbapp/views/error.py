@@ -9,9 +9,16 @@ def notfound_view(request):
     """
     return {}
 
-@view_config(route_name='error-500', context=Exception, renderer='../templates/error/error-500.pt')
+@view_config(context=Exception, renderer='../templates/error/error-500.pt')
 def error_view(exc, request):
     """ Customized Error view 
     """
     print(traceback.format_exc())
-    return {}
+    return {'error_message': str(exc.args)}
+
+@view_config(route_name='error-500', renderer='../templates/error/error-500.pt')
+def error_view_routed(exc, request):
+    """ Customized Error view 
+    """
+    #print(traceback.format_exc())
+    return {'error_message': ''}

@@ -1088,6 +1088,9 @@ function BaseStructure(nestable_space, context){
                         datatype_el = self.context_element(data_id, 'datatype')
                         datatype_el.val(this.field.datatype);
                         datatype_el.change();
+                        datatype_icon_el = $(field).find(['#nestable', data_id, 'datatype-icon'].join('-'));
+                        datatype_icon_el.attr('class', 'bigger-140 blue normal-icon ' + 
+                        DATATYPE_ICONS[this.field.datatype]);
 
                         self.context_element(data_id, 'multivalued').attr('checked', this.field.multivalued);
 

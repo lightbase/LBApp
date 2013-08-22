@@ -44,6 +44,7 @@
 											</li>
 										</ul>
 									</div>
+                                    <div>${error_message}</div>
 
 									<hr />
 									<div class="space"></div>

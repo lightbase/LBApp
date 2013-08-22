@@ -33,6 +33,9 @@ def edit_base(request):
 
     base_id = request.matchdict['base_id']
     response = requests.get('%s/base/%s' %(rest_url, base_id)).json()
+    if response.get('_status') == 500 or response.get('_status') == 404:
+        raise Exception(str(response))
+        
     base_json = response['json_base']
 
     return {'base_json': json.dumps(base_json)}
