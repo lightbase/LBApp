@@ -86,8 +86,8 @@
 													<span class="lbl"></span>
 												</label>
 											</th>
-											<th>Domain</th>
-											<th>Price</th>
+											<th>Id</th>
+											<th>Nome</th>
 											<th class="hidden-480">Clicks</th>
 
 											<th class="hidden-phone">
@@ -100,7 +100,7 @@
 										</tr>
 									</thead>
 
-									<tbody>
+									<tbody id="tbody">
 										<tr>
 											<td class="center">
 												<label>
@@ -121,7 +121,7 @@
 											</td>
 
 											<td class="td-actions">
-												<div class="hidden-phone visible-desktop action-buttons">
+												<div id="div-1" class="hidden-phone visible-desktop action-buttons">
 													<a class="blue" href="#">
 														<i class="icon-zoom-in bigger-130"></i>
 													</a>
@@ -136,7 +136,7 @@
 												</div>
 
 												<div class="hidden-desktop visible-phone">
-													<div class="inline position-relative">
+													<div id="div-h" class="inline position-relative">
 														<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
 															<i class="icon-caret-down icon-only bigger-120"></i>
 														</button>
