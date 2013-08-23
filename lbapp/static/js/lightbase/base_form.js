@@ -25,7 +25,7 @@ var DATATYPES= [
 var DATATYPE_ICONS = {
     'Texto'            :'icon-text-width',
     'AlfaNumerico'     :'icon-font',
-    'Documento'        :'icon-file-text',
+    'Documento'        :'icon-file-text-alt',
     'Inteiro'          :'icon-info',
     'Decimal'          :'iDecimal',
     'Moeda'            :'icon-usd',
@@ -37,10 +37,10 @@ var DATATYPE_ICONS = {
     'Video'            :'icon-film',
     'URL'              :'icon-globe',
     'Verdadeiro/Falso' :'icon-check',
-    'Arquivo'          :'icon-file',
+    'Arquivo'          :'icon-file-alt',
     'HTML'             :'icon-code',
-    'Email'            :'iEmail',
-    'JSON'             :'iJSON'
+    'Email'            :'icon-envelope-alt',
+    'JSON'             :'icon-circle-blank'
 };
 
 /* Indices Defaults */
