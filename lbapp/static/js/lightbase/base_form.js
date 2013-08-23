@@ -725,17 +725,10 @@ function BaseStructure(nestable_space, context){
     this.auto_append_el = undefined;
     self = this;
 
-    this.nestable_space.scroll_top = function(){
+    this.nestable_space.scroll_to = function(li){
         var scroll_div = $(this).parent().parent();
         $(scroll_div).stop().animate({
-          scrollTop: -$(scroll_div)[0].scrollHeight
-        }, duration=1000);
-    };
-
-    this.nestable_space.scroll_bottom = function(){
-        var scroll_div = $(this).parent().parent();
-        $(scroll_div).stop().animate({
-          scrollTop: $(scroll_div)[0].scrollHeight
+          scrollTop: $(li).offset().top
         }, duration=1000);
     };
 
@@ -849,7 +842,7 @@ function BaseStructure(nestable_space, context){
         if(remand) return li;
         append_element.appendChild(li);
         this.context.focus_on(field_form.id);
-        this.nestable_space.scroll_bottom();
+        this.nestable_space.scroll_to(li);
     };
 
     this.create_group = function(remand){
@@ -898,7 +891,7 @@ function BaseStructure(nestable_space, context){
         var group_form = this.group_form(group_id, group_name, group_desc);
         this.context.push_form(group_form);
         this.context.add_rules(group_form);
-        this.nestable_space.scroll_bottom();
+        this.nestable_space.scroll_to(li);
         this.context.focus_on(group_form.id);
 
         if(this.auto_append)
