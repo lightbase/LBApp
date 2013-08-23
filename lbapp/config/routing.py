@@ -36,3 +36,24 @@ def make_routes(config):
     config.add_route('wysiwyg', 'wysiwyg')
     config.add_route('f', 'f')
     config.add_route('jqgrid', 'jqgrid')
+
+''' 
+    config.add_route('new_base',     'lb/new')
+
+    config.add_route('view_base',    'lb/{base_name}/view')
+    config.add_route('edit_base',    'lb/{base_name}/edit')
+    config.add_route('delete_base',  'lb/{base_name}/delete')
+
+    #   ***Formulário***
+
+    config.add_route('new_form',     'lb/{base_name}/form/new')
+    config.add_route('edit_form',    'lb/{base_name}/form/{form_name}/edit')
+    config.add_route('delete_form',  'lb/{base_name}/form/{form_name}/delete')
+
+    #   ***Registro***
+
+    config.add_route('new_reg',      'lb/{base_name}/reg/{form_name}/new')
+    config.add_route('view_reg',     'lb/{base_name}/reg/{form_name}/view/{id_reg}')
+    config.add_route('edit_reg',     'lb/{base_name}/reg/{form_name}/edit/{id_reg}')
+    config.add_route('delete_reg',   'lb/{base_name}/reg/{form_name}/delete/{id_reg}')
+    '''
