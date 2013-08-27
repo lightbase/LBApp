@@ -258,8 +258,6 @@
                                           </p>
                                        </div>
                                     </div>
-                                    <div class="step-pane" id="step4">
-                                    </div>
                                  </div>
                                  <div id="submit-buttons" class="row-fluid wizard-actions">
                                     <button id="button-prev" class="btn btn-prev">
