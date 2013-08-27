@@ -6,9 +6,6 @@ def temp1(request):
 @view_config(route_name='criarbase', renderer='templates/criarbase.pt')
 def temp2(request):
     return {'project': 'LBApp'}
-@view_config(route_name='blank', renderer='../templates/blank.pt')
-def temp4(request):
-    return {'project': 'LBApp'}
 @view_config(route_name='buttons', renderer='../templates/buttons.pt')
 def temp5(request):
     return {'project': 'LBApp'}

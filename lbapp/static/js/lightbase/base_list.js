@@ -1,10 +1,10 @@
-var base_content = document.getElementById("controller-base").innerHTML;
-w = JSON.parse(base_content);
-$.each(w, function(i, base){
+var base_content = JSON.parse(document.getElementById("controller-base").innerHTML);
+//w = JSON.parse(base_content);
+$.each(base_content, function(i, base){
     createLine(i, base);
 });
 
-    /*var tr = document.createElement("tr");
+    var tr = document.createElement("tr");
     var td = document.createElement("td");
     var label = document.createElement("label");
     var input = document.createElement("input");
@@ -14,12 +14,13 @@ $.each(w, function(i, base){
     var i = document.createElement("i");
     var button = document.createElement("button");
     var ul = document.createElement("ul");
-    var li = document.createElement("li");*/
+    var li = document.createElement("li");
 
 function createLine(i, base){
     var tbody = document.getElementById("tbody");
     var tr = document.createElement("tr");
     tr.setAttribute('id', 'tr-' + i);
+    console.log(base)
     $.each(base, function(k, v){
         if (k == "id_base"){
             BaseListID(k, v, tr);
@@ -30,9 +31,12 @@ function createLine(i, base){
         if (k == "dt_base"){
             BaseListDate(k, v, tr);
         }
-        
+        if (k == "id_base"){
+            BaseListEdit(tr, tbody, v);
+            BaseListDelete(tr, tbody, v, tbody);
+        }
     });
-    BaseListEdit(tr, tbody);
+//    BaseListDelete(tr, tbody);
 }
 
 function BaseListID(k, v, tr){
@@ -71,7 +75,7 @@ function BaseListDate(k, v, tr){
 
 }
 
-function BaseListEdit(tr, tbody){
+function BaseListEdit(tr, tbody, v){
     var td = document.createElement("td");
     var a = document.createElement("a");
     var div = document.createElement("div");
@@ -82,21 +86,24 @@ function BaseListEdit(tr, tbody){
     var span = document.createElement("span");
 
     a.setAttribute('class', 'green');
-    a.setAttribute('href', '#');
+    a.setAttribute('href', 'http://localhost/base/' + v + '/edit');
     i.setAttribute('class', 'icon-pencil bigger-130');
     td.setAttribute('class', 'td-actions');
-    td.setAttribute('id', 'td-actions');
+    td.setAttribute('id', 'td-actions' + v);
     div.setAttribute('class', 'hidden-phone visible-desktop action-buttons');
-    div.setAttribute('id', 'div-1');
+    div.setAttribute('id', 'div-' + v);
     a.appendChild(i);
     div.appendChild(a);
     td.appendChild(div);
     tr.appendChild(td);
-    BaseListDelete(tr, div, td, tbody);
+    tbody.appendChild(tr);
+    this.html = td;
 
 }
 
-function BaseListDelete(tr, div, td, tbody){
+function BaseListDelete(tr, tbody, v){
+    var td = document.getElementById("td-actions" + v);
+    var div = document.getElementById("div-" + v);
     var a = document.createElement("a");
     var i = document.createElement("i");
     var button = document.createElement("button");
@@ -109,12 +116,12 @@ function BaseListDelete(tr, div, td, tbody){
     i.setAttribute('class', 'icon-trash bigger-130');
     a.appendChild(i);
     div.appendChild(a);
-    BaseListPhoneEdit(tr, td, tbody);
     tbody.appendChild(tr);
+    this.html = td;
 
 }
 
-function BaseListPhoneEdit(tr, td, tbody){
+/*function BaseListPhoneEdit(tr, td, tbody){
     var a = document.createElement("a");
     var div_o = document.createElement("div");
     var div_i = document.createElement("div");
@@ -172,4 +179,37 @@ function BaseListPhoneDelete(ul){
     li.appendChild(a);
     ul.appendChild(li);
 
+}*/
+
+/*basetable = new BaseTable(base_content); 
+
+function BaseTable(base_content){
+
+    this.base_content = base_content;
+
+    this.renderTo = function (element){
+        var line;
+        $.each(this.base_content, function(i, base){
+            console.log(base);
+            table_line = new TableLine(base);
+            element.appendChild(table_line.html);
+        });
+
+    };
 }
+
+function TableLine(base){
+    this.base = base;
+
+    var tr = document.createElement("tr"),
+        listName = new BaseListName(this.base.nome_base),
+        listID = new BaseListID(this.base.id_base),
+        listDate = new BaseListDate(this.base.dt_base),
+        listEdit = new BaseListEdit();
+
+    tr.appendChild(listName.html);
+    tr.appendChild(listID.html);
+    tr.appendChild(listDate.html);
+    tr.appendChild(listEdit.html);
+    this.html = tr;
+}*/
