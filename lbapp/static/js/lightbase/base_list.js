@@ -20,7 +20,6 @@ function createLine(i, base){
     var tbody = document.getElementById("tbody");
     var tr = document.createElement("tr");
     tr.setAttribute('id', 'tr-' + i);
-    console.log(base)
     $.each(base, function(k, v){
         if (k == "id_base"){
             BaseListID(k, v, tr);
@@ -112,14 +111,39 @@ function BaseListDelete(tr, tbody, v){
     var span = document.createElement("span");
 
     a.setAttribute('class', 'red');
-    a.setAttribute('href', '#');
     i.setAttribute('class', 'icon-trash bigger-130');
+    i.setAttribute('id', 'delete-' + v);
     a.appendChild(i);
     div.appendChild(a);
     tbody.appendChild(tr);
     this.html = td;
 
+$("#delete-" + v).click(function(){
+    bootbox.dialog("Deseja realmente deletar base?", [{
+        "label" : "Sim",
+        "class" : "btn-small btn-primary",
+        callback: function() {
+            $.ajax({
+                type: 'POST',
+                url: window.location,
+                data: {"id_base": v},
+                cache: false,
+                success: function(data, textStatus, jqXHR ){
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                }
+            });
+
+        }
+        },{
+        "label" : "Não",
+        "class" : "btn-small btn-danger",
+        }]
+    );
+});
+
 }
+
 
 /*function BaseListPhoneEdit(tr, td, tbody){
     var a = document.createElement("a");
