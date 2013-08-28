@@ -52,5 +52,8 @@ def list_base(request):
     result = response['results']
     return {'r': json.dumps(result)}
 
+@view_config(route_name='explore_base', renderer='../templates/base/explore.pt')
+def explore_base(request):
 
+    return {}
 

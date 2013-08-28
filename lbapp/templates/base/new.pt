@@ -444,9 +444,7 @@
     });
    
    
-    $('#sample-form').hide();
-       $('#validation-form').show();
-   
+    $('#validation-form').show();
     $('#modal-wizard .modal-header').ace_wizard();
     $('#modal-wizard .wizard-actions .btn[data-dismiss=modal]').removeAttr('disabled');
                 
@@ -559,7 +557,7 @@
                         },
                         error: function(jqXHR, textStatus, errorThrown){
                             console.log(jqXHR, textStatus, errorThrown)
-                            //window.location.href = '/error-500';
+                            window.location.href = '/error-500';
                         }
                     });
                 });

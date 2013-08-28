@@ -7,12 +7,13 @@ def make_routes(config):
     config.add_route('create_base', 'base/new')
     config.add_route('list_base', 'base/list')
     config.add_route('edit_base', 'base/{base_id}/edit')
+    config.add_route('explore_base', 'base/{base_id}/explore')
 
     # ** ERROR **
     config.add_route('error-404', 'error-404')
     config.add_route('error-500', 'error-500')
 
-    # ACE
+    # ** ACE **
     config.add_route('listarbase', 'listarbase')
     config.add_route('criarbase', 'criarbase')
     config.add_route('blank', 'blank')
