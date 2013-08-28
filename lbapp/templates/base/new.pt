@@ -102,7 +102,7 @@
                                              <label class="control-label">Senha:</label>
                                              <div class="controls">
                                                 <div class="span12">
-                                                   <input class="span6" type="password" name="password" id="password" class="span4" />
+                                                   <input class="span6" type="password" name="password" id="base-password" class="span4" />
                                                 </div>
                                              </div>
                                           </div>
@@ -110,7 +110,7 @@
                                              <label class="control-label">Confirmar Senha:</label>
                                              <div class="controls">
                                                 <div class="span12">
-                                                   <input class="span6" type="password" name="password_again" id="password_again" class="span4" />
+                                                   <input class="span6" type="password" name="password_again" id="base-password-confirm" class="span4" />
                                                 </div>
                                              </div>
                                           </div>
@@ -120,7 +120,7 @@
                                              <label class="control-label">Cor da base:</label>
                                              <div class="controls">
                                                 <div class="span1">
-                                                    <select id="simple-colorpicker-1" name="color" class="hide">
+                                                    <select id="base-color" name="color" class="hide">
                                                         <option value="#ac725e">#ac725e</option>
                                                         <option value="#d06b64">#d06b64</option>
                                                         <option value="#f83a22">#f83a22</option>
@@ -418,7 +418,7 @@
             },
             password_again: {
                 required: true,
-                equalTo: '#password'
+                equalTo: '#base-password'
             },
             index_export: {
                             required: false
@@ -579,7 +579,6 @@
                             }
                             returnArray[v.name] = v.value;
                         });
-                        //returnArray.splice($.inArray('password_again', returnArray));
                         if (!("doc_extract" in returnArray)){
                             returnArray["doc_extract"] = false;
                         }
@@ -905,7 +904,7 @@
 				$('#spinner3').ace_spinner({value:0,min:-100,max:100,step:10, icon_up:'icon-plus', icon_down:'icon-minus', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
 			
 				$('#colorpicker1').colorpicker();
-				$('#simple-colorpicker-1').ace_colorpicker();
+				$('#base-color').ace_colorpicker();
 			
 				//we could just set the data-provide="tag" of the element inside HTML, but IE8 fails!
 				var tag_input = $('#form-field-tags');
