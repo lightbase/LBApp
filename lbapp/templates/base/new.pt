@@ -102,7 +102,7 @@
                                              <label class="control-label">Senha:</label>
                                              <div class="controls">
                                                 <div class="span12">
-                                                   <input class="span6" type="text" name="password" id="password" class="span4" />
+                                                   <input class="span6" type="password" name="password" id="password" class="span4" />
                                                 </div>
                                              </div>
                                           </div>
@@ -110,7 +110,7 @@
                                              <label class="control-label">Confirmar Senha:</label>
                                              <div class="controls">
                                                 <div class="span12">
-                                                   <input class="span6" type="text" id="password_again" class="span4" />
+                                                   <input class="span6" type="password" name="password_again" id="password_again" class="span4" />
                                                 </div>
                                              </div>
                                           </div>
@@ -569,7 +569,6 @@
                         $('#validation-form').validate(x);
                         $("#fuelux-wizard").wizard("next");
                         var formdata = $("#validation-form").serializeArray();
-                        console.log(formdata);
                         var returnArray = new Object();
                         $.each(formdata, function(i, v){
                             if (v.name == "doc_extract"){
@@ -580,6 +579,7 @@
                             }
                             returnArray[v.name] = v.value;
                         });
+                        //returnArray.splice($.inArray('password_again', returnArray));
                         if (!("doc_extract" in returnArray)){
                             returnArray["doc_extract"] = false;
                         }
@@ -590,6 +590,8 @@
                         basedata["structure"] = base.structure; 
                         basedata["context"] = base.context.context;
                         base.metadata = returnArray;
+                        delete returnArray["password_again"];
+                        console.log(returnArray);
                         return false;
                     }
                     if ($("#fuelux-wizard").wizard("selectedItem").step == 2 && base.context.validate() == true){
