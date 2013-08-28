@@ -48,7 +48,15 @@ def edit_base(request):
 
 @view_config(route_name='list_base', renderer='../templates/base/list.pt')
 def list_base(request):
-    response = requests.get('%s/base' %("http://neo.lightbase.cc/api"), params=request.params).json()
+    if request.params:
+        base_id = request.params['id_base']
+        response = requests.delete('%s/base/%s' %(rest_url, base_id))
+        print(response.text)
+        if response.text == 'DELETED':
+            return Response(status=200)
+        else:
+            return Response(status=500)
+    response = requests.get('%s/base' %(rest_url)).json()
     result = response['results']
     return {'r': json.dumps(result)}
 

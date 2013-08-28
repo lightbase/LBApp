@@ -17,64 +17,57 @@ $.each(base_content, function(i, base){
     var li = document.createElement("li");
 
 function createLine(i, base){
-    var tbody = document.getElementById("tbody");
-    var tr = document.createElement("tr");
+    var tbody = document.getElementById("tbody"),
+        tr = document.createElement("tr"),
+        id = base.id_base,
+        name = base.nome_base,
+        data = base.dt_base;
     tr.setAttribute('id', 'tr-' + i);
-    $.each(base, function(k, v){
-        if (k == "id_base"){
-            BaseListID(k, v, tr);
-        }
-        if (k == "nome_base"){
-            BaseListName(k, v, tr);
-        }
-        if (k == "dt_base"){
-            BaseListDate(k, v, tr);
-        }
-        if (k == "id_base"){
-            BaseListEdit(tr, tbody, v);
-            BaseListDelete(tr, tbody, v, tbody);
-        }
-    });
-//    BaseListDelete(tr, tbody);
+    BaseListID(id, tr);
+    BaseListName(name, tr);
+    BaseListDate(data, tr);
+    BaseListEdit(tr, tbody, id);
+    BaseListDelete(tr, tbody, id);
 }
 
-function BaseListID(k, v, tr){
+
+function BaseListID(id, tr){
     var td = document.createElement("td");
     var a = document.createElement("a");
 
     a.setAttribute('href', '#');
-    a.innerText = v;
+    a.innerText = id;
     td.appendChild(a);
     tr.appendChild(td);
     this.html = td;
 
 }
 
-function BaseListName(k, v, tr){
+function BaseListName(name, tr){
     var td = document.createElement("td");
     var a = document.createElement("a");
 
     a.setAttribute('href', '#');
-    a.innerText = v;
+    a.innerText = name;
     td.appendChild(a);
     tr.appendChild(td);
     this.html = td;
 
 }
 
-function BaseListDate(k, v, tr){
+function BaseListDate(data, tr){
     var td = document.createElement("td");
     var a = document.createElement("a");
 
     a.setAttribute('href', '#');
-    a.innerText = v;
+    a.innerText = data;
     td.appendChild(a);
     tr.appendChild(td);
     this.html = td;
 
 }
 
-function BaseListEdit(tr, tbody, v){
+function BaseListEdit(tr, tbody, id){
     var td = document.createElement("td");
     var a = document.createElement("a");
     var div = document.createElement("div");
@@ -85,12 +78,12 @@ function BaseListEdit(tr, tbody, v){
     var span = document.createElement("span");
 
     a.setAttribute('class', 'green');
-    a.setAttribute('href', 'http://localhost/base/' + v + '/edit');
+    a.setAttribute('href', 'http://localhost/base/' + id + '/edit');
     i.setAttribute('class', 'icon-pencil bigger-130');
     td.setAttribute('class', 'td-actions');
-    td.setAttribute('id', 'td-actions' + v);
+    td.setAttribute('id', 'td-actions' + id);
     div.setAttribute('class', 'hidden-phone visible-desktop action-buttons');
-    div.setAttribute('id', 'div-' + v);
+    div.setAttribute('id', 'div-' + id);
     a.appendChild(i);
     div.appendChild(a);
     td.appendChild(div);
@@ -100,9 +93,9 @@ function BaseListEdit(tr, tbody, v){
 
 }
 
-function BaseListDelete(tr, tbody, v){
-    var td = document.getElementById("td-actions" + v);
-    var div = document.getElementById("div-" + v);
+function BaseListDelete(tr, tbody, id){
+    var td = document.getElementById("td-actions" + id);
+    var div = document.getElementById("div-" + id);
     var a = document.createElement("a");
     var i = document.createElement("i");
     var button = document.createElement("button");
@@ -112,13 +105,13 @@ function BaseListDelete(tr, tbody, v){
 
     a.setAttribute('class', 'red');
     i.setAttribute('class', 'icon-trash bigger-130');
-    i.setAttribute('id', 'delete-' + v);
+    i.setAttribute('id', 'delete-' + id);
     a.appendChild(i);
     div.appendChild(a);
     tbody.appendChild(tr);
     this.html = td;
 
-$("#delete-" + v).click(function(){
+$("#delete-" + id).click(function(){
     bootbox.dialog("Deseja realmente deletar base?", [{
         "label" : "Sim",
         "class" : "btn-small btn-primary",
@@ -126,14 +119,14 @@ $("#delete-" + v).click(function(){
             $.ajax({
                 type: 'POST',
                 url: window.location,
-                data: {"id_base": v},
+                data: {"id_base": id},
                 cache: false,
                 success: function(data, textStatus, jqXHR ){
+                window.location.reload();
                 },
                 error: function(jqXHR, textStatus, errorThrown){
                 }
             });
-
         }
         },{
         "label" : "Não",
