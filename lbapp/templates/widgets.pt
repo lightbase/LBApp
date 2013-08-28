@@ -662,9 +662,9 @@
 </metal:main>
 
 
-		<script src="static/ace-final/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
-		<script src="static/ace-final/assets/js/jquery.ui.touch-punch.min.js"></script>
-		<script src="static/ace-final/assets/js/jquery.slimscroll.min.js"></script>
+		<script src="/static/ace-final/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="/static/ace-final/assets/js/jquery.ui.touch-punch.min.js"></script>
+		<script src="/static/ace-final/assets/js/jquery.slimscroll.min.js"></script>
 
 
 		<script type="text/javascript">
