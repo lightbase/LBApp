@@ -41,6 +41,12 @@
          <!--<script src="static/ace-final/assets/js/ace-elements.min.js"></script>
             <script src="static/ace-final/assets/js/ace.min.js"></script>-->
          <!--inline scripts related to this page-->
+		<link rel="stylesheet" href="../static/ace-final/assets/css/jquery-ui-1.10.3.custom.min.css" />
+		<link rel="stylesheet" href="../static/ace-final/assets/css/chosen.css" />
+		<link rel="stylesheet" href="../static/ace-final/assets/css/datepicker.css" />
+		<link rel="stylesheet" href="../static/ace-final/assets/css/bootstrap-timepicker.css" />
+		<link rel="stylesheet" href="../static/ace-final/assets/css/daterangepicker.css" />
+		<link rel="stylesheet" href="../static/ace-final/assets/css/colorpicker.css" />
       </header>
       <div class="page-content">
          <div id="base_names" style="display: none">${base_names}</div>
@@ -93,6 +99,59 @@
                                              </div>
                                           </div>
                                           <div class="control-group">
+                                             <label class="control-label">Senha:</label>
+                                             <div class="controls">
+                                                <div class="span12">
+                                                   <input class="span6" type="text" name="password" id="password" class="span4" />
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="control-group">
+                                             <label class="control-label">Confirmar Senha:</label>
+                                             <div class="controls">
+                                                <div class="span12">
+                                                   <input class="span6" type="text" id="password_again" class="span4" />
+                                                </div>
+                                             </div>
+                                          </div>
+
+                                            <!-- COLORPICKER -->
+                                          <div class="control-group">
+                                             <label class="control-label">Cor da base:</label>
+                                             <div class="controls">
+                                                <div class="span1">
+                                                    <select id="simple-colorpicker-1" name="color" class="hide">
+                                                        <option value="#ac725e">#ac725e</option>
+                                                        <option value="#d06b64">#d06b64</option>
+                                                        <option value="#f83a22">#f83a22</option>
+                                                        <option value="#fa573c">#fa573c</option>
+                                                        <option value="#ff7537">#ff7537</option>
+                                                        <option value="#ffad46" selected="">#ffad46</option>
+                                                        <option value="#42d692">#42d692</option>
+                                                        <option value="#16a765">#16a765</option>
+                                                        <option value="#7bd148">#7bd148</option>
+                                                        <option value="#b3dc6c">#b3dc6c</option>
+                                                        <option value="#fbe983">#fbe983</option>
+                                                        <option value="#fad165">#fad165</option>
+                                                        <option value="#92e1c0">#92e1c0</option>
+                                                        <option value="#9fe1e7">#9fe1e7</option>
+                                                        <option value="#9fc6e7">#9fc6e7</option>
+                                                        <option value="#4986e7">#4986e7</option>
+                                                        <option value="#9a9cff">#9a9cff</option>
+                                                        <option value="#b99aff">#b99aff</option>
+                                                        <option value="#c2c2c2">#c2c2c2</option>
+                                                        <option value="#cabdbf">#cabdbf</option>
+                                                        <option value="#cca6ac">#cca6ac</option>
+                                                        <option value="#f691b2">#f691b2</option>
+                                                        <option value="#cd74e6">#cd74e6</option>
+                                                        <option value="#a47ae2">#a47ae2</option>
+                                                        <option value="#555">#555</option>
+                                                    </select>
+                                                </div>
+                                             </div>
+                                          </div>
+                                            <!-- COLORPICKER ENDS -->
+                                          <div class="control-group" style="display:none;">
                                              <label class="control-label">Exportar Indice:</label>
                                              <div class="controls">
                                                 <span class="span12">
@@ -122,7 +181,7 @@
                                                 </div>
                                              </div>
                                           </div>
-                                          <div class="control-group">
+                                          <div class="control-group" style="display:none;">
                                              <label class="control-label">Extrair texto do documento:</label>
                                              <div class="controls">
                                                 <span class="span12">
@@ -309,6 +368,10 @@
 <script src="/static/js/ace/additional-methods.min.js"></script>
 <script src="/static/js/ace/bootbox.min.js"></script>
 <script src="/static/js/lightbase/requisicaoajax.js"></script>
+
+<!-- colorpicker -->
+<script src="/static/ace-final/assets/js/bootstrap-colorpicker.min.js"></script>
+
 <!-- countings-->
 <script src="/static/js/ace/jquery-ui-1.10.3.custom.min.js"></script>
 <script src="/static/js/ace/chosen.jquery.min.js"></script>
@@ -349,6 +412,13 @@
             description: {
                 required: true,
                             maxlength: 256
+            },
+            password: {
+                required: true,
+            },
+            password_again: {
+                required: true,
+                equalTo: '#password'
             },
             index_export: {
                             required: false
@@ -395,9 +465,16 @@
             description: {
                 required: "É necessario preencher o campo"
             },
-                        index_url: {
-                            required: "É necessario preencher o campo"
-                        }
+            index_url: {
+                required: "É necessario preencher o campo"
+            },
+            password: {
+                required: "É necessario preencher o campo"
+            },
+            password_again: {
+                required: "É necessario preencher o campo",
+                equalTo: "Insira o mesmo valor da 'senha'"
+            },
         },
    
         invalidHandler: function (event, validator) { //display error alert on form submit   
@@ -492,6 +569,7 @@
                         $('#validation-form').validate(x);
                         $("#fuelux-wizard").wizard("next");
                         var formdata = $("#validation-form").serializeArray();
+                        console.log(formdata);
                         var returnArray = new Object();
                         $.each(formdata, function(i, v){
                             if (v.name == "doc_extract"){
@@ -623,3 +701,241 @@
    });
    
 </script>
+
+		<script type="text/javascript">
+			$(function() {
+				$('#id-disable-check').on('click', function() {
+					var inp = $('#form-input-readonly').get(0);
+					if(inp.hasAttribute('disabled')) {
+						inp.setAttribute('readonly' , 'true');
+						inp.removeAttribute('disabled');
+						inp.value="This text field is readonly!";
+					}
+					else {
+						inp.setAttribute('disabled' , 'disabled');
+						inp.removeAttribute('readonly');
+						inp.value="This text field is disabled!";
+					}
+				});
+			
+			
+				$(".chzn-select").chosen(); 
+				
+				$('[data-rel=tooltip]').tooltip({container:'body'});
+				$('[data-rel=popover]').popover({container:'body'});
+				
+				$('textarea[class*=autosize]').autosize({append: "\n"});
+				$('textarea[class*=limited]').each(function() {
+					var limit = parseInt($(this).attr('data-maxlength')) || 100;
+					$(this).inputlimiter({
+						"limit": limit,
+						remText: '%n character%s remaining...',
+						limitText: 'max allowed : %n.'
+					});
+				});
+				
+				$.mask.definitions['~']='[+-]';
+				$('.input-mask-date').mask('99/99/9999');
+				$('.input-mask-phone').mask('(999) 999-9999');
+				$('.input-mask-eyescript').mask('~9.99 ~9.99 999');
+				$(".input-mask-product").mask("a*-999-a999",{placeholder:" ",completed:function(){alert("You typed the following: "+this.val());}});
+				
+				
+				
+				$( "#input-size-slider" ).css('width','200px').slider({
+					value:1,
+					range: "min",
+					min: 1,
+					max: 6,
+					step: 1,
+					slide: function( event, ui ) {
+						var sizing = ['', 'input-mini', 'input-small', 'input-medium', 'input-large', 'input-xlarge', 'input-xxlarge'];
+						var val = parseInt(ui.value);
+						$('#form-field-4').attr('class', sizing[val]).val('.'+sizing[val]);
+					}
+				});
+			
+				$( "#input-span-slider" ).slider({
+					value:1,
+					range: "min",
+					min: 1,
+					max: 11,
+					step: 1,
+					slide: function( event, ui ) {
+						var val = parseInt(ui.value);
+						$('#form-field-5').attr('class', 'span'+val).val('.span'+val).next().attr('class', 'span'+(12-val)).val('.span'+(12-val));
+					}
+				});
+				
+				
+				$( "#slider-range" ).css('height','200px').slider({
+					orientation: "vertical",
+					range: true,
+					min: 0,
+					max: 100,
+					values: [ 17, 67 ],
+					slide: function( event, ui ) {
+						var val = ui.values[$(ui.handle).index()-1]+"";
+			
+						if(! ui.handle.firstChild ) {
+							$(ui.handle).append("<div class='tooltip right in' style='display:none;left:15px;top:-8px;'><div class='tooltip-arrow'></div><div class='tooltip-inner'></div></div>");
+						}
+						$(ui.handle.firstChild).show().children().eq(1).text(val);
+					}
+				}).find('a').on('blur', function(){
+					$(this.firstChild).hide();
+				});
+				
+				$( "#slider-range-max" ).slider({
+					range: "max",
+					min: 1,
+					max: 10,
+					value: 2
+				});
+				
+				$( "#eq > span" ).css({width:'90%', 'float':'left', margin:'15px'}).each(function() {
+					// read initial values from markup and remove that
+					var value = parseInt( $( this ).text(), 10 );
+					$( this ).empty().slider({
+						value: value,
+						range: "min",
+						animate: true
+						
+					});
+				});
+			
+				
+				$('#id-input-file-1 , #id-input-file-2').ace_file_input({
+					no_file:'No File ...',
+					btn_choose:'Choose',
+					btn_change:'Change',
+					droppable:false,
+					onchange:null,
+					thumbnail:false //| true | large
+					//whitelist:'gif|png|jpg|jpeg'
+					//blacklist:'exe|php'
+					//onchange:''
+					//
+				});
+				
+				$('#id-input-file-3').ace_file_input({
+					style:'well',
+					btn_choose:'Drop files here or click to choose',
+					btn_change:null,
+					no_icon:'icon-cloud-upload',
+					droppable:true,
+					thumbnail:'small'
+					//,icon_remove:null//set null, to hide remove/reset button
+					/**,before_change:function(files, dropped) {
+						//Check an example below
+						//or examples/file-upload.html
+						return true;
+					}*/
+					/**,before_remove : function() {
+						return true;
+					}*/
+					,
+					preview_error : function(filename, error_code) {
+						//name of the file that failed
+						//error_code values
+						//1 = 'FILE_LOAD_FAILED',
+						//2 = 'IMAGE_LOAD_FAILED',
+						//3 = 'THUMBNAIL_FAILED'
+						//alert(error_code);
+					}
+			
+				}).on('change', function(){
+					//console.log($(this).data('ace_input_files'));
+					//console.log($(this).data('ace_input_method'));
+				});
+				
+			
+				//dynamically change allowed formats by changing before_change callback function
+				$('#id-file-format').removeAttr('checked').on('change', function() {
+					var before_change
+					var btn_choose
+					var no_icon
+					if(this.checked) {
+						btn_choose = "Drop images here or click to choose";
+						no_icon = "icon-picture";
+						before_change = function(files, dropped) {
+							var allowed_files = [];
+							for(var i = 0 ; i < files.length; i++) {
+								var file = files[i];
+								if(typeof file === "string") {
+									//IE8 and browsers that don't support File Object
+									if(! (/\.(jpe?g|png|gif|bmp)$/i).test(file) ) return false;
+								}
+								else {
+									var type = $.trim(file.type);
+									if( ( type.length > 0 && ! (/^image\/(jpe?g|png|gif|bmp)$/i).test(type) )
+											|| ( type.length == 0 && ! (/\.(jpe?g|png|gif|bmp)$/i).test(file.name) )//for android's default browser which gives an empty string for file.type
+										) continue;//not an image so don't keep this file
+								}
+								
+								allowed_files.push(file);
+							}
+							if(allowed_files.length == 0) return false;
+			
+							return allowed_files;
+						}
+					}
+					else {
+						btn_choose = "Drop files here or click to choose";
+						no_icon = "icon-cloud-upload";
+						before_change = function(files, dropped) {
+							return files;
+						}
+					}
+					var file_input = $('#id-input-file-3');
+					file_input.ace_file_input('update_settings', {'before_change':before_change, 'btn_choose': btn_choose, 'no_icon':no_icon})
+					file_input.ace_file_input('reset_input');
+				});
+			
+			
+			
+			
+				$('#spinner1').ace_spinner({value:0,min:0,max:200,step:10, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
+				.on('change', function(){
+					//alert(this.value)
+				});
+				$('#spinner2').ace_spinner({value:0,min:0,max:10000,step:100, icon_up:'icon-caret-up', icon_down:'icon-caret-down'});
+				$('#spinner3').ace_spinner({value:0,min:-100,max:100,step:10, icon_up:'icon-plus', icon_down:'icon-minus', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
+			
+				$('#colorpicker1').colorpicker();
+				$('#simple-colorpicker-1').ace_colorpicker();
+			
+				//we could just set the data-provide="tag" of the element inside HTML, but IE8 fails!
+				var tag_input = $('#form-field-tags');
+			
+			
+				/////////
+				$('#modal-form input[type=file]').ace_file_input({
+					style:'well',
+					btn_choose:'Drop files here or click to choose',
+					btn_change:null,
+					no_icon:'icon-cloud-upload',
+					droppable:true,
+					thumbnail:'large'
+				})
+				
+				//chosen plugin inside a modal will have a zero width because the select element is originally hidden
+				//and its width cannot be determined.
+				//so we set the width after modal is show
+				$('#modal-form').on('show', function () {
+					$(this).find('.chzn-container').each(function(){
+						$(this).find('a:first-child').css('width' , '200px');
+						$(this).find('.chzn-drop').css('width' , '210px');
+						$(this).find('.chzn-search input').css('width' , '200px');
+					});
+				})
+				/**
+				//or you can activate the chosen plugin after modal is shown
+				//this way select element has a width now and chosen works as expected
+				$('#modal-form').on('shown', function () {
+					$(this).find('.modal-chosen').chosen();
+				})
+				*/
+			
+			});
+		</script>
