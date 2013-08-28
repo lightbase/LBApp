@@ -1119,9 +1119,12 @@ function BaseStructure(nestable_space, context){
                 });
                 return response;
             };
-        $('#base-name').val(json_base.metadata.name)
-        $('#base-description').val(json_base.metadata.description)
-        items = step(json_base.content);
+        $('#base-name').val(json_base.metadata.name);
+        $('#base-description').val(json_base.metadata.description);
+        $('#base-password').val(json_base.metadata.password);
+        $('#base-password-confirm').val(json_base.metadata.password);
+        $('#base-color').val(json_base.metadata.color);
+        items = step(json_base.content)
         $.each(items, function(i, item){
             self.nestable_space.appendChild(item);
         });
