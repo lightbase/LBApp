@@ -56,7 +56,7 @@ def list_base(request):
             return Response(status=200)
         else:
             return Response(status=500)
-    response = requests.get('%s/base' %(rest_url)).json()
+    response = requests.get('%s/base?$$={"select":"*"}' %(rest_url)).json()
     result = response['results']
     return {'r': json.dumps(result)}
 
