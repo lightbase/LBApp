@@ -6,10 +6,6 @@
             'type_prefix': false,
             'json_name': 'unknown',
             'json_data': null,
-            'ident': '12px',
-            'inner-padding': '2px',
-            'outer-padding': '4px',
-            'debug' : false
         };
 
         if (settings) $.extend(config, settings);
@@ -78,8 +74,25 @@
             return div
         }
 
-        this.html = this.get_html();
-        //this.html = $.isEmptyObject(data)? null: this.get_html();
+        this.html = $.isEmptyObject(data)? null: this.get_html();
+    }
+
+    function id_to_path(id){
+        // Powerfull Regex, Huhn ??
+        return id.toString().replace(/-/g, '.').replace(/(^|\.)([0-9]+)($|\.)/g, '[$2]$3');
+    }
+        
+    function editable_anchor(id, text){
+        var anchor = document.createElement('a');
+        anchor.setAttribute('id', id);
+        //anchor.setAttribute('href', '');
+        anchor.setAttribute('data-type', 'text');
+        anchor.setAttribute('data-pk', '1');
+        anchor.setAttribute('data-original-title', 'Enter data');
+        anchor.setAttribute('class','editable editable-click');
+        anchor.setAttribute('style', 'display: inline;');
+        anchor.innerText = text;
+        return anchor
     }
 
     function AccordionInner(content){
@@ -159,11 +172,6 @@
         return group;
     }
 
-    function type_of(obj){
-        var type_handler = new TypeHandler(obj);
-        return type_handler.type();
-    }
-
     function format_value(name, data, parent_id) {
 
         if (parent_id)
@@ -196,6 +204,10 @@
         return accordion;
     };
 
+    function type_of(obj){
+        var type_handler = new TypeHandler(obj);
+        return type_handler.type();
+    }
 
     // number, boolean, string, object, array, date
     function TypeHandler(value) {
