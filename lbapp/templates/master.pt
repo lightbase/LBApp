@@ -47,7 +47,7 @@
 						</small>
 					</a><!--/.brand-->
 
-					<ul class="nav ace-nav pull-right">
+					<ul class="nav ace-nav pull-right" id="base-fast-menu">
 						<!--<li class="grey">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-tasks"></i>
@@ -187,8 +187,7 @@
 
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="icon-envelope icon-animated-vertical"></i>
-								<span class="badge badge-success">5</span>
+								<i class="icon-th-list icon-animated-vertical" style="width: 50px;"></i>
 							</a>
 
 							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
@@ -257,7 +256,7 @@
 							</ul>
 						</li>
 
-						<li class="light-blue">
+						<!--<li class="light-blue">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
 								<img class="nav-user-photo" src="/static/ace-final/assets/avatars/user.jpg" alt="Jason's Photo" />
 								<span class="user-info">
@@ -292,7 +291,7 @@
 									</a>
 								</li>
 							</ul>
-						</li>
+						</li>-->
 					</ul><!--/.ace-nav-->
 				</div><!--/.container-fluid-->
 			</div><!--/.navbar-inner-->
@@ -424,6 +423,7 @@
 
 		<script src="/static/js/ace/ace-elements.min.js"></script>
 		<script src="/static/js/ace/ace.min.js"></script>
+		<script src="/static/js/lightbase/base_onhover.js"></script>
 
 		<!--inline scripts related to this page-->
 	</body>
