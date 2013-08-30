@@ -8,6 +8,10 @@
             'json_data': null,
         };
 
+        var base = {"_metadata":{"description":"base1 description","name":"base1"},"_content":[{"_group":{"_metadata":{"description":"groupdesc1","multivalued":true,"name":"group1"},"_content":[{"_field":{"datatype":"AlfaNumerico","indices":["Textual"],"description":"desc1","multivalued":false,"name":"field3"}},{"_field":{"datatype":"Documento","indices":["Textual"],"description":"desc2","multivalued":true,"name":"field4"}}]}},{"_field":{"datatype":"Inteiro","indices":["Textual"],"description":"desc1","multivalued":false,"name":"field1"}},{"_field":{"datatype":"Documento","indices":["Textual"],"description":"desc2","multivalued":true,"name":"field2"}}]}
+        var types = set_fields_type(base)
+        console.log(types)
+
         if (settings) $.extend(config, settings);
         console.log(config['json_data'])
         var main_accordion;
@@ -17,6 +21,36 @@
         });
     
         $(this).append(main_accordion.html);
+
+        this.serialize = function(){
+            var data,
+                step  = function(level, depth, vtype){
+
+                    var _depth,
+                        _vtype;
+
+                    if (vtype == 'object')
+                        var _level = { };
+                    if (_vtype == 'array')
+                        var _level = [ ];
+
+                    $.each(level, function(key, value){
+
+                        if (depth) _depth = depth + '-' + key;
+                        else _depth = key;
+
+                        _vtype = type_of(value);
+
+                        if (_vtype == 'object' || _vtype == 'array')
+                            _level[key] = step(value, _depth, vtype)
+                        else
+                            _level[key] = $('#' + _depth).text();
+                    });
+                    return _level;
+                };
+                
+            return step(config['json_data'], config['json_name'], 'object');
+        }
 
         return this;
 
@@ -42,18 +76,13 @@
             var anchor;
             var bold;
             var obj
-
-            // BUILD TABLE INNER ELEMENTS
             for (field in this.data){
-                //if (is_dict(data[field])) continue;
-
                 // THEAD 
                 thead_td = document.createElement('td');
                 bold = document.createElement('b');
-                bold.innerText = field;
+                $(bold).text(field);
                 thead_td.appendChild(bold);
                 thead_tr.appendChild(thead_td);
-
                 // BODY
                 field_id = this.id + '-' + field;
                 anchor = editable_anchor(field_id, this.data[field])
@@ -61,14 +90,15 @@
                 body_td.appendChild(anchor);
                 body_tr.appendChild(body_td);
             }
-
             //APPEND TABLE CHILD ELEMENTS
             div.setAttribute('style', 'overflow:auto');
             table.setAttribute('id', this.id);
             table.setAttribute('class', 'table table-condensed table-striped table-bordered');
+            table.setAttribute('style', 'width: auto');
             thead.appendChild(thead_tr);
             tbody.appendChild(body_tr);
-            table.appendChild(thead);
+            if (type_of(this.data) != 'array')
+                table.appendChild(thead);
             table.appendChild(tbody);
             div.appendChild(table);
             return div
@@ -79,19 +109,18 @@
 
     function id_to_path(id){
         // Powerfull Regex, Huhn ??
-        return id.toString().replace(/-/g, '.').replace(/(^|\.)([0-9]+)($|\.)/g, '[$2]$3');
+        var path = id.toString().replace(/-/g, '.').replace(/(^|\.)([0-9]+)($|\.)/g, '[$2]$3');
+        return path.split('.').pop();
     }
         
     function editable_anchor(id, text){
         var anchor = document.createElement('a');
         anchor.setAttribute('id', id);
-        //anchor.setAttribute('href', '');
-        anchor.setAttribute('data-type', 'text');
+        anchor.setAttribute('data-type', 'date');
         anchor.setAttribute('data-pk', '1');
         anchor.setAttribute('data-original-title', 'Enter data');
         anchor.setAttribute('class','editable editable-click');
-        anchor.setAttribute('style', 'display: inline;');
-        anchor.innerText = text;
+        $(anchor).text(text);
         return anchor
     }
 
@@ -119,10 +148,10 @@
     }
 
     function AccordionToggle(id){
-        var href = '#' + id.toString().replace(/\./g,'-') + '-collapse';
-        var data_parent = '#' + id; 
-        var text = id_to_path(id);
-        var toggle = document.createElement('a');
+        var href = '#' + id.toString().replace(/\./g,'-') + '-collapse',
+            data_parent = '#' + id,
+            text = id_to_path(id),
+            toggle = document.createElement('a');
         toggle.setAttribute('class', 'accordion-toggle');
         toggle.setAttribute('href', href);
         toggle.setAttribute('data-toggle', 'collapse');
@@ -151,10 +180,9 @@
     }
 
     function Accordion(id){
-        var accordion = document.createElement('div');
+        var accordion = document.createElement('div'),
+            id = id.toString().replace(/\./g,'-') + '-accordion';
         accordion.setAttribute('class', 'accordion');
-        // For some weird cause, bootstrap's accordion does not work without replacing ids
-        var id = id.toString().replace(/\./g,'-') + '-accordion'
         accordion.setAttribute('id', id);
         this.id = id 
         this.html = accordion;
@@ -162,14 +190,38 @@
 
     function accordion_group(id, text, content){
         // HEAD STUFF
-        var toggle = new AccordionToggle(id, text);
-        var head = new AccordionHead(toggle);
+        var toggle = new AccordionToggle(id, text),
+            head = new AccordionHead(toggle),
         // BODY STUFF
-        var inner = new AccordionInner(content);
-        var body = new AccordionBody(id, inner);
+            inner = new AccordionInner(content),
+            body = new AccordionBody(id, inner),
         // APPEND ACCORDION STUFF
-        var group = new AccordionGroup(head, body);
+            group = new AccordionGroup(head, body);
         return group;
+    }
+
+    function set_fields_type(base){
+        var TYPES = { },
+            step = function(base){
+                var depth = base['_metadata']['name'],
+                    structure;
+
+                $.each(base['_content'], function(key, value){
+                    structure = $(value).first()[0];
+
+                    if (structure._field){
+                        if (depth) _depth = depth + '-' + structure._field['name'];
+                        else _depth = structure._field['name'];
+                        TYPES[_depth] = structure._field['datatype'];
+                    } 
+                    else if (structure._group){
+                        step(structure._group);
+                    } 
+                });
+            };
+            
+        step(base);
+        return TYPES;
     }
 
     function format_value(name, data, parent_id) {
@@ -181,9 +233,12 @@
 
         var data_type = type_of(data),
             content_type,
-            table_data = { },
             content_data = [ ],
+            table_data,
             accordion = new Accordion(id);
+
+        if (data_type == 'object') table_data = { };
+        if (data_type == 'array') table_data = [ ];
 
         for (var _name in data){
             content_type = type_of(data[_name]);
@@ -203,6 +258,7 @@
 
         return accordion;
     };
+
 
     function type_of(obj){
         var type_handler = new TypeHandler(obj);

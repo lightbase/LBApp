@@ -29,13 +29,28 @@
             test_number: 1,
             test_string: "test string",
             test_string2: new String("another test string"),
+             id: '{{index}}',
+        guid: '{{guid}}',
+        isActive: '{{bool}}',
+        balance: '{{numeric(1000,4000,%=$0,0.00)}}',
+        picture: 'http://placehold.it/32x32',
+        age: '{{numeric(20,40)}}',
+        name: '{{firstName}} {{surname}}',
+        gender: '{{gender}}',
+        company: '{{company}}',
+        email: '{{email}}',
+        phone: '+1 {{phone}}',
             test_date: new Date(),
             test_boolean: true,
-            test_array: [[1, 2, 3], [4, 5, 6]],
-            test_object: { a: 1, b: "2", another: { internal_array: [{ fate: true }, 34]} }
+            test_array: [1, 2, 3, 4, 5, 6],
+            test_object: { something: 1, somethingelse: "2", another: 
+            [{wow: {uau: 'edfewr', ipsi: 'mehhh'}, wow2: 'samle3'},
+            {wow: ['sample1', 'sample2'], wow2: 'samle3'}],
+            }
         }
         //$('#basic_usage').jsonviewer({ json_name: 'myobj', json_data: myobj });
-        $('#base-explore').jsonviewer({ json_name: 'test', type_prefix: false, json_data: test_object });
+        j = $('#base-explore').jsonviewer({ json_name: 'test', type_prefix: false, json_data: test_object });
+        j.serialize();
 
         $.fn.editable.defaults.mode = 'inline';
 
@@ -44,7 +59,7 @@
             $(this).editable({
                 //url: '/post',
                 //title: 'XXXXXXXX'
-                type: 'text',
+                //type: 'text',
                 pk: 1,
                 name: 'somename',
             });
@@ -66,13 +81,8 @@
 
 
         function switch_editable(id){
-            // Makes everyone (with :id) editable or uneditable
             $('.editable').each(function() { 
-                
-                var attr_id = $(this).attr('id');
-                if (attr_id.split('-')[0] ==id){
-                    $('#' + attr_id).editable('toggleDisabled');
-                }
+                $(this).editable('toggleDisabled');
             });
         }
 
