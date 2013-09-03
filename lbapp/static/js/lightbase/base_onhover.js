@@ -41,7 +41,7 @@ function Header(base_fast_menu){
         ul.setAttribute('id', 'fast_link_ul_1');
         li.setAttribute('class', 'nav-header');
 
-        li.innerHTML = JSON.stringify(json.base[1]);
+        li.innerHTML = json.base[1].segundabase[0].nome_base;
         ul.appendChild(li);
         li_div_to_append.appendChild(ul);
 
@@ -60,17 +60,19 @@ function Header(base_fast_menu){
             i = document.createElement("i");
 
             span1.setAttribute('class', 'blue');
-            span1.innerHTML = 'Alex:';
-            span2.setAttribute('class' ,'msg-title');
+            span2.setAttribute('class', 'msg-title');
             span3.setAttribute('class', 'msg-body');
+            a.setAttribute('href', '#');
             img.setAttribute('class', 'msg-photo');
             img.setAttribute('src', '/static/ace-final/assets/avatars/avatar.png');
             img.setAttribute('alt', 'Alex Avatar');
 
+            $(span1).text('Base:' + ' ' + json.base[1].segundabase[0].nome_base);
             span2.appendChild(span1);
+            //$(span2).text('Ciao sociis natoque penatibus et auctor ...');
             span3.appendChild(span2);
-            a.appendChild(span2);
-            a.appendChild(img);
+            a.appendChild(span3);
+            //a.appendChild(img);
             li.appendChild(a);
             ul.appendChild(li);
 

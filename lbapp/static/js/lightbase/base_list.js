@@ -78,7 +78,7 @@ function BaseListEdit(tr, tbody, id){
     var span = document.createElement("span");
 
     a.setAttribute('class', 'green');
-    a.setAttribute('href', 'http://localhost/base/' + id + '/edit');
+    a.setAttribute('href', '/base/' + id + '/edit');
     i.setAttribute('class', 'icon-pencil bigger-130');
     td.setAttribute('class', 'td-actions');
     td.setAttribute('id', 'td-actions' + id);
