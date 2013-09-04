@@ -4,6 +4,7 @@
     <div metal:fill-slot="conteudo" id="widgets">
         <div class="row-fluid">
             <div class="span12">
+                <div id="controller-data">${reg_model}</div>
                 <div id="base-explore"></div>
                 <table id="rowed6"></table>
             </div>
