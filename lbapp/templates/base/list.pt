@@ -3,8 +3,7 @@
     <script metal:fill-slot="javascript" type="text/javascript" src=""></script>
 
     <div metal:fill-slot="conteudo" id="widgets">
-<div id="controller-base" style="display:none;">${r}</div>
-
+        <div id="controller-base" style="display:none;">${r}</div>
 <header>
 
 </header>
@@ -144,6 +143,10 @@
 							</div><!--PAGE CONTENT ENDS-->
 						</div><!--/.span-->
 					</div><!--/.row-fluid-->
+<a class="btn btn-app btn-purple btn-small" href="/base/new">
+<i class="icon-edit bigger-200"></i>
+Criar Base
+</a>
 
 </div>
 </metal:main>
@@ -153,6 +156,8 @@
 		<script src="../static/js/ace/jquery.dataTables.bootstrap.js"></script>
 		<script src="../static/js/lightbase/base_list.js"></script>
         <script src="../static/js/ace/bootbox.min.js"></script>
+        <script src="../static/js/ace/bootbox.min.js"></script>
+		<script src="../static/js/ace/jquery.jqGrid.min.js"></script>
 
 		<script type="text/javascript">
 			$(function() {
