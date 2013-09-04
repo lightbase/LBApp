@@ -37,6 +37,7 @@ def make_routes(config):
     config.add_route('wysiwyg', 'wysiwyg')
     config.add_route('f', 'f')
     config.add_route('jqgrid', 'jqgrid')
+    config.add_route('master', 'master')
 
 ''' 
     config.add_route('new_base',     'lb/new')

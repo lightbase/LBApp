@@ -6,9 +6,9 @@
 <header>
 		<!--page specific plugin styles-->
 
-		<link rel="stylesheet" href="static/css/ace/jquery-ui-1.10.3.full.min.css" />
-		<link rel="stylesheet" href="static/css/ace/datepicker.css" />
-		<link rel="stylesheet" href="static/css/ace/ui.jqgrid.css" />
+		<link rel="stylesheet" href="/static/css/ace/jquery-ui-1.10.3.full.min.css" />
+		<link rel="stylesheet" href="/static/css/ace/datepicker.css" />
+		<link rel="stylesheet" href="/static/css/ace/ui.jqgrid.css" />
 
 		<!--fonts-->
 
@@ -16,9 +16,9 @@
 
 		<!--ace styles-->
 
-		<link rel="stylesheet" href="static/css/ace/ace.min.css" />
-		<link rel="stylesheet" href="static/css/ace/ace-responsive.min.css" />
-		<link rel="stylesheet" href="static/css/ace/ace-skins.min.css" />
+		<link rel="stylesheet" href="/static/css/ace/ace.min.css" />
+		<link rel="stylesheet" href="/static/css/ace/ace-responsive.min.css" />
+		<link rel="stylesheet" href="/static/css/ace/ace-skins.min.css" />
 </header>
 					<div class="row-fluid">
 						<div class="span12">
@@ -39,10 +39,10 @@
 
 		<!--page specific plugin scripts-->
 
-		<script src="static/js/ace/bootstrap-datepicker.min.js"></script>
-		<script src="static/js/ace/jquery.jqGrid.min.js"></script>
-		<script src="static/js/ace/grid.locale-pt-br.js"></script>
-		<script src="static/js/ace/ace-extra.min.js"></script>
+		<script src="/static/js/ace/bootstrap-datepicker.min.js"></script>
+		<script src="/static/js/ace/jquery.jqGrid.min.js"></script>
+		<script src="/static/js/ace/grid.locale-pt-br.js"></script>
+		<script src="/static/js/ace/ace-extra.min.js"></script>
 
 
 		<script type="text/javascript">

@@ -5,18 +5,18 @@ var base_fast_menu = document.getElementById("base-fast-menu");
 
 function Header(base_fast_menu){
 
-    this.linkToBase = function(base_fast_menu){
+    this.linkToBase = function(base_fast_menu, id){
 
         var li = document.createElement("li"),
             a = document.createElement("a"),
             i = document.createElement("i");
 
-        li.setAttribute('id', 'fast_link_li_1');
+        li.setAttribute('id', 'fast_link_li_' + id);
         li.setAttribute('style', 'background-color:' + json.base[0].color);
         a.setAttribute('data-toggle', 'dropdown');
         //a.setAttribute('class', 'dropdown-toggle');
         a.setAttribute('href', '#');
-        a.setAttribute('id', 'a');
+        a.setAttribute('id',id );
         i.setAttribute('class', 'icon-th-list icon-animated-vertical');
         i.setAttribute('style', 'width: 50px;');
 
@@ -27,18 +27,18 @@ function Header(base_fast_menu){
         this.html = li;
 
         $('#fast_link_li_1').hover(function(){
-            $('#a').dropdown('toggle');
+            $('#' + id).dropdown('toggle');
         });
 
     }
 
-    this.linkToBase_onHover = function(base_fast_menu){
-        var li_div_to_append = document.getElementById("fast_link_li_1"),
+    this.linkToBase_onHover = function(base_fast_menu, id){
+        var li_div_to_append = document.getElementById("fast_link_li_" + id),
             li = document.createElement("li"),
             ul = document.createElement("ul");
 
         ul.setAttribute('class', 'pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer');
-        ul.setAttribute('id', 'fast_link_ul_1');
+        ul.setAttribute('id', 'fast_link_ul_' + id);
         li.setAttribute('class', 'nav-header');
 
         li.innerHTML = json.base[1].segundabase[0].nome_base;
@@ -49,8 +49,8 @@ function Header(base_fast_menu){
 
     }
 
-    this.linkToBase_onHover_Info = function(base_fast_menu){
-        var ul = document.getElementById("fast_link_ul_1"),
+    this.linkToBase_onHover_Info = function(base_fast_menu, id){
+        var ul = document.getElementById("fast_link_ul_" + id),
             li = document.createElement("li"),
             a = document.createElement("a"),
             img = document.createElement("img"),

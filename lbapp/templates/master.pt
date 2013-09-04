@@ -37,10 +37,12 @@
 	</head>
 
 	<body>
+
+
 		<div class="navbar">
 			<div class="navbar-inner">
 				<div class="container-fluid">
-					<a href="#" class="brand">
+					<a href="/base/list" class="brand">
 						<small>
 							<i class="icon-leaf"></i>
 							LightBase
