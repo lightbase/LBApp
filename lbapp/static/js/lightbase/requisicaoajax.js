@@ -16,6 +16,4 @@ function ajax_call(type, url, data){
 }
 
 
-x = ajax_call('GET', "http://neo.lightbase.cc/api/base", data = {"$$":'{"select":["nome_base","id_base", "dt_base"]}'});
-
 
