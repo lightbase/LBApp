@@ -3,9 +3,11 @@ var base_fast_menu = document.getElementById("base-fast-menu");
     //base_data = JSON.parse(document.getElementById("controller-base")),
     //linktobase = new linkToBase();
 
-function Header(base_fast_menu){
+function Header(){
 
-    this.linkToBase = function(base_fast_menu, id){
+    this.base_fast_menu = base_fast_menu;
+
+    this.linkToBase = function(id){
 
         var li = document.createElement("li"),
             a = document.createElement("a"),
@@ -16,13 +18,13 @@ function Header(base_fast_menu){
         a.setAttribute('data-toggle', 'dropdown');
         //a.setAttribute('class', 'dropdown-toggle');
         a.setAttribute('href', '#');
-        a.setAttribute('id',id );
+        a.setAttribute('id', id);
         i.setAttribute('class', 'icon-th-list icon-animated-vertical');
         i.setAttribute('style', 'width: 50px;');
 
         a.appendChild(i);
         li.appendChild(a);
-        base_fast_menu.appendChild(li);
+        this.base_fast_menu.appendChild(li);
 
         this.html = li;
 
@@ -32,7 +34,7 @@ function Header(base_fast_menu){
 
     }
 
-    this.linkToBase_onHover = function(base_fast_menu, id){
+    this.linkToBase_onHover = function(id){
         var li_div_to_append = document.getElementById("fast_link_li_" + id),
             li = document.createElement("li"),
             ul = document.createElement("ul");
@@ -49,7 +51,7 @@ function Header(base_fast_menu){
 
     }
 
-    this.linkToBase_onHover_Info = function(base_fast_menu, id){
+    this.linkToBase_onHover_Info = function(id){
         var ul = document.getElementById("fast_link_ul_" + id),
             li = document.createElement("li"),
             a = document.createElement("a"),
