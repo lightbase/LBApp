@@ -3,109 +3,184 @@
     $.fn.jsonviewer = function(settings) {
 
         var config = {
-            'type_prefix': false,
-            'json_name': 'unknown',
-            'json_data': null,
+            'base_name': null, 
+            'reg_model': {},
+            'registries': [] 
         };
 
-        var base = {"_metadata":{"description":"base1 description","name":"base1"},"_content":[{"_group":{"_metadata":{"description":"groupdesc1","multivalued":true,"name":"group1"},"_content":[{"_field":{"datatype":"AlfaNumerico","indices":["Textual"],"description":"desc1","multivalued":false,"name":"field3"}},{"_field":{"datatype":"Documento","indices":["Textual"],"description":"desc2","multivalued":true,"name":"field4"}}]}},{"_field":{"datatype":"Inteiro","indices":["Textual"],"description":"desc1","multivalued":false,"name":"field1"}},{"_field":{"datatype":"Documento","indices":["Textual"],"description":"desc2","multivalued":true,"name":"field2"}}]}
-        var types = set_fields_type(base)
-        console.log(types)
-
         if (settings) $.extend(config, settings);
-        console.log(config['json_data'])
-        var main_accordion;
 
-        this.each(function(key, element) {
-            main_accordion = format_value(config['json_name'], config['json_data']);
-        });
-    
-        $(this).append(main_accordion.html);
+        var EXPLORER = build_explorer(
+            config['base_name'],
+            config['reg_model'],
+            config['registries']
+        );
 
-        this.serialize = function(){
-            var data,
-                step  = function(level, depth, vtype){
-
-                    var _depth,
-                        _vtype;
-
-                    if (vtype == 'object')
-                        var _level = { };
-                    if (_vtype == 'array')
-                        var _level = [ ];
-
-                    $.each(level, function(key, value){
-
-                        if (depth) _depth = depth + '-' + key;
-                        else _depth = key;
-
-                        _vtype = type_of(value);
-
-                        if (_vtype == 'object' || _vtype == 'array')
-                            _level[key] = step(value, _depth, vtype)
-                        else
-                            _level[key] = $('#' + _depth).text();
-                    });
-                    return _level;
-                };
-                
-            return step(config['json_data'], config['json_name'], 'object');
-        }
-
-        return this;
-
+        $(this).append(EXPLORER);
+              
     };
 
-    function Table(id, data){
+    function build_explorer(base_name, reg_model, registries) {
+        
+        var table = new Table(base_name),
+            thead = new TableHead(base_name),
+            tbody = new TableBody(base_name),
+            head_row = new TableRow(base_name + '-head'),
+            toggle_anchor = new ToggleAnchor(base_name, tbody),
+            header_cell,
+            standard_cell,
+            cell_id,
+            field_type;
 
-        this.id = id.toString().replace(/\./g,'-');
-        this.data = data;
+        header_cell = new TableHeaderCell(base_name, toggle_anchor.html);
+        head_row.append(header_cell);
+        thead.append(head_row);
 
-        this.get_html = function(){
-            // INIT ELEMENT VARIABLES
-            var div = document.createElement('div');
-            var table = document.createElement('table');
-            var thead = document.createElement('thead');
-            var tbody = document.createElement('tbody');
-            var thead_tr = document.createElement('tr');
-            var body_tr = document.createElement('tr');
-            var field;
-            var field_id;
-            var thead_td;
-            var body_td;
-            var anchor;
-            var bold;
-            var obj
-            for (field in this.data){
-                // THEAD 
-                thead_td = document.createElement('td');
-                bold = document.createElement('b');
-                $(bold).text(field);
-                thead_td.appendChild(bold);
-                thead_tr.appendChild(thead_td);
-                // BODY
-                field_id = this.id + '-' + field;
-                anchor = editable_anchor(field_id, this.data[field])
-                body_td = document.createElement('td');
-                body_td.appendChild(anchor);
-                body_tr.appendChild(body_td);
-            }
-            //APPEND TABLE CHILD ELEMENTS
-            div.setAttribute('style', 'overflow:auto');
-            table.setAttribute('id', this.id);
-            table.setAttribute('class', 'table table-condensed table-striped table-bordered');
-            table.setAttribute('style', 'width: auto');
-            thead.appendChild(thead_tr);
-            tbody.appendChild(body_tr);
-            if (type_of(this.data) != 'array')
-                table.appendChild(thead);
-            table.appendChild(tbody);
-            div.appendChild(table);
-            return div
+        var ORDERED = [ ];
+
+        for (var field in reg_model){
+            ORDERED.push(field);
+            cell_id = base_name + '-' + field;
+            header_cell = new TableHeaderCell(cell_id, field);
+            head_row.append(header_cell);
+            thead.append(head_row);
         }
 
-        this.html = $.isEmptyObject(data)? null: this.get_html();
+        $.each(registries, function(i, registry){
+            
+            body_row = new TableRow(base_name + '-body');
+            var action_buttons = new ActionButtons();
+            standard_cell = new TableStandardCell(base_name, action_buttons.html);
+            body_row.append(standard_cell);
+
+            $.each(ORDERED, function(i, field){
+                var field_value = registry[field];
+                if (field_value){
+
+                    field_type = type_of(field_value);
+                    
+                    if (field_type != 'object' && field_type != 'array'){
+                        standard_cell = new TableStandardCell(cell_id, field_value.toString());
+                        body_row.append(standard_cell);
+                        tbody.append(body_row);
+                    }
+                    else if (field_type == 'object'){
+                        standard_cell = new TableStandardCell(cell_id, JSON.stringify(field_value));
+                        body_row.append(standard_cell);
+                        tbody.append(body_row);
+                    }
+                    else if (field_type == 'array'){
+                    }
+
+
+                }
+            });
+
+            for (var field in registry){
+                var field_value = registry[field];
+            }
+            tbody.append(body_row);
+        });
+
+        table.append(thead);
+        table.append(tbody);
+        return table.html;
+    };
+
+    function ActionButtons(){
+        var div = document.createElement('div');
+            anchor = document.createElement('a');
+            icon = document.createElement('i');
+        icon.setAttribute('class', 'icon-pencil bigger-130');
+        anchor.setAttribute('class', 'green');
+        anchor.setAttribute('href', 'javascript: void(0)');
+        div.setAttribute('class', 'hidden-phone visible-desktop action-buttons');
+        anchor.appendChild(icon);
+        div.appendChild(anchor);
+        this.html = div;
     }
+
+    function Table(id){
+        this.id = id + '-table';
+        var div = document.createElement('div');
+        var table = document.createElement('table');
+        div.setAttribute('style', 'overflow:auto');
+        table.setAttribute('id', this.id);
+        table.setAttribute('class', 'table table-striped table-bordered table-hover');
+        table.setAttribute('style', 'width: auto');
+        div.appendChild(table);
+        this.html = div;
+        this.append = function(el){
+            table.appendChild(el.html);
+        }
+    }
+
+    function TableHead(id){
+        this.id = id + '-thead';
+        var thead = document.createElement('thead');
+        thead.setAttribute('id', this.id);
+        this.html = thead;
+    }
+
+    function TableBody(id){
+        this.id = id + '-tbody';
+        var tbody = document.createElement('tbody');
+        tbody.setAttribute('id', this.id);
+        this.html = tbody;
+    }
+
+    function TableRow(id){
+        this.id = id + '-tr';
+        var tr = document.createElement('tr');
+        tr.setAttribute('id', this.id);
+        this.html = tr;
+    }
+
+    function TableStandardCell(id, content){
+        this.id = id + '-td';
+        var td = document.createElement('td');
+        td.setAttribute('id', this.id);
+        if (type_of(content) == 'string')
+            $(td).text(content);
+        else
+            td.appendChild(content);
+        this.html = td;
+    }
+
+    function TableHeaderCell(id, content){
+        this.id = id + '-th';
+        var th = document.createElement('th'),
+            toggle_anchor;
+        th.setAttribute('id', this.id);
+        if (type_of(content) == 'string')
+            $(th).text(content);
+        else
+            th.appendChild(content);
+        this.html = th;
+    }
+
+    function ToggleAnchor(text, toggle){
+        var anchor = document.createElement('a');
+        anchor.setAttribute('href', '#' + toggle.id);
+        $(anchor).text(text);
+        $(anchor).click(function(){
+            $(toggle.html).toggle();
+        });
+        this.html = anchor;
+    }
+
+    function TableProtoType(){
+        this.append = function(el){
+            this.html.appendChild(el.html);
+        }
+    }
+    
+    TableHead.prototype = new TableProtoType();
+    TableBody.prototype = new TableProtoType();
+    TableRow.prototype = new TableProtoType();
+    TableStandardCell.prototype = new TableProtoType();
+    TableHeaderCell.prototype = new TableProtoType();
+
 
     function id_to_path(id){
         // Powerfull Regex, Huhn ??
@@ -113,160 +188,25 @@
         return path.split('.').pop();
     }
         
-    function editable_anchor(id, text){
+    function EditableAnchor(id, text){
+        this.id = id + '-xeditable';
         var anchor = document.createElement('a');
-        anchor.setAttribute('id', id);
+        anchor.setAttribute('id', this.id);
         anchor.setAttribute('data-type', 'date');
         anchor.setAttribute('data-pk', '1');
         anchor.setAttribute('data-original-title', 'Enter data');
         anchor.setAttribute('class','editable editable-click');
         $(anchor).text(text);
-        return anchor
+        this.html = anchor;
     }
-
-    function AccordionInner(content){
-        var html;
-        var inner = document.createElement('div');
-        inner.setAttribute('class', 'accordion-inner');
-        for (var i in content){
-            html = content[i].html;
-            if (html != null) inner.appendChild(html);
-        }
-        this.content = content;
-        this.html = inner;
-    }
-
-    function AccordionBody(id, inner){
-        var body = document.createElement('div');
-        var body_id = id.toString().replace(/\./g,'-') + '-collapse'; 
-        body.setAttribute('class', 'accordion-body collapse');
-        body.setAttribute('id', body_id);
-        body.appendChild(inner.html);
-        this.id = body_id;
-        this.inner = inner
-        this.html = body;
-    }
-
-    function AccordionToggle(id){
-        var href = '#' + id.toString().replace(/\./g,'-') + '-collapse',
-            data_parent = '#' + id,
-            text = id_to_path(id),
-            toggle = document.createElement('a');
-        toggle.setAttribute('class', 'accordion-toggle');
-        toggle.setAttribute('href', href);
-        toggle.setAttribute('data-toggle', 'collapse');
-        toggle.setAttribute('data-parent', data_parent);
-        $(toggle).text(text);
-        this.text = text
-        this.html = toggle;
-    }
-
-    function AccordionHead(toggle){
-        var head = document.createElement('div');
-        head.setAttribute('class','accordion-heading');
-        head.appendChild(toggle.html);
-        this.toggle = toggle;
-        this.html = head;
-    }
-
-    function AccordionGroup(head, body){
-        var group = document.createElement('div');
-        group.setAttribute('class','accordion-group');
-        group.appendChild(head.html);
-        group.appendChild(body.html);
-        this.head = head;
-        this.body = body
-        this.html = group;
-    }
-
-    function Accordion(id){
-        var accordion = document.createElement('div'),
-            id = id.toString().replace(/\./g,'-') + '-accordion';
-        accordion.setAttribute('class', 'accordion');
-        accordion.setAttribute('id', id);
-        this.id = id 
-        this.html = accordion;
-    }
-
-    function accordion_group(id, text, content){
-        // HEAD STUFF
-        var toggle = new AccordionToggle(id, text),
-            head = new AccordionHead(toggle),
-        // BODY STUFF
-            inner = new AccordionInner(content),
-            body = new AccordionBody(id, inner),
-        // APPEND ACCORDION STUFF
-            group = new AccordionGroup(head, body);
-        return group;
-    }
-
-    function set_fields_type(base){
-        var TYPES = { },
-            step = function(base){
-                var depth = base['_metadata']['name'],
-                    structure;
-
-                $.each(base['_content'], function(key, value){
-                    structure = $(value).first()[0];
-
-                    if (structure._field){
-                        if (depth) _depth = depth + '-' + structure._field['name'];
-                        else _depth = structure._field['name'];
-                        TYPES[_depth] = structure._field['datatype'];
-                    } 
-                    else if (structure._group){
-                        step(structure._group);
-                    } 
-                });
-            };
-            
-        step(base);
-        return TYPES;
-    }
-
-    function format_value(name, data, parent_id) {
-
-        if (parent_id)
-            var id = parent_id + '-' + name;
-        else
-            var id = name;
-
-        var data_type = type_of(data),
-            content_type,
-            content_data = [ ],
-            table_data,
-            accordion = new Accordion(id);
-
-        if (data_type == 'object') table_data = { };
-        if (data_type == 'array') table_data = [ ];
-
-        for (var _name in data){
-            content_type = type_of(data[_name]);
-            if (content_type == 'object' || content_type == "array"){
-                content_data.push(format_value(_name, data[_name], id));
-            }
-            else {
-                table_data[_name] = data[_name];
-            }
-        }
-
-        var table = new Table(id, table_data);
-        content_data.push(table);
-		group = accordion_group(id, 'group_text', content_data.reverse());
-		accordion.group = group;
-		accordion.html.appendChild(group.html);
-
-        return accordion;
-    };
-
 
     function type_of(obj){
         var type_handler = new TypeHandler(obj);
         return type_handler.type();
     }
 
-    // number, boolean, string, object, array, date
     function TypeHandler(value) {
+        // number, boolean, string, object, array, date
         this._type = this.get_type(value);
     };
 

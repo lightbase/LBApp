@@ -1,5 +1,6 @@
 from pyramid.view import view_config
 from lbapp import rest_url
+from lbapp.lib import utils
 import requests
 import json
 from pyramid.response import Response
@@ -51,7 +52,6 @@ def list_base(request):
     if request.params:
         base_id = request.params['id_base']
         response = requests.delete('%s/base/%s' %(rest_url, base_id))
-        print(response.text)
         if response.text == 'DELETED':
             return Response(status=200)
         else:
@@ -63,5 +63,28 @@ def list_base(request):
 @view_config(route_name='explore_base', renderer='../templates/base/explore.pt')
 def explore_base(request):
 
-    return {}
+    base_id = request.matchdict['base_id']
+    response = requests.get('%s/base/%s' %(rest_url, base_id)).json()
+    if response.get('_status') == 500 or response.get('_status') == 404:
+        raise Exception(str(response))
+    base_name = response['nome_base']
+    reg_model = response['reg_model']
+
+    response = requests.get('%s/reg/%s' %(rest_url, base_name)).json()
+    if response.get('_status') == 500 or response.get('_status') == 404:
+        raise Exception(str(response))
+    
+    results = response['results']
+    registries = [result['json_reg'] for result in results]
+
+    explorer = {
+        'reg_model': reg_model, 
+        'registries': registries,
+        'base_name': base_name
+    }
+
+    return {'explorer': json.dumps(explorer, ensure_ascii=False)}
+
+
+
 
