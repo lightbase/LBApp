@@ -51,8 +51,6 @@
             }
         });
 
-        console.log(groups_order)
-
         rows = [ ];
         $.each(registries, function(i, registry){
             rows = get_registry_rows(base_name, fields_order, groups_order, registry);
@@ -67,21 +65,14 @@
     };
 
     function get_registry_rows(base_name, fields_order, groups_order, registry){
-        var rows,
-            body_row,
-            action_buttons,
-            standard_cell,
+        var rows = [ ],
+            body_row = new TableRow(base_name + '-body'),
+            action_buttons = new ActionButtons(),
+            standard_cell = new TableStandardCell(base_name, action_buttons.html),
             cell_id,
             field_value; 
 
-        body_row = new TableRow(base_name + '-body');
-        action_buttons = new ActionButtons();
-        standard_cell = new TableStandardCell(base_name, action_buttons.html);
         body_row.append(standard_cell);
-
-        $.each(groups_order, function(i, group){
-            console.log(i, group)
-        });
 
         $.each(fields_order, function(i, field){
 
@@ -103,7 +94,14 @@
                 }
             }
         });
-        return [body_row];
+
+        rows.push(body_row);
+
+        $.each(groups_order, function(i, group){
+            console.log(i, group)
+        });
+
+        return rows;
     }
 
     function ActionButtons(){
