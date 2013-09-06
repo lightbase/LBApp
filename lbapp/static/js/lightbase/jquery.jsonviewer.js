@@ -4,7 +4,7 @@
 
         var config = {
             'base_name': null, 
-            'reg_model': {},
+            'base_content': [],
             'registries': [] 
         };
 
@@ -12,7 +12,7 @@
 
         var EXPLORER = build_explorer(
             config['base_name'],
-            config['reg_model'],
+            config['base_content'],
             config['registries']
         );
 
@@ -20,72 +20,91 @@
               
     };
 
-    function build_explorer(base_name, reg_model, registries) {
+    function build_explorer(base_name, base_content, registries) {
         
         var table = new Table(base_name),
             thead = new TableHead(base_name),
             tbody = new TableBody(base_name),
             head_row = new TableRow(base_name + '-head'),
             toggle_anchor = new ToggleAnchor(base_name, tbody),
-            header_cell,
-            standard_cell,
-            cell_id,
-            field_type;
+            header_cell = new TableHeaderCell(base_name, toggle_anchor.html),
+            fields_order = [ ],
+            groups_order = [ ],
+            field,
+            group;
 
-        header_cell = new TableHeaderCell(base_name, toggle_anchor.html);
         head_row.append(header_cell);
         thead.append(head_row);
-
-        var ORDERED = [ ];
-
-        for (var field in reg_model){
-            ORDERED.push(field);
-            cell_id = base_name + '-' + field;
-            header_cell = new TableHeaderCell(cell_id, field);
-            head_row.append(header_cell);
-            thead.append(head_row);
-        }
-
-        $.each(registries, function(i, registry){
-            
-            body_row = new TableRow(base_name + '-body');
-            var action_buttons = new ActionButtons();
-            standard_cell = new TableStandardCell(base_name, action_buttons.html);
-            body_row.append(standard_cell);
-
-            $.each(ORDERED, function(i, field){
-                var field_value = registry[field];
-                if (field_value){
-
-                    field_type = type_of(field_value);
-                    
-                    if (field_type != 'object' && field_type != 'array'){
-                        standard_cell = new TableStandardCell(cell_id, field_value.toString());
-                        body_row.append(standard_cell);
-                        tbody.append(body_row);
-                    }
-                    else if (field_type == 'object'){
-                        standard_cell = new TableStandardCell(cell_id, JSON.stringify(field_value));
-                        body_row.append(standard_cell);
-                        tbody.append(body_row);
-                    }
-                    else if (field_type == 'array'){
-                    }
-
-
-                }
-            });
-
-            for (var field in registry){
-                var field_value = registry[field];
+        
+        $.each(base_content, function(i, struc){
+            if (struc['field']){
+                field = struc['field'];
+                fields_order.push(field.name);
+                cell_id = base_name + '-' + field.name;
+                header_cell = new TableHeaderCell(cell_id, field.name);
+                head_row.append(header_cell);
+                thead.append(head_row);
             }
-            tbody.append(body_row);
+            if (struc['group']){
+                group = struc['group'];
+                groups_order.push(group.metadata.name);
+            }
+        });
+
+        console.log(groups_order)
+
+        rows = [ ];
+        $.each(registries, function(i, registry){
+            rows = get_registry_rows(base_name, fields_order, groups_order, registry);
+            $.each(rows, function(i, row){
+                tbody.append(row);
+            });
         });
 
         table.append(thead);
         table.append(tbody);
         return table.html;
     };
+
+    function get_registry_rows(base_name, fields_order, groups_order, registry){
+        var rows,
+            body_row,
+            action_buttons,
+            standard_cell,
+            cell_id,
+            field_value; 
+
+        body_row = new TableRow(base_name + '-body');
+        action_buttons = new ActionButtons();
+        standard_cell = new TableStandardCell(base_name, action_buttons.html);
+        body_row.append(standard_cell);
+
+        $.each(groups_order, function(i, group){
+            console.log(i, group)
+        });
+
+        $.each(fields_order, function(i, field){
+
+            cell_id = base_name + '-' + field;
+            field_value = registry[field];
+            if (field_value){
+
+                field_type = type_of(field_value);
+                
+                if (field_type != 'object' && field_type != 'array'){
+                    standard_cell = new TableStandardCell(cell_id, field_value.toString());
+                    body_row.append(standard_cell);
+                }
+                else if (field_type == 'object'){
+                    standard_cell = new TableStandardCell(cell_id, JSON.stringify(field_value));
+                    body_row.append(standard_cell);
+                }
+                else if (field_type == 'array'){
+                }
+            }
+        });
+        return [body_row];
+    }
 
     function ActionButtons(){
         var div = document.createElement('div');
@@ -129,9 +148,10 @@
         this.html = tbody;
     }
 
-    function TableRow(id){
+    function TableRow(id, colspan){
         this.id = id + '-tr';
         var tr = document.createElement('tr');
+        if (colspan) tr.setAttribute('colspan', colspan);
         tr.setAttribute('id', this.id);
         this.html = tr;
     }
@@ -149,9 +169,9 @@
 
     function TableHeaderCell(id, content){
         this.id = id + '-th';
-        var th = document.createElement('th'),
-            toggle_anchor;
+        var th = document.createElement('th');
         th.setAttribute('id', this.id);
+        th.setAttribute('class', 'sorting');
         if (type_of(content) == 'string')
             $(th).text(content);
         else
@@ -164,7 +184,7 @@
         anchor.setAttribute('href', '#' + toggle.id);
         $(anchor).text(text);
         $(anchor).click(function(){
-            $(toggle.html).toggle();
+            $(toggle.html).toggle(200);
         });
         this.html = anchor;
     }

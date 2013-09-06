@@ -7,7 +7,7 @@
                 <div id="controller-data" style="display: none">
                     ${explorer}
                 </div>
-                <div id="base-explore"></div>
+                <div id="base-explorer"></div>
             </div>
         </div>
     </div>
@@ -30,13 +30,13 @@
 
         var explorer_data = JSON.parse($('#controller-data').text());
 
-        var base_name = explorer_data['base_name'];
-        var reg_model = JSON.parse(explorer_data['reg_model'].replace(/'/g, '"'));
+        var base_name = explorer_data['json_base']['metadata']['name'];
+        var base_content = explorer_data['json_base']['content']
         var registries = explorer_data['registries'];
 
-        $('#base-explore').jsonviewer({ 
+        $('#base-explorer').jsonviewer({ 
             base_name: base_name, 
-            reg_model: reg_model,
+            base_content: base_content,
             registries: registries 
         });
 

@@ -68,7 +68,7 @@ def explore_base(request):
     if response.get('_status') == 500 or response.get('_status') == 404:
         raise Exception(str(response))
     base_name = response['nome_base']
-    reg_model = response['reg_model']
+    base_json = response['json_base']
 
     response = requests.get('%s/reg/%s' %(rest_url, base_name)).json()
     if response.get('_status') == 500 or response.get('_status') == 404:
@@ -78,9 +78,8 @@ def explore_base(request):
     registries = [result['json_reg'] for result in results]
 
     explorer = {
-        'reg_model': reg_model, 
+        'json_base': base_json,
         'registries': registries,
-        'base_name': base_name
     }
 
     return {'explorer': json.dumps(explorer, ensure_ascii=False)}
