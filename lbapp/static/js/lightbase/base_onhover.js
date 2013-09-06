@@ -7,18 +7,18 @@ function Header(){
 
     this.base_fast_menu = base_fast_menu;
 
-    this.linkToBase = function(id){
+    this.linkToBase = function(cookieValue){
 
         var li = document.createElement("li"),
             a = document.createElement("a"),
             i = document.createElement("i");
 
-        li.setAttribute('id', 'fast_link_li_' + id);
+        li.setAttribute('id', 'fast_link_li_' + cookieValue);
         li.setAttribute('style', 'background-color:' + json.base[0].color);
         a.setAttribute('data-toggle', 'dropdown');
         //a.setAttribute('class', 'dropdown-toggle');
         a.setAttribute('href', '#');
-        a.setAttribute('id', id);
+        a.setAttribute('id', cookieValue);
         i.setAttribute('class', 'icon-th-list icon-animated-vertical');
         i.setAttribute('style', 'width: 50px;');
 
@@ -28,19 +28,19 @@ function Header(){
 
         this.html = li;
 
-        $('#fast_link_li_1').hover(function(){
-            $('#' + id).dropdown('toggle');
+        $('#fast_link_li_' + cookieValue).hover(function(){
+            $('#' + cookieValue).dropdown('toggle');
         });
 
     }
 
-    this.linkToBase_onHover = function(id){
-        var li_div_to_append = document.getElementById("fast_link_li_" + id),
+    this.linkToBase_onHover = function(cookieValue){
+        var li_div_to_append = document.getElementById("fast_link_li_" + cookieValue),
             li = document.createElement("li"),
             ul = document.createElement("ul");
 
         ul.setAttribute('class', 'pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer');
-        ul.setAttribute('id', 'fast_link_ul_' + id);
+        ul.setAttribute('id', 'fast_link_ul_' + cookieValue);
         li.setAttribute('class', 'nav-header');
 
         li.innerHTML = json.base[1].segundabase[0].nome_base;
@@ -51,8 +51,8 @@ function Header(){
 
     }
 
-    this.linkToBase_onHover_Info = function(id){
-        var ul = document.getElementById("fast_link_ul_" + id),
+    this.linkToBase_onHover_Info = function(cookieValue){
+        var ul = document.getElementById("fast_link_ul_" + cookieValue),
             li = document.createElement("li"),
             a = document.createElement("a"),
             img = document.createElement("img"),
@@ -60,6 +60,7 @@ function Header(){
             span2 = document.createElement("span"),
             span3 = document.createElement("span"),
             i = document.createElement("i");
+            button = document.createElement("button");
 
             span1.setAttribute('class', 'blue');
             span2.setAttribute('class', 'msg-title');
@@ -68,20 +69,28 @@ function Header(){
             img.setAttribute('class', 'msg-photo');
             img.setAttribute('src', '/static/ace-final/assets/avatars/avatar.png');
             img.setAttribute('alt', 'Alex Avatar');
+            button.setAttribute('class', 'btn btn-small btn-primary');
+            button.setAttribute('id', 'button_' + cookieValue);
 
+            $(button).text('Deletar');
             $(span1).text('Base:' + ' ' + json.base[1].segundabase[0].nome_base);
             span2.appendChild(span1);
             //$(span2).text('Ciao sociis natoque penatibus et auctor ...');
             span3.appendChild(span2);
+            span3.appendChild(button);
             a.appendChild(span3);
             //a.appendChild(img);
             li.appendChild(a);
             ul.appendChild(li);
 
+            $('#button_' + cookieValue).click(function(e){
+                $.removeCookie('cookie_' + cookieValue);
+
+            });
+
             this.html = li;
 
     }
-
 
 }
 

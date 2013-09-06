@@ -200,17 +200,17 @@
 
 								<li>
 									<a href="#">
-										<!--<img src="/static/ace-final/assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />-->
+										<img src="/static/ace-final/assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
 										<span class="msg-body">
 											<span class="msg-title">
 												<span class="blue">Alex:</span>
 												Ciao sociis natoque penatibus et auctor ...
 											</span>
 
-											<!--<span class="msg-time">
+											<span class="msg-time">
 												<i class="icon-time"></i>
 												<span>a moment ago</span>
-											</span>-->
+											</span>
 										</span>
 									</a>
 								</li>
