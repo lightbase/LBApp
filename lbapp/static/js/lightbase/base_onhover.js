@@ -17,7 +17,7 @@ function Header(){
         li.setAttribute('style', 'background-color:' + json.base[0].color);
         a.setAttribute('data-toggle', 'dropdown');
         //a.setAttribute('class', 'dropdown-toggle');
-        a.setAttribute('href', '#');
+        a.setAttribute('href', 'http://10.1.0.8/base/1/edit');
         a.setAttribute('id', cookieValue);
         i.setAttribute('class', 'icon-th-list icon-animated-vertical');
         i.setAttribute('style', 'width: 50px;');
@@ -85,6 +85,7 @@ function Header(){
 
             $('#button_' + cookieValue).click(function(e){
                 $.removeCookie('cookie_' + cookieValue);
+                location.reload();
 
             });
 

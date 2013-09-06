@@ -419,14 +419,6 @@
 		</script>
 		<script src="/static/js/ace/bootstrap.min.js"></script>
 
-        <script type="javascript">
-            if ($.cookie('cookie_1')){
-                
-
-            }
-
-        </script>
-
 		<!--page specific plugin scripts-->
 
 		<!--ace scripts-->

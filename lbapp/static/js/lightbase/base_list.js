@@ -121,10 +121,6 @@ function FastLinkClass(){
         tbody.appendChild(tr);
 
         $('#edit-' + id).click(function(e){
-            /*header.linkToBase(id);
-            header.linkToBase_onHover(id);
-            header.linkToBase_onHover_Info(id);*/
-
             $.cookie('cookie_' + id, id);
 
         });
@@ -175,3 +171,4 @@ function FastLinkClass(){
 
     }
 }
+
