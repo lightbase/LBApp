@@ -67,9 +67,9 @@ function FastLinkClass(){
         var td = document.createElement("td");
         var a = document.createElement("a");
 
-        a.setAttribute('href', '#');
-        a.innerText = id;
-        td.appendChild(a);
+        //a.setAttribute('href', '#');
+        //a.innerText = id;
+        td.innerText = id;
         tr.appendChild(td);
 
     }
@@ -89,9 +89,9 @@ function FastLinkClass(){
         var td = document.createElement("td");
         var a = document.createElement("a");
 
-        a.setAttribute('href', '#');
-        a.innerText = date;
-        td.appendChild(a);
+        //a.setAttribute('href', '#');
+        //a.innerText = date;
+        td.innerText = date;
         tr.appendChild(td);
 
     }
