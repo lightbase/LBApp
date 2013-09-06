@@ -17,7 +17,7 @@ function Header(){
         li.setAttribute('style', 'background-color:' + json.base[0].color);
         a.setAttribute('data-toggle', 'dropdown');
         //a.setAttribute('class', 'dropdown-toggle');
-        a.setAttribute('href', 'http://10.1.0.8/base/1/edit');
+        a.setAttribute('href', '#');
         a.setAttribute('id', cookieValue);
         i.setAttribute('class', 'icon-th-list icon-animated-vertical');
         i.setAttribute('style', 'width: 50px;');
@@ -65,14 +65,14 @@ function Header(){
             span1.setAttribute('class', 'blue');
             span2.setAttribute('class', 'msg-title');
             span3.setAttribute('class', 'msg-body');
-            a.setAttribute('href', '#');
+            //a.setAttribute('href', '#');
             img.setAttribute('class', 'msg-photo');
             img.setAttribute('src', '/static/ace-final/assets/avatars/avatar.png');
             img.setAttribute('alt', 'Alex Avatar');
             button.setAttribute('class', 'btn btn-small btn-primary');
             button.setAttribute('id', 'button_' + cookieValue);
 
-            $(button).text('Deletar');
+            button.innerText = 'Deletar';
             $(span1).text('Base:' + ' ' + json.base[1].segundabase[0].nome_base);
             span2.appendChild(span1);
             //$(span2).text('Ciao sociis natoque penatibus et auctor ...');
@@ -85,7 +85,7 @@ function Header(){
 
             $('#button_' + cookieValue).click(function(e){
                 $.removeCookie('cookie_' + cookieValue);
-                location.reload();
+                $('#fast_link_li_' + cookieValue).remove();
 
             });
 

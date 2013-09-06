@@ -78,7 +78,7 @@ function FastLinkClass(){
         var td = document.createElement("td");
         var a = document.createElement("a");
 
-        a.setAttribute('href', '#');
+        a.setAttribute('href', '/base/' + id + '/explore');
         a.innerText = name;
         td.appendChild(a);
         tr.appendChild(td);
