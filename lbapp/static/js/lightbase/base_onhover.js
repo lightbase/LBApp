@@ -1,4 +1,4 @@
-var json = {"base": [{"color": "#006600"}, {"primeirabase":[{"nome_base": "base1"},{"id_base": "1"}], "segundabase": [{"nome_base": "base2"},{"id_base": "2"}]}]};
+var json = JSON.parse(document.getElementById("controller-base").innerText);
 var base_fast_menu = document.getElementById("base-fast-menu");
     //base_data = JSON.parse(document.getElementById("controller-base")),
     //linktobase = new linkToBase();
@@ -8,94 +8,99 @@ function Header(){
     this.base_fast_menu = base_fast_menu;
 
     this.linkToBase = function(cookieValue){
+        for (var y=0; y<json.length; y++){
+            if (json[y].id_base == cookieValue){
+                var li = document.createElement("li"),
+                    a = document.createElement("a"),
+                    i = document.createElement("i");
+                console.log(json[y])
+                li.setAttribute('id', 'fast_link_li_' + cookieValue);
+                li.setAttribute('style', 'background-color:' + json[y].json_base.metadata.color);
+                a.setAttribute('data-toggle', 'dropdown');
+                //a.setAttribute('class', 'dropdown-toggle');
+                a.setAttribute('href', '#');
+                a.setAttribute('id', cookieValue);
+                i.setAttribute('class', 'icon-th-list icon-animated-vertical');
+                i.setAttribute('style', 'width: 50px;');
 
-        var li = document.createElement("li"),
-            a = document.createElement("a"),
-            i = document.createElement("i");
+                a.appendChild(i);
+                li.appendChild(a);
+                this.base_fast_menu.appendChild(li);
 
-        li.setAttribute('id', 'fast_link_li_' + cookieValue);
-        li.setAttribute('style', 'background-color:' + json.base[0].color);
-        a.setAttribute('data-toggle', 'dropdown');
-        //a.setAttribute('class', 'dropdown-toggle');
-        a.setAttribute('href', '#');
-        a.setAttribute('id', cookieValue);
-        i.setAttribute('class', 'icon-th-list icon-animated-vertical');
-        i.setAttribute('style', 'width: 50px;');
+                $('#fast_link_li_' + cookieValue).hover(function(){
+                    $('#' + cookieValue).dropdown('toggle');
+                });
 
-        a.appendChild(i);
-        li.appendChild(a);
-        this.base_fast_menu.appendChild(li);
-
-        this.html = li;
-
-        $('#fast_link_li_' + cookieValue).hover(function(){
-            $('#' + cookieValue).dropdown('toggle');
-        });
+            }
+        }
 
     }
 
     this.linkToBase_onHover = function(cookieValue){
-        var li_div_to_append = document.getElementById("fast_link_li_" + cookieValue),
-            li = document.createElement("li"),
-            ul = document.createElement("ul");
+        for (var y=0; y<json.length; y++){
+            if (json[y].id_base == cookieValue){
+                var li_div_to_append = document.getElementById("fast_link_li_" + cookieValue),
+                    li = document.createElement("li"),
+                    ul = document.createElement("ul");
 
-        ul.setAttribute('class', 'pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer');
-        ul.setAttribute('id', 'fast_link_ul_' + cookieValue);
-        li.setAttribute('class', 'nav-header');
+                ul.setAttribute('class', 'pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer');
+                ul.setAttribute('id', 'fast_link_ul_' + cookieValue);
+                li.setAttribute('class', 'nav-header');
 
-        li.innerHTML = json.base[1].segundabase[0].nome_base;
-        ul.appendChild(li);
-        li_div_to_append.appendChild(ul);
-
-        this.html = li;
+                li.innerHTML = json[y].nome_base;
+                ul.appendChild(li);
+                li_div_to_append.appendChild(ul);
+            }
+        }
 
     }
 
     this.linkToBase_onHover_Info = function(cookieValue){
-        var ul = document.getElementById("fast_link_ul_" + cookieValue),
-            li = document.createElement("li"),
-            a = document.createElement("a"),
-            img = document.createElement("img"),
-            span1 = document.createElement("span"),
-            span2 = document.createElement("span"),
-            span3 = document.createElement("span"),
-            i = document.createElement("i");
-            button = document.createElement("button");
+        for (var y=0; y<json.length; y++){
+            if (json[y].id_base == cookieValue){
+                var ul = document.getElementById("fast_link_ul_" + cookieValue),
+                    li = document.createElement("li"),
+                    a = document.createElement("a"),
+                    img = document.createElement("img"),
+                    span1 = document.createElement("span"),
+                    span2 = document.createElement("span"),
+                    span3 = document.createElement("span"),
+                    i = document.createElement("i");
+                    button = document.createElement("button");
 
-            span1.setAttribute('class', 'blue');
-            span2.setAttribute('class', 'msg-title');
-            span3.setAttribute('class', 'msg-body');
-            //a.setAttribute('href', '#');
-            img.setAttribute('class', 'msg-photo');
-            img.setAttribute('src', '/static/ace-final/assets/avatars/avatar.png');
-            img.setAttribute('alt', 'Alex Avatar');
-            button.setAttribute('class', 'btn btn-small btn-primary');
-            button.setAttribute('id', 'button_' + cookieValue);
+                    span1.setAttribute('class', 'blue');
+                    span2.setAttribute('class', 'msg-title');
+                    span3.setAttribute('class', 'msg-body');
+                    //a.setAttribute('href', '#');
+                    img.setAttribute('class', 'msg-photo');
+                    img.setAttribute('src', '/static/ace-final/assets/avatars/avatar.png');
+                    img.setAttribute('alt', 'Alex Avatar');
+                    button.setAttribute('class', 'btn btn-small btn-primary');
+                    button.setAttribute('id', 'button_' + cookieValue);
 
-            button.innerText = 'Deletar';
-            $(span1).text('Base:' + ' ' + json.base[1].segundabase[0].nome_base);
-            span2.appendChild(span1);
-            //$(span2).text('Ciao sociis natoque penatibus et auctor ...');
-            span3.appendChild(span2);
-            span3.appendChild(button);
-            a.appendChild(span3);
-            //a.appendChild(img);
-            li.appendChild(a);
-            ul.appendChild(li);
+                    button.innerText = 'Deletar';
+                    $(span1).text('Base:' + ' ' + json[y].nome_base);
+                    span2.appendChild(span1);
+                    //$(span2).text('Ciao sociis natoque penatibus et auctor ...');
+                    span3.appendChild(span2);
+                    span3.appendChild(button);
+                    a.appendChild(span3);
+                    //a.appendChild(img);
+                    li.appendChild(a);
+                    ul.appendChild(li);
 
-            $('#button_' + cookieValue).click(function(e){
-                $.removeCookie('cookie_' + cookieValue);
-                $('#fast_link_li_' + cookieValue).remove();
+                    $('#button_' + cookieValue).click(function(e){
+                        $.removeCookie('cookie_' + cookieValue, {path: '/'});
+                        $('#fast_link_li_' + cookieValue).remove();
 
-            });
-
-            this.html = li;
-
+                    });
+            }
+        }
     }
 
 }
 
-header = new Header(base_fast_menu);
+header = new Header();
 
 /*function linkToBase(){
     var li = document.createElement("li"),

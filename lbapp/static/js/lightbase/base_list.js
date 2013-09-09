@@ -1,3 +1,5 @@
+var json = JSON.parse(document.getElementById("controller-base").innerText);
+
 var base_content = JSON.parse(document.getElementById("controller-base").innerHTML);
 var tr = document.createElement("tr");
 var td = document.createElement("td");
@@ -15,9 +17,7 @@ var tbody = document.getElementById("tbody");
 
 fastlinkclass = new FastLinkClass();
 
-//w = JSON.parse(base_content);
 $.each(base_content, function(i, base){
-    //console.log(JSON.stringify(base));
     var id = base.id_base,
         name = base.nome_base,
         date = base.dt_base;
@@ -46,6 +46,8 @@ $.each(base_content, function(i, base){
     var li = document.createElement("li");*/
 
 function FastLinkClass(){
+
+        this.json = json;
 
     /*this.createLine = function(i, base){
         this.nome_base = base.nome_base;
@@ -120,10 +122,14 @@ function FastLinkClass(){
         tr.appendChild(td);
         tbody.appendChild(tr);
 
-        $('#edit-' + id).click(function(e){
-            $.cookie('cookie_' + id, id);
+        for (var y=0; y<this.json.length; y++){
+            if (this.json[y].id_base == id){
+                $('#edit-' + id).click(function(e){
+                    $.cookie('cookie_' + id, JSON.stringify(this.json[y]), {path: '/'});
 
-        });
+                });
+            }
+        }
 
     }
 
