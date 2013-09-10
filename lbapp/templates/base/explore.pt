@@ -38,18 +38,19 @@
             registries: registries 
         });
 
-        //$.fn.editable.defaults.mode = 'inline';
-        $.fn.editable.defaults.mode = 'popup';
+        $.fn.editable.defaults.mode = 'inline';
+        //$.fn.editable.defaults.mode = 'popup';
 
         $('.editable').each(function() { 
             // Makes everyone editable
-            $(this).editable({
+            $(this).editable('disable');
+            /*$(this).editable({
                 //url: '/post',
                 //title: 'XXXXXXXX'
                 //type: 'text',
                 pk: 1,
                 name: 'somename',
-            });
+            });*/
         });
 
         $(function() {

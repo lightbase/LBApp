@@ -57,9 +57,9 @@
             field_value; 
 
         if (groups_order.length > 0)
-            actions = ['edit', 'toggle'];
-        else
-            actions = ['edit'];
+            actions.push('toggle');
+        if (fields_order.length > 0)
+            actions.push('edit');
 
         var action_buttons = new ActionButtons(actions),
             standard_cell = new TableStandardCell(action_buttons.html);
@@ -90,7 +90,7 @@
         rows.push(body_row);
 
         if (groups_order.length > 0){
-            var group_row = new TableRow(),
+            var group_row = new TableRow(hidden=true),
                 registries,
                 explorer,
                 registries_type;
@@ -108,8 +108,8 @@
                      
                     var standard_cell = new TableStandardCell( 
                         explorer.html, 
-                        colspan=fields_order.length + 1,
-                        hidden=false);
+                        colspan=fields_order.length + 1
+                        );
                     group_row.append(standard_cell)
                 }
             });
@@ -126,29 +126,38 @@
             if (action == 'edit')
                 button = new EditButton();
             if (action == 'toggle')
-                button = new EditButton();
+                button = new ToggleButton();
             div.appendChild(button.html);
         });
         this.html = div;
     }
 
     function EditButton(){
-        var anchor = document.createElement('a'),
-            icon = document.createElement('i');
-        icon.setAttribute('class', 'icon-pencil bigger-130');
-        anchor.setAttribute('class', 'green');
+        var anchor = document.createElement('a');
+        anchor.setAttribute('class', 'icon-pencil bigger-130 green');
         anchor.setAttribute('href', 'javascript: void(0)');
-        anchor.appendChild(icon);
+        $(anchor).click(function(){
+            var editables = $(this).closest('tr').find('.editable');
+            $.each(editables, function(i, editable){
+                $(editable).editable('toggleDisabled');
+            });
+        });
         this.html = anchor;
     }
 
     function ToggleButton(){
         var anchor = document.createElement('a'),
             icon = document.createElement('i');
-        icon.setAttribute('class', 'icon-pencil bigger-130');
-        anchor.setAttribute('class', 'green');
+        anchor.setAttribute('class', 'icon-double-angle-right bigger-130');
         anchor.setAttribute('href', 'javascript: void(0)');
-        anchor.appendChild(icon);
+        $(anchor).click(function(){
+            $(this).closest('tr').next().toggle(150);
+            var icon = $(this).attr('class');
+            if (icon == 'icon-double-angle-right bigger-130')
+                $(this).attr('class', 'icon-double-angle-down bigger-130');
+            else
+                $(this).attr('class', 'icon-double-angle-right bigger-130');
+        });
         this.html = anchor;
     }
 
@@ -195,19 +204,19 @@
         this.html = tbody;
     }
 
-    function TableRow(){
+    function TableRow(hidden){
         var tr = document.createElement('tr');
+        if (hidden) tr.setAttribute('style', 'display: none')
         this.html = tr;
     }
 
-    function TableStandardCell(content, colspan, hidden){
+    function TableStandardCell(content, colspan){
         var td = document.createElement('td');
         if (type_of(content) == 'string')
             $(td).text(content);
         else
             td.appendChild(content);
         if (colspan) td.setAttribute('colspan', colspan);
-        if (hidden) td.setAttribute('style', 'display:none');
         this.html = td;
     }
 
@@ -254,7 +263,7 @@
         this.id = id + '-xeditable';
         var anchor = document.createElement('a');
         anchor.setAttribute('id', this.id);
-        anchor.setAttribute('data-type', 'date');
+        //anchor.setAttribute('data-type', 'date');
         anchor.setAttribute('data-pk', '1');
         anchor.setAttribute('data-original-title', 'Enter data');
         anchor.setAttribute('class','editable editable-click');
