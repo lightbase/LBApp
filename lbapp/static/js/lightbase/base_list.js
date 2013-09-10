@@ -1,6 +1,6 @@
-var json = JSON.parse(document.getElementById("controller-base").innerText);
+var json = JSON.parse(document.getElementById("controller-base").innerHTML);
 
-var base_content = JSON.parse(document.getElementById("controller-base").innerHTML);
+var base_content = JSON.parse($('#controller-base').text());
 var tr = document.createElement("tr");
 var td = document.createElement("td");
 var label = document.createElement("label");
@@ -17,10 +17,11 @@ var tbody = document.getElementById("tbody");
 
 fastlinkclass = new FastLinkClass();
 
-$.each(base_content, function(i, base){
+$.each(json, function(i, base){
     var id = base.id_base,
         name = base.nome_base,
         date = base.dt_base;
+
 
     tr = document.createElement("tr");
     tr.setAttribute('id', 'tr-' + i);
@@ -71,7 +72,7 @@ function FastLinkClass(){
 
         //a.setAttribute('href', '#');
         //a.innerText = id;
-        td.innerText = id;
+        $(td).text(id);
         tr.appendChild(td);
 
     }
@@ -81,7 +82,7 @@ function FastLinkClass(){
         var a = document.createElement("a");
 
         a.setAttribute('href', '/base/' + id + '/explore');
-        a.innerText = name;
+        $(a).text(name);
         td.appendChild(a);
         tr.appendChild(td);
 
@@ -93,7 +94,7 @@ function FastLinkClass(){
 
         //a.setAttribute('href', '#');
         //a.innerText = date;
-        td.innerText = date;
+        $(td).text(date);
         tr.appendChild(td);
 
     }
@@ -124,8 +125,9 @@ function FastLinkClass(){
 
         for (var y=0; y<this.json.length; y++){
             if (this.json[y].id_base == id){
+                var jsonContent = this.json[y];
                 $('#edit-' + id).click(function(e){
-                    $.cookie('cookie_' + id, JSON.stringify(this.json[y]), {path: '/'});
+                    $.cookie('cookie_' + id, JSON.stringify(jsonContent), {path: '/'});
 
                 });
             }

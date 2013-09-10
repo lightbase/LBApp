@@ -1,5 +1,10 @@
 from pyramid.view import view_config
+from lbapp import rest_url
+from lbapp.lib import utils
 import requests
+import json
+from pyramid.response import Response
+from pyramid.exceptions import HTTPNotFound
 
 @view_config(route_name='listarbase', renderer='templates/listarbase.pt')
 def temp1(request):
@@ -69,6 +74,6 @@ def temp26(request):
     return {'project': 'LBApp'}
 @view_config(route_name='master', renderer='../templates/master.pt')
 def temp27(request):
-    response = requests.get('%s/base?$$={"select":"*"}' %(rest_url)).json()
-    result = response['results']
-    return {'project': 'LBApp', 'r': json.dumps(result)}
+    #response = requests.get('%s/base?$$={"select":"*"}' %(rest_url)).json()
+    #result = response['results']
+    return {'project': 'LBApp'}

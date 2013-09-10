@@ -1,4 +1,4 @@
-var json = JSON.parse(document.getElementById("controller-base").innerText);
+//var jsoncookie = JSON.parse(document.getElementById("controller-base").innerHTML);
 var base_fast_menu = document.getElementById("base-fast-menu");
     //base_data = JSON.parse(document.getElementById("controller-base")),
     //linktobase = new linkToBase();
@@ -8,18 +8,15 @@ function Header(){
     this.base_fast_menu = base_fast_menu;
 
     this.linkToBase = function(cookieValue){
-        for (var y=0; y<json.length; y++){
-            if (json[y].id_base == cookieValue){
                 var li = document.createElement("li"),
                     a = document.createElement("a"),
                     i = document.createElement("i");
-                console.log(json[y])
-                li.setAttribute('id', 'fast_link_li_' + cookieValue);
-                li.setAttribute('style', 'background-color:' + json[y].json_base.metadata.color);
+                li.setAttribute('id', 'fast_link_li_' + cookieValue.id_base);
+                li.setAttribute('style', 'background-color:' + cookieValue.json_base.metadata.color);
                 a.setAttribute('data-toggle', 'dropdown');
                 //a.setAttribute('class', 'dropdown-toggle');
                 a.setAttribute('href', '#');
-                a.setAttribute('id', cookieValue);
+                a.setAttribute('id', cookieValue.id_base);
                 i.setAttribute('class', 'icon-th-list icon-animated-vertical');
                 i.setAttribute('style', 'width: 50px;');
 
@@ -27,38 +24,28 @@ function Header(){
                 li.appendChild(a);
                 this.base_fast_menu.appendChild(li);
 
-                $('#fast_link_li_' + cookieValue).hover(function(){
-                    $('#' + cookieValue).dropdown('toggle');
+                $('#fast_link_li_' + cookieValue.id_base).hover(function(){
+                    $('#' + cookieValue.id_base).dropdown('toggle');
                 });
-
-            }
-        }
-
     }
 
     this.linkToBase_onHover = function(cookieValue){
-        for (var y=0; y<json.length; y++){
-            if (json[y].id_base == cookieValue){
-                var li_div_to_append = document.getElementById("fast_link_li_" + cookieValue),
+                var li_div_to_append = document.getElementById("fast_link_li_" + cookieValue.id_base),
                     li = document.createElement("li"),
                     ul = document.createElement("ul");
 
                 ul.setAttribute('class', 'pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer');
-                ul.setAttribute('id', 'fast_link_ul_' + cookieValue);
+                ul.setAttribute('id', 'fast_link_ul_' + cookieValue.id_base);
                 li.setAttribute('class', 'nav-header');
 
-                li.innerHTML = json[y].nome_base;
+                li.innerHTML = cookieValue.nome_base;
                 ul.appendChild(li);
                 li_div_to_append.appendChild(ul);
-            }
-        }
-
     }
 
     this.linkToBase_onHover_Info = function(cookieValue){
-        for (var y=0; y<json.length; y++){
-            if (json[y].id_base == cookieValue){
-                var ul = document.getElementById("fast_link_ul_" + cookieValue),
+        //console.log(cookieValue)
+                var ul = document.getElementById("fast_link_ul_" + cookieValue.id_base),
                     li = document.createElement("li"),
                     a = document.createElement("a"),
                     img = document.createElement("img"),
@@ -76,10 +63,10 @@ function Header(){
                     img.setAttribute('src', '/static/ace-final/assets/avatars/avatar.png');
                     img.setAttribute('alt', 'Alex Avatar');
                     button.setAttribute('class', 'btn btn-small btn-primary');
-                    button.setAttribute('id', 'button_' + cookieValue);
+                    button.setAttribute('id', 'button_' + cookieValue.id_base);
 
-                    button.innerText = 'Deletar';
-                    $(span1).text('Base:' + ' ' + json[y].nome_base);
+                    $(button).text('Deletar');
+                    $(span1).text('Base:' + ' ' + cookieValue.nome_base);
                     span2.appendChild(span1);
                     //$(span2).text('Ciao sociis natoque penatibus et auctor ...');
                     span3.appendChild(span2);
@@ -89,13 +76,11 @@ function Header(){
                     li.appendChild(a);
                     ul.appendChild(li);
 
-                    $('#button_' + cookieValue).click(function(e){
-                        $.removeCookie('cookie_' + cookieValue, {path: '/'});
-                        $('#fast_link_li_' + cookieValue).remove();
+                    $('#button_' + cookieValue.id_base).click(function(e){
+                        $.removeCookie('cookie_' + cookieValue.id_base, {path: '/'});
+                        $('#fast_link_li_' + cookieValue.id_base).remove();
 
                     });
-            }
-        }
     }
 
 }

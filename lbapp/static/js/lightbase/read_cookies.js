@@ -1,11 +1,11 @@
 var all_cookies = $.cookie();
+var cookieValue;
 
 function RenderCookies(){
     this.allcookies = all_cookies;
-
     this.doHeader = function(){
-        $.each(this.allcookies, function(cookieName, cookieValue){
-            //console.log(JSON.stringify(cookieName) + ":" + JSON.stringify(cookieValue));
+        $.each(this.allcookies, function(cookieName, baseAttributes){
+            cookieValue = JSON.parse(baseAttributes);
             if (cookieValue != ''){
                 header.linkToBase(cookieValue);
                 header.linkToBase_onHover(cookieValue);
