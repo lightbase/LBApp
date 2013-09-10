@@ -23,7 +23,7 @@
 <link href="/static/bootstrap-editable-1.4.5/bootstrap-editable/img/loading.gif" />
 <script src="/static/bootstrap-editable-1.4.5/bootstrap-editable/js/bootstrap-editable.min.js"></script>
 
-<script src="/static/js/lightbase/jquery.jsonviewer.js"></script>
+<script src="/static/js/lightbase/jquery.explorer.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -33,12 +33,13 @@
         var base = explorer_data['json_base']
         var registries = explorer_data['registries'];
 
-        $('#base-explorer').jsonviewer({ 
+        $('#base-explorer').explorer({ 
             base: base,
             registries: registries 
         });
 
-        $.fn.editable.defaults.mode = 'inline';
+        //$.fn.editable.defaults.mode = 'inline';
+        $.fn.editable.defaults.mode = 'popup';
 
         $('.editable').each(function() { 
             // Makes everyone editable

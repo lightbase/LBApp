@@ -1,6 +1,6 @@
 ﻿(function($) {
 
-    $.fn.jsonviewer = function(settings) {
+    $.fn.explorer = function(settings) {
 
         var config = {
             'base': { },
@@ -9,13 +9,12 @@
 
         if (settings) $.extend(config, settings);
 
-        var EXPLORER = build_explorer(
+        var explorer = build_explorer(
             config['base'],
             config['registries']
         );
 
-        $(this).append(EXPLORER.html);
-              
+        $(this).append(explorer.html);
     };
 
     function build_explorer(base, registries) {
@@ -23,164 +22,197 @@
         var base_name = base.metadata.name,
             base_content = base.content,
             table = new Table(base_name),
-            thead = new TableHead(base_name),
-            tbody = new TableBody(base_name),
-            head_row = new TableRow(base_name + '-head'),
-            toggle_anchor = new ToggleAnchor(base_name, tbody),
-            header_cell = new TableHeaderCell(base_name, toggle_anchor.html),
+            head_row = table.add_head_row(),
             fields_order = [ ],
             groups_order = [ ],
-            field,
-            group;
-
-        head_row.append(header_cell);
-        thead.append(head_row);
+            rows = [ ];
         
         $.each(base_content, function(i, struc){
             if (struc['field']){
-                field = struc['field'];
-                fields_order.push(field.name);
-                cell_id = base_name + '-' + field.name;
-                header_cell = new TableHeaderCell(cell_id, field.name);
+                fields_order.push(struc['field'].name);
+                header_cell = new TableHeaderCell(struc['field'].name);
                 head_row.append(header_cell);
-                thead.append(head_row);
+                table.head.append(head_row);
             }
-            if (struc['group']){
-                group = struc['group'];
-                groups_order.push(group);
-            }
+            if (struc['group'])
+                groups_order.push(struc['group']);
         });
 
-        rows = [ ];
         $.each(registries, function(i, registry){
             rows = get_registry_rows(base_name, fields_order, groups_order, registry);
             $.each(rows, function(i, row){
-                tbody.append(row);
+                table.body.append(row);
             });
         });
-
-        table.append(thead);
-        table.append(tbody);
         return table;
     };
 
     function get_registry_rows(base_name, fields_order, groups_order, registry){
+
         var rows = [ ],
-            body_row = new TableRow(base_name + '-body'),
-            action_buttons = new ActionButtons(),
-            standard_cell = new TableStandardCell(base_name, action_buttons.html),
-            cell_id,
+            actions = [ ],
+            body_row = new TableRow(),
+            cell_content,
+            cell_value,
             field_value; 
 
+        if (groups_order.length > 0)
+            actions = ['edit', 'toggle'];
+        else
+            actions = ['edit'];
+
+        var action_buttons = new ActionButtons(actions),
+            standard_cell = new TableStandardCell(action_buttons.html);
         body_row.append(standard_cell);
 
-        $.each(fields_order, function(i, field){
+        if (fields_order.length > 0){
 
-            cell_id = base_name + '-' + field;
-            field_value = registry[field];
-            if (field_value){
+            $.each(fields_order, function(i, field){
 
-                field_type = type_of(field_value);
-                
-                if (field_type != 'object' && field_type != 'array'){
-                    standard_cell = new TableStandardCell(cell_id, field_value.toString());
-                    body_row.append(standard_cell);
-                }
-                else if (field_type == 'object'){
-                    standard_cell = new TableStandardCell(cell_id, JSON.stringify(field_value));
-                    body_row.append(standard_cell);
-                }
-                else if (field_type == 'array'){
-                }
-            }
-        });
+                field_value = registry[field];
 
+                if (field_value){
+                    field_type = type_of(field_value);
+                    if (field_type != 'object' && field_type != 'array')
+                        cell_value = field_value.toString()
+                    else if (field_type == 'object')
+                        cell_value = JSON.stringify(field_value);
+                    else if (field_type == 'array')
+                        cell_value = field_value.join(',');
+                }
+                else cell_value = '';
+
+                cell_content = new EditableAnchor('id', cell_value);
+                standard_cell = new TableStandardCell(cell_content.html);
+                body_row.append(standard_cell);
+            });
+        }
         rows.push(body_row);
 
         if (groups_order.length > 0){
-            var group_row = new TableRow(base_name + '-body');
-            $.each(groups_order, function(i, group){
-                var explorer = build_explorer(group, [registry[group.metadata.name]]);
-                var standard_cell = new TableStandardCell('cell_id', 
-                    explorer.html, 
-                    colspan= fields_order.length + 1);
-                group_row.append(standard_cell)
-                
-            });
+            var group_row = new TableRow(),
+                registries,
+                explorer,
+                registries_type;
 
+            $.each(groups_order, function(i, group){
+
+                registries = registry[group.metadata.name];
+                if (registries){
+                    registries_type = type_of(registries);
+
+                    if (registries_type == 'array')
+                        explorer = build_explorer(group, registry[group.metadata.name]);
+                    else 
+                        explorer = build_explorer(group, [registry[group.metadata.name]]);
+                     
+                    var standard_cell = new TableStandardCell( 
+                        explorer.html, 
+                        colspan=fields_order.length + 1,
+                        hidden=false);
+                    group_row.append(standard_cell)
+                }
+            });
             rows.push(group_row);
         }
-
-
-
         return rows;
     }
 
-    function ActionButtons(){
-        var div = document.createElement('div');
-            anchor = document.createElement('a');
+    function ActionButtons(actions){
+        var div = document.createElement('div'),
+            button;
+        div.setAttribute('class', 'hidden-phone visible-desktop action-buttons');
+        $.each(actions, function(i, action){
+            if (action == 'edit')
+                button = new EditButton();
+            if (action == 'toggle')
+                button = new EditButton();
+            div.appendChild(button.html);
+        });
+        this.html = div;
+    }
+
+    function EditButton(){
+        var anchor = document.createElement('a'),
             icon = document.createElement('i');
         icon.setAttribute('class', 'icon-pencil bigger-130');
         anchor.setAttribute('class', 'green');
         anchor.setAttribute('href', 'javascript: void(0)');
-        div.setAttribute('class', 'hidden-phone visible-desktop action-buttons');
         anchor.appendChild(icon);
-        div.appendChild(anchor);
-        this.html = div;
+        this.html = anchor;
+    }
+
+    function ToggleButton(){
+        var anchor = document.createElement('a'),
+            icon = document.createElement('i');
+        icon.setAttribute('class', 'icon-pencil bigger-130');
+        anchor.setAttribute('class', 'green');
+        anchor.setAttribute('href', 'javascript: void(0)');
+        anchor.appendChild(icon);
+        this.html = anchor;
     }
 
     function Table(id){
+        this.base_name = id;
         this.id = id + '-table';
+
         var div = document.createElement('div');
         var table = document.createElement('table');
         div.setAttribute('style', 'overflow:auto');
         table.setAttribute('id', this.id);
-        table.setAttribute('class', 'table table-striped table-bordered table-hover');
+        table.setAttribute('class', 'table table-striped table-bordered');
         table.setAttribute('style', 'width: auto');
         div.appendChild(table);
+
         this.html = div;
+        this.head = new TableHead();
+        this.body = new TableBody();
+
         this.append = function(el){
             table.appendChild(el.html);
-        }
+        };
+
+        this.add_head_row = function(base_name){
+            var toggle_anchor = new ToggleAnchor(this.base_name, this.body),
+                header_cell = new TableHeaderCell(toggle_anchor.html),
+                head_row = new TableRow();
+            head_row.append(header_cell);
+            this.head.append(head_row);
+            return head_row;
+        };
+
+        this.append(this.head);
+        this.append(this.body);
     }
 
-    function TableHead(id){
-        this.id = id + '-thead';
+    function TableHead(){
         var thead = document.createElement('thead');
-        thead.setAttribute('id', this.id);
         this.html = thead;
     }
 
-    function TableBody(id){
-        this.id = id + '-tbody';
+    function TableBody(){
         var tbody = document.createElement('tbody');
-        tbody.setAttribute('id', this.id);
         this.html = tbody;
     }
 
-    function TableRow(id, colspan){
-        this.id = id + '-tr';
+    function TableRow(){
         var tr = document.createElement('tr');
-        tr.setAttribute('id', this.id);
         this.html = tr;
     }
 
-    function TableStandardCell(id, content, colspan){
-        this.id = id + '-td';
+    function TableStandardCell(content, colspan, hidden){
         var td = document.createElement('td');
-        td.setAttribute('id', this.id);
         if (type_of(content) == 'string')
             $(td).text(content);
         else
             td.appendChild(content);
         if (colspan) td.setAttribute('colspan', colspan);
+        if (hidden) td.setAttribute('style', 'display:none');
         this.html = td;
     }
 
-    function TableHeaderCell(id, content){
-        this.id = id + '-th';
+    function TableHeaderCell(content){
         var th = document.createElement('th');
-        th.setAttribute('id', this.id);
         th.setAttribute('class', 'sorting');
         if (type_of(content) == 'string')
             $(th).text(content);
