@@ -30,13 +30,11 @@
 
         var explorer_data = JSON.parse($('#controller-data').text());
 
-        var base_name = explorer_data['json_base']['metadata']['name'];
-        var base_content = explorer_data['json_base']['content']
+        var base = explorer_data['json_base']
         var registries = explorer_data['registries'];
 
         $('#base-explorer').jsonviewer({ 
-            base_name: base_name, 
-            base_content: base_content,
+            base: base,
             registries: registries 
         });
 

@@ -3,26 +3,26 @@
     $.fn.jsonviewer = function(settings) {
 
         var config = {
-            'base_name': null, 
-            'base_content': [],
-            'registries': [] 
+            'base': { },
+            'registries': [ ] 
         };
 
         if (settings) $.extend(config, settings);
 
         var EXPLORER = build_explorer(
-            config['base_name'],
-            config['base_content'],
+            config['base'],
             config['registries']
         );
 
-        $(this).append(EXPLORER);
+        $(this).append(EXPLORER.html);
               
     };
 
-    function build_explorer(base_name, base_content, registries) {
+    function build_explorer(base, registries) {
         
-        var table = new Table(base_name),
+        var base_name = base.metadata.name,
+            base_content = base.content,
+            table = new Table(base_name),
             thead = new TableHead(base_name),
             tbody = new TableBody(base_name),
             head_row = new TableRow(base_name + '-head'),
@@ -47,7 +47,7 @@
             }
             if (struc['group']){
                 group = struc['group'];
-                groups_order.push(group.metadata.name);
+                groups_order.push(group);
             }
         });
 
@@ -61,7 +61,7 @@
 
         table.append(thead);
         table.append(tbody);
-        return table.html;
+        return table;
     };
 
     function get_registry_rows(base_name, fields_order, groups_order, registry){
@@ -97,9 +97,21 @@
 
         rows.push(body_row);
 
-        $.each(groups_order, function(i, group){
-            console.log(i, group)
-        });
+        if (groups_order.length > 0){
+            var group_row = new TableRow(base_name + '-body');
+            $.each(groups_order, function(i, group){
+                var explorer = build_explorer(group, [registry[group.metadata.name]]);
+                var standard_cell = new TableStandardCell('cell_id', 
+                    explorer.html, 
+                    colspan= fields_order.length + 1);
+                group_row.append(standard_cell)
+                
+            });
+
+            rows.push(group_row);
+        }
+
+
 
         return rows;
     }
@@ -149,12 +161,11 @@
     function TableRow(id, colspan){
         this.id = id + '-tr';
         var tr = document.createElement('tr');
-        if (colspan) tr.setAttribute('colspan', colspan);
         tr.setAttribute('id', this.id);
         this.html = tr;
     }
 
-    function TableStandardCell(id, content){
+    function TableStandardCell(id, content, colspan){
         this.id = id + '-td';
         var td = document.createElement('td');
         td.setAttribute('id', this.id);
@@ -162,6 +173,7 @@
             $(td).text(content);
         else
             td.appendChild(content);
+        if (colspan) td.setAttribute('colspan', colspan);
         this.html = td;
     }
 
@@ -179,7 +191,7 @@
 
     function ToggleAnchor(text, toggle){
         var anchor = document.createElement('a');
-        anchor.setAttribute('href', '#' + toggle.id);
+        anchor.setAttribute('href', 'javascript: void(0)');
         $(anchor).text(text);
         $(anchor).click(function(){
             $(toggle.html).toggle(200);
