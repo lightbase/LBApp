@@ -31,8 +31,10 @@ $.each(json, function(i, base){
     fastlinkclass.BaseListDate(tr, id, name, date);
     fastlinkclass.BaseListEdit(tr, tbody, id, name);
     fastlinkclass.BaseListDelete(tr, tbody, id, name);
+    fastlinkclass.BaseListPhone(id);
     //fastlinkclass.createLine(i, base);
 });
+
 
 /*    var tr = document.createElement("tr");
     var td = document.createElement("td");
@@ -48,7 +50,15 @@ $.each(json, function(i, base){
 
 function FastLinkClass(){
 
+        var cookieNumber = 0;
+
+        $.each($.cookie(), function(){
+            cookieNumber += 1;
+
+        });
+
         this.json = json;
+        this.cookieNumber = cookieNumber;
 
     /*this.createLine = function(i, base){
         this.nome_base = base.nome_base;
@@ -122,9 +132,8 @@ function FastLinkClass(){
         td.appendChild(div);
         tr.appendChild(td);
         tbody.appendChild(tr);
-
         for (var y=0; y<this.json.length; y++){
-            if (this.json[y].id_base == id){
+            if (this.json[y].id_base == id && this.cookieNumber < 7){
                 var jsonContent = this.json[y];
                 $('#edit-' + id).click(function(e){
                     $.cookie('cookie_' + id, JSON.stringify(jsonContent), {path: '/'});
@@ -176,6 +185,30 @@ function FastLinkClass(){
                 }]
             );
         });
+
+    }
+
+    this.BaseListPhoneButton = function(id){
+        var td = document.getElementById("td-actions" + id);
+        var a = document.createElement("a");
+        var divin = document.createElement("div");
+        var divout = document.createElement("div");
+        var i = document.createElement("i");
+        var button = document.createElement("button");
+        var ul = document.createElement("ul");
+        var li = document.createElement("li");
+        var span = document.createElement("span");
+
+        divout.setAttribute('class', 'hidden-desktop visible-phone');
+        divin.setAttribute('class', 'inline position-relative');
+        button.setAttribute('class', 'btn btn-minier btn-yellow dropdown-toggle');
+        button.setAttribute('data-toggle', 'dropdown');
+        i.setAttribute('class', 'icon-caret-down icon-only bigger-120')
+
+        button.appendChild(i);
+        divin.appendChild(button);
+        divout.appendChild(divin);
+        td.appendChild(divout);
 
     }
 }
