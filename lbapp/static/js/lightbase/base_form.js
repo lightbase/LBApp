@@ -481,7 +481,8 @@ function BaseContext(context_space){
                 if (_context[data_id].datatype == 'AutoEnumerado')
                     _context[data_id].indices.push('Ordenado');
                 else
-                    _context[data_id].indices.push('Textual');
+                    // If no index is provided.
+                    _context[data_id].indices.push('Nenhum');
             }
         });
         return _context;
@@ -588,6 +589,7 @@ function BaseContext(context_space){
                         if (datatype === 'AutoEnumerado')
                             index_el[0].checked = false;
                         else
+                            // Set default index.
                             index_el[0].checked = index == 'Textual'? true: false;
                         if ($.inArray(index, forbidden_indices) != -1){
                             // Forbidden index detected.

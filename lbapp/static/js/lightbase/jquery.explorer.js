@@ -9,6 +9,11 @@
 
         if (settings) $.extend(config, settings);
 
+        if (config['registries'].length < 1){
+            $(this).text('Sem registros');
+            return false;
+        }
+
         var explorer = build_explorer(
             config['base'],
             config['registries']
@@ -29,7 +34,7 @@
         
         $.each(base_content, function(i, struc){
             if (struc['field']){
-                fields_order.push(struc['field'].name);
+                fields_order.push(struc['field']);
                 header_cell = new TableHeaderCell(struc['field'].name);
                 head_row.append(header_cell);
                 table.head.append(head_row);
@@ -39,7 +44,7 @@
         });
 
         $.each(registries, function(i, registry){
-            rows = get_registry_rows(base_name, fields_order, groups_order, registry);
+            rows = get_registry_rows(fields_order, groups_order, registry);
             $.each(rows, function(i, row){
                 table.body.append(row);
             });
@@ -47,7 +52,7 @@
         return table;
     };
 
-    function get_registry_rows(base_name, fields_order, groups_order, registry){
+    function get_registry_rows(fields_order, groups_order, registry){
 
         var rows = [ ],
             actions = [ ],
@@ -69,7 +74,7 @@
 
             $.each(fields_order, function(i, field){
 
-                field_value = registry[field];
+                field_value = registry[field.name];
 
                 if (field_value){
                     field_type = type_of(field_value);
@@ -82,7 +87,7 @@
                 }
                 else cell_value = '';
 
-                cell_content = new EditableAnchor('id', cell_value);
+                cell_content = new EditableAnchor('id', cell_value, field.datatype);
                 standard_cell = new TableStandardCell(cell_content.html);
                 body_row.append(standard_cell);
             });
@@ -92,7 +97,7 @@
         if (groups_order.length > 0){
             var group_row = new TableRow(hidden=true),
                 registries,
-                explorer,
+                explorer = [ ],
                 registries_type;
 
             $.each(groups_order, function(i, group){
@@ -100,19 +105,17 @@
                 registries = registry[group.metadata.name];
                 if (registries){
                     registries_type = type_of(registries);
-
                     if (registries_type == 'array')
-                        explorer = build_explorer(group, registry[group.metadata.name]);
+                        explorer.push(build_explorer(group, registry[group.metadata.name]));
                     else 
-                        explorer = build_explorer(group, [registry[group.metadata.name]]);
-                     
-                    var standard_cell = new TableStandardCell( 
-                        explorer.html, 
-                        colspan=fields_order.length + 1
-                        );
-                    group_row.append(standard_cell)
+                        explorer.push(build_explorer(group, [registry[group.metadata.name]]));
                 }
             });
+            var standard_cell = new TableStandardCell( 
+                explorer, 
+                colspan=fields_order.length + 1
+            );
+            group_row.append(standard_cell)
             rows.push(group_row);
         }
         return rows;
@@ -214,6 +217,11 @@
         var td = document.createElement('td');
         if (type_of(content) == 'string')
             $(td).text(content);
+        else if (type_of(content) == 'array'){
+            content.forEach(function(el){
+                td.appendChild(el.html);
+            });
+        }
         else
             td.appendChild(content);
         if (colspan) td.setAttribute('colspan', colspan);
@@ -259,8 +267,8 @@
         return path.split('.').pop();
     }
         
-    function EditableAnchor(id, text){
-        this.id = id + '-xeditable';
+    function EditableAnchor(id, text, datatype){
+        this.id = id;
         var anchor = document.createElement('a');
         anchor.setAttribute('id', this.id);
         //anchor.setAttribute('data-type', 'date');
