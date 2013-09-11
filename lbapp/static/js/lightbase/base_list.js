@@ -31,7 +31,9 @@ $.each(json, function(i, base){
     fastlinkclass.BaseListDate(tr, id, name, date);
     fastlinkclass.BaseListEdit(tr, tbody, id, name);
     fastlinkclass.BaseListDelete(tr, tbody, id, name);
-    fastlinkclass.BaseListPhone(id);
+    fastlinkclass.BaseListPhoneButton(id);
+    fastlinkclass.BaseListPhoneEdit(id);
+    fastlinkclass.BaseListPhoneDelete(id);
     //fastlinkclass.createLine(i, base);
 });
 
@@ -52,10 +54,10 @@ function FastLinkClass(){
 
         var cookieNumber = 0;
 
-        $.each($.cookie(), function(){
+        /*$.each($.cookie(), function(){
             cookieNumber += 1;
 
-        });
+        });*/
 
         this.json = json;
         this.cookieNumber = cookieNumber;
@@ -132,7 +134,7 @@ function FastLinkClass(){
         td.appendChild(div);
         tr.appendChild(td);
         tbody.appendChild(tr);
-        for (var y=0; y<this.json.length; y++){
+        /*for (var y=0; y<this.json.length; y++){
             if (this.json[y].id_base == id && this.cookieNumber < 7){
                 var jsonContent = this.json[y];
                 $('#edit-' + id).click(function(e){
@@ -140,7 +142,7 @@ function FastLinkClass(){
 
                 });
             }
-        }
+        }*/
 
     }
 
@@ -201,6 +203,7 @@ function FastLinkClass(){
 
         divout.setAttribute('class', 'hidden-desktop visible-phone');
         divin.setAttribute('class', 'inline position-relative');
+        divin.setAttribute('id', 'divin_' + id);
         button.setAttribute('class', 'btn btn-minier btn-yellow dropdown-toggle');
         button.setAttribute('data-toggle', 'dropdown');
         i.setAttribute('class', 'icon-caret-down icon-only bigger-120')
@@ -209,6 +212,87 @@ function FastLinkClass(){
         divin.appendChild(button);
         divout.appendChild(divin);
         td.appendChild(divout);
+
+    }
+
+    this.BaseListPhoneEdit = function(id){
+        var divin = document.getElementById("divin_" + id);
+        var i = document.createElement("i");
+        var ul = document.createElement("ul");
+        var li = document.createElement("li");
+        var span = document.createElement("span");
+        var a = document.createElement("a");
+
+        i.setAttribute('class', 'icon-edit bigger-120');
+        i.setAttribute('id', 'edit-' + id);
+        span.setAttribute('class', 'green');
+        a.setAttribute('class', 'tooltip-success');
+        a.setAttribute('data-rel', 'tooltip');
+        a.setAttribute('title', 'Edit');
+        a.setAttribute('href', '/base/' + id + '/edit');
+        ul.setAttribute('class', 'dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close');
+        ul.setAttribute('id', 'ul_' + id);
+
+        span.appendChild(i);
+        a.appendChild(span);
+        li.appendChild(a);
+        ul.appendChild(li);
+        divin.appendChild(ul);
+
+        /*for (var y=0; y<this.json.length; y++){
+            if (this.json[y].id_base == id && this.cookieNumber < 7){
+                var jsonContent = this.json[y];
+                $('#edit-phone-' + id).click(function(e){
+                    $.cookie('cookie_' + id, JSON.stringify(jsonContent), {path: '/'});
+
+                });
+            }
+        }*/
+
+    }
+
+    this.BaseListPhoneDelete = function(id){
+        var ul = document.getElementById("ul_" + id);
+        var li = document.createElement("li");
+        var span = document.createElement("span");
+        var a = document.createElement("a");
+        var i = document.createElement("i");
+
+        i.setAttribute('class', 'icon-trash bigger-120');
+        i.setAttribute('id', 'delete-phone-' + id);
+        span.setAttribute('class', 'red');
+        a.setAttribute('class', 'tooltip-error');
+        a.setAttribute('data-rel', 'tooltip');
+        a.setAttribute('title', 'Delete');
+
+        span.appendChild(i);
+        a.appendChild(span);
+        li.appendChild(a);
+        ul.appendChild(li);
+
+        $("#delete-phone-" + id).click(function(){
+            bootbox.dialog("Deseja realmente deletar base?", [{
+                "label" : "Sim",
+                "class" : "btn-small btn-primary",
+                callback: function() {
+                    $.ajax({
+                        type: 'POST',
+                        url: window.location,
+                        data: {"id_base": id},
+                        cache: false,
+                        success: function(data, textStatus, jqXHR ){
+                        window.location.reload();
+                        },
+                        error: function(jqXHR, textStatus, errorThrown){
+                        }
+                    });
+                }
+                },{
+                "label" : "Não",
+                "class" : "btn-small btn-danger",
+                }]
+            );
+        });
 
     }
 }

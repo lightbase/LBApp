@@ -425,9 +425,9 @@
 
 		<script src="/static/js/ace/ace-elements.min.js"></script>
 		<script src="/static/js/ace/ace.min.js"></script>
-		<script src="/static/js/lightbase/base_onhover.js"></script>
+		<!--<script src="/static/js/lightbase/base_onhover.js"></script>
 		<script src="/static/js/lightbase/jquery-cookie/jquery.cookie.js"></script>
-		<script src="/static/js/lightbase/read_cookies.js"></script>
+		<script src="/static/js/lightbase/read_cookies.js"></script>-->
 
 		<!--inline scripts related to this page-->
 	</body>
