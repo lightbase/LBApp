@@ -21,16 +21,19 @@ $.each(json, function(i, base){
     var id = base.id_base,
         name = base.nome_base,
         date = base.dt_base;
-
+        color = base.json_base.metadata.color;
 
     tr = document.createElement("tr");
     tr.setAttribute('id', 'tr-' + i);
 
-    fastlinkclass.BaseListID(tr, id, name);
+    fastlinkclass.BaseListID(tr, id);
+    fastlinkclass.BaseListColor(tr, color);
     fastlinkclass.BaseListName(tr, id, name);
-    fastlinkclass.BaseListDate(tr, id, name, date);
-    fastlinkclass.BaseListEdit(tr, tbody, id, name);
-    fastlinkclass.BaseListDelete(tr, tbody, id, name);
+    fastlinkclass.BaseListDate(tr, date);
+    fastlinkclass.BaseListEdit(tr, tbody, id);
+    fastlinkclass.BaseListDelete(tr, tbody, id);
+    fastlinkclass.BaseListConfig(tr, tbody, id);
+    fastlinkclass.BaseListJson(tr, tbody, id, base);
     fastlinkclass.BaseListPhoneButton(id);
     fastlinkclass.BaseListPhoneEdit(id);
     fastlinkclass.BaseListPhoneDelete(id);
@@ -78,13 +81,25 @@ function FastLinkClass(){
     }*/
 
 
-    this.BaseListID = function(tr, id, name){
+    this.BaseListID = function(tr, id){
         var td = document.createElement("td");
         var a = document.createElement("a");
 
         //a.setAttribute('href', '#');
         //a.innerText = id;
         $(td).text(id);
+        tr.appendChild(td);
+
+    }
+
+    this.BaseListColor = function(tr, color){
+        var td = document.createElement("td");
+        var a = document.createElement("a");
+        var div = document.createElement("div");
+
+        div.setAttribute('style', 'width: 16px; height: 16px; background-color: ' + color + ';');
+
+        td.appendChild(div);
         tr.appendChild(td);
 
     }
@@ -100,7 +115,7 @@ function FastLinkClass(){
 
     }
 
-    this.BaseListDate = function(tr, id, name, date){
+    this.BaseListDate = function(tr, date){
         var td = document.createElement("td");
         var a = document.createElement("a");
 
@@ -111,7 +126,7 @@ function FastLinkClass(){
 
     }
 
-    this.BaseListEdit = function(tr, tbody, id, name){
+    this.BaseListEdit = function(tr, tbody, id){
         var td = document.createElement("td");
         var a = document.createElement("a");
         var div = document.createElement("div");
@@ -127,7 +142,7 @@ function FastLinkClass(){
         i.setAttribute('id', 'edit-' + id);
         td.setAttribute('class', 'td-actions');
         td.setAttribute('id', 'td-actions' + id);
-        div.setAttribute('class', 'hidden-phone visible-desktop action-buttons');
+        div.setAttribute('class', 'hidden-phone visible-desktop action-buttons ');
         div.setAttribute('id', 'div-' + id);
         a.appendChild(i);
         div.appendChild(a);
@@ -146,7 +161,7 @@ function FastLinkClass(){
 
     }
 
-    this.BaseListDelete = function(tr, tbody, id, name){
+    this.BaseListDelete = function(tr, tbody, id){
         var td = document.getElementById("td-actions" + id);
         var div = document.getElementById("div-" + id);
         var a = document.createElement("a");
@@ -186,6 +201,52 @@ function FastLinkClass(){
                 "class" : "btn-small btn-danger",
                 }]
             );
+        });
+
+    }
+
+    this.BaseListConfig = function(tr, tbody, id){
+        var td = document.getElementById("td-actions" + id);
+        var div = document.getElementById("div-" + id);
+        var a = document.createElement("a");
+        var i = document.createElement("i");
+        var button = document.createElement("button");
+        var ul = document.createElement("ul");
+        var li = document.createElement("li");
+        var span = document.createElement("span");
+
+        a.setAttribute('class', 'blue');
+        i.setAttribute('class', 'icon-cog bigger-130');
+        i.setAttribute('id', 'config-' + id);
+        a.appendChild(i);
+        div.appendChild(a);
+        tbody.appendChild(tr);
+
+    }
+
+    this.BaseListJson = function(tr, tbody, id, base){
+        var td = document.getElementById("td-actions" + id);
+        var div = document.getElementById("div-" + id);
+        var a = document.createElement("a");
+        var i = document.createElement("i");
+        var button = document.createElement("button");
+        var ul = document.createElement("ul");
+        var li = document.createElement("li");
+        var span = document.createElement("span");
+
+        a.setAttribute('class', 'grey');
+        i.setAttribute('class', 'icon-th-list');
+        i.setAttribute('id', 'json-' + id);
+        a.appendChild(i);
+        div.appendChild(a);
+        tbody.appendChild(tr);
+
+        $("#json-" + id).click(function(){
+            bootbox.dialog(JSON.stringify(base), [{
+                "label" : "Ok",
+                "class" : "btn-small btn-primary",
+                }
+            ]);
         });
 
     }

@@ -2,6 +2,7 @@
 <metal:main use-macro="load: ../master.pt">
    <!-- Insere JavaScript -->
    <div metal:fill-slot="conteudo" id="widgets">
+    <title>Criar Nova Base</title>
       <header>
 		<link rel="stylesheet" href="../static/ace-final/assets/css/jquery-ui-1.10.3.custom.min.css" />
 		<link rel="stylesheet" href="../static/ace-final/assets/css/chosen.css" />

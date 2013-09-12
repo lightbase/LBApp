@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>Blank Page - Ace Admin</title>
+		<!--<title>Blank Page - Ace Admin</title>-->
 
 		<meta name="description" content="" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -41,10 +41,10 @@
 
 		<div class="navbar">
 			<div class="navbar-inner">
-				<div class="container-fluid">
-					<a href="/base/list" class="brand">
+				<div id="lightbase_hover_div" class="container-fluid">
+					<a data-toggle="dropdown" class="dropdown-toggle brand" id="lightbase_hover_a" href="/base/list">
 						<small>
-							<i class="icon-leaf"></i>
+							<i id="lightbase_hover_i" class="icon-leaf"></i>
 							LightBase
 						</small>
 					</a><!--/.brand-->
@@ -187,7 +187,7 @@
 							</ul>
 						</li>-->
 
-						<!--<li class="green">
+						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-th-list icon-animated-vertical" style="width: 50px;"></i>
 							</a>
@@ -256,7 +256,7 @@
 									</a>
 								</li>
 							</ul>
-						</li>-->
+						</li>
 
 						<!--<li class="light-blue">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
@@ -300,9 +300,10 @@
 		</div>
 
 		<div class="main-container container-fluid">
-			<a class="menu-toggler" id="menu-toggler" href="#">
+                <!-- menu phone -->
+			<!--<a class="menu-toggler" id="menu-toggler" href="#">
 				<span class="menu-text"></span>
-			</a>
+			</a>-->
 
 			<!--<div class="sidebar" id="sidebar"></div>-->
 
@@ -428,6 +429,7 @@
 		<!--<script src="/static/js/lightbase/base_onhover.js"></script>
 		<script src="/static/js/lightbase/jquery-cookie/jquery.cookie.js"></script>
 		<script src="/static/js/lightbase/read_cookies.js"></script>-->
+		<script src="/static/js/lightbase/lighbase_onhover.js"></script>
 
 		<!--inline scripts related to this page-->
 	</body>

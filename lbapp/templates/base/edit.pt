@@ -2,6 +2,7 @@
 <metal:main use-macro="load: ../master.pt">
    <!-- Insere JavaScript -->
    <div metal:fill-slot="conteudo" id="widgets">
+    <title>Edição da Base</title>
 
       <div id="controller-data" style="display:none">
         ${base_json}
