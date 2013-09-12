@@ -142,13 +142,13 @@ var PROHIBITIONS= {
     ]
 }
 
-
-function log(l){
-    console.log(l)
-}
-
-
 /* Form Classes and html definitions. */
+function disable_all(form){
+    $(form).find('input').attr('disabled', 'disabled');
+    $(form).find('select').attr('disabled', 'disabled');
+    $(form).find('textarea').attr('disabled', 'disabled');
+    $(form).attr('disabled', 'disabled');
+}
 
 function Label(field_id, text){
 
@@ -307,15 +307,35 @@ function NameField(id){
     this.html = new ControlGroup(this.label, this.controls).html;
 }
 
-function DescriptionField(id){
+function AliasField(id){
 
-    this.id = ['base', 'context', id, 'description'].join('-');
-    this.label = new Label(this.id, text='Descrição');
+    this.id = ['base', 'context', id, 'alias'].join('-');
+    this.label = new Label(this.id, text='Apelido');
     var input = document.createElement('input'),
         attributes = {
         'id'         : this.id,
         'name'       : this.id,
-        'class'      : 'input-xlarge',
+        'data-id'    : id,
+        'class'      : 'input-medium',
+        'type'       : 'text',
+    };
+    $.each(attributes, function(k, v){
+        input.setAttribute(k, v);
+    });
+    this.input = input;
+    this.controls = new Controls([this.input]);
+    this.html = new ControlGroup(this.label, this.controls).html;
+}
+
+function DescriptionField(id){
+
+    this.id = ['base', 'context', id, 'description'].join('-');
+    this.label = new Label(this.id, text='Descrição');
+    var input = document.createElement('textarea'),
+        attributes = {
+        'id'         : this.id,
+        'name'       : this.id,
+        'class'      : 'input-xlarge form-control',
         'type'       : 'text',
     };
     $.each(attributes, function(k, v){
@@ -506,6 +526,13 @@ function BaseContext(context_space){
     };
 
     this.add_rules = function(form){
+        $.validator.addMethod('default_value', function (value, element) {
+            if (value == '' && !$(element).is(':focus')){
+                var data_id = $(element).attr('data-id');
+                element.value = $(['#base-context', data_id, 'name'].join('-')).val();
+            }
+            return true;
+        }, "Preencha com caracteres válidos");
 
         $.validator.addMethod('alphanumeric', function (value, element) {
             /*http://stackoverflow.com/questions/4977898/check-for-valid-sql-column-name*/
@@ -558,6 +585,15 @@ function BaseContext(context_space){
                     single_level_field: 'required',
                     messages: {
                         required: 'Preencha o campo Nome.',
+                        maxlength: 'Máximo de caracteres excedido.'
+                    }
+                });
+            }
+            if(v instanceof AliasField){
+                $(v.input).rules('add', {
+                    default_value: 'required',
+                    maxlength: 256,
+                    messages: {
                         maxlength: 'Máximo de caracteres excedido.'
                     }
                 });
@@ -625,6 +661,9 @@ function BaseContext(context_space){
                     $(v.html).parent('form').find('select').each(function(i, el){
                         el.setAttribute('init-value', el.value);
                     });
+                    $(v.html).parent('form').find('textarea').each(function(i, el){
+                        el.setAttribute('init-value', el.value);
+                    });
                     $(v.html).parent('form').find('input').each(function(i, el){
                         if (el.type == 'text')
                             el.setAttribute('init-value', el.value);
@@ -634,39 +673,37 @@ function BaseContext(context_space){
                     $(this).hide();
                     $(['#base-context', $(this).attr('data-id'), 'cancel-button'].join('-')).hide();
                     $(['#base-context', $(this).attr('data-id'), 'edit-button'].join('-')).show();
-                    $(v.html).parent('form').find('input').attr('disabled', 'disabled');
-                    $(v.html).parent('form').find('select').attr('disabled', 'disabled');
-                    $(v.html).parent('form').attr('disabled', 'disabled');
+                    disable_all($(v.html).parent('form'));
                     base.refresh_item($(this).attr('data-id'));
                 });
                 $(v.cancel.html).click(function(){
-                        $(v.html).parent('form').find('select').each(function(i, el){
-                            var init_value = el.getAttribute('init-value');
-                            if (init_value)
+                    $(v.html).parent('form').find('select').each(function(i, el){
+                        $(el).val($(el).attr('init-value'));
+                        $(el).change();
+                    });
+                    $(v.html).parent('form').find('textarea').each(function(i, el){
+                        $(el).val($(el).attr('init-value'));
+                    });
+                    $(v.html).parent('form').find('input').each(function(i, el){
+                        var init_value = el.getAttribute('init-value');
+                        if (init_value){
+                            if (el.type == 'text')
                                 el.value = init_value;
-                                $(el).change();
-                        });
-                        $(v.html).parent('form').find('input').each(function(i, el){
-                            var init_value = el.getAttribute('init-value');
-                            if (init_value){
-                                if (el.type == 'text')
-                                    el.value = init_value;
-                                else if (el.type == 'checkbox'){
-                                    if(init_value == 'true')
-                                    el.checked = true;
-                                    if(init_value == 'false')
-                                    el.checked = false;
-                                }
+                            else if (el.type == 'checkbox'){
+                                if(init_value == 'true')
+                                el.checked = true;
+                                if(init_value == 'false')
+                                el.checked = false;
                             }
-                        });
-                        if (!$(form.html).valid())
-                            return false;
-                        $(v.html).parent('form').attr('disabled', 'disabled');
-                        $(v.html).parent('form').find('input').attr('disabled', 'disabled');
-                        $(v.html).parent('form').find('select').attr('disabled', 'disabled');
-                        $(this).hide();
-                        $(['#base-context', $(this).attr('data-id'), 'confirm-button'].join('-')).hide();
-                        $(['#base-context', $(this).attr('data-id'), 'edit-button'].join('-')).show();
+                        }
+                    });
+                    if (!$(form.html).valid())
+                        return false;
+                    base.refresh_item($(this).attr('data-id'));
+                    disable_all($(v.html).parent('form'));
+                    $(this).hide();
+                    $(['#base-context', $(this).attr('data-id'), 'confirm-button'].join('-')).hide();
+                    $(['#base-context', $(this).attr('data-id'), 'edit-button'].join('-')).show();
                 });
                 $(v.edit.html).click(function(){
                     $(this).hide();
@@ -789,6 +826,7 @@ function BaseStructure(nestable_space, context){
     this.field_form = function(id, field_name, field_desc){
         return new Form(id, [
             new NameField(id),
+            new AliasField(id),
             new DescriptionField(id),
             new DataTypeField(id),
             new RequiredField(id),
@@ -801,6 +839,7 @@ function BaseStructure(nestable_space, context){
     this.group_form = function(id, group_name, group_desc){
         return new Form(id, [
             new NameField(id),
+            new AliasField(id),
             new DescriptionField(id),
             new MultivaluedField(id),
             new FormActions(id)
@@ -1010,6 +1049,7 @@ function BaseStructure(nestable_space, context){
                             group: {
                                 metadata: {
                                     name: frame_data.name,
+                                    alias: frame_data.alias,
                                     description: frame_data.description,
                                     multivalued: frame_data.multivalued,
                                 },
@@ -1021,6 +1061,7 @@ function BaseStructure(nestable_space, context){
                         _content.push({
                             field: {
                                 name: frame_data.name,
+                                alias: frame_data.alias,
                                 description: frame_data.description,
                                 datatype: frame_data.datatype,
                                 required: frame_data.required,

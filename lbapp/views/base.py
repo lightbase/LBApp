@@ -63,12 +63,22 @@ def list_base(request):
 @view_config(route_name='explore_base', renderer='../templates/base/explore.pt')
 def explore_base(request):
 
+        
     base_id = request.matchdict['base_id']
     response = requests.get('%s/base/%s' %(rest_url, base_id)).json()
     if response.get('_status') == 500 or response.get('_status') == 404:
         raise Exception(str(response))
     base_name = response['nome_base']
     base_json = response['json_base']
+
+    if request.params:
+        id_reg = request.params['pk']
+        params = dict(
+            path = request.params.get('name'),
+            value = request.params.get('value')
+        )
+        requests.post('%s/reg/%s/%s/sharp' % (rest_url, base_name, id_reg), params=params)
+        return Response(status=500)
 
     response = requests.get('%s/reg/%s' %(rest_url, base_name)).json()
     if response.get('_status') == 500 or response.get('_status') == 404:

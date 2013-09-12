@@ -15,18 +15,18 @@
         }
 
         var explorer = build_explorer(
-            config['base'],
-            config['registries']
+            base = config['base'],
+            registries = config['registries']
         );
 
         $(this).append(explorer.html);
     };
 
-    function build_explorer(base, registries) {
+    function build_explorer(base, registries, id) {
         
-        var base_name = base.metadata.name,
-            base_content = base.content,
-            table = new Table(base_name),
+        var base_content = base.content,
+            multivalued = base.metadata['multivalued'],
+            table = new Table(base.metadata.name),
             head_row = table.add_head_row(),
             fields_order = [ ],
             groups_order = [ ],
@@ -43,8 +43,13 @@
                 groups_order.push(struc['group']);
         });
 
+        var registry_id;
         $.each(registries, function(i, registry){
-            rows = get_registry_rows(fields_order, groups_order, registry);
+            if (multivalued)
+                registry_id = id? [id, i].join('-'): id;
+            else
+                registry_id = id;
+            rows = get_registry_rows(fields_order, groups_order, registry, registry_id);
             $.each(rows, function(i, row){
                 table.body.append(row);
             });
@@ -52,13 +57,15 @@
         return table;
     };
 
-    function get_registry_rows(fields_order, groups_order, registry){
+    function get_registry_rows(fields_order, groups_order, registry, id){
 
         var rows = [ ],
             actions = [ ],
             body_row = new TableRow(),
+            registry_id = id? id: registry['id_reg'],
             cell_content,
             cell_value,
+            field_id, 
             field_value; 
 
         if (groups_order.length > 0)
@@ -87,7 +94,8 @@
                 }
                 else cell_value = '';
 
-                cell_content = new EditableAnchor('id', cell_value, field.datatype);
+                field_id = [registry_id, field.name].join('-');
+                cell_content = new EditableAnchor(field_id, cell_value, field.datatype);
                 standard_cell = new TableStandardCell(cell_content.html);
                 body_row.append(standard_cell);
             });
@@ -96,19 +104,19 @@
 
         if (groups_order.length > 0){
             var group_row = new TableRow(hidden=true),
+                group_id,
                 registries,
-                explorer = [ ],
-                registries_type;
+                explorer = [ ];
 
             $.each(groups_order, function(i, group){
 
+                group_id = [registry_id, group.metadata.name].join('-');
                 registries = registry[group.metadata.name];
                 if (registries){
-                    registries_type = type_of(registries);
-                    if (registries_type == 'array')
-                        explorer.push(build_explorer(group, registry[group.metadata.name]));
+                    if (type_of(registries) == 'array')
+                        explorer.push(build_explorer(group, registry[group.metadata.name], group_id));
                     else 
-                        explorer.push(build_explorer(group, [registry[group.metadata.name]]));
+                        explorer.push(build_explorer(group, [registry[group.metadata.name]], group_id));
                 }
             });
             var standard_cell = new TableStandardCell( 
@@ -164,28 +172,19 @@
         this.html = anchor;
     }
 
-    function Table(id){
-        this.base_name = id;
-        this.id = id + '-table';
+    function Table(name){
+        this.name = name;
 
-        var div = document.createElement('div');
         var table = document.createElement('table');
-        div.setAttribute('style', 'overflow:auto');
-        table.setAttribute('id', this.id);
         table.setAttribute('class', 'table table-striped table-bordered');
         table.setAttribute('style', 'width: auto');
-        div.appendChild(table);
 
-        this.html = div;
+        this.html = table;
         this.head = new TableHead();
         this.body = new TableBody();
 
-        this.append = function(el){
-            table.appendChild(el.html);
-        };
-
-        this.add_head_row = function(base_name){
-            var toggle_anchor = new ToggleAnchor(this.base_name, this.body),
+        this.add_head_row = function(){
+            var toggle_anchor = new ToggleAnchor(this.name, this.body),
                 header_cell = new TableHeaderCell(toggle_anchor.html),
                 head_row = new TableRow();
             head_row.append(header_cell);
@@ -193,8 +192,8 @@
             return head_row;
         };
 
-        this.append(this.head);
-        this.append(this.body);
+        this.html.appendChild(this.head.html);
+        this.html.appendChild(this.body.html);
     }
 
     function TableHead(){
@@ -222,8 +221,7 @@
                 td.appendChild(el.html);
             });
         }
-        else
-            td.appendChild(content);
+        else td.appendChild(content);
         if (colspan) td.setAttribute('colspan', colspan);
         this.html = td;
     }
@@ -254,6 +252,7 @@
         }
     }
     
+    Table.prototype = new TableProtoType();
     TableHead.prototype = new TableProtoType();
     TableBody.prototype = new TableProtoType();
     TableRow.prototype = new TableProtoType();
@@ -263,19 +262,29 @@
 
     function id_to_path(id){
         // Powerfull Regex, Huhn ??
-        var path = id.toString().replace(/-/g, '.').replace(/(^|\.)([0-9]+)($|\.)/g, '[$2]$3');
-        return path.split('.').pop();
+        return id.toString().replace(/-/g, '.').replace(/(^|\.)([0-9]+)($|\.)/g, '[$2]$3');
     }
         
     function EditableAnchor(id, text, datatype){
         this.id = id;
-        var anchor = document.createElement('a');
-        anchor.setAttribute('id', this.id);
-        //anchor.setAttribute('data-type', 'date');
-        anchor.setAttribute('data-pk', '1');
-        anchor.setAttribute('data-original-title', 'Enter data');
-        anchor.setAttribute('class','editable editable-click');
+        var id_split = id.split('-'),
+            data_pk = id_split.splice(0, 1),
+            anchor = document.createElement('a'),
+            editable_attrs = {
+                'id':                   this.id,
+                'data-original-title':  'Enter data',
+                'class':                'editable editable-click',
+                'data-type':            'text',
+                'data-pk':              data_pk,
+                'data-url':             window.location.pathname,
+                //'data-name':          id_to_path(id_split.join('-'))
+                'data-name':            id_split.join('-')
+            };
+        $.each(editable_attrs, function(key, value){
+            anchor.setAttribute(key, value);
+        });
         $(anchor).text(text);
+        $(anchor).editable('toggleDisabled');
         this.html = anchor;
     }
 
