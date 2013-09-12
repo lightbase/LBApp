@@ -1121,6 +1121,7 @@ function BaseStructure(nestable_space, context){
                         ids.push(data_id);
 
                         self.context_element(data_id, 'name').val(this.field.name);
+                        self.context_element(data_id, 'alias').val(this.field.alias);
                         self.context_element(data_id, 'description').val(this.field.description);
 
                         datatype_el = self.context_element(data_id, 'datatype')
@@ -1151,6 +1152,7 @@ function BaseStructure(nestable_space, context){
                         data_id = $(group).attr('data-id');
                         ids.push(data_id);
                         self.context_element(data_id, 'name').val(this.group.metadata.name);
+                        self.context_element(data_id, 'alias').val(this.group.metadata.alias);
                         self.context_element(data_id, 'description').val(this.group.metadata.description);
                         self.context_element(data_id, 'multivalued').attr('checked',
                             this.group.metadata.multivalued);
