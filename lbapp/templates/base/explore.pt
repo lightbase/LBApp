@@ -19,10 +19,10 @@
 <!--script src="/static/ace-final/assets/js/jquery.slimscroll.min.js"></script-->
 
 <!--BOOTSRAP-EDITABLE STUFF-->
-<link href="/static/bootstrap-editable-1.4.5/bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet"/>
-<link href="/static/bootstrap-editable-1.4.5/bootstrap-editable/img/clear.png" />
-<link href="/static/bootstrap-editable-1.4.5/bootstrap-editable/img/loading.gif" />
-<script src="/static/bootstrap-editable-1.4.5/bootstrap-editable/js/bootstrap-editable.min.js"></script>
+<link href="/static/bootstrap-editable-1.4.6/bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+<link href="/static/bootstrap-editable-1.4.6/bootstrap-editable/img/clear.png" />
+<link href="/static/bootstrap-editable-1.4.6/bootstrap-editable/img/loading.gif" />
+<script src="/static/bootstrap-editable-1.4.6/bootstrap-editable/js/bootstrap-editable.min.js"></script>
 
 <script src="/static/js/lightbase/jquery.explorer.js"></script>
 
