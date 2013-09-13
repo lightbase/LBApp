@@ -24,18 +24,25 @@
 
     function build_explorer(base, registries, id) {
         
+        var table;
+        if (base.metadata['alias'])
+            table = new Table(base.metadata.alias);
+        else
+            table = new Table(base.metadata.name);
+
         var base_content = base.content,
             multivalued = base.metadata['multivalued'],
-            table = new Table(base.metadata.name),
             head_row = table.add_head_row(),
             fields_order = [ ],
             groups_order = [ ],
-            rows = [ ];
+            rows = [ ],
+            tooltip;
         
         $.each(base_content, function(i, struc){
             if (struc['field']){
                 fields_order.push(struc['field']);
-                header_cell = new TableHeaderCell(struc['field'].name);
+                tooltip = new Tooltip(struc['field'].alias, struc['field'].description)
+                header_cell = new TableHeaderCell(tooltip.html);
                 head_row.append(header_cell);
                 table.head.append(head_row);
             }
@@ -72,6 +79,8 @@
             actions.push('toggle');
         if (fields_order.length > 0)
             actions.push('edit');
+
+        actions.push('delete');
 
         var action_buttons = new ActionButtons(actions),
             standard_cell = new TableStandardCell(action_buttons.html);
@@ -114,7 +123,9 @@
                 registries = registry[group.metadata.name];
                 if (registries){
                     if (type_of(registries) == 'array')
-                        explorer.push(build_explorer(group, registry[group.metadata.name], group_id));
+                        explorer.push(build_explorer(
+                            group, registry[group.metadata.name], group_id, multi=true
+                        ));
                     else 
                         explorer.push(build_explorer(group, [registry[group.metadata.name]], group_id));
                 }
@@ -138,6 +149,8 @@
                 button = new EditButton();
             if (action == 'toggle')
                 button = new ToggleButton();
+            if (action == 'delete')
+                button = new DeleteButton();
             div.appendChild(button.html);
         });
         this.html = div;
@@ -168,6 +181,16 @@
                 $(this).attr('class', 'icon-double-angle-down bigger-130');
             else
                 $(this).attr('class', 'icon-double-angle-right bigger-130');
+        });
+        this.html = anchor;
+    }
+
+    function DeleteButton(){
+        var anchor = document.createElement('a'),
+            icon = document.createElement('i');
+        anchor.setAttribute('class', 'red icon-trash bigger-130');
+        anchor.setAttribute('href', 'javascript: void(0)');
+        $(anchor).click(function(){
         });
         this.html = anchor;
     }
@@ -264,6 +287,17 @@
         // Powerfull Regex, Huhn ??
         return id.toString().replace(/-/g, '.').replace(/(^|\.)([0-9]+)($|\.)/g, '[$2]$3');
     }
+
+    function Tooltip(text, tooltip){
+        var anchor = document.createElement('a');
+        anchor.setAttribute('data-toggle', 'tooltip');
+        anchor.setAttribute('title', tooltip);
+        $(anchor).text(text);
+        $(anchor).mouseover(function(el){
+            $(this).tooltip('show');
+        });
+        this.html = anchor;
+    }
         
     function EditableAnchor(id, text, datatype){
         this.id = id;
@@ -277,8 +311,7 @@
                 'data-type':            'text',
                 'data-pk':              data_pk,
                 'data-url':             window.location.pathname,
-                //'data-name':          id_to_path(id_split.join('-'))
-                'data-name':            id_split.join('-')
+                'data-name':            id_to_path(id_split.join('-'))
             };
         $.each(editable_attrs, function(key, value){
             anchor.setAttribute(key, value);
