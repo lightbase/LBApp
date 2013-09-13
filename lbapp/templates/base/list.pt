@@ -16,6 +16,7 @@
 							<div class="row-fluid">
 								<div class="table-header">
                                     Bases
+                                    <a href="/base/new" class="btn btn-success" style="margin-left: 85%;">Criar Base</a>
                                 </div>
 
 								<table id="sample-table-2" class="table table-striped table-bordered table-hover" width="100%">

@@ -42,7 +42,8 @@
 		<div class="navbar">
 			<div class="navbar-inner">
 				<div id="lightbase_hover_div" class="container-fluid">
-					<a data-toggle="dropdown" class="dropdown-toggle brand" id="lightbase_hover_a" href="/base/list">
+					<a class="brand" id="lightbase_hover_a">
+					<!--<a data-toggle="dropdown" class="dropdown-toggle brand" id="lightbase_hover_a" href="/base/list">-->
 						<small>
 							<i id="lightbase_hover_i" class="icon-leaf"></i>
 							LightBase
@@ -429,7 +430,7 @@
 		<!--<script src="/static/js/lightbase/base_onhover.js"></script>
 		<script src="/static/js/lightbase/jquery-cookie/jquery.cookie.js"></script>
 		<script src="/static/js/lightbase/read_cookies.js"></script>-->
-		<script src="/static/js/lightbase/lighbase_onhover.js"></script>
+		<script src="/static/js/lightbase/lightbase_onhover.js"></script>
 
 		<!--inline scripts related to this page-->
 	</body>
