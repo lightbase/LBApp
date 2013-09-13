@@ -49,7 +49,7 @@
                                              <label class="control-label" for="email">Nome:</label>
                                              <div class="controls">
                                                 <div class="span6">
-                                                   <input type="text" name="name" id="base-name" class="span6" />
+                                                   <input type="text" value="Obrigatório" onfocus="this.value='';" name="name" id="base-name" class="span6" />
                                                 </div>
                                              </div>
                                           </div>
@@ -217,7 +217,13 @@
                                                                   Deletar
                                                                   </button>
                                                                </div>
-                                                               <div class="btn-group open">
+                                                               <div class="btn-group">
+                                                                  <button class="btn btn-small btn-danger" data-action="auto-append">
+                                                                  <i class="icon-indent-right"></i>
+                                                                  Auto Indentação
+                                                                  </button>
+                                                               </div>
+                                                               <!--<div class="btn-group open">
                                                                   <button data-toggle="dropdown" class="btn btn-small btn-grey dropdown-toggle">
                                                                   <i class="icon-caret-down icon-only bigger-110"></i>
                                                                   </button>
@@ -229,7 +235,7 @@
                                                                         </a>
                                                                      </li>
                                                                   </ul>
-                                                               </div>
+                                                               </div>-->
                                                             </div>
                                                          </div>
                                                          <div id="div-to-scroll" class="widget-main" style="height:425px; overflow:auto;">
@@ -374,14 +380,16 @@
             },
             description: {
                 required: true,
-                            maxlength: 256
+                            maxlength: 255
             },
             password: {
                 required: true,
+                maxlength: 14
             },
             password_again: {
                 required: true,
-                equalTo: '#base-password'
+                equalTo: '#base-password',
+                maxlength: 14
             },
             index_export: {
                             required: false
@@ -423,20 +431,24 @@
    
         messages: {
             name: {
-                required: "É necessario preencher o campo"
+                required: "É necessario preencher o campo",
+                maxlength: "Digite não mais que 23 caracteres"
             },
             description: {
-                required: "É necessario preencher o campo"
+                required: "É necessario preencher o campo",
+                maxlength: "Digite não mais que 255 caracteres"
             },
             index_url: {
                 required: "É necessario preencher o campo"
             },
             password: {
-                required: "É necessario preencher o campo"
+                required: "É necessario preencher o campo",
+                maxlength: "Digite não mais que 14 characteres."
             },
             password_again: {
                 required: "É necessario preencher o campo",
-                equalTo: "Insira o mesmo valor da 'senha'"
+                equalTo: "Insira o mesmo valor da 'senha'",
+                maxlength: "Digite não mais que 14 caracteres."
             },
         },
    
@@ -553,7 +565,6 @@
                         basedata["context"] = base.context.context;
                         base.metadata = returnArray;
                         delete returnArray["password_again"];
-                        console.log(returnArray);
                         return false;
                     }
                     if ($("#fuelux-wizard").wizard("selectedItem").step == 2 && base.context.validate() == true){
@@ -598,7 +609,6 @@
                             );
                         },
                         error: function(jqXHR, textStatus, errorThrown){
-                            console.log(jqXHR, textStatus, errorThrown)
                             window.location.href = '/error-500';
                         }
                     });

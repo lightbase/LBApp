@@ -16,7 +16,7 @@
 							<div class="row-fluid">
 								<div class="table-header">
                                     Bases
-                                    <a href="/base/new" class="btn btn-success" style="margin-left: 85%;">Criar Base</a>
+                                    <a href="/base/new" class="btn btn-small btn-success pull-right" style="margin-right: 50px; margin-top: 3px;">Criar Base</a>
                                 </div>
 
 								<table id="sample-table-2" class="table table-striped table-bordered table-hover" width="100%">
@@ -164,8 +164,9 @@
 				var oTable1 = $('#sample-table-2').dataTable( {
                     "aoColumns": [
                       { "bSortable": true },
-                      null, null,
+                          
                       { "bSortable": false },
+                        null, null
                     ],
                     "oLanguage":{
                         "sProcessing":   "Processando...",
@@ -189,7 +190,7 @@
                         {"sClass": "center", "sWidth": "20px", "aTargets": [ 1 ] },
                         {"sWidth": "%", "aTargets": [ 2 ] },
                         {"sClass": "center", "sWidth": "175px", "aTargets": [ 3 ] },
-                        {"sClass": "center", "sWidth": "80px", "aTargets": [ 4 ] },
+                        {"sClass": "center", "sWidth": "90px", "aTargets": [ 4 ] },
                     ]
                 });
             })

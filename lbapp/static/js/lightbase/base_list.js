@@ -34,6 +34,7 @@ $.each(json, function(i, base){
     fastlinkclass.BaseListDelete(tr, tbody, id);
     fastlinkclass.BaseListConfig(tr, tbody, id);
     fastlinkclass.BaseListJson(tr, tbody, id, base);
+    fastlinkclass.BaseListReg(tr, tbody, id, base);
     fastlinkclass.BaseListPhoneButton(id);
     fastlinkclass.BaseListPhoneEdit(id);
     fastlinkclass.BaseListPhoneDelete(id);
@@ -222,6 +223,30 @@ function FastLinkClass(){
         div.appendChild(a);
         tbody.appendChild(tr);
 
+       /* $("#config-" + id).click(function(){
+            bootbox.dialog("Deseja realmente Alterar a base?", [{
+                "label" : "Sim",
+                "class" : "btn-small btn-primary",
+                callback: function() {
+                    $.ajax({
+                        type: 'POST',
+                        url: window.location,
+                        data: {"UPDATE": id},
+                        cache: false,
+                        success: function(data, textStatus, jqXHR ){
+                        window.location.reload();
+                        },
+                        error: function(jqXHR, textStatus, errorThrown){
+                        }
+                    });
+                }
+                },{
+                "label" : "Não",
+                "class" : "btn-small btn-danger",
+                }]
+            );
+        });*/
+
     }
 
     this.BaseListJson = function(tr, tbody, id, base){
@@ -242,8 +267,37 @@ function FastLinkClass(){
         tbody.appendChild(tr);
 
         $("#json-" + id).click(function(){
-            bootbox.dialog(JSON.stringify(base), [{
-                "label" : "Ok",
+            var val = JSON.stringify(base.json_base);
+            bootbox.dialog(fastlinkclass.FormatJson(val), [{
+                "label" : "Fechar",
+                "class" : "btn-small btn-primary",
+                }
+            ]);
+        });
+
+    }
+
+    this.BaseListReg = function(tr, tbody, id, base){
+        var td = document.getElementById("td-actions" + id);
+        var div = document.getElementById("div-" + id);
+        var a = document.createElement("a");
+        var i = document.createElement("i");
+        var button = document.createElement("button");
+        var ul = document.createElement("ul");
+        var li = document.createElement("li");
+        var span = document.createElement("span");
+
+        a.setAttribute('class', 'blue');
+        i.setAttribute('class', 'icon-file');
+        i.setAttribute('id', 'reg-' + id);
+        a.appendChild(i);
+        div.appendChild(a);
+        tbody.appendChild(tr);
+
+        $("#reg-" + id).click(function(){
+            var val = JSON.stringify(base.reg_model);
+            bootbox.dialog(fastlinkclass.FormatJson(val), [{
+                "label" : "Fechar",
                 "class" : "btn-small btn-primary",
                 }
             ]);
@@ -355,6 +409,41 @@ function FastLinkClass(){
             );
         });
 
+    }
+
+    this.FormatJson = function(val) {
+        var retval = '';
+        var str = val;
+        var pos = 0;
+        var strLen = str.length;
+        var indentStr = '&nbsp;&nbsp;&nbsp;&nbsp;';
+        var newLine = '<br />';
+        var character = '';
+
+        for (var i=0; i<strLen; i++) {
+          character = str.substring(i,i+1);
+          if (character == '}' || character == ']') {
+              retval = retval + newLine;
+              pos = pos - 1;
+              for (var j=0; j<pos; j++) {
+                  retval = retval + indentStr;
+              }
+          }
+
+          retval = retval + character;
+
+          if (character == '{' || character == '[' || character == ',') {
+              retval = retval + newLine;
+              if (character == '{' || character == '[') {
+                  pos = pos + 1;
+              }
+
+              for (var k=0; k<pos; k++) {
+                  retval = retval + indentStr;
+              }
+          }
+        }
+        return retval;
     }
 }
 
