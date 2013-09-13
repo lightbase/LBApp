@@ -77,8 +77,11 @@ def explore_base(request):
             path = request.params.get('name'),
             value = request.params.get('value')
         )
-        requests.post('%s/reg/%s/%s/sharp' % (rest_url, base_name, id_reg), params=params)
-        return Response(status=500)
+        response = requests.post('%s/reg/%s/%s/sharp' % (rest_url, base_name, id_reg), params=params)
+        if response.text == 'UPDATED':
+            return Response(status=200)
+        else:
+            return Response(status=500)
 
     response = requests.get('%s/reg/%s' %(rest_url, base_name)).json()
     if response.get('_status') == 500 or response.get('_status') == 404:
