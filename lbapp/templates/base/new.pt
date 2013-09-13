@@ -29,7 +29,7 @@
                                     <ul class="wizard-steps">
                                        <li data-target="#step1" class="active">
                                           <span id="step1-button" class="step">1</span>
-                                          <span class="title">Metadados</span>
+                                          <span class="title">Informações</span>
                                        </li>
                                        <li data-target="#step2">
                                           <span id="step2-button" class="step">2</span>
@@ -43,13 +43,14 @@
                                  </div>
                                  <div class="step-content row-fluid position-relative" id="step-container">
                                     <div class="step-pane active" id="step1">
-                                       <h3 class="lighter block green">Informações da Base</h3>
+                                       <br>
+                                       <br>
                                        <form class="form-horizontal" id="validation-form" method="get">
                                           <div class="control-group">
                                              <label class="control-label" for="email">Nome:</label>
                                              <div class="controls">
                                                 <div class="span6">
-                                                   <input type="text" value="Obrigatório" onfocus="this.value='';" name="name" id="base-name" class="span6" />
+                                                   <input type="text" name="name" id="base-name" class="span6"> *</input>
                                                 </div>
                                              </div>
                                           </div>
@@ -57,7 +58,7 @@
                                              <label class="control-label">Descrição:</label>
                                              <div class="controls">
                                                 <div class="span12">
-                                                   <input class="span6" type="text" name="description" id="base-description" class="span4" />
+                                                   <input class="span6" type="text" name="description" id="base-description" class="span4"> *</input>
                                                 </div>
                                              </div>
                                           </div>
@@ -65,7 +66,7 @@
                                              <label class="control-label">Senha:</label>
                                              <div class="controls">
                                                 <div class="span12">
-                                                   <input class="span6" type="password" name="password" id="base-password" class="span4" />
+                                                   <input class="span6" type="password" name="password" id="base-password" class="span4"> *</input>
                                                 </div>
                                              </div>
                                           </div>
@@ -73,7 +74,7 @@
                                              <label class="control-label">Confirmar Senha:</label>
                                              <div class="controls">
                                                 <div class="span12">
-                                                   <input class="span6" type="password" name="password_again" id="base-password-confirm" class="span4" />
+                                                   <input class="span6" type="password" name="password_again" id="base-password-confirm" class="span4"> *</input>
                                                 </div>
                                              </div>
                                           </div>
