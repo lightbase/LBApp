@@ -122,7 +122,14 @@ function FastLinkClass(){
 
         //a.setAttribute('href', '#');
         //a.innerText = date;
-        $(td).text(date);
+        var date_data = date.split(' ')[0];
+        var data_content = date_data.split('-');
+        var date_time = date.split(' ')[1];
+        var time_content = date_time.split(':');
+        var time_content_seconds = time_content[2].split('.');
+        var data = data_content[2] + '/' + data_content[1] + '/' + data_content[0] + ' ' + time_content[0] + ':' + time_content[1] + ':' + time_content_seconds[0];
+
+        $(td).text(data);
         tr.appendChild(td);
 
     }
@@ -141,10 +148,15 @@ function FastLinkClass(){
         a.setAttribute('href', '/base/' + id + '/edit');
         i.setAttribute('class', 'icon-pencil bigger-130');
         i.setAttribute('id', 'edit-' + id);
+        i.setAttribute('rel', 'tooltip');
+        i.setAttribute('title', 'Editar');
         td.setAttribute('class', 'td-actions');
         td.setAttribute('id', 'td-actions' + id);
         div.setAttribute('class', 'hidden-phone visible-desktop action-buttons ');
         div.setAttribute('id', 'div-' + id);
+
+        $("[rel=tooltip]").tooltip({placement: 'top'});
+
         a.appendChild(i);
         div.appendChild(a);
         td.appendChild(div);
@@ -175,6 +187,8 @@ function FastLinkClass(){
         a.setAttribute('class', 'red');
         i.setAttribute('class', 'icon-trash bigger-130');
         i.setAttribute('id', 'delete-' + id);
+        i.setAttribute('rel', 'tooltip');
+        i.setAttribute('title', 'Deletar');
         a.appendChild(i);
         div.appendChild(a);
         tbody.appendChild(tr);
@@ -219,6 +233,8 @@ function FastLinkClass(){
         a.setAttribute('class', 'blue');
         i.setAttribute('class', 'icon-cog bigger-130');
         i.setAttribute('id', 'config-' + id);
+        i.setAttribute('rel', 'tooltip');
+        i.setAttribute('title', 'Configurações');
         a.appendChild(i);
         div.appendChild(a);
         tbody.appendChild(tr);
@@ -262,6 +278,8 @@ function FastLinkClass(){
         a.setAttribute('class', 'grey');
         i.setAttribute('class', 'icon-th-list');
         i.setAttribute('id', 'json-' + id);
+        i.setAttribute('rel', 'tooltip');
+        i.setAttribute('title', 'Json');
         a.appendChild(i);
         div.appendChild(a);
         tbody.appendChild(tr);
@@ -290,6 +308,8 @@ function FastLinkClass(){
         a.setAttribute('class', 'blue');
         i.setAttribute('class', 'icon-file');
         i.setAttribute('id', 'reg-' + id);
+        i.setAttribute('rel', 'tooltip');
+        i.setAttribute('title', 'Reg');
         a.appendChild(i);
         div.appendChild(a);
         tbody.appendChild(tr);

@@ -50,7 +50,7 @@
                                              <label class="control-label" for="email">Nome:</label>
                                              <div class="controls">
                                                 <div class="span6">
-                                                   <input type="text" name="name" id="base-name" class="span6"> *</input>
+                                                   <input type="text" name="name" id="base-name" class="span6" />
                                                 </div>
                                              </div>
                                           </div>
@@ -58,7 +58,7 @@
                                              <label class="control-label">Descrição:</label>
                                              <div class="controls">
                                                 <div class="span12">
-                                                   <input class="span6" type="text" name="description" id="base-description" class="span4"> *</input>
+                                                   <input class="span6" type="text" name="description" id="base-description" class="span4" />
                                                 </div>
                                              </div>
                                           </div>
@@ -66,7 +66,7 @@
                                              <label class="control-label">Senha:</label>
                                              <div class="controls">
                                                 <div class="span12">
-                                                   <input class="span6" type="password" name="password" id="base-password" class="span4"> *</input>
+                                                   <input class="span6" type="password" name="password" id="base-password" class="span4" />
                                                 </div>
                                              </div>
                                           </div>
@@ -74,7 +74,7 @@
                                              <label class="control-label">Confirmar Senha:</label>
                                              <div class="controls">
                                                 <div class="span12">
-                                                   <input class="span6" type="password" name="password_again" id="base-password-confirm" class="span4"> *</input>
+                                                   <input class="span6" type="password" name="password_again" id="base-password-confirm" class="span4" />
                                                 </div>
                                              </div>
                                           </div>
@@ -385,12 +385,12 @@
             },
             password: {
                 required: true,
-                maxlength: 14
+                maxlength: 14,
+                minlength: 8
             },
             password_again: {
                 required: true,
                 equalTo: '#base-password',
-                maxlength: 14
             },
             index_export: {
                             required: false
@@ -444,12 +444,12 @@
             },
             password: {
                 required: "É necessario preencher o campo",
-                maxlength: "Digite não mais que 14 characteres."
+                maxlength: "Digite não mais que 14 characteres.",
+                minlength: "Digite no minimo 8 caracteres"
             },
             password_again: {
                 required: "É necessario preencher o campo",
                 equalTo: "Insira o mesmo valor da 'senha'",
-                maxlength: "Digite não mais que 14 caracteres."
             },
         },
    
@@ -575,8 +575,8 @@
                         var textarea = document.getElementById("nestable-output");
                         textarea.value = base.json;
                         textarea.setAttribute('style','height: 100px;');
-                        button.setAttribute('style','display:none;');
-                        textarea.disabled = true;
+                        textarea.setAttribute('readonly');
+                        //textarea.disabled = true;
                     }
                 });
    
@@ -594,8 +594,37 @@
                 });
    
                 $("#save-data").click( function(){
+                    var button = document.getElementById("save-data");
+                    button.setAttribute("disabled");
                     $("#button-submit").click();
-                    $.ajax({
+                    bootbox.dialog("Deseja realmente salvar base?", [{
+                        "label": "Salvar",
+                        "class": "btn btn-succes",
+                        callback: function(){
+                            $.ajax({
+                                type: 'post',
+                                url: '/base/new',
+                                data: {
+                                    json_base: base.json
+                                },
+                                success: function(data, textStatus, jqXHR ){
+                                    bootbox.dialog("Obrigado! Sua base foi salva com sucesso!", [{
+                                        "label" : "OK",
+                                        "class" : "btn-small btn-primary",
+                                        "href": '/base/list',
+                                        }]
+                                    );
+                                },
+                                error: function(jqXHR, textStatus, errorThrown){
+                                    window.location.href = '/error-500';
+                                }
+                            });
+                        }
+                    },{
+                        "label": "Cancelar",
+                        "class": "btn btn-danger",
+                    }]);
+                    /*$.ajax({
                         type: 'post',
                         url: '/base/new',
                         data: {
@@ -612,13 +641,20 @@
                         error: function(jqXHR, textStatus, errorThrown){
                             window.location.href = '/error-500';
                         }
-                    });
+                    });*/
                 });
    
    
                 }); 
 </script>
 <script type="text/javascript">
+
+    /*$('input').keypress(function (e) {
+        var code = null;
+        code = (e.keyCode ? e.keyCode : e.which);                
+        return (code == 08) ? false : true;
+    });*/
+
    $(document).ready(function()
    {
         $('#spinner1').ace_spinner({value:0,min:0,max:200,step:10, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
