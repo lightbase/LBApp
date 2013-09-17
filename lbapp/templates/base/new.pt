@@ -2,7 +2,7 @@
 <metal:main use-macro="load: ../master.pt">
    <!-- Insere JavaScript -->
    <div metal:fill-slot="conteudo" id="widgets">
-    <title>Criar Nova Base</title>
+    <title>LightBase - Criar Nova Base</title>
       <header>
 		<link rel="stylesheet" href="../static/ace-final/assets/css/jquery-ui-1.10.3.custom.min.css" />
 		<link rel="stylesheet" href="../static/ace-final/assets/css/chosen.css" />
@@ -271,7 +271,7 @@
                                           <h3 class="blue lighter">Você esta prestes a salvar uma base!</h3>
                                           <div class="row-fluid center">
                                              <div class="span12">
-                                                <textarea id="nestable-output" class="m-wrap span12"></textarea>
+                                                <div id="nestable-output" class="m-wrap span12"></div>
                                              </div>
                                              <div id="auto-append-info" class="control-group info" hidden>
                                                 <div class="controls">
@@ -573,9 +573,10 @@
                     }
                     if ($('#fuelux-wizard').wizard("selectedItem").step == 3){
                         var textarea = document.getElementById("nestable-output");
-                        textarea.value = base.json;
-                        textarea.setAttribute('style','height: 100px;');
-                        textarea.setAttribute('readonly');
+                        textarea.innerText = base.json;
+                        textarea.setAttribute('style','height: 100px; overflow: auto; border: 2px #C0C0C0 solid');
+                        //textarea.setAttribute('readonly');
+                        button.setAttribute('style','display:none;');
                         //textarea.disabled = true;
                     }
                 });

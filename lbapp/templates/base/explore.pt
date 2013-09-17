@@ -2,7 +2,7 @@
     <!-- Insere JavaScript -->
     <script metal:fill-slot="javascript" type="text/javascript" src=""></script>
     <div metal:fill-slot="conteudo" id="widgets">
-    <title>Explorar Bases</title>
+    <title>LightBase - Explorar Bases</title>
         <div class="row-fluid">
             <div class="span12">
 

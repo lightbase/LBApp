@@ -127,7 +127,7 @@ function FastLinkClass(){
         var date_time = date.split(' ')[1];
         var time_content = date_time.split(':');
         var time_content_seconds = time_content[2].split('.');
-        var data = data_content[2] + '/' + data_content[1] + '/' + data_content[0] + ' ' + time_content[0] + ':' + time_content[1] + ':' + time_content_seconds[0];
+        var data = data_content[2] + '/' + data_content[1] + '/' + data_content[0] + ' ' + time_content[0] + ':' + time_content[1];
 
         $(td).text(data);
         tr.appendChild(td);
@@ -239,29 +239,16 @@ function FastLinkClass(){
         div.appendChild(a);
         tbody.appendChild(tr);
 
-       /* $("#config-" + id).click(function(){
-            bootbox.dialog("Deseja realmente Alterar a base?", [{
+        $("#config-" + id).click(function(){
+            bootbox.dialog(tablecode, [{
                 "label" : "Sim",
                 "class" : "btn-small btn-primary",
-                callback: function() {
-                    $.ajax({
-                        type: 'POST',
-                        url: window.location,
-                        data: {"UPDATE": id},
-                        cache: false,
-                        success: function(data, textStatus, jqXHR ){
-                        window.location.reload();
-                        },
-                        error: function(jqXHR, textStatus, errorThrown){
-                        }
-                    });
-                }
                 },{
                 "label" : "Não",
                 "class" : "btn-small btn-danger",
                 }]
             );
-        });*/
+        });
 
     }
 

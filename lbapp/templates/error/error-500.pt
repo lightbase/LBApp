@@ -17,30 +17,30 @@
 											<i class="icon-random"></i>
 											500
 										</span>
-										Something Went Wrong
+										Algo Deu errado
 									</h1>
 
 									<hr />
 									<h3 class="lighter smaller">
-										But we are working
+										Mas nos estamos trabalhando
 										<i class="icon-wrench icon-animated-wrench bigger-125"></i>
-										on it!
+										nisto!
 									</h3>
 
 									<div class="space"></div>
 
 									<div>
-										<h4 class="lighter smaller">Meanwhile, try one of the following:</h4>
+										<h4 class="lighter smaller">Entretando, tente uma das seguintes opções:</h4>
 
 										<ul class="unstyled spaced inline bigger-110">
 											<li>
 												<i class="icon-hand-right blue"></i>
-												Read the faq
+												Leia o faq
 											</li>
 
 											<li>
 												<i class="icon-hand-right blue"></i>
-												Give us more info on how this specific error occurred!
+												Nos dê mais informações sobre como esse erro especifico ocorreu!
 											</li>
 										</ul>
 									</div>
@@ -53,13 +53,13 @@
 										<div class="center">
 											<a href="#" class="btn btn-grey">
 												<i class="icon-arrow-left"></i>
-												Go Back
+												Voltar
 											</a>
 
-											<a href="#" class="btn btn-primary">
+											<!--<a href="#" class="btn btn-primary">
 												<i class="icon-dashboard"></i>
 												Dashboard
-											</a>
+											</a>-->
 										</div>
 									</div>
 								</div>

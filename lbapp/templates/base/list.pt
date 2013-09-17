@@ -3,7 +3,7 @@
     <script metal:fill-slot="javascript" type="text/javascript" src=""></script>
 
     <div metal:fill-slot="conteudo" id="widgets">
-    <title>Listagem de Bases</title>
+    <title>LightBase - Listagem de Bases</title>
         <div id="controller-base" style="display:none;">${r}</div>
 <header>
 
@@ -189,7 +189,7 @@
                         {"sClass": "center", "sWidth": "4%", "aTargets": [ 0 ] },
                         {"sClass": "center", "sWidth": "20px", "aTargets": [ 1 ] },
                         {"sWidth": "%", "aTargets": [ 2 ] },
-                        {"sClass": "center", "sWidth": "175px", "aTargets": [ 3 ] },
+                        {"sClass": "center", "sWidth": "110px", "aTargets": [ 3 ] },
                         {"sClass": "center", "sWidth": "90px", "aTargets": [ 4 ] },
                     ]
                 });

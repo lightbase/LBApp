@@ -81,39 +81,39 @@
 											<i class="icon-sitemap"></i>
 											404
 										</span>
-										Page Not Found
+										Página Não Encontrada
 									</h1>
 
 									<hr />
-									<h3 class="lighter smaller">We looked everywhere but we couldn't find it!</h3>
+									<h3 class="lighter smaller">Nós procuramos em todos os lugares mas não conseguimos encontrar!</h3>
 
 									<div>
 										<form class="form-search">
 											<span class="input-icon">
 												<i class="icon-search"></i>
 
-												<input type="text" class="input-medium search-query" placeholder="Give it a search..." />
+												<input type="text" class="input-medium search-query" placeholder="Faça uma pesquisa..." />
 											</span>
 											<button class="btn btn-small" onclick="return false;">Go!</button>
 										</form>
 
 										<div class="space"></div>
-										<h4 class="smaller">Try one of the following:</h4>
+										<h4 class="smaller">Tente algum dos seguintes:</h4>
 
 										<ul class="unstyled spaced inline bigger-110">
 											<li>
 												<i class="icon-hand-right blue"></i>
-												Re-check the url for typos
+												Verifique a URL
 											</li>
 
 											<li>
 												<i class="icon-hand-right blue"></i>
-												Read the faq
+												Leia o faq
 											</li>
 
 											<li>
 												<i class="icon-hand-right blue"></i>
-												Tell us about it
+												Nos contate sobre o problema
 											</li>
 										</ul>
 									</div>
@@ -125,13 +125,13 @@
 										<div class="center">
 											<a href="#" class="btn btn-grey">
 												<i class="icon-arrow-left"></i>
-												Go Back
+												Voltar
 											</a>
 
-											<a href="#" class="btn btn-primary">
+											<!--<a href="#" class="btn btn-primary">
 												<i class="icon-dashboard"></i>
 												Dashboard
-											</a>
+											</a>-->
 										</div>
 									</div>
 								</div>

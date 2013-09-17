@@ -2,7 +2,7 @@
 <metal:main use-macro="load: ../master.pt">
    <!-- Insere JavaScript -->
    <div metal:fill-slot="conteudo" id="widgets">
-    <title>Edição da Base</title>
+    <title>LightBase - Edição da Base</title>
 
       <div id="controller-data" style="display:none">
         ${base_json}
@@ -24,7 +24,7 @@
                                     <ul class="wizard-steps">
                                        <li data-target="#step1" class="active">
                                           <span id="step1-button" class="step">1</span>
-                                          <span class="title">Metadados</span>
+                                          <span class="title">Informações</span>
                                        </li>
                                        <li data-target="#step2">
                                           <span id="step2-button" class="step">2</span>
@@ -259,7 +259,7 @@
                                           <h3 class="blue lighter">Você esta prestes a salvar uma base!</h3>
                                           <div class="row-fluid center">
                                              <div class="span12">
-                                                <textarea id="nestable-output" class="m-wrap span12"></textarea>
+                                                <div id="nestable-output"></div>
                                              </div>
                                              <div id="auto-append-info" class="control-group info" hidden>
                                                 <div class="controls">
@@ -539,10 +539,10 @@
                     }
                     if ($('#fuelux-wizard').wizard("selectedItem").step == 3){
                         var textarea = document.getElementById("nestable-output");
-                        textarea.value = base.json;
-                        textarea.setAttribute('style','height: 100px;');
+                        textarea.innerText = base.json;
+                        textarea.setAttribute('style','overflow: auto; height: 100px; border: 2px #C0C0C0 solid;');
                         button.setAttribute('style','display:none;');
-                        textarea.disabled = true;
+                        //textarea.disabled = true;
                     }
                 });
    
