@@ -94,8 +94,8 @@ function custom_alert(text){
     function build_explorer(base, registries, id, multi) {
 
         var table;
-        if (base.metadata['alias']) table = new Table(id, base.metadata.alias, multi);
-        else table = new Table(id, base.metadata.name, multi=true);
+        if (base.metadata['alias']) table = new Table(id, base, multi);
+        else table = new Table(id, base, multi=true);
 
         var base_content = base.content,
             multivalued = base.metadata.multivalued,
@@ -322,8 +322,8 @@ function custom_alert(text){
         this.html = anchor;
     }
 
-    function Table(id, name, multi){
-        this.name = name;
+    function Table(id, base, multi){
+        this.name = base.metadata.alias? base.metadata.alias: base.metadata.name;
 
         var table = document.createElement('table');
         if (id) table.setAttribute('id', id);
