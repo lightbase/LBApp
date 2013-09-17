@@ -9,7 +9,7 @@ from pyramid.exceptions import HTTPNotFound
 @view_config(route_name='create_base', renderer='../templates/base/new.pt')
 def create_base(request):
     if request.params:
-        response = requests.post('%s/base' %(rest_url), params=request.params)
+        response = requests.post('%s/base' %(rest_url), data=request.params)
         try:
             int(response.text)
             return Response(response.text, status=200)
@@ -32,7 +32,7 @@ def edit_base(request):
         base_json = request.params['json_base']
         base_id = request.matchdict['base_id']
         params = {'json_base': base_json}
-        response = requests.put('%s/base/%s' %(rest_url, base_id), params=params)
+        response = requests.put('%s/base/%s' %(rest_url, base_id), data=params)
         if response.text == 'UPDATED':
             return Response(status=200)
         else:
@@ -77,7 +77,7 @@ def explore_base(request):
             path = request.params.get('name'),
             value = request.params.get('value')
         )
-        response = requests.post('%s/reg/%s/%s/sharp' % (rest_url, base_name, id_reg), params=params)
+        response = requests.post('%s/reg/%s/%s/sharp' % (rest_url, base_name, id_reg), data=params)
         if response.text == 'UPDATED':
             return Response(status=200)
         else:

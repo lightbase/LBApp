@@ -1,11 +1,78 @@
-﻿(function($) {
+﻿
+function Label(text){
+    var label = document.createElement('label'),
+        bold = document.createElement('b');
+    $(bold).text(text);
+    label.appendChild(bold);
+    this.text = text;
+    this.html = label;
+}
+
+function ControlGroup(label, controls, cls){
+    var control_group = document.createElement('div');
+    control_group.setAttribute('class', 'control-group ' + cls);
+    control_group.appendChild(label.html);
+    control_group.appendChild(controls.html);
+    this.label = label;
+    this.controls = controls;
+    this.html = control_group;
+}
+
+function Controls(fields){
+    var controls = document.createElement('div');
+    controls.setAttribute('class', 'controls');
+    for (var f in fields)
+        controls.appendChild(fields[f]);
+    this.fields = fields;
+    this.html = controls;
+}
+
+function NameField(label){
+
+    this.label = new Label(label);
+    var input = document.createElement('input'),
+        attributes = {
+        'name'       : label,
+        'class'      : 'input-medium',
+        'type'       : 'text',
+    };
+    $.each(attributes, function(k, v){
+        input.setAttribute(k, v);
+    });
+    this.input = input;
+    this.controls = new Controls([this.input]);
+    this.html = new ControlGroup(this.label, this.controls).html;
+}
+
+function Form(elements){
+    var form = document.createElement('form');
+    for (var e in elements) form.appendChild(elements[e].html);
+    this.elements = elements;
+    this.html = form;
+}
+
+function custom_alert(text){
+     var template = 
+    '<div class="alert alert-danger" style="display: none; ">' +
+        '<button type="button" class="close" data-dismiss="alert">' +
+            '<i class="icon-remove"></i>' +
+        '</button>' +
+        '<span></span>' +
+    '</div>', 
+        dom = $(template);
+    dom.find('span').text(text);
+    $('body').append(dom);
+    dom.delay(200).fadeIn().delay(4000).fadeOut();
+}
+
+(function($) {
+
+    var config = {
+        'base': { },
+        'registries': [ ] 
+    };
 
     $.fn.explorer = function(settings) {
-
-        var config = {
-            'base': { },
-            'registries': [ ] 
-        };
 
         if (settings) $.extend(config, settings);
 
@@ -16,22 +83,22 @@
 
         var explorer = build_explorer(
             base = config['base'],
-            registries = config['registries']
+            registries = config['registries'],
+            id = null,
+            multi = true
         );
 
         $(this).append(explorer.html);
     };
 
-    function build_explorer(base, registries, id) {
-        
+    function build_explorer(base, registries, id, multi) {
+
         var table;
-        if (base.metadata['alias'])
-            table = new Table(base.metadata.alias);
-        else
-            table = new Table(base.metadata.name);
+        if (base.metadata['alias']) table = new Table(id, base.metadata.alias, multi);
+        else table = new Table(id, base.metadata.name, multi=true);
 
         var base_content = base.content,
-            multivalued = base.metadata['multivalued'],
+            multivalued = base.metadata.multivalued,
             head_row = table.add_head_row(),
             fields_order = [ ],
             groups_order = [ ],
@@ -40,14 +107,14 @@
         
         $.each(base_content, function(i, struc){
             if (struc['field']){
-                fields_order.push(struc['field']);
-                tooltip = new Tooltip(struc['field'].alias, struc['field'].description)
-                header_cell = new TableHeaderCell(tooltip.html);
+                fields_order.push(struc.field);
+                tooltip = new Tooltip(struc.field.alias, struc.field.description);
+                header_cell = new TableHeaderCell(tooltip);
                 head_row.append(header_cell);
                 table.head.append(head_row);
             }
             if (struc['group'])
-                groups_order.push(struc['group']);
+                groups_order.push(struc.group);
         });
 
         var registry_id;
@@ -56,7 +123,7 @@
                 registry_id = id? [id, i].join('-'): id;
             else
                 registry_id = id;
-            rows = get_registry_rows(fields_order, groups_order, registry, registry_id);
+            rows = get_registry_rows(fields_order, groups_order, registry, registry_id, multi);
             $.each(rows, function(i, row){
                 table.body.append(row);
             });
@@ -64,7 +131,7 @@
         return table;
     };
 
-    function get_registry_rows(fields_order, groups_order, registry, id){
+    function get_registry_rows(fields_order, groups_order, registry, id, multi){
 
         var rows = [ ],
             actions = [ ],
@@ -75,14 +142,11 @@
             field_id, 
             field_value; 
 
-        if (groups_order.length > 0)
-            actions.push('toggle');
-        if (fields_order.length > 0)
-            actions.push('edit');
+        if (groups_order.length > 0) actions.push('toggle');
+        if (fields_order.length > 0) actions.push('edit');
+        if (multi) actions.push('delete');
 
-        actions.push('delete');
-
-        var action_buttons = new ActionButtons(actions),
+        var action_buttons = new ActionButtons(actions, registry_id),
             standard_cell = new TableStandardCell(action_buttons.html);
         body_row.append(standard_cell);
 
@@ -123,16 +187,16 @@
                 registries = registry[group.metadata.name];
                 if (registries){
                     if (type_of(registries) == 'array')
-                        explorer.push(build_explorer(
-                            group, registry[group.metadata.name], group_id, multi=true
-                        ));
+                        explorer.push(
+                            build_explorer(group, registry[group.metadata.name], group_id, multi=true)
+                        );
                     else 
                         explorer.push(build_explorer(group, [registry[group.metadata.name]], group_id));
                 }
             });
             var standard_cell = new TableStandardCell( 
-                explorer, 
-                colspan=fields_order.length + 1
+                content = explorer, 
+                colspan = fields_order.length + 1
             );
             group_row.append(standard_cell)
             rows.push(group_row);
@@ -140,20 +204,78 @@
         return rows;
     }
 
-    function ActionButtons(actions){
+    function ActionButtons(actions, data){
         var div = document.createElement('div'),
             button;
         div.setAttribute('class', 'hidden-phone visible-desktop action-buttons');
         $.each(actions, function(i, action){
-            if (action == 'edit')
-                button = new EditButton();
-            if (action == 'toggle')
-                button = new ToggleButton();
-            if (action == 'delete')
-                button = new DeleteButton();
+            if (action == 'add') button = new AddButton(data);
+            if (action == 'edit') button = new EditButton(data);
+            if (action == 'toggle') button = new ToggleButton(data);
+            if (action == 'delete') button = new DeleteButton(data);
             div.appendChild(button.html);
         });
         this.html = div;
+    }
+
+    function get_base_level(path){
+
+        var base = config.base,
+            structure;
+        function search(base, name){
+            for (var content in base.content){
+                structure = base.content[content];
+                if (structure.group) {
+                    if (structure.group.metadata.name == name) 
+                        return structure.group;
+                }
+            }
+        }
+        if (path[0] == '__root__') return base;
+        else {
+            path.forEach(function(crumb){
+                base = search(base, crumb)
+            });
+        }
+        return base;
+    }
+
+    function build_level_form(base){
+        var elements = [ ],
+            field;
+        $.each(base.content, function(i, structure){
+            if (structure.field){
+                field = new NameField(structure.field.alias);
+                elements.push(field)
+            }
+        });
+        var form = new Form(elements);
+        bootbox.confirm(form.html, function(result) {
+            if (result){
+                
+            }
+        });
+    }
+
+    function AddButton(data_table){
+        var anchor = document.createElement('a');
+        anchor.setAttribute('class', 'icon-plus-sign bigger-130');
+        anchor.setAttribute('href', 'javascript: void(0)');
+
+        if (data_table) anchor.setAttribute('data-table', data_table);
+        else anchor.setAttribute('data-table', '__root__');
+
+        $(anchor).click(function(e){
+            var data_table = $(e.target).attr('data-table'),
+                path = data_table.split('-'),
+                level, 
+                form;
+            if (path.length > 1) path.splice(0, 1);
+            level = get_base_level(path);
+            form = build_level_form(level);
+        });
+
+        this.html = anchor;
     }
 
     function EditButton(){
@@ -185,20 +307,26 @@
         this.html = anchor;
     }
 
-    function DeleteButton(){
+    function DeleteButton(data_id){
         var anchor = document.createElement('a'),
             icon = document.createElement('i');
         anchor.setAttribute('class', 'red icon-trash bigger-130');
+        anchor.setAttribute('data-id', data_id);
         anchor.setAttribute('href', 'javascript: void(0)');
         $(anchor).click(function(){
+            bootbox.confirm('Deletar registro?', function(result){
+                if(result){
+                }
+            });
         });
         this.html = anchor;
     }
 
-    function Table(name){
+    function Table(id, name, multi){
         this.name = name;
 
         var table = document.createElement('table');
+        if (id) table.setAttribute('id', id);
         table.setAttribute('class', 'table table-striped table-bordered');
         table.setAttribute('style', 'width: auto');
 
@@ -208,7 +336,9 @@
 
         this.add_head_row = function(){
             var toggle_anchor = new ToggleAnchor(this.name, this.body),
-                header_cell = new TableHeaderCell(toggle_anchor.html),
+                action_button = new ActionButtons(['add'], id),
+                header_cell_content = multi? [action_button, toggle_anchor]: [toggle_anchor],
+                header_cell = new TableHeaderCell(header_cell_content),
                 head_row = new TableRow();
             head_row.append(header_cell);
             this.head.append(head_row);
@@ -254,8 +384,13 @@
         th.setAttribute('class', 'sorting');
         if (type_of(content) == 'string')
             $(th).text(content);
+        else if (type_of(content) == 'array'){
+            content.forEach(function(element){
+                th.appendChild(element.html);
+            });
+        }
         else
-            th.appendChild(content);
+            th.appendChild(content.html);
         this.html = th;
     }
 
@@ -288,10 +423,10 @@
         return id.toString().replace(/-/g, '.').replace(/(^|\.)([0-9]+)($|\.)/g, '[$2]$3');
     }
 
-    function Tooltip(text, tooltip){
+    function Tooltip(text, tip){
         var anchor = document.createElement('a');
         anchor.setAttribute('data-toggle', 'tooltip');
-        anchor.setAttribute('title', tooltip);
+        anchor.setAttribute('title', tip);
         $(anchor).text(text);
         $(anchor).mouseover(function(el){
             $(this).tooltip('show');

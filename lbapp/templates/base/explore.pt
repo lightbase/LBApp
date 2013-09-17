@@ -5,6 +5,17 @@
     <title>Explorar Bases</title>
         <div class="row-fluid">
             <div class="span12">
+
+
+            <div id="modal-content" class="hide">
+    <div id="modal-body">
+<!-- put whatever you want to show up on bootbox here -->
+        Wwowowowowwowow
+    </div>
+</div>
+
+
+
                 <div id="controller-data" style="display: none">
                     ${explorer}
                 </div>
@@ -13,11 +24,21 @@
         </div>
     </div>
 </metal:main>
-<script src="/static/js/lightbase/explorer.js"></script>
+<script src="/static/js/ace/bootbox.min.js"></script>
 <script src="/static/ace-final/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 <script src="/static/ace-final/assets/js/jquery.ui.touch-punch.min.js"></script>
 <!--script src="/static/ace-final/assets/js/jquery.slimscroll.min.js"></script-->
 
+<style>
+    .alert {
+    position:fixed;
+    bottom:25%;
+    right:2%;
+    margin-bottom:0;
+    font-size:1.2em;
+    z-index:2000;
+}
+</style>
 <!--BOOTSRAP-EDITABLE STUFF-->
 <link href="/static/bootstrap-editable-1.4.6/bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet"/>
 <link href="/static/bootstrap-editable-1.4.6/bootstrap-editable/img/clear.png" />
