@@ -22,7 +22,7 @@
 		<!--fonts-->
 
 		<link rel="stylesheet" href="/static/ace-final/assets/css/ace-fonts.css" />
-        <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/themes/ui-darkness/jquery-ui.css" rel="stylesheet">
+        <!-- <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/themes/ui-darkness/jquery-ui.css" rel="stylesheet"> -->
 
 		<!--ace styles-->
 

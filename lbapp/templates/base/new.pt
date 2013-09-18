@@ -572,7 +572,7 @@
                     }
                     if ($('#fuelux-wizard').wizard("selectedItem").step == 3){
                         var textarea = document.getElementById("nestable-output");
-                        textarea.innerText = base.json;
+                        $(textarea).text(base.json);
                         textarea.setAttribute('style','height: 100px; overflow: auto; border: 2px #C0C0C0 solid');
                         //textarea.setAttribute('readonly');
                         button.setAttribute('style','display:none;');
