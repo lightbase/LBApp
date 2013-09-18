@@ -6,16 +6,6 @@
         <div class="row-fluid">
             <div class="span12">
 
-
-            <div id="modal-content" class="hide">
-    <div id="modal-body">
-<!-- put whatever you want to show up on bootbox here -->
-        Wwowowowowwowow
-    </div>
-</div>
-
-
-
                 <div id="controller-data" style="display: none">
                     ${explorer}
                 </div>
@@ -24,28 +14,20 @@
         </div>
     </div>
 </metal:main>
+
 <script src="/static/js/ace/bootbox.min.js"></script>
 <script src="/static/ace-final/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 <script src="/static/ace-final/assets/js/jquery.ui.touch-punch.min.js"></script>
-<!--script src="/static/ace-final/assets/js/jquery.slimscroll.min.js"></script-->
 
-<style>
-    .alert {
-    position:fixed;
-    bottom:25%;
-    right:2%;
-    margin-bottom:0;
-    font-size:1.2em;
-    z-index:2000;
-}
-</style>
-<!--BOOTSRAP-EDITABLE STUFF-->
+<!--Bootstrap-Editable-->
 <link href="/static/bootstrap-editable-1.4.6/bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet"/>
 <link href="/static/bootstrap-editable-1.4.6/bootstrap-editable/img/clear.png" />
 <link href="/static/bootstrap-editable-1.4.6/bootstrap-editable/img/loading.gif" />
 <script src="/static/bootstrap-editable-1.4.6/bootstrap-editable/js/bootstrap-editable.min.js"></script>
 
+<!--Explorer-->
 <script src="/static/js/lightbase/jquery.explorer.js"></script>
+<link href="/static/css/lightbase/jquery.explorer.css" rel="stylesheet"/>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -60,22 +42,6 @@
             base: base,
             registries: registries 
         });
-
-
-        $(function() {
-        
-            /*$('#explorer').sortable({
-                connectWith: '#explorer',
-                opacity:0.8,
-                revert:true,
-                forceHelperSize:true,
-                placeholder: 'accordion-placeholder',
-                forcePlaceholderSize:true,
-                tolerance:'pointer'
-            });*/
-        
-        });
-
 
         function switch_editable(id){
             $('.editable').each(function() { 

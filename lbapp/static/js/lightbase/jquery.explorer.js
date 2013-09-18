@@ -1,4 +1,14 @@
 ﻿
+function FieldSet(structure){
+    this.structure = structure;
+    this.elements = [ ];
+    var fieldset = document.createElement('fieldset'),
+        legend_el  = document.createElement('legend');
+    $(legend_el).text(structure.metadata.alias);
+    fieldset.appendChild(legend_el);
+    this.html = fieldset;
+}
+
 function Label(text){
     var label = document.createElement('label'),
         bold = document.createElement('b');
@@ -27,12 +37,12 @@ function Controls(fields){
     this.html = controls;
 }
 
-function NameField(label){
-
-    this.label = new Label(label);
+function NameField(structure){
+    this.structure = structure;
+    this.label = new Label(structure.alias);
     var input = document.createElement('input'),
         attributes = {
-        'name'       : label,
+        'name'       : structure.name,
         'class'      : 'input-medium',
         'type'       : 'text',
     };
@@ -44,26 +54,41 @@ function NameField(label){
     this.html = new ControlGroup(this.label, this.controls).html;
 }
 
-function Form(elements){
-    var form = document.createElement('form');
-    for (var e in elements) form.appendChild(elements[e].html);
-    this.elements = elements;
-    this.html = form;
+function Form(id){
+    this.id = id;
+    this.elements = [ ];
+    this.html = document.createElement('form');
+
+    var self = this;
+    if (id) this.html.setAttribute('id', id);
+
+    this.is_valid = function(){
+        return true;
+    };
+
+    this.serialize = function(elements){
+        var registry = { };
+        elements.forEach(function(element){
+            if (element instanceof NameField){
+                registry[element.structure.name] = element.html.value;
+            }
+            if (element instanceof FieldSet){
+                registry[element.structure.metadata.name] = self.serialize(element.elements);
+            }
+        });
+        return registry;
+    };
 }
 
-function custom_alert(text){
-     var template = 
-    '<div class="alert alert-danger" style="display: none; ">' +
-        '<button type="button" class="close" data-dismiss="alert">' +
-            '<i class="icon-remove"></i>' +
-        '</button>' +
-        '<span></span>' +
-    '</div>', 
-        dom = $(template);
-    dom.find('span').text(text);
-    $('body').append(dom);
-    dom.delay(200).fadeIn().delay(4000).fadeOut();
+function FormProtoType(){
+    this.append = function(el){
+        this.elements.push(el);
+        this.html.appendChild(el.html);
+    }
 }
+
+Form.prototype = new FormProtoType();
+FieldSet.prototype = new FormProtoType();
 
 (function($) {
 
@@ -142,11 +167,11 @@ function custom_alert(text){
             field_id, 
             field_value; 
 
-        if (groups_order.length > 0) actions.push('toggle');
-        if (fields_order.length > 0) actions.push('edit');
-        if (multi) actions.push('delete');
+        if (groups_order.length > 0) actions.push(new ToggleButton());
+        if (fields_order.length > 0) actions.push(new EditButton(registry_id));
+        if (multi) actions.push(new DeleteButton());
 
-        var action_buttons = new ActionButtons(actions, registry_id),
+        var action_buttons = new ActionButtons(actions),
             standard_cell = new TableStandardCell(action_buttons.html);
         body_row.append(standard_cell);
 
@@ -204,84 +229,66 @@ function custom_alert(text){
         return rows;
     }
 
-    function ActionButtons(actions, data){
-        var div = document.createElement('div'),
-            button;
+    function ActionButtons(actions){
+        var div = document.createElement('div');
         div.setAttribute('class', 'hidden-phone visible-desktop action-buttons');
         $.each(actions, function(i, action){
-            if (action == 'add') button = new AddButton(data);
-            if (action == 'edit') button = new EditButton(data);
-            if (action == 'toggle') button = new ToggleButton(data);
-            if (action == 'delete') button = new DeleteButton(data);
-            div.appendChild(button.html);
+            div.appendChild(action.html);
         });
         this.html = div;
     }
 
-    function get_base_level(path){
-
-        var base = config.base,
-            structure;
-        function search(base, name){
-            for (var content in base.content){
-                structure = base.content[content];
-                if (structure.group) {
-                    if (structure.group.metadata.name == name) 
-                        return structure.group;
-                }
-            }
-        }
-        if (path[0] == '__root__') return base;
-        else {
-            path.forEach(function(crumb){
-                base = search(base, crumb)
-            });
-        }
-        return base;
-    }
-
-    function build_level_form(base){
+    function build_level_form(base, wrapper){
         var elements = [ ],
-            field;
-        $.each(base.content, function(i, structure){
+            field,
+            fieldset,
+            level_form;
+        base.content.forEach(function(structure){
             if (structure.field){
-                field = new NameField(structure.field.alias);
-                elements.push(field)
+                field = new NameField(structure.field);
+                elements.push(field);
+            }
+            if (structure.group && !structure.group.metadata.multivalued){
+                fieldset = new FieldSet(structure.group);
+                level_form = build_level_form(structure.group, fieldset);
+                elements.push(level_form);
             }
         });
-        var form = new Form(elements);
-        bootbox.confirm(form.html, function(result) {
-            if (result){
-                
-            }
+        elements.forEach(function(element){
+            wrapper.append(element);
         });
+        return wrapper;
     }
 
-    function AddButton(data_table){
+    function AddButton(table){
         var anchor = document.createElement('a');
         anchor.setAttribute('class', 'icon-plus-sign bigger-130');
-        anchor.setAttribute('href', 'javascript: void(0)');
-
-        if (data_table) anchor.setAttribute('data-table', data_table);
-        else anchor.setAttribute('data-table', '__root__');
-
+        anchor.setAttribute('href', 'javascript:;');
         $(anchor).click(function(e){
-            var data_table = $(e.target).attr('data-table'),
-                path = data_table.split('-'),
-                level, 
-                form;
-            if (path.length > 1) path.splice(0, 1);
-            level = get_base_level(path);
-            form = build_level_form(level);
-        });
+            var form = new Form(table.id);
+            build_level_form(table.base, append_to=form);
+            bootbox.confirm(form.html, function(result) {
+                if (result && form.is_valid()){
+                    var fields_order = [ ], groups_order = [ ], 
+                        registry = form.serialize(form.elements), id = table.id, multi = false;
+                        console.log(registry);
 
+                    table.base.content.forEach(function(struc){
+                        if (struc.field) fields_order.push(struc.field);
+                        if (struc.group) groups_order.push(struc.group);
+                    });
+                    
+                    //table.add_body_row(fields_order, groups_order, registry, id, multi);
+                }
+            });
+        });
         this.html = anchor;
     }
 
     function EditButton(){
         var anchor = document.createElement('a');
         anchor.setAttribute('class', 'icon-pencil bigger-130 green');
-        anchor.setAttribute('href', 'javascript: void(0)');
+        anchor.setAttribute('href', 'javascript:;');
         $(anchor).click(function(){
             var editables = $(this).closest('tr').find('.editable');
             $.each(editables, function(i, editable){
@@ -295,7 +302,7 @@ function custom_alert(text){
         var anchor = document.createElement('a'),
             icon = document.createElement('i');
         anchor.setAttribute('class', 'icon-double-angle-right bigger-130');
-        anchor.setAttribute('href', 'javascript: void(0)');
+        anchor.setAttribute('href', 'javascript:;');
         $(anchor).click(function(){
             $(this).closest('tr').next().toggle(150);
             var icon = $(this).attr('class');
@@ -312,7 +319,7 @@ function custom_alert(text){
             icon = document.createElement('i');
         anchor.setAttribute('class', 'red icon-trash bigger-130');
         anchor.setAttribute('data-id', data_id);
-        anchor.setAttribute('href', 'javascript: void(0)');
+        anchor.setAttribute('href', 'javascript:;');
         $(anchor).click(function(){
             bootbox.confirm('Deletar registro?', function(result){
                 if(result){
@@ -323,7 +330,10 @@ function custom_alert(text){
     }
 
     function Table(id, base, multi){
+        this.id = id;
+        this.base = base;
         this.name = base.metadata.alias? base.metadata.alias: base.metadata.name;
+        self = this;
 
         var table = document.createElement('table');
         if (id) table.setAttribute('id', id);
@@ -335,14 +345,23 @@ function custom_alert(text){
         this.body = new TableBody();
 
         this.add_head_row = function(){
+
             var toggle_anchor = new ToggleAnchor(this.name, this.body),
-                action_button = new ActionButtons(['add'], id),
-                header_cell_content = multi? [action_button, toggle_anchor]: [toggle_anchor],
+                add_button = new AddButton(this),
+                action_buttons = new ActionButtons([add_button]),
+                header_cell_content = multi? [action_buttons, toggle_anchor]: [toggle_anchor],
                 header_cell = new TableHeaderCell(header_cell_content),
                 head_row = new TableRow();
             head_row.append(header_cell);
             this.head.append(head_row);
             return head_row;
+        };
+
+        this.add_body_row = function(fields_order, groups_order, registry, id, multi){
+            var rows = get_registry_rows(fields_order, groups_order, registry, id, multi);
+            rows.forEach(function(row){
+                self.body.append(row);
+            });
         };
 
         this.html.appendChild(this.head.html);
@@ -396,7 +415,7 @@ function custom_alert(text){
 
     function ToggleAnchor(text, toggle){
         var anchor = document.createElement('a');
-        anchor.setAttribute('href', 'javascript: void(0)');
+        anchor.setAttribute('href', 'javascript:;');
         $(anchor).text(text);
         $(anchor).click(function(){
             $(toggle.html).toggle(200);
@@ -486,3 +505,20 @@ function custom_alert(text){
     };
 
 })(jQuery);
+
+function custom_alert(text){
+     var template = 
+    '<div class="alert alert-danger" style="display: none; ">' +
+        '<button type="button" class="close" data-dismiss="alert">' +
+            '<i class="icon-remove"></i>' +
+        '</button>' +
+        '<span></span>' +
+    '</div>', 
+        dom = $(template);
+    dom.css('position', 'fixed');
+    dom.css('bottom', '25%');
+    dom.css('right', '2%');
+    dom.find('span').text(text);
+    $('body').append(dom);
+    dom.delay(200).fadeIn().delay(4000).fadeOut();
+}

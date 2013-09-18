@@ -9,7 +9,7 @@ from pyramid.exceptions import HTTPNotFound
 @view_config(route_name='create_base', renderer='../templates/base/new.pt')
 def create_base(request):
     if request.params:
-        response = requests.post('%s/base' %(rest_url), data=request.params)
+        response = requests.post('%s/base' %(rest_url), data=dict(request.params))
         try:
             int(response.text)
             return Response(response.text, status=200)
