@@ -1,4 +1,4 @@
-<header>
+<!-- <header>
    <link href="/static/ace-final/assets/css/bootstrap.min.css" rel="stylesheet" />
    <link href="/static/ace-final/assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
    <link rel="stylesheet" href="/static/ace-final/assets/css/font-awesome.min.css" />
@@ -13,7 +13,7 @@
    <link rel="stylesheet" href="../static/ace-final/assets/css/bootstrap-timepicker.css" />
    <link rel="stylesheet" href="../static/ace-final/assets/css/daterangepicker.css" />
    <link rel="stylesheet" href="../static/ace-final/assets/css/colorpicker.css" />
-</header>
+</header> -->
 
 <div class="row-fluid" id="all-form">
                   <div class="span12">
@@ -84,39 +84,37 @@
                                           </div>
                                        </form>
 
-      <script type="text/javascript">
+      <!-- <script type="text/javascript">
          window.jQuery || document.write("<script src='/static/js/ace/jquery-2.0.3.min.js'>"+"<"+"/script>");
-      </script>
+      </script> -->
 
-      <script type="text/javascript">
+      <!-- <script type="text/javascript">
          if("ontouchend" in document) document.write("<script src='/static/js/ace/jquery.mobile.custom.min.js'>"+"<"+"/script>");
-      </script>
-      <script src="/static/js/ace/jquery-ui-1.10.3.full.min.js"></script>
-      <script src="/static/js/ace/bootstrap.min.js"></script>
+      </script> -->
+      <!-- <script src="/static/js/ace/jquery-ui-1.10.3.full.min.js"></script>
+      <script src="/static/js/ace/bootstrap.min.js"></script> -->
 
-      <script src="/static/js/ace/ace-elements.min.js"></script>
-      <script src="/static/js/ace/ace.min.js"></script>
+      <!-- <script src="/static/js/ace/ace-elements.min.js"></script>
+      <script src="/static/js/ace/ace.min.js"></script> -->
       
-      <script src="/static/js/lightbase/lightbase_onhover.js"></script>
-      <script src="/static/js/lightbase/color.header.js"></script>
+      <!-- <script src="/static/js/lightbase/lightbase_onhover.js"></script>
+      <script src="/static/js/lightbase/color.header.js"></script> -->
 
-      <script src="/static/js/ace/fuelux.wizard.min.js"></script>
+      <!-- <script src="/static/js/ace/fuelux.wizard.min.js"></script>
       <script src="/static/js/ace/jquery.validate.min.js"></script>
       <script src="/static/js/lightbase/base_form.js"></script>
-      <script src="/static/js/lightbase/jquery.nestable.js"></script>
+      <script src="/static/js/lightbase/jquery.nestable.js"></script> -->
       <!--<script src="/static/js/ace/additional-methods.min.js"></script>-->
-      <script src="/static/js/ace/bootbox.min.js"></script>
-      <script src="/static/js/lightbase/requisicaoajax.js"></script>
+      <!-- <script src="/static/js/ace/bootbox.min.js"></script>
+      <script src="/static/js/lightbase/requisicaoajax.js"></script> -->
 
-      <!-- colorpicker -->
-      <script src="/static/ace-final/assets/js/bootstrap-colorpicker.min.js"></script>
-
-      <!-- countings-->
-      <script src="/static/js/ace/jquery-ui-1.10.3.custom.min.js"></script>
+<!--       <script src="/static/ace-final/assets/js/bootstrap-colorpicker.min.js"></script>
+ -->
+      <!-- <script src="/static/js/ace/jquery-ui-1.10.3.custom.min.js"></script>
       <script src="/static/js/ace/chosen.jquery.min.js"></script>
-      <script src="/static/js/ace/fuelux.spinner.min.js"></script>
+      <script src="/static/js/ace/fuelux.spinner.min.js"></script> -->
 
-      <script type="text/javascript">
+      <!-- <script type="text/javascript">
          $(function() {
    
    
@@ -520,4 +518,4 @@
          
          
          });
-      </script>
+      </script> -->
