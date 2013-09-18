@@ -38,7 +38,8 @@
                                  </div>
                                  <div class="step-content row-fluid position-relative" id="step-container">
                                     <div class="step-pane active" id="step1">
-                                       <h3 class="lighter block green">Informações da Base</h3>
+                                        <br>
+                                        <br>
                                        <form class="form-horizontal" id="validation-form" method="get">
                                           <div class="control-group">
                                              <label class="control-label" for="email">Nome:</label>

@@ -1,15 +1,14 @@
-
 <metal:main use-macro="load: ../master.pt">
    <!-- Insere JavaScript -->
    <div metal:fill-slot="conteudo" id="widgets">
     <title>LightBase - Criar Nova Base</title>
       <header>
-		<link rel="stylesheet" href="../static/ace-final/assets/css/jquery-ui-1.10.3.custom.min.css" />
-		<link rel="stylesheet" href="../static/ace-final/assets/css/chosen.css" />
-		<link rel="stylesheet" href="../static/ace-final/assets/css/datepicker.css" />
-		<link rel="stylesheet" href="../static/ace-final/assets/css/bootstrap-timepicker.css" />
-		<link rel="stylesheet" href="../static/ace-final/assets/css/daterangepicker.css" />
-		<link rel="stylesheet" href="../static/ace-final/assets/css/colorpicker.css" />
+    		<link rel="stylesheet" href="../static/ace-final/assets/css/jquery-ui-1.10.3.custom.min.css" />
+    		<link rel="stylesheet" href="../static/ace-final/assets/css/chosen.css" />
+    		<link rel="stylesheet" href="../static/ace-final/assets/css/datepicker.css" />
+    		<link rel="stylesheet" href="../static/ace-final/assets/css/bootstrap-timepicker.css" />
+    		<link rel="stylesheet" href="../static/ace-final/assets/css/daterangepicker.css" />
+    		<link rel="stylesheet" href="../static/ace-final/assets/css/colorpicker.css" />
       </header>
       <div class="page-content">
          <div id="base_names" style="display: none">${base_names}</div>

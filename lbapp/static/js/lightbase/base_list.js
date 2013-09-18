@@ -152,7 +152,7 @@ function FastLinkClass(){
         i.setAttribute('title', 'Editar');
         td.setAttribute('class', 'td-actions');
         td.setAttribute('id', 'td-actions' + id);
-        div.setAttribute('class', 'hidden-phone visible-desktop action-buttons ');
+        div.setAttribute('class', 'hidden-phone visible-desktop action-buttons');
         div.setAttribute('id', 'div-' + id);
 
         $("[rel=tooltip]").tooltip({placement: 'top'});
@@ -230,7 +230,8 @@ function FastLinkClass(){
         var li = document.createElement("li");
         var span = document.createElement("span");
 
-        a.setAttribute('class', 'blue');
+        a.setAttribute('class', 'blue dialogify');
+        a.setAttribute('href', '/config');
         i.setAttribute('class', 'icon-cog bigger-130');
         i.setAttribute('id', 'config-' + id);
         i.setAttribute('rel', 'tooltip');
@@ -239,17 +240,28 @@ function FastLinkClass(){
         div.appendChild(a);
         tbody.appendChild(tr);
 
-        $("#config-" + id).click(function(){
-            bootbox.dialog(tablecode, [{
-                "label" : "Sim",
-                "class" : "btn-small btn-primary",
-                },{
-                "label" : "Não",
-                "class" : "btn-small btn-danger",
-                }]
-            );
+        $(function() {
+            $("#div_config").dialog({
+                autoOpen: false,
+                modal: true,
+                width: 600,
+                height: 300,
+                buttons: {
+                    "Fechar": function() {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+            $(".dialogify").on("click", function(e) {
+                e.preventDefault();
+                $("#div_config").html("");
+                $("#div_config").dialog("option", "title", "Loading...").dialog("open");
+                $("#div_config").load(this.href, function() {
+                    $(this).dialog("option", "title", $(this).find("h1").text());
+                    $(this).find("h1").remove();
+                });
+            });
         });
-
     }
 
     this.BaseListJson = function(tr, tbody, id, base){
