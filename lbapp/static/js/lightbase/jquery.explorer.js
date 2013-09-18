@@ -20,7 +20,8 @@ function Label(text){
 
 function ControlGroup(label, controls, cls){
     var control_group = document.createElement('div');
-    control_group.setAttribute('class', 'control-group ' + cls);
+    if (cls) control_group.setAttribute('class', 'control-group ' + cls);
+    else control_group.setAttribute('class', 'control-group');
     control_group.appendChild(label.html);
     control_group.appendChild(controls.html);
     this.label = label;
@@ -37,7 +38,7 @@ function Controls(fields){
     this.html = controls;
 }
 
-function NameField(structure){
+function Field(structure){
     this.structure = structure;
     this.label = new Label(structure.alias);
     var input = document.createElement('input'),
@@ -69,8 +70,8 @@ function Form(id){
     this.serialize = function(elements){
         var registry = { };
         elements.forEach(function(element){
-            if (element instanceof NameField){
-                registry[element.structure.name] = element.html.value;
+            if (element instanceof Field){
+                registry[element.structure.name] = element.input.value;
             }
             if (element instanceof FieldSet){
                 registry[element.structure.metadata.name] = self.serialize(element.elements);
@@ -210,14 +211,15 @@ FieldSet.prototype = new FormProtoType();
 
                 group_id = [registry_id, group.metadata.name].join('-');
                 registries = registry[group.metadata.name];
-                if (registries){
-                    if (type_of(registries) == 'array')
-                        explorer.push(
-                            build_explorer(group, registry[group.metadata.name], group_id, multi=true)
-                        );
-                    else 
-                        explorer.push(build_explorer(group, [registry[group.metadata.name]], group_id));
+                if (registries) {
+                    if (type_of(registries) != 'array') 
+                        registries = [registries];
                 }
+                else registries =  [ ];
+
+                explorer.push(
+                    build_explorer(group, registries, group_id, group.metadata.multivalued)
+                );
             });
             var standard_cell = new TableStandardCell( 
                 content = explorer, 
@@ -245,7 +247,7 @@ FieldSet.prototype = new FormProtoType();
             level_form;
         base.content.forEach(function(structure){
             if (structure.field){
-                field = new NameField(structure.field);
+                field = new Field(structure.field);
                 elements.push(field);
             }
             if (structure.group && !structure.group.metadata.multivalued){
@@ -265,20 +267,45 @@ FieldSet.prototype = new FormProtoType();
         anchor.setAttribute('class', 'icon-plus-sign bigger-130');
         anchor.setAttribute('href', 'javascript:;');
         $(anchor).click(function(e){
+
             var form = new Form(table.id);
             build_level_form(table.base, append_to=form);
+
             bootbox.confirm(form.html, function(result) {
                 if (result && form.is_valid()){
-                    var fields_order = [ ], groups_order = [ ], 
-                        registry = form.serialize(form.elements), id = table.id, multi = false;
-                        console.log(registry);
+                    var fields_order = [ ], 
+                        groups_order = [ ], 
+                        registry = form.serialize(form.elements), 
+                        id = table.id, 
+                        multi = true;
+                        pk = null , path = null;
 
-                    table.base.content.forEach(function(struc){
-                        if (struc.field) fields_order.push(struc.field);
-                        if (struc.group) groups_order.push(struc.group);
+                    if (id){
+                        var split = id.split('-');
+                        pk = split.shift();
+                        path = split.join('-');
+                    }
+
+                    $.ajax({
+                        type: 'post',
+                        url: window.location,
+                        data: {
+                            pk: pk,
+                            path: path,
+                            value: JSON.stringify(registry)
+                        },
+                        success: function(data, textStatus, jqXHR ){
+                            table.base.content.forEach(function(struc){
+                                if (struc.field) fields_order.push(struc.field);
+                                if (struc.group) groups_order.push(struc.group);
+                            });
+                            table.add_body_row(fields_order, groups_order, registry, id, multi);
+                        },
+                        error: function(jqXHR, textStatus, errorThrown){
+                            custom_alert('Erro ao adicionar registro');
+                        }
                     });
-                    
-                    //table.add_body_row(fields_order, groups_order, registry, id, multi);
+
                 }
             });
         });
@@ -333,7 +360,7 @@ FieldSet.prototype = new FormProtoType();
         this.id = id;
         this.base = base;
         this.name = base.metadata.alias? base.metadata.alias: base.metadata.name;
-        self = this;
+        var self = this;
 
         var table = document.createElement('table');
         if (id) table.setAttribute('id', id);

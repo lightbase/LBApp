@@ -37,6 +37,7 @@
         var base = explorer_data['json_base']
         var registries = explorer_data['registries'];
 
+        $.fn.editable.defaults.ajaxOptions = {type: "PUT"};
         $.fn.editable.defaults.mode = 'inline';
         $('#base-explorer').explorer({ 
             base: base,

@@ -63,7 +63,6 @@ def list_base(request):
 @view_config(route_name='explore_base', renderer='../templates/base/explore.pt')
 def explore_base(request):
 
-        
     base_id = request.matchdict['base_id']
     response = requests.get('%s/base/%s' %(rest_url, base_id)).json()
     if response.get('_status') == 500 or response.get('_status') == 404:
@@ -71,7 +70,10 @@ def explore_base(request):
     base_name = response['nome_base']
     base_json = response['json_base']
 
-    if request.params:
+    if request.method == 'POST':
+        return Response(status=500)
+
+    elif request.method == 'PUT':
         id_reg = request.params['pk']
         params = dict(
             path = request.params.get('name'),
@@ -82,6 +84,10 @@ def explore_base(request):
             return Response(status=200)
         else:
             return Response(status=500)
+
+    elif request.method == 'DELETE':
+        pass
+
 
     response = requests.get('%s/reg/%s' %(rest_url, base_name)).json()
     if response.get('_status') == 500 or response.get('_status') == 404:
