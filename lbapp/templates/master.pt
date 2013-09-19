@@ -49,7 +49,7 @@
 					<a class="brand" id="lightbase_hover_a" href="/base/list" >
 					<!--<a data-toggle="dropdown" class="dropdown-toggle brand" id="lightbase_hover_a" href="/base/list">-->
 						<small>
-							<i id="lightbase_hover_i" class="icon-leaf"></i>
+							<i id="lightbase_hover_i" class="logo-header"></i>
 							LightBase
 					</a><!--/.brand-->
 
