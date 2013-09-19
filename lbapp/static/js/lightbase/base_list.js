@@ -240,25 +240,26 @@ function FastLinkClass(){
         div.appendChild(a);
         tbody.appendChild(tr);
 
+
         $(function() {
             $("#div_config").dialog({
                 autoOpen: false,
                 modal: true,
                 width: 800,
-                height: 600,
-                buttons: {
-                    "Fechar": function() {
-                        $(this).dialog("close");
-                    }
-                }
+                height: 500,
+                // buttons: {
+                //     "Fechar": function() {
+                //         $(this).dialog("close");
+                //     }
+                // }
             });
             $(".dialogify").on("click", function(e) {
                 e.preventDefault();
                 $("#div_config").html("");
-                $("#div_config").dialog("option", "title", "Loading...").dialog("open");
+                $("#div_config").dialog("option", "title", "Configurações").dialog("open");
                 $("#div_config").load(this.href, function() {
-                    $(this).dialog("option", "title", $(this).find("h1").text());
-                    $(this).find("h1").remove();
+                    // $(this).dialog("option", "title", $(this).find("h1").text());
+                    // $(this).find("h1").remove();
                 });
             });
         });
