@@ -32,6 +32,7 @@
 
 		<!--custom styles-->
 		<link rel="stylesheet" href="/static/css/lightbase/icons.css" />
+		<linkrel=“shortcut icon”type="/static/img/favicon.ico“ />
 		
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
