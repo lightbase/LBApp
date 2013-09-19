@@ -30,6 +30,9 @@
 		<link rel="stylesheet" href="/static/ace-final/assets/css/ace-responsive.min.css" />
 		<link rel="stylesheet" href="/static/ace-final/assets/css/ace-skins.min.css" />
 
+		<!--custom styles-->
+		<link rel="stylesheet" href="/static/css/lightbase/icons.css" />
+		
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
 		<![endif]-->
