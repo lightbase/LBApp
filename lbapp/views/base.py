@@ -10,10 +10,9 @@ from pyramid.exceptions import HTTPNotFound
 def create_base(request):
     if request.params:
         response = requests.post('%s/base' %(rest_url), data=dict(request.params))
-        try:
-            int(response.text)
+        if utils.is_integer(response.text):
             return Response(response.text, status=200)
-        except:
+        else:
             return Response(status=500)
 
     search = {'select': ['nome_base']}
@@ -70,23 +69,39 @@ def explore_base(request):
     base_name = response['nome_base']
     base_json = response['json_base']
 
+    def request_action(request):
+        action = getattr(requests, request.method.lower())
+        id_reg = request.params['pk']
+        if id_reg == '': 
+            data = dict(json_reg = request.params.get('value'))
+            return requests.post('%s/reg/%s' % (rest_url, base_name), data=data)
+        else:
+            data = dict(
+                name = request.params.get('name'),
+                value = request.params.get('value')
+            )
+            return action('%s/reg/%s/%s/depth_key' % (rest_url, base_name, id_reg), data=data)
+
     if request.method == 'POST':
-        return Response(status=500)
+        response = request_action(request)
+        if utils.is_integer(response.text):
+            return Response(response.text, status=200)
+        else:
+            return Response(status=500)
 
     elif request.method == 'PUT':
-        id_reg = request.params['pk']
-        params = dict(
-            path = request.params.get('name'),
-            value = request.params.get('value')
-        )
-        response = requests.post('%s/reg/%s/%s/sharp' % (rest_url, base_name, id_reg), data=params)
+        response = request_action(request)
         if response.text == 'UPDATED':
             return Response(status=200)
         else:
             return Response(status=500)
 
     elif request.method == 'DELETE':
-        pass
+        response = request_action(request)
+        if response.text == 'DELETED':
+            return Response(status=200)
+        else:
+            return Response(status=500)
 
 
     response = requests.get('%s/reg/%s' %(rest_url, base_name)).json()

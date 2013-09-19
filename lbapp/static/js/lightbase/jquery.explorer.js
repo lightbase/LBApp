@@ -278,12 +278,12 @@ FieldSet.prototype = new FormProtoType();
                         registry = form.serialize(form.elements), 
                         id = table.id, 
                         multi = true;
-                        pk = null , path = null;
+                        pk = null , name = null;
 
                     if (id){
                         var split = id.split('-');
                         pk = split.shift();
-                        path = split.join('-');
+                        name = split.join('-');
                     }
 
                     $.ajax({
@@ -291,7 +291,7 @@ FieldSet.prototype = new FormProtoType();
                         url: window.location,
                         data: {
                             pk: pk,
-                            path: path,
+                            name: name,
                             value: JSON.stringify(registry)
                         },
                         success: function(data, textStatus, jqXHR ){
@@ -299,6 +299,8 @@ FieldSet.prototype = new FormProtoType();
                                 if (struc.field) fields_order.push(struc.field);
                                 if (struc.group) groups_order.push(struc.group);
                             });
+                            if (id){}
+                            else id = data;
                             table.add_body_row(fields_order, groups_order, registry, id, multi);
                         },
                         error: function(jqXHR, textStatus, errorThrown){
