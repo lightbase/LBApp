@@ -1,9 +1,10 @@
 ﻿
+
 function FieldSet(structure){
     this.structure = structure;
     this.elements = [ ];
     var fieldset = document.createElement('fieldset'),
-        legend_el  = document.createElement('legend');
+        legend_el = document.createElement('legend');
     $(legend_el).text(structure.metadata.alias);
     fieldset.appendChild(legend_el);
     this.html = fieldset;
@@ -189,7 +190,7 @@ FieldSet.prototype = new FormProtoType();
                 else cell_value = '';
 
                 field_id = [registry_id, field.name].join('-');
-                cell_content = new EditableAnchor(field_id, cell_value, field.datatype);
+                cell_content = new EditableAnchor(field_id, cell_value, field);
                 standard_cell = new TableStandardCell(cell_content.html);
                 body_row.append(standard_cell);
             });
@@ -491,18 +492,18 @@ FieldSet.prototype = new FormProtoType();
         this.html = anchor;
     }
         
-    function EditableAnchor(id, text, datatype){
+    function EditableAnchor(id, text, structure){
         this.id = id;
         var id_split = id.split('-'),
             data_pk = id_split.splice(0, 1),
             anchor = document.createElement('a'),
             editable_attrs = {
                 'id':                   this.id,
-                'data-original-title':  'Enter data',
+                'data-original-title':  structure.alias,
                 'class':                'editable editable-click',
                 'data-type':            'text',
                 'data-pk':              data_pk,
-                'data-url':             window.location.pathname,
+                'data-url':             window.location,
                 'data-name':            id_to_path(id_split.join('-'))
             };
         $.each(editable_attrs, function(key, value){

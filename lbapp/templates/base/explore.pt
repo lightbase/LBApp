@@ -38,17 +38,12 @@
         var registries = explorer_data['registries'];
 
         $.fn.editable.defaults.ajaxOptions = {type: "PUT"};
-        $.fn.editable.defaults.mode = 'inline';
+        //$.fn.editable.defaults.mode = 'inline';
+        $.fn.editable.defaults.mode = 'popup';
         $('#base-explorer').explorer({ 
             base: base,
             registries: registries 
         });
-
-        function switch_editable(id){
-            $('.editable').each(function() { 
-                $(this).editable('toggleDisabled');
-            });
-        }
 
         $('.editable').on('hidden', function(e, reason){
                 if(reason === 'save' || reason === 'nochange') {

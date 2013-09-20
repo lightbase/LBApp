@@ -28,13 +28,27 @@ def create_base(request):
 def edit_base(request):
 
     if request.params:
+
+        option = request.params['option']
         base_json = request.params['json_base']
         base_id = request.matchdict['base_id']
-        params = {'json_base': base_json}
-        response = requests.put('%s/base/%s' %(rest_url, base_id), data=params)
-        if response.text == 'UPDATED':
-            return Response(status=200)
-        else:
+
+        if option == 'update':
+            params = {'json_base': base_json}
+            response = requests.put('%s/base/%s' %(rest_url, base_id), data=params)
+            if response.text == 'UPDATED':
+                return Response(status=200)
+            else:
+                return Response(status=500)
+        if option == 'create':
+            response = requests.delete('%s/base/%s' %(rest_url, base_id))
+            if response.text == 'DELETED':
+                params = {'json_base': base_json}
+                response = requests.post('%s/base' %(rest_url), data=params)
+                if utils.is_integer(response.text):
+                    return Response(response.text, status=200)
+                else:
+                    return Response(status=500)
             return Response(status=500)
 
     base_id = request.matchdict['base_id']
@@ -83,35 +97,43 @@ def explore_base(request):
             return action('%s/reg/%s/%s/depth_key' % (rest_url, base_name, id_reg), data=data)
 
     if request.method == 'POST':
-        response = request_action(request)
-        if utils.is_integer(response.text):
-            return Response(response.text, status=200)
-        else:
+        try:
+            response = request_action(request)
+            if utils.is_integer(response.text):
+                return Response(response.text, status=200)
+            else:
+                return Response(status=500)
+        except:
             return Response(status=500)
 
     elif request.method == 'PUT':
-        response = request_action(request)
-        if response.text == 'UPDATED':
-            return Response(status=200)
-        else:
+        try:
+            response = request_action(request)
+            if response.text == 'UPDATED':
+                return Response(status=200)
+            else:
+                return Response(status=500)
+        except:
             return Response(status=500)
 
     elif request.method == 'DELETE':
-        id_reg = request.params['pk']
-        id_split = request.params['name'].split('-')
-        if len(id_split) == 1: 
-            response = requests.delete('%s/reg/%s/%s' % (rest_url, base_name, id_reg))
-        else:
-            data = dict(
-                name = request.params.get('name'),
-                value = request.params.get('value')
-            )
-            return action('%s/reg/%s/%s/depth_key' % (rest_url, base_name, id_reg), data=data)
-        if response.text == 'DELETED':
-            return Response(status=200)
-        else:
+        try:
+            id_reg = request.params['pk']
+            id_split = request.params['name'].split('-')
+            if len(id_split) == 1: 
+                response = requests.delete('%s/reg/%s/%s' % (rest_url, base_name, id_reg))
+            else:
+                data = dict(
+                    name = request.params.get('name'),
+                    value = request.params.get('value')
+                )
+                return action('%s/reg/%s/%s/depth_key' % (rest_url, base_name, id_reg), data=data)
+            if response.text == 'DELETED':
+                return Response(status=200)
+            else:
+                return Response(status=500)
+        except:
             return Response(status=500)
-
 
     response = requests.get('%s/reg/%s' %(rest_url, base_name)).json()
     if response.get('_status') == 500 or response.get('_status') == 404:

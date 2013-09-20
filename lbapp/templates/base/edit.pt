@@ -562,52 +562,46 @@
    
                 $("#save-data").click( function(){
                     $("#button-submit").click();
-                    bootbox.dialog("Deseja realmente alterar base?", [{
-                        "label": "Salvar",
-                        "class": "btn btn-succes",
-                        callback: function(){
-                            $.ajax({
-                                type: 'post',
-                                url: window.location,
-                                data: {
+
+                        var options_tpl = 
+                            '<form id="save-options">' +
+                                  '<label>Opções</label>' +
+                                  '<div>' +
+                                     '<input name="save-option" type="radio" value="update" checked>' +
+                                     '<span class="lbl"> Apenas salvar</span>' +
+                                  '</div>' +
+                                  '<div>' +
+                                     '<input name="save-option" type="radio" value="create" >' +
+                                     '<span class="lbl"> Recriar</span>' +
+                                  '</div>' +
+                            '</form>';
+
+                        bootbox.confirm(options_tpl, function(result){
+                            if(result){
+                                var save_option = $('#save-options').find('input:checked').val();
+                                data = {
+                                    option: save_option,
                                     json_base: base.json,
-                                },
-                                success: function(data, textStatus, jqXHR ){
-                                    bootbox.dialog("Obrigado! Sua base foi salva com sucesso!", [{
-                                        "label" : "OK",
-                                        "class" : "btn-small btn-primary",
-                                        "href": '/base/list',
-                                        }]
-                                    );
-                                },
-                                error: function(jqXHR, textStatus, errorThrown){
-                                    window.location.href = '/error-500';
-                                }
-                            });
-                        }
-                    },{
-                        "label": "Cancelar",
-                        "class": "btn btn-danger",
-                    }]);
-                    /*$.ajax({
-                        type: 'post',
-                        url: window.location,
-                        data: {
-                            json_base: base.json,
-                        },
-                        success: function(data, textStatus, jqXHR ){
-                            bootbox.dialog("Obrigado! Sua base foi salva com sucesso!", [{
-                                "label" : "OK",
-                                "class" : "btn-small btn-primary",
-                                "href": '/base/list',
-                                }]
-                            );
-                        },
-                        error: function(jqXHR, textStatus, errorThrown){
-                            window.location.href = '/error-500';
-                        }
-                    });*/
-                });
+                                };
+                                $.ajax({
+                                    type: 'post',
+                                    url: window.location,
+                                    data: data,
+                                    success: function(data, textStatus, jqXHR ){
+                                        bootbox.dialog("Obrigado! Sua base foi salva com sucesso!", [{
+                                            "label" : "OK",
+                                            "class" : "btn-small btn-primary",
+                                            "href": '/base/list',
+                                            }]
+                                        );
+                                    },
+                                    error: function(jqXHR, textStatus, errorThrown){
+                                        window.location.href = '/error-500';
+                                    }
+                                });
+                            }
+                         });
+                    });
    
    
                 }); 
