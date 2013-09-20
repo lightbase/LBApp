@@ -102,11 +102,6 @@ FieldSet.prototype = new FormProtoType();
 
         if (settings) $.extend(config, settings);
 
-        if (config['registries'].length < 1){
-            $(this).text('Sem registros');
-            return false;
-        }
-
         var explorer = build_explorer(
             base = config['base'],
             registries = config['registries'],
@@ -170,7 +165,7 @@ FieldSet.prototype = new FormProtoType();
 
         if (groups_order.length > 0) actions.push(new ToggleButton());
         if (fields_order.length > 0) actions.push(new EditButton(registry_id));
-        if (multi) actions.push(new DeleteButton());
+        if (multi) actions.push(new DeleteButton(registry_id, rows));
 
         var action_buttons = new ActionButtons(actions),
             standard_cell = new TableStandardCell(action_buttons.html);
@@ -343,7 +338,7 @@ FieldSet.prototype = new FormProtoType();
         this.html = anchor;
     }
 
-    function DeleteButton(data_id){
+    function DeleteButton(data_id, rows){
         var anchor = document.createElement('a'),
             icon = document.createElement('i');
         anchor.setAttribute('class', 'red icon-trash bigger-130');
@@ -352,6 +347,20 @@ FieldSet.prototype = new FormProtoType();
         $(anchor).click(function(){
             bootbox.confirm('Deletar registro?', function(result){
                 if(result){
+                    var pk = data_id.toString().split('-')[0], 
+                        name = data_id;
+                    $.ajax({
+                        type: 'delete',
+                        url: window.location + '?pk=' + pk + '&name=' + name,
+                        success: function(data, textStatus, jqXHR ){
+                            rows.forEach(function(row){
+                                $(row.html).remove();
+                            });
+                        },
+                        error: function(jqXHR, textStatus, errorThrown){
+                            custom_alert('Erro ao remover registro');
+                        }
+                    });
                 }
             });
         });

@@ -97,7 +97,16 @@ def explore_base(request):
             return Response(status=500)
 
     elif request.method == 'DELETE':
-        response = request_action(request)
+        id_reg = request.params['pk']
+        id_split = request.params['name'].split('-')
+        if len(id_split) == 1: 
+            response = requests.delete('%s/reg/%s/%s' % (rest_url, base_name, id_reg))
+        else:
+            data = dict(
+                name = request.params.get('name'),
+                value = request.params.get('value')
+            )
+            return action('%s/reg/%s/%s/depth_key' % (rest_url, base_name, id_reg), data=data)
         if response.text == 'DELETED':
             return Response(status=200)
         else:
