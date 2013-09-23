@@ -30,21 +30,20 @@
 		<link rel="stylesheet" href="/static/ace-final/assets/css/ace-responsive.min.css" />
 		<link rel="stylesheet" href="/static/ace-final/assets/css/ace-skins.min.css" />
 
+<<<<<<< .mine
+
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/cupertino/jquery-ui.css" />
+
+
+
+		<!-- jquery ui -->
+
+=======
 		<!--custom styles-->
 		<link rel="stylesheet" href="/static/css/lightbase/icons.css" />
-	    <link rel="shortcut icon" type="image/x-icon" href="/static/img/favicon.ico" />	
-
-	    <!-- Jquery UI -->
-		<link rel="stylesheet" href="/static/css/lightbase/jquery-ui-themes/cupertino/jquery-ui.css" />
-
-		<!-- Config -->
-		<!-- <link rel="stylesheet" href="../static/ace-final/assets/css/jquery-ui-1.10.3.custom.min.css" />
-        <link rel="stylesheet" href="../static/ace-final/assets/css/chosen.css" />
-        <link rel="stylesheet" href="../static/ace-final/assets/css/datepicker.css" />
-        <link rel="stylesheet" href="../static/ace-final/assets/css/bootstrap-timepicker.css" />
-        <link rel="stylesheet" href="../static/ace-final/assets/css/daterangepicker.css" /> -->
-
-
+		<linkrel=“shortcut icon”type="/static/img/favicon.ico“ />
+		
+>>>>>>> .r600
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
 		<![endif]-->

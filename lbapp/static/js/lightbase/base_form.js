@@ -2,7 +2,6 @@
 /* DataType Defaults */
 
 var DATATYPES= [
-    'Texto',
     'AlfaNumerico',
     'Documento',
     'Inteiro',
@@ -15,6 +14,7 @@ var DATATYPES= [
     'Imagem',
     'Som',
     'Video',
+    'Texto',
     'URL',
     'Verdadeiro/Falso',
     'Arquivo',

@@ -38,6 +38,9 @@ $.each(json, function(i, base){
     fastlinkclass.BaseListPhoneButton(id);
     fastlinkclass.BaseListPhoneEdit(id);
     fastlinkclass.BaseListPhoneDelete(id);
+    fastlinkclass.BaseListPhoneConfig(tr, tbody, id);
+    fastlinkclass.BaseListPhoneJson(tr, tbody, id, base);
+    fastlinkclass.BaseListPhoneReg(tr, tbody, id, base);
     //fastlinkclass.createLine(i, base);
 });
 
@@ -246,7 +249,7 @@ function FastLinkClass(){
                 autoOpen: false,
                 modal: true,
                 width: 800,
-                height: 500,
+                height: 400,
                 // buttons: {
                 //     "Fechar": function() {
                 //         $(this).dialog("close");
@@ -363,7 +366,7 @@ function FastLinkClass(){
         span.setAttribute('class', 'green');
         a.setAttribute('class', 'tooltip-success');
         a.setAttribute('data-rel', 'tooltip');
-        a.setAttribute('title', 'Edit');
+        a.setAttribute('title', 'Editar');
         a.setAttribute('href', '/base/' + id + '/edit');
         ul.setAttribute('class', 'dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close');
         ul.setAttribute('id', 'ul_' + id);
@@ -398,7 +401,7 @@ function FastLinkClass(){
         span.setAttribute('class', 'red');
         a.setAttribute('class', 'tooltip-error');
         a.setAttribute('data-rel', 'tooltip');
-        a.setAttribute('title', 'Delete');
+        a.setAttribute('title', 'Deletar');
 
         span.appendChild(i);
         a.appendChild(span);
@@ -430,6 +433,111 @@ function FastLinkClass(){
         });
 
     }
+
+        this.BaseListPhoneConfig = function(tr, tbody, id){
+        var ul = document.getElementById("ul_" + id);
+        var li = document.createElement("li");
+        var span = document.createElement("span");
+        var a = document.createElement("a");
+        var i = document.createElement("i");
+
+        i.setAttribute('class', 'icon-cog bigger-120');
+        i.setAttribute('id', 'config-phone-' + id);
+        span.setAttribute('class', 'blue');
+        a.setAttribute('class', 'tooltip-error');
+        a.setAttribute('data-rel', 'tooltip');
+        a.setAttribute('title', 'Configurar');
+
+        span.appendChild(i);
+        a.appendChild(span);
+        li.appendChild(a);
+        ul.appendChild(li);
+
+        $(function() {
+            $("#div_config").dialog({
+                autoOpen: false,
+                modal: true,
+                width: 800,
+                height: 500,
+                // buttons: {
+                //     "Fechar": function() {
+                //         $(this).dialog("close");
+                //     }
+                // }
+            });
+            $(".dialogify").on("click", function(e) {
+                e.preventDefault();
+                $("#div_config").html("");
+                $("#div_config").dialog("option", "title", "Configurações").dialog("open");
+                $("#div_config").load(this.href, function() {
+                    // $(this).dialog("option", "title", $(this).find("h1").text());
+                    // $(this).find("h1").remove();
+                });
+            });
+        });
+
+    }
+
+    this.BaseListPhoneJson = function(tr, tbody, id, base){
+        var ul = document.getElementById("ul_" + id);
+        var li = document.createElement("li");
+        var span = document.createElement("span");
+        var a = document.createElement("a");
+        var i = document.createElement("i");
+
+        i.setAttribute('class', 'icon-th-list bigger-120');
+        i.setAttribute('id', 'json-phone-' + id);
+        span.setAttribute('class', 'gray');
+        a.setAttribute('class', 'tooltip-error');
+        a.setAttribute('data-rel', 'tooltip');
+        a.setAttribute('title', 'Json');
+
+        span.appendChild(i);
+        a.appendChild(span);
+        li.appendChild(a);
+        ul.appendChild(li);
+
+        $("#json-phone-" + id).click(function(){
+            var val = JSON.stringify(base.json_base);
+            bootbox.dialog(fastlinkclass.FormatJson(val), [{
+                "label" : "Fechar",
+                "class" : "btn-small btn-primary",
+                }
+            ]);
+        });
+
+    }
+
+    this.BaseListPhoneReg = function(tr, tbody, id, base){
+        var ul = document.getElementById("ul_" + id);
+        var li = document.createElement("li");
+        var span = document.createElement("span");
+        var a = document.createElement("a");
+        var i = document.createElement("i");
+
+        i.setAttribute('class', 'icon-file bigger-120');
+        i.setAttribute('id', 'reg-phone-' + id);
+        span.setAttribute('class', 'blue');
+        a.setAttribute('class', 'tooltip-error');
+        a.setAttribute('data-rel', 'tooltip');
+        a.setAttribute('title', 'Reg');
+
+        span.appendChild(i);
+        a.appendChild(span);
+        li.appendChild(a);
+        ul.appendChild(li);
+
+        $("#reg-phone-" + id).click(function(){
+            var val = JSON.stringify(base.reg_model);
+            bootbox.dialog(fastlinkclass.FormatJson(val), [{
+                "label" : "Fechar",
+                "class" : "btn-small btn-primary",
+                }
+            ]);
+        });
+
+    }
+
 
     this.FormatJson = function(val) {
         var retval = '';
