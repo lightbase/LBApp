@@ -31,11 +31,11 @@
 		<link rel="stylesheet" href="/static/ace-final/assets/css/ace-skins.min.css" />
 
 		<!--custom styles-->
-		<link rel="stylesheet" href="/static/css/lightbase/icons.css" />
+		<link rel="stylesheet" href="/static/css/Lightbase/icons.css" />
 	    <link rel="shortcut icon" type="image/x-icon" href="/static/img/favicon.ico" />	
 
 	    <!-- Jquery UI -->
-		<link rel="stylesheet" href="/static/css/lightbase/jquery-ui-themes/cupertino/jquery-ui.css" />
+		<link rel="stylesheet" href="/static/css/Lightbase/jquery-ui-themes/cupertino/jquery-ui.css" />
 
 		<!-- Config -->
 		<!-- <link rel="stylesheet" href="../static/ace-final/assets/css/jquery-ui-1.10.3.custom.min.css" />
