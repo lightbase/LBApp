@@ -72,6 +72,3 @@ def temp25(request):
 @view_config(route_name='jqgrid', renderer='../templates/jqgrid.pt')
 def temp26(request):
     return {'project': 'LBApp'}
-@view_config(route_name='config', renderer='../templates/base/config_tables.pt')
-def temp27(request):
-    return {'project': 'LBApp'}

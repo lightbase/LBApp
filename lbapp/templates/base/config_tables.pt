@@ -139,6 +139,37 @@
                     }
                 });
 
+                /*$("#button-submit").click(function(){
+                    bootbox.dialog("Deseja salvar alterações?", [{
+                        "label": "Salvar",
+                        "class": "btn btn-succes",
+                        callback: function(){
+                            $.ajax({
+                                type: 'PUT',
+                                url: window.location,
+                                data: {
+                                    json_base: base_content.json_base'
+                                },
+                                success: function(data, textStatus, jqXHR ){
+                                    bootbox.dialog("Obrigado! Sua base foi salva com sucesso!", [{
+                                        "label" : "OK",
+                                        "class" : "btn-small btn-primary",
+                                        "href": '/base/list',
+                                        }]
+                                    );
+                                },
+                                error: function(jqXHR, textStatus, errorThrown){
+                                    window.location.href = '/error-500';
+                                }
+                            });
+                        }
+                    },{
+                        "label": "Cancelar",
+                        "class": "btn btn-danger",
+                    }]);
+
+                    });*/
+
                 $("#button-prev").click(function(){
                     $("#div_config").dialog("close");
 

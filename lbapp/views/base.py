@@ -63,17 +63,6 @@ def edit_base(request):
 @view_config(route_name='list_base', renderer='../templates/base/list.pt')
 def list_base(request):
 
-    # Daqui 
-    if request.method == 'PUT':
-        base_json = request.params['json_base']
-        base_id = request.params['id_base']
-        response = requests.put('%s/base/%s' %(rest_url, base_id), data={'json_base': base_json})
-        if response.text == 'DELETED':
-            return Response(status=200)
-        else:
-            return Response(status=500)
-    #ate aqui
-
     if request.method == 'DELETE':
         base_id = request.params['id_base']
         response = requests.delete('%s/base/%s' %(rest_url, base_id))
@@ -161,6 +150,20 @@ def explore_base(request):
     }
 
     return {'explorer': json.dumps(explorer, ensure_ascii=False)}
+
+@view_config(route_name='config', renderer='../templates/base/config_tables.pt')
+def config_base(request):
+
+    if request.method == 'PUT':
+        base_json = request.params['json_base']
+        base_id = request.params['id_base']
+        response = requests.put('%s/base/%s' %(rest_url, base_id), data={'json_base': base_json})
+        if response.text == 'DELETED':
+            return Response(status=200)
+        else:
+            return Response(status=500)
+
+    return {'project': 'LBApp'}
 
 
 

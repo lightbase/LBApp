@@ -245,6 +245,23 @@ function ConfirmButton(id){
     $(icon).text(' Confirmar');
     button.appendChild(icon);
     this.html = button;
+
+    // $("#base-context-" + id + "confirm-button").click(function(){
+    //     console.log(id)
+    //     var nestablelabel = document.getElementById("nestable-" + id + "-content"),
+    //         spansticker = document.createElement("span"),
+    //         spanlabel = document.createElement("span"),
+    //         i = document.createElement("i");
+
+    //     i.setAttribute("class", "icon-ok bigger-110");
+    //     spanlabel.setAttribute("class", "label label-success arrowed-in");
+    //     spansticker.setAttribute("class", "sticker");
+
+    //     spanlabel.appendChild(i);
+    //     spansticker.appendChild(spanlabel);
+    //     nestablelabel.appendChild(spansticker);
+
+    // });
 }
 
 function CancelButton(id){

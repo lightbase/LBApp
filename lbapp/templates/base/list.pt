@@ -4,7 +4,7 @@
 
     <div metal:fill-slot="conteudo" id="widgets">
     <title>LightBase - Listagem de Bases</title>
-        <div id="controller-base" style="display:none;">${r}</div>
+        <div id="controller-base" style="display:none;">${results}</div>
 <header>
 
 </header>

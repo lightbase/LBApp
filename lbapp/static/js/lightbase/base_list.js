@@ -20,27 +20,27 @@ fastlinkclass = new FastLinkClass();
 $.each(json, function(i, base){
     var id = base.id_base,
         name = base.nome_base,
-        date = base.dt_base;
+        date = base.dt_base,
         color = base.json_base.metadata.color;
 
     tr = document.createElement("tr");
     tr.setAttribute('id', 'tr-' + i);
 
-    fastlinkclass.BaseListID(tr, id);
-    fastlinkclass.BaseListColor(tr, color);
-    fastlinkclass.BaseListName(tr, id, name);
-    fastlinkclass.BaseListDate(tr, date);
-    fastlinkclass.BaseListEdit(tr, tbody, id);
-    fastlinkclass.BaseListDelete(tr, tbody, id);
-    fastlinkclass.BaseListConfig(tr, tbody, id);
-    fastlinkclass.BaseListJson(tr, tbody, id, base);
-    fastlinkclass.BaseListReg(tr, tbody, id, base);
-    fastlinkclass.BaseListPhoneButton(id);
-    fastlinkclass.BaseListPhoneEdit(id);
-    fastlinkclass.BaseListPhoneDelete(id);
-    fastlinkclass.BaseListPhoneConfig(tr, tbody, id);
-    fastlinkclass.BaseListPhoneJson(tr, tbody, id, base);
-    fastlinkclass.BaseListPhoneReg(tr, tbody, id, base);
+    fastlinkclass.baseListID(tr, id);
+    fastlinkclass.baseListColor(tr, color);
+    fastlinkclass.baseListName(tr, id, name);
+    fastlinkclass.baseListDate(tr, date);
+    fastlinkclass.baseListEdit(tr, tbody, id);
+    fastlinkclass.baseListDelete(tr, tbody, id);
+    fastlinkclass.baseListConfig(tr, tbody, id);
+    fastlinkclass.baseListJson(tr, tbody, id, base);
+    fastlinkclass.baseListReg(tr, tbody, id, base);
+    fastlinkclass.baseListPhoneButton(id);
+    fastlinkclass.baseListPhoneEdit(id);
+    fastlinkclass.baseListPhoneDelete(id);
+    fastlinkclass.baseListPhoneConfig(tr, tbody, id);
+    fastlinkclass.baseListPhoneJson(tr, tbody, id, base);
+    fastlinkclass.baseListPhoneReg(tr, tbody, id, base);
     //fastlinkclass.createLine(i, base);
 });
 
@@ -85,7 +85,7 @@ function FastLinkClass(){
     }*/
 
 
-    this.BaseListID = function(tr, id){
+    this.baseListID = function(tr, id){
         var td = document.createElement("td");
         var a = document.createElement("a");
 
@@ -96,7 +96,7 @@ function FastLinkClass(){
 
     }
 
-    this.BaseListColor = function(tr, color){
+    this.baseListColor = function(tr, color){
         var td = document.createElement("td");
         var a = document.createElement("a");
         var div = document.createElement("div");
@@ -108,7 +108,7 @@ function FastLinkClass(){
 
     }
 
-    this.BaseListName = function(tr, id, name){
+    this.baseListName = function(tr, id, name){
         var td = document.createElement("td");
         var a = document.createElement("a");
 
@@ -119,7 +119,7 @@ function FastLinkClass(){
 
     }
 
-    this.BaseListDate = function(tr, date){
+    this.baseListDate = function(tr, date){
         var td = document.createElement("td");
         var a = document.createElement("a");
 
@@ -137,7 +137,7 @@ function FastLinkClass(){
 
     }
 
-    this.BaseListEdit = function(tr, tbody, id){
+    this.baseListEdit = function(tr, tbody, id){
         var td = document.createElement("td");
         var a = document.createElement("a");
         var div = document.createElement("div");
@@ -177,7 +177,7 @@ function FastLinkClass(){
 
     }
 
-    this.BaseListDelete = function(tr, tbody, id){
+    this.baseListDelete = function(tr, tbody, id){
         var td = document.getElementById("td-actions" + id);
         var div = document.getElementById("div-" + id);
         var a = document.createElement("a");
@@ -203,9 +203,9 @@ function FastLinkClass(){
                 "class" : "btn-small btn-primary",
                 callback: function() {
                     $.ajax({
-                        type: 'POST',
-                        url: window.location,
-                        data: {"id_base": id},
+                        type: 'DELETE',
+                        url: window.location + "?id_base=" + id,
+                        //data: {"id_base": id},
                         cache: false,
                         success: function(data, textStatus, jqXHR ){
                         window.location.reload();
@@ -223,7 +223,7 @@ function FastLinkClass(){
 
     }
 
-    this.BaseListConfig = function(tr, tbody, id){
+    this.baseListConfig = function(tr, tbody, id){
         var td = document.getElementById("td-actions" + id);
         var div = document.getElementById("div-" + id);
         var a = document.createElement("a");
@@ -268,7 +268,7 @@ function FastLinkClass(){
         });
     }
 
-    this.BaseListJson = function(tr, tbody, id, base){
+    this.baseListJson = function(tr, tbody, id, base){
         var td = document.getElementById("td-actions" + id);
         var div = document.getElementById("div-" + id);
         var a = document.createElement("a");
@@ -298,7 +298,7 @@ function FastLinkClass(){
 
     }
 
-    this.BaseListReg = function(tr, tbody, id, base){
+    this.baseListReg = function(tr, tbody, id, base){
         var td = document.getElementById("td-actions" + id);
         var div = document.getElementById("div-" + id);
         var a = document.createElement("a");
@@ -328,7 +328,7 @@ function FastLinkClass(){
 
     }
 
-    this.BaseListPhoneButton = function(id){
+    this.baseListPhoneButton = function(id){
         var td = document.getElementById("td-actions" + id);
         var a = document.createElement("a");
         var divin = document.createElement("div");
@@ -353,7 +353,7 @@ function FastLinkClass(){
 
     }
 
-    this.BaseListPhoneEdit = function(id){
+    this.baseListPhoneEdit = function(id){
         var divin = document.getElementById("divin_" + id);
         var i = document.createElement("i");
         var ul = document.createElement("ul");
@@ -389,7 +389,7 @@ function FastLinkClass(){
 
     }
 
-    this.BaseListPhoneDelete = function(id){
+    this.baseListPhoneDelete = function(id){
         var ul = document.getElementById("ul_" + id);
         var li = document.createElement("li");
         var span = document.createElement("span");
@@ -434,7 +434,7 @@ function FastLinkClass(){
 
     }
 
-        this.BaseListPhoneConfig = function(tr, tbody, id){
+        this.baseListPhoneConfig = function(tr, tbody, id){
         var ul = document.getElementById("ul_" + id);
         var li = document.createElement("li");
         var span = document.createElement("span");
@@ -478,7 +478,7 @@ function FastLinkClass(){
 
     }
 
-    this.BaseListPhoneJson = function(tr, tbody, id, base){
+    this.baseListPhoneJson = function(tr, tbody, id, base){
         var ul = document.getElementById("ul_" + id);
         var li = document.createElement("li");
         var span = document.createElement("span");
@@ -508,7 +508,7 @@ function FastLinkClass(){
 
     }
 
-    this.BaseListPhoneReg = function(tr, tbody, id, base){
+    this.baseListPhoneReg = function(tr, tbody, id, base){
         var ul = document.getElementById("ul_" + id);
         var li = document.createElement("li");
         var span = document.createElement("span");
@@ -539,7 +539,7 @@ function FastLinkClass(){
     }
 
 
-    this.FormatJson = function(val) {
+    this.formatJson = function(val) {
         var retval = '';
         var str = val;
         var pos = 0;
