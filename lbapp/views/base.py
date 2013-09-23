@@ -62,16 +62,29 @@ def edit_base(request):
 
 @view_config(route_name='list_base', renderer='../templates/base/list.pt')
 def list_base(request):
-    if request.params:
+
+    # Daqui 
+    if request.method == 'PUT':
+        base_json = request.params['json_base']
+        base_id = request.params['id_base']
+        response = requests.put('%s/base/%s' %(rest_url, base_id), data={'json_base': base_json})
+        if response.text == 'DELETED':
+            return Response(status=200)
+        else:
+            return Response(status=500)
+    #ate aqui
+
+    if request.method == 'DELETE':
         base_id = request.params['id_base']
         response = requests.delete('%s/base/%s' %(rest_url, base_id))
         if response.text == 'DELETED':
             return Response(status=200)
         else:
             return Response(status=500)
+
     response = requests.get('%s/base?$$={"select":"*"}' %(rest_url)).json()
-    result = response['results']
-    return {'r': json.dumps(result)}
+    results = response['results']
+    return {'results': json.dumps(results)}
 
 @view_config(route_name='explore_base', renderer='../templates/base/explore.pt')
 def explore_base(request):

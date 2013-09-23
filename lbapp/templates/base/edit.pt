@@ -585,7 +585,7 @@
                                 };
                                 $.ajax({
                                     type: 'post',
-                                    url: window.location,
+                                    url: window.location + '?id_base=',
                                     data: data,
                                     success: function(data, textStatus, jqXHR ){
                                         bootbox.dialog("Obrigado! Sua base foi salva com sucesso!", [{
