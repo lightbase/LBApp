@@ -1,0 +1,10 @@
+fieldset {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+legend {
+    width:inherit; /* Or auto */
+    padding:0 10px; /* To give a bit of padding on the left and right */
+    border-bottom:none;
+}
