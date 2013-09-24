@@ -289,7 +289,7 @@ function FastLinkClass(){
 
         $("#json-" + id).click(function(){
             var val = JSON.stringify(base.json_base);
-            bootbox.dialog(fastlinkclass.FormatJson(val), [{
+            bootbox.dialog(fastlinkclass.formatJson(val), [{
                 "label" : "Fechar",
                 "class" : "btn-small btn-primary",
                 }
@@ -319,7 +319,7 @@ function FastLinkClass(){
 
         $("#reg-" + id).click(function(){
             var val = JSON.stringify(base.reg_model);
-            bootbox.dialog(fastlinkclass.FormatJson(val), [{
+            bootbox.dialog(fastlinkclass.formatJson(val), [{
                 "label" : "Fechar",
                 "class" : "btn-small btn-primary",
                 }

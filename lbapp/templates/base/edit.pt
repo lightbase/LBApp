@@ -362,6 +362,8 @@
             },
             password: {
                 required: true,
+                maxlength: 14,
+                minlength: 8
             },
             password_again: {
                 required: true,
