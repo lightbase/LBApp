@@ -14,7 +14,7 @@
                   <div class="span12">
                      <div class="widget-box">
                         <div class="widget-header widget-header-blue widget-header-flat">
-                           <h4 class="lighter">Editar Base</h4>
+                           <h4 class="lighter" id="table-header" />
                         </div>
                         <div class="widget-body">
                            <div class="widget-main">
@@ -52,7 +52,7 @@
                                              <label class="control-label">Descrição:</label>
                                              <div class="controls">
                                                 <div class="span12">
-                                                   <input class="span6" type="text" name="description" id="base-description" class="span4" />
+                                                   <textarea class="span6" type="text" name="description" id="base-description" class="span4" style="width: 80%; height: 70px;"></textarea>
                                                 </div>
                                              </div>
                                           </div>
@@ -270,6 +270,7 @@
                                                 </div>
                                              </div>
                                           </div>
+                                          <br>
                                           <p>
                                              <button id="save-data" type="submit" class="btn btn-purple" style="width: 37%;">Salvar Base</button>
                                           </p>

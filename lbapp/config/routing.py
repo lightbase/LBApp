@@ -8,6 +8,7 @@ def make_routes(config):
     config.add_route('list_base', 'base/list')
     config.add_route('edit_base', 'base/{base_id}/edit')
     config.add_route('explore_base', 'base/{base_id}/explore')
+    config.add_route('config', 'config')
 
     # ** ERROR **
     config.add_route('error-404', 'error-404')
@@ -38,7 +39,6 @@ def make_routes(config):
     config.add_route('f', 'f')
     config.add_route('jqgrid', 'jqgrid')
     config.add_route('master', 'master')
-    config.add_route('config', 'config')
 
 ''' 
     config.add_route('new_base',     'lb/new')

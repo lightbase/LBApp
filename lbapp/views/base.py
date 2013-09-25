@@ -163,8 +163,4 @@ def config_base(request):
         else:
             return Response(status=500)
 
-    return {'project': 'LBApp'}
-
-
-
-
+    return {}

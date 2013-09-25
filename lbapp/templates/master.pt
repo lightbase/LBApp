@@ -517,8 +517,12 @@
 		<!--<script src="/static/js/lightbase/base_onhover.js"></script>
 		<script src="/static/js/lightbase/jquery-cookie/jquery.cookie.js"></script>
 		<script src="/static/js/lightbase/read_cookies.js"></script>-->
-		<script src="/static/js/lightbase/lightbase_onhover.js"></script>
 		<script src="/static/js/lightbase/color.header.js"></script>
+
+		<!-- lightbase scripts -->
+
+		<script src="/static/js/lightbase/jQuery-MD5/jquery.md5.js"></script>
+
 
 		<!--inline scripts related to this page-->
 	</body>

@@ -246,8 +246,7 @@ function ConfirmButton(id){
     button.appendChild(icon);
     this.html = button;
 
-    // $("#base-context-" + id + "confirm-button").click(function(){
-    //     console.log(id)
+    // $("#base-context-" + id + "-confirm-button").click(function(){
     //     var nestablelabel = document.getElementById("nestable-" + id + "-content"),
     //         spansticker = document.createElement("span"),
     //         spanlabel = document.createElement("span"),
@@ -262,6 +261,7 @@ function ConfirmButton(id){
     //     nestablelabel.appendChild(spansticker);
 
     // });
+
 }
 
 function CancelButton(id){
@@ -834,10 +834,13 @@ function BaseStructure(nestable_space, context){
 
     this.dd_content = function(id, text){
         var div = document.createElement("div");
+
         div.setAttribute('id', ['nestable', id, 'content'].join('-'));
         div.setAttribute('class', 'dd2-content btn-info no-hover');
+
         $(div).text(text);
         return div
+
     };
 
     this.field_form = function(id, field_name, field_desc){
@@ -919,7 +922,7 @@ function BaseStructure(nestable_space, context){
             collapse_btn = this.toggle_button('collapse', 'block'),
             expand_btn = this.toggle_button('expand', 'none'),
             handle = this.dd_handle(group_id, group=true),
-            content = this.dd_content(group_id, group_name),
+            content = this.dd_ (group_id, group_name),
             ol = this.dd_list();
         if (remand){
             li.appendChild(collapse_btn);
@@ -1183,6 +1186,7 @@ function BaseStructure(nestable_space, context){
                 });
                 return response;
             };
+        $('#table-header').text('Base - ' + json_base.metadata.name);
         $('#base-name').val(json_base.metadata.name);
         $('#base-description').val(json_base.metadata.description);
         $('#base-password').val(json_base.metadata.password);
