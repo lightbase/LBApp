@@ -563,9 +563,6 @@
                             if (v.name == "index_export"){
                                 v.value = true
                             }
-                            if (v.name == "password"){
-                                v.value = $.md5(v.value);
-                            }
                             returnArray[v.name] = v.value;
                         });
                         if (!("doc_extract" in returnArray)){
