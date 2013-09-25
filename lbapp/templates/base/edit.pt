@@ -60,7 +60,7 @@
                                              <label class="control-label">Senha:</label>
                                              <div class="controls">
                                                 <div class="span12">
-                                                   <input class="span6" type="password" name="password" id="base-password" class="span4" />
+                                                   <input class="span6" type="password" name="password" id="base-password" class="span4" style="width: 200px;" />
                                                 </div>
                                              </div>
                                           </div>
@@ -68,7 +68,7 @@
                                              <label class="control-label">Confirmar Senha:</label>
                                              <div class="controls">
                                                 <div class="span12">
-                                                   <input class="span6" type="password" name="password_again" id="base-password-confirm" class="span4" />
+                                                   <input class="span6" type="password" name="password_again" id="base-password-confirm" class="span4" style="width: 200px;" />
                                                 </div>
                                              </div>
                                           </div>
