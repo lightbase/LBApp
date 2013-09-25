@@ -1,5 +1,4 @@
 ﻿
-
 function FieldSet(structure){
     this.structure = structure;
     this.elements = [ ];
@@ -37,23 +36,6 @@ function Controls(fields){
         controls.appendChild(fields[f]);
     this.fields = fields;
     this.html = controls;
-}
-
-function Field(structure){
-    this.structure = structure;
-    this.label = new Label(structure.alias);
-    var input = document.createElement('input'),
-        attributes = {
-        'name'       : structure.name,
-        'class'      : 'input-medium',
-        'type'       : 'text',
-    };
-    $.each(attributes, function(k, v){
-        input.setAttribute(k, v);
-    });
-    this.input = input;
-    this.controls = new Controls([this.input]);
-    this.html = new ControlGroup(this.label, this.controls).html;
 }
 
 function Form(id){
@@ -179,7 +161,7 @@ FieldSet.prototype = new FormProtoType();
                 field_value = registry[field.name];
 
                 if (field_value){
-                    field_type = type_of(field_value);
+                    field_type = Utils.type_of(field_value);
                     if (field_type != 'object' && field_type != 'array')
                         cell_value = field_value.toString()
                     else if (field_type == 'object')
@@ -208,7 +190,7 @@ FieldSet.prototype = new FormProtoType();
                 group_id = [registry_id, group.metadata.name].join('-');
                 registries = registry[group.metadata.name];
                 if (registries) {
-                    if (type_of(registries) != 'array') 
+                    if (Utils.type_of(registries) != 'array') 
                         registries = [registries];
                 }
                 else registries =  [ ];
@@ -242,8 +224,8 @@ FieldSet.prototype = new FormProtoType();
             fieldset,
             level_form;
         base.content.forEach(function(structure){
-            if (structure.field){
-                field = new Field(structure.field);
+            if (structure.field && !structure.field.multivalued){
+                field = Fields.get_field(structure.field);
                 elements.push(field);
             }
             if (structure.group && !structure.group.metadata.multivalued){
@@ -275,13 +257,11 @@ FieldSet.prototype = new FormProtoType();
                         id = table.id, 
                         multi = true;
                         pk = null , name = null;
-
                     if (id){
                         var split = id.split('-');
                         pk = split.shift();
                         name = split.join('-');
                     }
-
                     $.ajax({
                         type: 'post',
                         url: window.location,
@@ -303,7 +283,6 @@ FieldSet.prototype = new FormProtoType();
                             custom_alert('Erro ao adicionar registro');
                         }
                     });
-
                 }
             });
         });
@@ -425,9 +404,9 @@ FieldSet.prototype = new FormProtoType();
 
     function TableStandardCell(content, colspan){
         var td = document.createElement('td');
-        if (type_of(content) == 'string')
+        if (Utils.type_of(content) == 'string')
             $(td).text(content);
-        else if (type_of(content) == 'array'){
+        else if (Utils.type_of(content) == 'array'){
             content.forEach(function(el){
                 td.appendChild(el.html);
             });
@@ -440,9 +419,9 @@ FieldSet.prototype = new FormProtoType();
     function TableHeaderCell(content){
         var th = document.createElement('th');
         th.setAttribute('class', 'sorting');
-        if (type_of(content) == 'string')
+        if (Utils.type_of(content) == 'string')
             $(th).text(content);
-        else if (type_of(content) == 'array'){
+        else if (Utils.type_of(content) == 'array'){
             content.forEach(function(element){
                 th.appendChild(element.html);
             });
@@ -514,50 +493,5 @@ FieldSet.prototype = new FormProtoType();
         this.html = anchor;
     }
 
-    function type_of(obj){
-        var type_handler = new TypeHandler(obj);
-        return type_handler.type();
-    }
-
-    function TypeHandler(value) {
-        // number, boolean, string, object, array, date
-        this._type = this.get_type(value);
-    };
-
-    TypeHandler.prototype.type = function() { return this._type; }
-
-    TypeHandler.prototype.get_type = function(value) {
-        var base_type = typeof value;
-        var result = "unsupported"
-        switch (base_type) {
-            case "number": result = base_type; break;
-            case "string": result = base_type; break;
-            case "boolean": result = base_type; break;
-            case "object":
-                if (Number.prototype.isPrototypeOf(value)) { result = "number"; break; }
-                if (String.prototype.isPrototypeOf(value)) { result = "string"; break; }
-                if (Date.prototype.isPrototypeOf(value)) { result = "date"; break; }
-                if (Array.prototype.isPrototypeOf(value)) { result = "array"; break; }
-                if (Object.prototype.isPrototypeOf(value)) { result = "object"; break; }
-        }
-        return result;
-    };
-
 })(jQuery);
 
-function custom_alert(text){
-     var template = 
-    '<div class="alert alert-danger" style="display: none; ">' +
-        '<button type="button" class="close" data-dismiss="alert">' +
-            '<i class="icon-remove"></i>' +
-        '</button>' +
-        '<span></span>' +
-    '</div>', 
-        dom = $(template);
-    dom.css('position', 'fixed');
-    dom.css('bottom', '25%');
-    dom.css('right', '2%');
-    dom.find('span').text(text);
-    $('body').append(dom);
-    dom.delay(200).fadeIn().delay(4000).fadeOut();
-}

@@ -16,6 +16,7 @@
 </metal:main>
 
 <script src="/static/js/ace/bootbox.min.js"></script>
+<script src="/static/ace-final/assets/js/jquery.maskedinput.min.js"></script>
 <script src="/static/ace-final/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 <script src="/static/ace-final/assets/js/jquery.ui.touch-punch.min.js"></script>
 
@@ -25,7 +26,12 @@
 <link href="/static/bootstrap-editable-1.4.6/bootstrap-editable/img/loading.gif" />
 <script src="/static/bootstrap-editable-1.4.6/bootstrap-editable/js/bootstrap-editable.min.js"></script>
 
+<!--validate plugin-->
+<script src="/static/js/ace/jquery.validate.min.js"></script>
+
 <!--Explorer-->
+<script src="/static/js/lightbase/utils.js"></script>
+<script src="/static/js/lightbase/fields.js"></script>
 <script src="/static/js/lightbase/jquery.explorer.js"></script>
 <link href="/static/css/lightbase/jquery.explorer.css" rel="stylesheet"/>
 
