@@ -4,11 +4,11 @@
     <title>LightBase - Criar Nova Base</title>
       <header>
     		<link rel="stylesheet" href="../static/ace-final/assets/css/jquery-ui-1.10.3.custom.min.css" />
-    		<link rel="stylesheet" href="../static/ace-final/assets/css/chosen.css" />
-    		<link rel="stylesheet" href="../static/ace-final/assets/css/datepicker.css" />
-    		<link rel="stylesheet" href="../static/ace-final/assets/css/bootstrap-timepicker.css" />
-    		<link rel="stylesheet" href="../static/ace-final/assets/css/daterangepicker.css" />
-    		<link rel="stylesheet" href="../static/ace-final/assets/css/colorpicker.css" />
+    		<link rel="stylesheet" href="/static/ace-final/assets/css/chosen.css" />
+    		<link rel="stylesheet" href="/static/ace-final/assets/css/datepicker.css" />
+    		<link rel="stylesheet" href="/static/ace-final/assets/css/bootstrap-timepicker.css" />
+    		<link rel="stylesheet" href="/static/ace-final/assets/css/daterangepicker.css" />
+    		<link rel="stylesheet" href="/static/ace-final/assets/css/colorpicker.css" />
       </header>
       <div class="page-content">
          <div id="base_names" style="display: none">${base_names}</div>
@@ -85,7 +85,7 @@
                                              <label class="control-label">Cor da Base:</label>
                                              <div class="controls">
                                                 <div class="span12">
-                                                   <input id="colorpicker" name="color" type="text" class="input-mini">
+                                                   <input id="base-color" name="color" type="text" class="input-mini">
                                                       <!-- <input id="colorpicker-to-show" type="text" class="input-mini" style="width: 8px; height: 10px; "   >
                                                       </input> -->
                                                    </input>
@@ -754,12 +754,12 @@
 				$('#spinner2').ace_spinner({value:0,min:0,max:10000,step:100, icon_up:'icon-caret-up', icon_down:'icon-caret-down'});
 				$('#spinner3').ace_spinner({value:0,min:-100,max:100,step:10, icon_up:'icon-plus', icon_down:'icon-minus', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
 			
-            $('#colorpicker').colorpicker();
-				$('#base-color').ace_colorpicker();
+            $('#base-color').colorpicker();
+				//$('#base-color').ace_colorpicker();
 
-            $('#colorpicker').focusout(function(){
+            $('#base-color').focusout(function(){
                //var colorpickerToShow = document.getElementById('colorpicker-to-show'),
-                   colorpicker = document.getElementById('colorpicker'),
+                   colorpicker = document.getElementById('base-color'),
                    //colorpickerValue = colorpicker.value;
 
                colorpicker.setAttribute('style', 'background-color:' + colorpicker.value + ';')
