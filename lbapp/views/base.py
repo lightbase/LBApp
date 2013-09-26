@@ -99,14 +99,12 @@ def explore_base(request):
             return action('%s/reg/%s/%s/depth_key' % (rest_url, base_name, id_reg), data=data)
 
     if request.method == 'POST':
-        try:
-            response = request_action(request)
-            if utils.is_integer(response.text):
-                return Response(response.text, status=200)
-            else:
-                return Response(status=500)
-        except:
+        response = request_action(request)
+        if utils.is_integer(response.text):
+            return Response(response.text, status=200)
+        else:
             return Response(status=500)
+        return Response(status=500)
 
     elif request.method == 'PUT':
         try:

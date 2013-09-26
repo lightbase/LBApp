@@ -1,32 +1,39 @@
 
-var add_class_rules;
+var Fields = new Object();
 
 (function(){
 
     // Add validation methods
 
     $.validator.addMethod('text_validator', function(value, element){
+        if (value == '') return true;
         return true;
     }, '');
     $.validator.addMethod('alphanumeric_validator', function(value, element){
+        if (value == '') return true;
         return /^[a-z0-9]+$/i.test(value);
     }, '');
     $.validator.addMethod('document_validator', function(value, element){
     }, '');
     $.validator.addMethod('integer_validator', function(value, element){
+        if (value == '') return true;
         return /^\d+$/.test(value);
-    }, '');
+    }, 'Valor deve ser um número inteiro.');
     $.validator.addMethod('decimal_validator', function(value, element){
+        if (value == '') return true;
         return /^(\d+\.?\d*|\.\d+)$/.test(value)
     }, '');
     $.validator.addMethod('coin_validator', function(value, element){
+        if (value == '') return true;
     }, '');
     $.validator.addMethod('selfenumerated_validator', function(value, element){
     }, '');
     $.validator.addMethod('date_validator', function(value, element){
+        if (value == '') return true;
         return /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/.test(value);
-    }, '');
+    }, 'Formato válido: ');
     $.validator.addMethod('time_validator', function(value, element){
+        if (value == '') return true;
         return /^([01]\d|2[0-3]):([0-5]\d)$/.test(value)
     }, '');
     $.validator.addMethod('datetime_validator', function(value, element){
@@ -48,6 +55,7 @@ var add_class_rules;
     $.validator.addMethod('html_validator', function(value, element){
     }, '');
     $.validator.addMethod('email_validator', function(value, element){
+        if (value == '') return true;
         return  /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value);
     }, '');
     $.validator.addMethod('json_validator', function(value, element){
@@ -59,10 +67,10 @@ var add_class_rules;
         catch (e){
             return false;
         }
-    }, '');
+    }, 'Insira um JSON válido.');
 
     // Add class rules
-    add_class_rules = function(){
+    Fields.add_class_rules = function(){
 
         $.validator.addClassRules({
             'text-validator':{
@@ -126,15 +134,14 @@ var add_class_rules;
     }
 })(jQuery.validator);
 
-var Fields = new Object(),
-    BaseField = Class.extend({
+    var BaseField = Class.extend({
         init: function(structure){
             this.structure = structure;
             this.label = new Label(structure.alias);
             this.controls = new Controls([this.input]);
             this.html = new ControlGroup(this.label, this.controls).html;
         }
-    });
+    }),
     TextField = BaseField.extend({
         init: function(structure){
             var attributes = {
@@ -219,7 +226,6 @@ var Fields = new Object(),
             this.input = document.createElement('input');
             for (attr in attributes) {this.input.setAttribute(attr, attributes[attr])}
             this._super(structure);
-		    $(this.input).mask('99/99/9999');
         }
     }),
     TimeField = BaseField.extend({

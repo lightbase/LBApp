@@ -33,7 +33,7 @@
 <script src="/static/js/lightbase/utils.js"></script>
 <script src="/static/js/lightbase/fields.js"></script>
 <script src="/static/js/lightbase/jquery.explorer.js"></script>
-<link href="/static/css/lightbase/jquery.explorer.css" rel="stylesheet"/>
+<link href="/static/css/Lightbase/jquery.explorer.css" rel="stylesheet"/>
 
 <script type="text/javascript">
     $(document).ready(function() {

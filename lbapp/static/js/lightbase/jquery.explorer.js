@@ -46,18 +46,43 @@ function Form(id){
     var self = this;
     if (id) this.html.setAttribute('id', id);
 
-    this.is_valid = function(){
-        return true;
+    $(this.html).validate({
+        highlight: function (e) {
+            $(e).closest('.control-group').removeClass('info').addClass('error');
+        },
+        success: function (e) {
+            $(e).closest('.control-group').removeClass('error').addClass('info');
+            $(e).remove();
+        },
+        onkeyup: function(e){
+            $(e).valid()
+        }
+    });
+
+    this.is_valid = function(elements){
+        if (!elements) {
+            Fields.add_class_rules();
+            elements = this.elements;
+        }
+        var _is_valid = true;
+        for (var element in elements){
+            if (elements[element] instanceof FieldSet)
+                _is_valid = this.is_valid(elements[element].elements);
+            else
+                _is_valid = $(elements[element].input).valid();
+            if (!_is_valid) break;
+        }
+        return _is_valid;
     };
 
     this.serialize = function(elements){
         var registry = { };
         elements.forEach(function(element){
-            if (element instanceof Field){
-                registry[element.structure.name] = element.input.value;
-            }
             if (element instanceof FieldSet){
                 registry[element.structure.metadata.name] = self.serialize(element.elements);
+            }
+            else {
+                registry[element.structure.name] = element.input.value;
             }
         });
         return registry;
@@ -250,7 +275,11 @@ FieldSet.prototype = new FormProtoType();
             build_level_form(table.base, append_to=form);
 
             bootbox.confirm(form.html, function(result) {
-                if (result && form.is_valid()){
+                if (result){
+                    if (!form.is_valid()){
+                        Utils.alert('Por favor, preencha os campos corretamente!');
+                        return false;
+                    }
                     var fields_order = [ ], 
                         groups_order = [ ], 
                         registry = form.serialize(form.elements), 
@@ -260,7 +289,7 @@ FieldSet.prototype = new FormProtoType();
                     if (id){
                         var split = id.split('-');
                         pk = split.shift();
-                        name = split.join('-');
+                        name = id_to_path(split.join('-'));
                     }
                     $.ajax({
                         type: 'post',
@@ -280,7 +309,7 @@ FieldSet.prototype = new FormProtoType();
                             table.add_body_row(fields_order, groups_order, registry, id, multi);
                         },
                         error: function(jqXHR, textStatus, errorThrown){
-                            custom_alert('Erro ao adicionar registro');
+                            Utils.alert('Erro ao adicionar registro');
                         }
                     });
                 }

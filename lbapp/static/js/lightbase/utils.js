@@ -77,6 +77,7 @@ Utils.alert = function(text){
     '</div>', 
         dom = $(template);
     dom.css('position', 'fixed');
+    dom.css('z-index', '9999');
     dom.css('bottom', '25%');
     dom.css('right', '2%');
     dom.find('span').text(text);
