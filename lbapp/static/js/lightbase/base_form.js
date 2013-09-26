@@ -246,22 +246,6 @@ function ConfirmButton(id){
     button.appendChild(icon);
     this.html = button;
 
-    // $("#base-context-" + id + "-confirm-button").click(function(){
-    //     var nestablelabel = document.getElementById("nestable-" + id + "-content"),
-    //         spansticker = document.createElement("span"),
-    //         spanlabel = document.createElement("span"),
-    //         i = document.createElement("i");
-
-    //     i.setAttribute("class", "icon-ok bigger-110");
-    //     spanlabel.setAttribute("class", "label label-success arrowed-in");
-    //     spansticker.setAttribute("class", "sticker");
-
-    //     spanlabel.appendChild(i);
-    //     spansticker.appendChild(spanlabel);
-    //     nestablelabel.appendChild(spansticker);
-
-    // });
-
 }
 
 function CancelButton(id){
@@ -922,7 +906,7 @@ function BaseStructure(nestable_space, context){
             collapse_btn = this.toggle_button('collapse', 'block'),
             expand_btn = this.toggle_button('expand', 'none'),
             handle = this.dd_handle(group_id, group=true),
-            content = this.dd_ (group_id, group_name),
+            content = this.dd_content(group_id, group_name),
             ol = this.dd_list();
         if (remand){
             li.appendChild(collapse_btn);

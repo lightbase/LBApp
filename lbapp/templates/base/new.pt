@@ -79,40 +79,37 @@
                                           </div>
 
                                             <!-- COLORPICKER -->
+
+
                                           <div class="control-group">
-                                             <label class="control-label">Cor da base:</label>
+                                             <label class="control-label">Cor da Base:</label>
                                              <div class="controls">
-                                                <div class="span1">
-                                                    <select id="base-color" name="color" class="hide">
-                                                        <option value="#ac725e">#ac725e</option>
-                                                        <option value="#d06b64">#d06b64</option>
-                                                        <option value="#f83a22">#f83a22</option>
-                                                        <option value="#fa573c">#fa573c</option>
-                                                        <option value="#ff7537">#ff7537</option>
-                                                        <option value="#ffad46" selected="">#ffad46</option>
-                                                        <option value="#42d692">#42d692</option>
-                                                        <option value="#16a765">#16a765</option>
-                                                        <option value="#7bd148">#7bd148</option>
-                                                        <option value="#b3dc6c">#b3dc6c</option>
-                                                        <option value="#fbe983">#fbe983</option>
-                                                        <option value="#fad165">#fad165</option>
-                                                        <option value="#92e1c0">#92e1c0</option>
-                                                        <option value="#9fe1e7">#9fe1e7</option>
-                                                        <option value="#9fc6e7">#9fc6e7</option>
-                                                        <option value="#4986e7">#4986e7</option>
-                                                        <option value="#9a9cff">#9a9cff</option>
-                                                        <option value="#b99aff">#b99aff</option>
-                                                        <option value="#c2c2c2">#c2c2c2</option>
-                                                        <option value="#cabdbf">#cabdbf</option>
-                                                        <option value="#cca6ac">#cca6ac</option>
-                                                        <option value="#f691b2">#f691b2</option>
-                                                        <option value="#cd74e6">#cd74e6</option>
-                                                        <option value="#a47ae2">#a47ae2</option>
-                                                        <option value="#555">#555</option>
-                                                    </select>
+                                                <div class="span12">
+                                                   <input id="colorpicker" name="color" type="text" class="input-mini">
+                                                      <!-- <input id="colorpicker-to-show" type="text" class="input-mini" style="width: 8px; height: 10px; "   >
+                                                      </input> -->
+                                                   </input>
+                                                   
+
                                                 </div>
                                              </div>
                                           </div>
+
+
+
+                                          <!-- <div class="widget-body">
+                                            <div class="widget-main">
+                                              <div class="row-fluid">
+                                                <label for="colorpicker1">Color Picker</label>
+                                              </div>
+
+                                              <div class="control-group">
+                                                <div class="bootstrap-colorpicker">
+                                                  <input id="colorpicker1" type="text" class="input-mini" />
+                                                </div>
+                                              </div>
+                                            </div> -->
+
                                             <!-- COLORPICKER ENDS -->
                                           <div class="control-group" style="display:none;">
                                              <label class="control-label">Exportar Indice:</label>
@@ -757,8 +754,17 @@
 				$('#spinner2').ace_spinner({value:0,min:0,max:10000,step:100, icon_up:'icon-caret-up', icon_down:'icon-caret-down'});
 				$('#spinner3').ace_spinner({value:0,min:-100,max:100,step:10, icon_up:'icon-plus', icon_down:'icon-minus', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
 			
-				$('#colorpicker1').colorpicker();
+            $('#colorpicker').colorpicker();
 				$('#base-color').ace_colorpicker();
+
+            $('#colorpicker').focusout(function(){
+               //var colorpickerToShow = document.getElementById('colorpicker-to-show'),
+                   colorpicker = document.getElementById('colorpicker'),
+                   //colorpickerValue = colorpicker.value;
+
+               colorpicker.setAttribute('style', 'background-color:' + colorpicker.value + ';')
+               /*colorpickerToShow.setAttribute('style', 'background-color:' + colorpickerValue + '; width: 8px; height: 10px;');*/
+            });
 			
 			
 			});
