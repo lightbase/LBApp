@@ -68,7 +68,7 @@ function Form(id){
         for (var element in elements){
             if (elements[element] instanceof FieldSet)
                 _is_valid = this.is_valid(elements[element].elements);
-            else
+            else 
                 _is_valid = $(elements[element].input).valid();
             if (!_is_valid) break;
         }
@@ -304,8 +304,8 @@ FieldSet.prototype = new FormProtoType();
                                 if (struc.field) fields_order.push(struc.field);
                                 if (struc.group) groups_order.push(struc.group);
                             });
-                            if (id){}
-                            else id = data;
+                            console.log(data, textStatus, jqXHR)
+                            id = id? id + '-' + data: data;
                             table.add_body_row(fields_order, groups_order, registry, id, multi);
                         },
                         error: function(jqXHR, textStatus, errorThrown){

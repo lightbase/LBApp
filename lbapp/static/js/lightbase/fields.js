@@ -37,6 +37,7 @@ var Fields = new Object();
         return /^([01]\d|2[0-3]):([0-5]\d)$/.test(value)
     }, '');
     $.validator.addMethod('datetime_validator', function(value, element){
+        if (value == '') return true;
     }, '');
     $.validator.addMethod('image_validator', function(value, element){
     }, '');
