@@ -151,7 +151,7 @@
                                           <!-- BASE STRUCTURE AND CONTEXT -->
                                           <div id="base-widget">
                                              <header>
-                                                <link rel="stylesheet" type="text/css" href="/static/css/lightbase/jquery.nestable.css">
+                                                <link rel="stylesheet" type="text/css" href="/static/css/Lightbase/jquery.nestable.css">
                                                 <style>
                                                    .error{
                                                    color:#db8978;
