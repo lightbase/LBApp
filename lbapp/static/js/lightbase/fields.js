@@ -14,6 +14,7 @@ var Fields = new Object();
         return /^[a-z0-9]+$/i.test(value);
     }, '');
     $.validator.addMethod('document_validator', function(value, element){
+        return false
     }, '');
     $.validator.addMethod('integer_validator', function(value, element){
         if (value == '') return true;
@@ -27,6 +28,7 @@ var Fields = new Object();
         if (value == '') return true;
     }, '');
     $.validator.addMethod('selfenumerated_validator', function(value, element){
+        return false
     }, '');
     $.validator.addMethod('date_validator', function(value, element){
         if (value == '') return true;
@@ -38,12 +40,16 @@ var Fields = new Object();
     }, '');
     $.validator.addMethod('datetime_validator', function(value, element){
         if (value == '') return true;
+        return true; 
     }, '');
     $.validator.addMethod('image_validator', function(value, element){
+        return false
     }, '');
     $.validator.addMethod('sound_validator', function(value, element){
+        return false
     }, '');
     $.validator.addMethod('video_validator', function(value, element){
+        return false
     }, '');
     $.validator.addMethod('url_validator', function(value, element){
         return true; // HTML 5
@@ -52,8 +58,10 @@ var Fields = new Object();
         return true; 
     }, '');
     $.validator.addMethod('file_validator', function(value, element){
+        return false
     }, '');
     $.validator.addMethod('html_validator', function(value, element){
+        return true
     }, '');
     $.validator.addMethod('email_validator', function(value, element){
         if (value == '') return true;

@@ -68,8 +68,11 @@ function Form(id){
         for (var element in elements){
             if (elements[element] instanceof FieldSet)
                 _is_valid = this.is_valid(elements[element].elements);
-            else 
+            else {
                 _is_valid = $(elements[element].input).valid();
+                if (!_is_valid) console.log($(elements[element].input));
+                
+            }
             if (!_is_valid) break;
         }
         return _is_valid;
