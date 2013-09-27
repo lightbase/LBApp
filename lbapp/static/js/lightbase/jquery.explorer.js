@@ -359,11 +359,18 @@ FieldSet.prototype = new FormProtoType();
         $(anchor).click(function(){
             bootbox.confirm('Deletar registro?', function(result){
                 if(result){
-                    var pk = data_id.toString().split('-')[0], 
-                        name = data_id;
+                    var data_split = data_id.toString().split('-'),
+                        pk = data_split[0],
+                        name = null,
+                        url = window.location  + '?pk=' + pk;
+                    if (data_split.length > 1){
+                        name = id_to_path(data_split.splice(1, data_split.length).join('-'));
+                        url = url + '&name=' + name; 
+                    } 
+                    
                     $.ajax({
                         type: 'delete',
-                        url: window.location + '?pk=' + pk + '&name=' + name,
+                        url: url,
                         success: function(data, textStatus, jqXHR ){
                             rows.forEach(function(row){
                                 $(row.html).remove();
