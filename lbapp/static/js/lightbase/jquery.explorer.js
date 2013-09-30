@@ -165,10 +165,12 @@ FieldSet.prototype = new FormProtoType();
 
     function get_registry_rows(fields_order, groups_order, registry, id, multi){
 
+        console.log(fields_order, groups_order, registry, id, multi)
+
         var rows = [ ],
             actions = [ ],
-            body_row = new TableRow(),
             registry_id = id? id: registry['id_reg'],
+            body_row = new TableRow(registry_id),
             cell_content,
             cell_value,
             field_id, 
@@ -176,7 +178,14 @@ FieldSet.prototype = new FormProtoType();
 
         if (groups_order.length > 0) actions.push(new ToggleButton());
         if (fields_order.length > 0) actions.push(new EditButton(registry_id));
-        if (multi) actions.push(new DeleteButton(registry_id, rows));
+        delete_backup = {
+            fields_order: fields_order,
+            groups_order: groups_order,
+            registry: registry,
+            id: id,
+            multi: multi
+        }
+        if (multi) actions.push(new DeleteButton(registry_id, rows, delete_backup=delete_backup));
 
         var action_buttons = new ActionButtons(actions),
             standard_cell = new TableStandardCell(action_buttons.html);
@@ -208,7 +217,7 @@ FieldSet.prototype = new FormProtoType();
         rows.push(body_row);
 
         if (groups_order.length > 0){
-            var group_row = new TableRow(hidden=true),
+            var group_row = new TableRow(registry_id, hidden=true),
                 group_id,
                 registries,
                 explorer = [ ];
@@ -307,7 +316,6 @@ FieldSet.prototype = new FormProtoType();
                                 if (struc.field) fields_order.push(struc.field);
                                 if (struc.group) groups_order.push(struc.group);
                             });
-                            console.log(data, textStatus, jqXHR)
                             id = id? id + '-' + data: data;
                             table.add_body_row(fields_order, groups_order, registry, id, multi);
                         },
@@ -350,11 +358,11 @@ FieldSet.prototype = new FormProtoType();
         this.html = anchor;
     }
 
-    function DeleteButton(data_id, rows){
+    function DeleteButton(data_id, rows, delete_backup){
         var anchor = document.createElement('a'),
             icon = document.createElement('i');
         anchor.setAttribute('class', 'red icon-trash bigger-130');
-        anchor.setAttribute('data-id', data_id);
+        //anchor.setAttribute('data-id', data_id);
         anchor.setAttribute('href', 'javascript:;');
         $(anchor).click(function(){
             bootbox.confirm('Deletar registro?', function(result){
@@ -372,9 +380,15 @@ FieldSet.prototype = new FormProtoType();
                         type: 'delete',
                         url: url,
                         success: function(data, textStatus, jqXHR ){
-                            rows.forEach(function(row){
-                                $(row.html).remove();
-                            });
+                            var old_rows = $('tr[data-id="{0}"]'.format(pk));
+                            var new_rows = get_registry_rows(
+                                delete_backup.fields_order,
+                                delete_backup.groups_order,
+                                JSON.parse(data),
+                                delete_backup.id,
+                                delete_backup.multi
+                            );
+                            update_rows(old_rows, new_rows);
                         },
                         error: function(jqXHR, textStatus, errorThrown){
                             custom_alert('Erro ao remover registro');
@@ -384,6 +398,15 @@ FieldSet.prototype = new FormProtoType();
             });
         });
         this.html = anchor;
+    }
+
+    function update_rows(old_rows, new_rows){
+        console.log(old_rows, new_rows)
+        parent = old_rows.parent();
+        old_rows.remove();
+        new_rows.forEach(function(row){
+            parent.append(row.html);
+        });
     }
 
     function Table(id, base, multi){
@@ -435,8 +458,9 @@ FieldSet.prototype = new FormProtoType();
         this.html = tbody;
     }
 
-    function TableRow(hidden){
+    function TableRow(id, hidden){
         var tr = document.createElement('tr');
+        tr.setAttribute('data-id', id);
         if (hidden) tr.setAttribute('style', 'display: none')
         this.html = tr;
     }

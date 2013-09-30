@@ -122,8 +122,8 @@ def explore_base(request):
             response = requests.delete('%s/reg/%s/%s/path/%s' % (rest_url, base_name, id_reg, request.params['name']))
         else:
             response = requests.delete('%s/reg/%s/%s' % (rest_url, base_name, id_reg))
-        if response.text == 'DELETED':
-            return Response(status=200)
+        if response.status_code == 200:
+            return Response(response.text, status=200)
         else:
             return Response(status=500)
 
