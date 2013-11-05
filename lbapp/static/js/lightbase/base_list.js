@@ -32,7 +32,7 @@ $.each(json, function(i, base){
     fastlinkclass.baseListDate(tr, date);
     fastlinkclass.baseListEdit(tr, tbody, id);
     fastlinkclass.baseListDelete(tr, tbody, id);
-    fastlinkclass.baseListConfig(tr, tbody, id);
+    fastlinkclass.baseListConfig(tr, tbody, id, base);
     fastlinkclass.baseListJson(tr, tbody, id, base);
     fastlinkclass.baseListReg(tr, tbody, id, base);
     fastlinkclass.baseListPhoneButton(id);
@@ -223,7 +223,7 @@ function FastLinkClass(){
 
     }
 
-    this.baseListConfig = function(tr, tbody, id){
+    this.baseListConfig = function(tr, tbody, id, base){
         var td = document.getElementById("td-actions" + id);
         var div = document.getElementById("div-" + id);
         var a = document.createElement("a");
@@ -234,7 +234,7 @@ function FastLinkClass(){
         var span = document.createElement("span");
 
         a.setAttribute('class', 'blue dialogify');
-        a.setAttribute('href', '/config');
+        // a.setAttribute('href', '/config');
         i.setAttribute('class', 'icon-cog bigger-130');
         i.setAttribute('id', 'config-' + id);
         i.setAttribute('rel', 'tooltip');
@@ -243,29 +243,29 @@ function FastLinkClass(){
         div.appendChild(a);
         tbody.appendChild(tr);
 
+        $("#config-" + id).click(function(){
+            var id_base = base.id_base,
+                json_base = base.json_base;
+            bootbox.dialog('<form id="form">' +
+                             '</form>', [{
+                'label':'Fechar',
+                'class':'btn btn-primary',
+                
+            }]
+            );
+            config_table.findTableID();
+            config_table.exportIndex();
+            config_table.controlGroupURL();
+            config_table.urlIndex();
+            config_table.indexTime();
+            config_table.docExtract();
+            config_table.controlGroupDOC();
+            config_table.extractTime();
+            config_table.buttons();
+            config_table.javascript(base);
 
-        $(function() {
-            $("#div_config").dialog({
-                autoOpen: false,
-                modal: true,
-                width: 800,
-                height: 400,
-                // buttons: {
-                //     "Fechar": function() {
-                //         $(this).dialog("close");
-                //     }
-                // }
-            });
-            $(".dialogify").on("click", function(e) {
-                e.preventDefault();
-                $("#div_config").html("");
-                $("#div_config").dialog("option", "title", "Configurações").dialog("open");
-                $("#div_config").load(this.href, function() {
-                    // $(this).dialog("option", "title", $(this).find("h1").text());
-                    // $(this).find("h1").remove();
-                });
-            });
         });
+
     }
 
     this.baseListJson = function(tr, tbody, id, base){
@@ -452,29 +452,6 @@ function FastLinkClass(){
         a.appendChild(span);
         li.appendChild(a);
         ul.appendChild(li);
-
-        $(function() {
-            $("#div_config").dialog({
-                autoOpen: false,
-                modal: true,
-                width: 800,
-                height: 500,
-                // buttons: {
-                //     "Fechar": function() {
-                //         $(this).dialog("close");
-                //     }
-                // }
-            });
-            $(".dialogify").on("click", function(e) {
-                e.preventDefault();
-                $("#div_config").html("");
-                $("#div_config").dialog("option", "title", "Configurações").dialog("open");
-                $("#div_config").load(this.href, function() {
-                    // $(this).dialog("option", "title", $(this).find("h1").text());
-                    // $(this).find("h1").remove();
-                });
-            });
-        });
 
     }
 

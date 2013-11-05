@@ -9,6 +9,7 @@ def main(global_config, **settings):
     rest_url = settings['rest_url']
 
     config = Configurator(settings=settings)
+    config.include('pyramid_chameleon')
     routing.make_routes(config)
     config.scan()
 

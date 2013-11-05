@@ -1,48 +1,48 @@
 
 /* DataType Defaults */
 
-var DATATYPES= [
-    'AlfaNumerico',
-    'Documento',
-    'Inteiro',
-    'Decimal',
-    'Moeda',
-    'AutoEnumerado',
-    'Data',
-    'Hora',
-    'Data/Hora',
-    'Imagem',
-    'Som',
-    'Video',
-    'Texto',
-    'URL',
-    'Verdadeiro/Falso',
-    'Arquivo',
-    'HTML',
-    'Email',
-    'JSON'
-];
+var DATATYPES = {
+    'Text'          : 'Texto',
+    'TextArea'      : 'Área de Texto',
+    'Document'      : 'Documento',
+    'File'          : 'Arquivo',
+    'Image'         : 'Imagem',
+    'Sound'         : 'Som',
+    'Video'         : 'Vídeo',
+    'Integer'       : 'Inteiro',
+    'SelfEnumerated': 'Auto-Enumerado',
+    'DateTime'      : 'Data/Hora',
+    'Date'          : 'Data',
+    'Time'          : 'Hora',
+    'Email'         : 'Email',
+    'Url'           : 'URL',
+    'Boolean'       : 'Verdadeiro ou Falso',
+    'Html'          : 'HTML',
+    'Json'          : 'JSON',
+    'Decimal'       : 'Decimal',
+    'Money'         : 'Moeda',
+};
 
 var DATATYPE_ICONS = {
-    'Texto'            :'icon-text-width',
-    'AlfaNumerico'     :'icon-font',
-    'Documento'        :'icon-file-text-alt',
-    'Inteiro'          :'icon-info',
-    'Decimal'          :'iDecimal',
-    'Moeda'            :'icon-usd',
-    'AutoEnumerado'    :'icon-list-ol',
-    'Data'             :'icon-calendar',
-    'Hora'             :'icon-time',
-    'Data/Hora'        :'',
-    'Imagem'           :'icon-picture',
-    'Som'              :'icon-volume-up',
-    'Video'            :'icon-film',
-    'URL'              :'icon-globe',
-    'Verdadeiro/Falso' :'icon-check',
-    'Arquivo'          :'icon-file-alt',
-    'HTML'             :'icon-code',
-    'Email'            :'icon-envelope-alt',
-    'JSON'             :'icon-circle-blank'
+    'Text'          : 'icon-text-width',
+    'TextArea'      : 'icon-font',
+    'Document'      : 'icon-file-text-alt',
+    'File'          : 'icon-file-alt',
+    'Image'         : 'icon-picture',
+    'Sound'         : 'icon-volume-up',
+    'Video'         : 'icon-film',
+    'Integer'       : 'icon-info',
+    'SelfEnumerated': 'icon-list-ol',
+    'DateTime'      : '',
+    'Date'          : 'icon-calendar',
+    'Time'          : 'icon-time',
+    'Email'         : 'icon-envelope-alt',
+    'Url'           : 'icon-globe',
+    'Boolean'       : 'icon-check',
+    'Html'          : 'icon-code',
+    'Json'          : 'icon-circle-blank',
+    'Decimal'       : 'iDecimal',
+    'Money'         : 'icon-usd',
 };
 
 /* Indices Defaults */
@@ -56,17 +56,17 @@ var INDICES = [
     'Vazio', // Update document on change.
 ];
 
-/* Index Versus Datatypes prohibitions Defaults.
+/* Indices Versus Datatypes prohibitions Defaults.
    Each datatype cannot be created with related index. */
 
 var PROHIBITIONS= {
-    'AlfaNumerico': [
+    'Text': [
     ],
-    'Documento': [
+    'Document': [
         'Ordenado',
         'Unico',
     ],
-    'Inteiro': [
+    'Integer': [
         'Fonetico',
         'Fuzzy',
     ],
@@ -74,34 +74,34 @@ var PROHIBITIONS= {
         'Fonetico',
         'Fuzzy',
     ],
-    'Moeda': [
+    'Money': [
         'Fonetico',
         'Fuzzy',
     ],
-    'AutoEnumerado': [
+    'SelfEnumerated': [
         'Fonetico',
         'Fuzzy',
         'Vazio'
     ],
-    'Data/Hora': [
+    'DateTime': [
         'Fonetico',
         'Fuzzy',
     ],
-    'Data': [
+    'Date': [
         'Fonetico',
         'Fuzzy',
     ],
-    'Hora': [
+    'Time': [
         'Fonetico',
         'Fuzzy',
     ],
-    'Imagem': [
+    'Image': [
         'Ordenado',
         'Unico',
         'Fonetico',
         'Fuzzy',
     ],
-    'Som': [
+    'Sound': [
         'Ordenado',
         'Unico',
         'Fonetico',
@@ -113,30 +113,30 @@ var PROHIBITIONS= {
         'Fonetico',
         'Fuzzy',
     ],
-    'URL': [
+    'Url': [
         'Fonetico',
         'Fuzzy',
     ],
-    'Verdadeiro/Falso': [
+    'Boolean': [
         'Unico',
         'Fonetico',
         'Fuzzy',
     ],
-    'Texto': [
+    'TextArea': [
         'Ordenado',
         'Unico',
     ],
-    'Arquivo': [
+    'File': [
         'Ordenado',
         'Unico',
     ],
-    'HTML': [
+    'Html': [
         'Ordenado',
         'Unico',
     ],
     'Email': [
     ],
-    'JSON': [
+    'Json': [
         'Ordenado',
         'Unico',
     ]
@@ -174,9 +174,13 @@ function Controls(fields){
 }
 
 function ControlGroup(label, controls, cls){
-
     var control_group = document.createElement('div');
+
+    if (label.field_id.indexOf("name") >= 0){
+    control_group.setAttribute('class', 'control-group span6 ' + cls);
+    }else{
     control_group.setAttribute('class', 'control-group ' + cls);
+    }
 
     if(label instanceof Label) control_group.appendChild(label.html);
     else throw new TypeError('label is not instance of Label');
@@ -338,6 +342,7 @@ function DescriptionField(id){
         'name'       : this.id,
         'class'      : 'input-xlarge form-control',
         'type'       : 'text',
+        'style'      : 'width: 98%;',
     };
     $.each(attributes, function(k, v){
         input.setAttribute(k, v);
@@ -365,8 +370,10 @@ function DataTypeField(id){
     });
     for (var t in this.datatypes){
         var option = document.createElement('option');
-        option.setAttribute('id', this.id + '-' + this.datatypes[t]);
-        option.setAttribute('value', this.datatypes[t]);
+        //option.setAttribute('id', this.id + '-' + this.datatypes[t]);
+        //option.setAttribute('value', this.datatypes[t]);
+        option.setAttribute('id', this.id + '-' + t);
+        option.setAttribute('value', t);
         $(option).text(this.datatypes[t]);
         select.appendChild(option);
     }
@@ -399,9 +406,10 @@ function IndicesField(id){
         if(this.indices[i] == 'Textual')
             checkbox.setAttribute('checked', '');
         label.setAttribute('class', 'span5');
+        label.setAttribute('style', 'margin-left: 0px;');
         label.appendChild(checkbox);
-        if (PROHIBITIONS[DATATYPES[0]].indexOf(this.indices[i])>-1)
-            label.setAttribute('style', 'display: none');
+        //if (PROHIBITIONS[DATATYPES[0]].indexOf(this.indices[i])>-1)
+            //label.setAttribute('style', 'display: none');
         input.push(checkbox);
         span.setAttribute('class', 'lbl')
         $(span).text(' ' + this.indices[i]);
@@ -537,7 +545,8 @@ function BaseContext(context_space){
 
         $.validator.addMethod('alphanumeric', function (value, element) {
             /*http://stackoverflow.com/questions/4977898/check-for-valid-sql-column-name*/
-            return /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(value);
+            //return /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(value);
+            return /^[a-z_][a-z0-9_]*$/.test(value);
         }, "Preencha com caracteres válidos");
 
         $.validator.addMethod('single_level_field', function (value, element) {
@@ -756,6 +765,23 @@ function BaseContext(context_space){
             return forms[forms.length-1].id;
         }
     });
+
+    // this.up = function(){
+    //     var currentLi = base.current_item,
+    //         previousLi = $(currentLi).prev();
+
+    //         currentLi.insertBefore(currentLi, previousLi);
+
+    // }
+
+    this.down = function(){
+        var currentLi = base.current_item,
+            nextLi = $(currentLi).next(),
+            toAppend = document.getElementById('base-structure');
+
+            nextLi.insertBefore(currentLi, nextLi);
+
+    }
 }
 
 function BaseStructure(nestable_space, context){

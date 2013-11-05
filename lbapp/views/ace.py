@@ -6,6 +6,9 @@ import json
 from pyramid.response import Response
 from pyramid.exceptions import HTTPNotFound
 
+@view_config(route_name='home', renderer='../templates/index.pt')
+def temp0(request):
+    return {'project': 'LBApp'}
 @view_config(route_name='listarbase', renderer='templates/listarbase.pt')
 def temp1(request):
     return {'project': 'LBApp'}

@@ -17,7 +17,7 @@
                             <div id="div_config"></div>
 								<div class="table-header">
                                     Bases
-                                    <a href="/base/new" class="btn btn-small btn-success pull-right" style="margin-right: 50px; margin-top: 3px;">Criar Base</a>
+                                    <a href="${ request.route_url('create_base') }" class="btn btn-small btn-success pull-right" style="margin-right: 50px; margin-top: 3px;">Criar Base</a>
                                 </div>
 
 								<table id="sample-table-2" class="table table-striped table-bordered table-hover" width="100%">
@@ -155,10 +155,18 @@
 
 		<script src="../static/js/ace/jquery.dataTables.min.js"></script>
 		<script src="../static/js/ace/jquery.dataTables.bootstrap.js"></script>
-		<script src="../static/js/lightbase/base_list.js"></script>
         <script src="../static/js/ace/bootbox.min.js"></script>
         <script src="../static/js/ace/bootbox.min.js"></script>
 		<script src="../static/js/ace/jquery.jqGrid.min.js"></script>
+		<script src="../static/js/ace/fuelux.spinner.min.js"></script>
+		<script src="../static/js/ace/jquery.validate.min.js"></script>
+
+
+		<!-- lightbase -->
+
+		<script src="../static/js/lightbase/base_list.js"></script>
+		<script src="../static/js/lightbase/config_table.js"></script>
+
 
 		<script type="text/javascript">
 			$(function() {

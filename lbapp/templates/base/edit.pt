@@ -92,7 +92,7 @@
                                           </div>
 
                                             <!-- COLORPICKER ENDS -->
-                                          <div class="control-group" style="display:none;">
+                                          <!--<div class="control-group" style="display:none;">
                                              <label class="control-label">Exportar Indice:</label>
                                              <div class="controls">
                                                 <span class="span12">
@@ -143,7 +143,7 @@
                                                    </span>
                                                 </div>
                                              </div>
-                                          </div>
+                                          </div>-->
                                        </form>
                                     </div>
                                     <div class="step-pane" id="step2">
@@ -456,13 +456,18 @@
                 $('#validation-form').submit(function() {
                     var formdata = $("#validation-form").serializeArray();
                     var returnArray = new Object();
+                    returnArray['doc_extract'] = false;
+                    returnArray['index_export'] = false;
+                    returnArray['index_url'] = '';
+                    returnArray['index_time'] = '0';
+                    returnArray['extract_time'] = '0';
                     $.each(formdata, function(i, v){
-                        if (v.name == "doc_extract"){
+                        /*if (v.name == "doc_extract"){
                             v.value = true
                         }
                         if (v.name == "index_export"){
                             v.value = true
-                        }
+                        }*/
                         returnArray[v.name] = v.value;
                     });
                         if (!("doc_extract" in returnArray)){
@@ -498,13 +503,18 @@
                         $("#fuelux-wizard").wizard("next");
                         var formdata = $("#validation-form").serializeArray();
                         var returnArray = new Object();
+                        returnArray['doc_extract'] = false;
+                        returnArray['index_export'] = false;
+                        returnArray['index_url'] = '';
+                        returnArray['index_time'] = '0';
+                        returnArray['extract_time'] = '0';
                         $.each(formdata, function(i, v){
-                            if (v.name == "doc_extract"){
+                            /*if (v.name == "doc_extract"){
                                 v.value = true
                             }
                             if (v.name == "index_export"){
                                 v.value = true
-                            }
+                            }*/
                             returnArray[v.name] = v.value;
                         });
                         if (!("doc_extract" in returnArray)){

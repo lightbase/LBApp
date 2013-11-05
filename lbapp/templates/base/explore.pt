@@ -6,57 +6,68 @@
         <div class="row-fluid">
             <div class="span12">
 
-                <div id="controller-data" style="display: none">
-                    ${explorer}
-                </div>
+                <div id="rest_url" style="display: none">${request.rest_url}</div>
+                <div id="base_name" style="display: none">${request.base_name}</div>
+                <div id="controller-data" style="display: none">${explorer}</div>
                 <div id="base-explorer" style="overflow: auto"></div>
             </div>
         </div>
     </div>
 </metal:main>
 
-<script src="/static/js/ace/bootbox.min.js"></script>
-<script src="/static/ace-final/assets/js/jquery.maskedinput.min.js"></script>
-<script src="/static/ace-final/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
-<script src="/static/ace-final/assets/js/jquery.ui.touch-punch.min.js"></script>
+<script src="${request.route_url('home')}/static/js/ace/bootbox.min.js"></script>
+<script src="${request.route_url('home')}/static/ace-final/assets/js/jquery.maskedinput.min.js"></script>
+<script src="${request.route_url('home')}/static/ace-final/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+<script src="${request.route_url('home')}/static/ace-final/assets/js/jquery.ui.touch-punch.min.js"></script>
 
 <!--Bootstrap-Editable-->
-<link href="/static/bootstrap-editable-1.4.6/bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet"/>
-<link href="/static/bootstrap-editable-1.4.6/bootstrap-editable/img/clear.png" />
-<link href="/static/bootstrap-editable-1.4.6/bootstrap-editable/img/loading.gif" />
-<script src="/static/bootstrap-editable-1.4.6/bootstrap-editable/js/bootstrap-editable.min.js"></script>
+<!--<link href="${request.route_url('home')}/static/bootstrap-editable-1.4.6/bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+<link href="${request.route_url('home')}/static/bootstrap-editable-1.4.6/bootstrap-editable/img/clear.png" />
+<link href="${request.route_url('home')}/static/bootstrap-editable-1.4.6/bootstrap-editable/img/loading.gif" />
+<script src="${request.route_url('home')}/static/bootstrap-editable-1.4.6/bootstrap-editable/js/bootstrap-editable.min.js"></script>-->
+
+<!--gritter plugin (alert messages) -->
+<script src="${request.route_url('home')}/static/js/ace/jquery.gritter.min.js"></script>
+<link href="${request.route_url('home')}/static/css/ace/jquery.gritter.css" rel="stylesheet"/>
 
 <!--validate plugin-->
-<script src="/static/js/ace/jquery.validate.min.js"></script>
+<script src="${request.route_url('home')}/static/js/ace/jquery.validate.min.js"></script>
+
+<!--dropzone plugin-->
+<script src="${request.route_url('home')}/static/js/ace/dropzone.min.js"></script>
+<link href="${request.route_url('home')}/static/css/ace/dropzone.css" rel="stylesheet"/>
+
+<!--bootstrap-wysiwyg plugin-->
+<script src="${request.route_url('home')}/static/js/ace/bootstrap-wysiwyg.min.js"></script>
+<script src="${request.route_url('home')}/static/js/ace/jquery.hotkeys.min.js"></script>
 
 <!--Explorer-->
-<script src="/static/js/lightbase/utils.js"></script>
-<script src="/static/js/lightbase/fields.js"></script>
-<script src="/static/js/lightbase/jquery.explorer.js"></script>
-<link href="/static/css/Lightbase/jquery.explorer.css" rel="stylesheet"/>
+<script src="${request.route_url('home')}/static/js/lightbase/utils.js"></script>
+<script src="${request.route_url('home')}/static/js/lightbase/fields.js"></script>
+<script src="${request.route_url('home')}/static/js/lightbase/jquery.explorer.js"></script>
+<link href="${request.route_url('home')}/static/css/Lightbase/jquery.explorer.css" rel="stylesheet"/>
 
 <script type="text/javascript">
     $(document).ready(function() {
 
         var explorer_data = JSON.parse($('#controller-data').text());
-
         var base = explorer_data['json_base']
         var registries = explorer_data['registries'];
 
-        $.fn.editable.defaults.ajaxOptions = {type: "PUT"};
+        //$.fn.editable.defaults.ajaxOptions = {type: "PUT"};
         //$.fn.editable.defaults.mode = 'inline';
-        $.fn.editable.defaults.mode = 'popup';
+        //$.fn.editable.defaults.mode = 'popup';
         $('#base-explorer').explorer({ 
             base: base,
             registries: registries 
         });
 
-        $('.editable').on('hidden', function(e, reason){
+        /*$('.editable').on('hidden', function(e, reason){
                 if(reason === 'save' || reason === 'nochange') {
                     var next = $(this).parent('td').next().find('.editable');
                     next.editable('show');
                 }
-           });
+           });*/
     });
 
 
