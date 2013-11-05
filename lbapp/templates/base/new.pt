@@ -10,6 +10,9 @@
     		<link rel="stylesheet" href="/static/ace-final/assets/css/daterangepicker.css" />
     		<link rel="stylesheet" href="/static/ace-final/assets/css/colorpicker.css" />
       </header>
+      <div id="controller-data" style="display:none">
+        ${base_names}
+      </div>
       <div class="page-content">
          <div id="base_names" style="display: none">${base_names}</div>
          <div class="row-fluid">
@@ -45,6 +48,8 @@
                                        <br>
                                        <br>
                                        <form class="form-horizontal" id="validation-form" method="get">
+
+
                                           <div class="control-group">
                                              <label class="control-label" for="email">Nome:</label>
                                              <div class="controls">
@@ -86,32 +91,14 @@
                                              <div class="controls">
                                                 <div class="span12">
                                                    <input id="base-color" name="color" type="text" class="input-mini">
-                                                      <!-- <input id="colorpicker-to-show" type="text" class="input-mini" style="width: 8px; height: 10px; "   >
-                                                      </input> -->
                                                    </input>
-                                                   
 
                                                 </div>
                                              </div>
                                           </div>
 
-
-
-                                          <!-- <div class="widget-body">
-                                            <div class="widget-main">
-                                              <div class="row-fluid">
-                                                <label for="colorpicker1">Color Picker</label>
-                                              </div>
-
-                                              <div class="control-group">
-                                                <div class="bootstrap-colorpicker">
-                                                  <input id="colorpicker1" type="text" class="input-mini" />
-                                                </div>
-                                              </div>
-                                            </div> -->
-
                                             <!-- COLORPICKER ENDS -->
-                                          <div class="control-group" style="display:none;">
+                                          <!--<div class="control-group" style="display:none;">
                                              <label class="control-label">Exportar Indice:</label>
                                              <div class="controls">
                                                 <span class="span12">
@@ -162,7 +149,8 @@
                                                    </span>
                                                 </div>
                                              </div>
-                                          </div>
+                                          </div>-->
+
                                        </form>
                                     </div>
                                     <div class="step-pane" id="step2">
@@ -290,6 +278,7 @@
                                     <i class="icon-arrow-left"></i>
                                     Anterior
                                     </button>
+                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                     <button id="button-submit" class="btn btn-success" data-last="Finish ">
                                     Próximo
                                     <i class="icon-arrow-right icon-on-right"></i>
@@ -511,14 +500,21 @@
                 $('#validation-form').submit(function() {
                     var formdata = $("#validation-form").serializeArray();
                     var returnArray = new Object();
+                    returnArray['doc_extract'] = false;
+                    returnArray['index_export'] = false;
+                    returnArray['index_url'] = '';
+                    returnArray['index_time'] = '0';
+                    returnArray['extract_time'] = '0';
                     $.each(formdata, function(i, v){
-                        if (v.name == "doc_extract"){
+                        /*if (v.name == "doc_extract"){
                             v.value = true
                         }
                         if (v.name == "index_export"){
                             v.value = true
+                        }*/
+                        if (v.name != 'doc_extract' || v.name != 'index_export'){
+                            returnArray[v.name] = v.value;
                         }
-                        returnArray[v.name] = v.value;
                     });
                         if (!("doc_extract" in returnArray)){
                             returnArray["doc_extract"] = false;
@@ -553,13 +549,18 @@
                         $("#fuelux-wizard").wizard("next");
                         var formdata = $("#validation-form").serializeArray();
                         var returnArray = new Object();
+                        returnArray['doc_extract'] = false;
+                        returnArray['index_export'] = false;
+                        returnArray['index_url'] = '';
+                        returnArray['index_time'] = '0';
+                        returnArray['extract_time'] = '0';
                         $.each(formdata, function(i, v){
-                            if (v.name == "doc_extract"){
+                            /*if (v.name == "doc_extract"){
                                 v.value = true
                             }
                             if (v.name == "index_export"){
                                 v.value = true
-                            }
+                            }*/
                             returnArray[v.name] = v.value;
                         });
                         if (!("doc_extract" in returnArray)){

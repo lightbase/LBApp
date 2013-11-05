@@ -8,10 +8,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 		<!--basic styles-->
-
-		<link href="/static/ace-final/assets/css/bootstrap.min.css" rel="stylesheet" />
-		<link href="/static/ace-final/assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
-		<link rel="stylesheet" href="/static/ace-final/assets/css/font-awesome.min.css" />
+		
+		<link href="${ request.route_url('home') }static/css/Lightbase/style1.css" rel="stylesheet"/>
+		<link href="${ request.route_url('home') }static/ace-final/assets/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="${ request.route_url('home') }static/ace-final/assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="${ request.route_url('home') }static/ace-final/assets/css/font-awesome.min.css" />
 
 		<!--[if IE 7]>
 		  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
@@ -21,21 +22,17 @@
 
 		<!--fonts-->
 
-		<link rel="stylesheet" href="/static/ace-final/assets/css/ace-fonts.css" />
+		<link rel="stylesheet" href="${ request.route_url('home') }static/ace-final/assets/css/ace-fonts.css" />
         <!-- <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/themes/ui-darkness/jquery-ui.css" rel="stylesheet"> -->
 
 		<!--ace styles-->
 
-		<link rel="stylesheet" href="/static/ace-final/assets/css/ace.min.css" />
-		<link rel="stylesheet" href="/static/ace-final/assets/css/ace-responsive.min.css" />
-		<link rel="stylesheet" href="/static/ace-final/assets/css/ace-skins.min.css" />
-
-		<!--custom styles-->
-		<link rel="stylesheet" href="/static/css/Lightbase/icons.css" />
-	    <link rel="shortcut icon" type="image/x-icon" href="/static/img/favicon.ico" />	
+		<link rel="stylesheet" href="${ request.route_url('home') }static/ace-final/assets/css/ace.min.css" />
+		<link rel="stylesheet" href="${ request.route_url('home') }static/ace-final/assets/css/ace-responsive.min.css" />
+		<link rel="stylesheet" href="${ request.route_url('home') }static/ace-final/assets/css/ace-skins.min.css" />
 
 	    <!-- Jquery UI -->
-		<link rel="stylesheet" href="/static/css/Lightbase/jquery-ui-themes/cupertino/jquery-ui.css" />
+		<link rel="stylesheet" href="${ request.route_url('home') }static/css/Lightbase/jquery-ui-themes/cupertino/jquery-ui.css" />
 
 		<!-- Config -->
 		<!-- <link rel="stylesheet" href="../static/ace-final/assets/css/jquery-ui-1.10.3.custom.min.css" />
@@ -58,10 +55,10 @@
 		<div class="navbar">
 			<div class="navbar-inner">
 				<div id="lightbase_hover_div" class="container-fluid" style="background: #000000;">
-					<a class="brand" id="lightbase_hover_a" href="/base/list" >
+					<a class="brand" href="${ request.route_url('list_base') }" >
 					<!--<a data-toggle="dropdown" class="dropdown-toggle brand" id="lightbase_hover_a" href="/base/list">-->
 						<small>
-							<i id="lightbase_hover_i" class="logo-header"></i>
+							<i class="icon-sun orange"></i>
 							LightBase
 					</a><!--/.brand-->
 
@@ -216,7 +213,7 @@
 
 								<li>
 									<a href="#">
-										<img src="/static/ace-final/assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
+										<img src="${ request.route_url('home') }static/ace-final/assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
 										<span class="msg-body">
 											<span class="msg-title">
 												<span class="blue">Alex:</span>
@@ -233,7 +230,7 @@
 
 								<li>
 									<a href="#">
-										<img src="/static/ace-final/assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
+										<img src="${ request.route_url('home') }static/ace-final/assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
 										<span class="msg-body">
 											<span class="msg-title">
 												<span class="blue">Susan:</span>
@@ -250,7 +247,7 @@
 
 								<li>
 									<a href="#">
-										<img src="/static/ace-final/assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
+										<img src="${ request.route_url('home') }static/ace-final/assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
 										<span class="msg-body">
 											<span class="msg-title">
 												<span class="blue">Bob:</span>
@@ -287,7 +284,7 @@
 
 								<li>
 									<a href="#">
-										<img src="/static/ace-final/assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
+										<img src="${ request.route_url('home') }static/ace-final/assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
 										<span class="msg-body">
 											<span class="msg-title">
 												<span class="blue">Alex:</span>
@@ -304,7 +301,7 @@
 
 								<li>
 									<a href="#">
-										<img src="/static/ace-final/assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
+										<img src="${ request.route_url('home') }static/ace-final/assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
 										<span class="msg-body">
 											<span class="msg-title">
 												<span class="blue">Susan:</span>
@@ -321,7 +318,7 @@
 
 								<li>
 									<a href="#">
-										<img src="/static/ace-final/assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
+										<img src="${ request.route_url('home') }static/ace-final/assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
 										<span class="msg-body">
 											<span class="msg-title">
 												<span class="blue">Bob:</span>
@@ -491,7 +488,7 @@
 		<!--[if !IE]>-->
 
 		<script type="text/javascript">
-			window.jQuery || document.write("<script src='/static/js/ace/jquery-2.0.3.min.js'>"+"<"+"/script>");
+		 window.jQuery || document.write("<script src=\""+"${ request.route_url('home') }"+"static/js/ace/jquery-2.0.3.min.js\">"+"<"+"/script>");
 		</script>
 
 		<!--<![endif]-->
@@ -503,25 +500,25 @@
 <![endif]-->
 
 		<script type="text/javascript">
-			if("ontouchend" in document) document.write("<script src='/static/js/ace/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+			if("ontouchend" in document) document.write("/static/js/ace/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 		</script>
-		<script src="/static/js/ace/jquery-ui-1.10.3.full.min.js"></script>
-		<script src="/static/js/ace/bootstrap.min.js"></script>
+		<script src="${ request.route_url('home') }static/js/ace/jquery-ui-1.10.3.full.min.js"></script>
+		<script src="${ request.route_url('home') }static/js/ace/bootstrap.min.js"></script>
 
 		<!--page specific plugin scripts-->
 
 		<!--ace scripts-->
 
-		<script src="/static/js/ace/ace-elements.min.js"></script>
-		<script src="/static/js/ace/ace.min.js"></script>
+		<script src="${ request.route_url('home') }static/js/ace/ace-elements.min.js"></script>
+		<script src="${ request.route_url('home') }static/js/ace/ace.min.js"></script>
 		<!--<script src="/static/js/lightbase/base_onhover.js"></script>
 		<script src="/static/js/lightbase/jquery-cookie/jquery.cookie.js"></script>
 		<script src="/static/js/lightbase/read_cookies.js"></script>-->
-		<script src="/static/js/lightbase/color.header.js"></script>
+		<script src="${ request.route_url('home') }static/js/lightbase/color.header.js"></script>
 
 		<!-- lightbase scripts -->
 
-		<script src="/static/js/lightbase/jQuery-MD5/jquery.md5.js"></script>
+		<script src="${ request.route_url('home') }static/js/lightbase/jQuery-MD5/jquery.md5.js"></script>
 
 
 		<!--inline scripts related to this page-->

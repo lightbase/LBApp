@@ -3,12 +3,18 @@ def make_routes(config):
 
     config.add_static_view('static', 'static', cache_max_age=3600)
 
+    # Adiciona sempre rota para o site principal
+    config.add_route('home', '/')
+
     # ** BASE **
     config.add_route('create_base', 'base/new')
     config.add_route('list_base', 'base/list')
     config.add_route('edit_base', 'base/{base_id}/edit')
     config.add_route('explore_base', 'base/{base_id}/explore')
     config.add_route('config', 'config')
+
+    config.add_route('delete_tmp_storage', 'base/{id}/tmp-storage/{storage}')
+    config.add_route('tmp_storage', 'base/{id}/tmp-storage')
 
     # ** ERROR **
     config.add_route('error-404', 'error-404')

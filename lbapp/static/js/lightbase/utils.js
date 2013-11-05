@@ -79,22 +79,27 @@ if (!String.prototype.format) {
 
 var Utils = new Object();
 
-Utils.alert = function(text){
-     var template = 
-    '<div class="alert alert-danger" style="display: none; ">' +
-        '<button type="button" class="close" data-dismiss="alert">' +
-            '<i class="icon-remove"></i>' +
-        '</button>' +
-        '<span></span>' +
-    '</div>', 
-        dom = $(template);
-    dom.css('position', 'fixed');
-    dom.css('z-index', '9999');
-    dom.css('bottom', '25%');
-    dom.css('right', '2%');
-    dom.find('span').text(text);
-    $('body').append(dom);
-    dom.delay(200).fadeIn().delay(4000).fadeOut();
+Utils.error = function(text){
+    // Requires Gritter
+    $.gritter.add({
+        title: 'Erro!',
+        text: text,
+        sticky: false,
+        time: 5000,
+        class_name: 'gritter-error gritter-light'
+    });
+}
+
+Utils.success = function(text){
+    // Requires Gritter
+    $.gritter.add({
+        title: 'Sucesso!',
+        text: text,
+        sticky: false,
+        time: 2000,
+        class_name: 'gritter-success gritter-light'
+    });
+    // gritter-center gritter-warning gritter-info
 }
 
 Utils.type_of = function(value){
@@ -114,3 +119,16 @@ Utils.type_of = function(value){
     return result;
 };
 
+jQuery.fn.center = function (parent) {
+    if (parent) {
+        parent = this.parent();
+    } else {
+        parent = window;
+    }
+    this.css({
+        "position": "absolute",
+        "top": ((($(parent).height() - this.outerHeight()) / 2) + $(parent).scrollTop() + "px"),
+        "left": ((($(parent).width() - this.outerWidth()) / 2) + $(parent).scrollLeft() + "px")
+    });
+    return this;
+};
