@@ -287,9 +287,9 @@ function Config_Tables(){
 
 		        base.json_base.metadata.index_export = index_export;
 				base.json_base.metadata.index_url = $('#URL_input').val();
-		        base.json_base.metadata.index_time = $('#spinner1').val();
+		        base.json_base.metadata.index_time = parseInt($('#spinner1').val());
 		        base.json_base.metadata.doc_extract = doc_extract;
-		        base.json_base.metadata.extract_time = $('#spinner2').val();
+		        base.json_base.metadata.extract_time = parseInt($('#spinner2').val());
 		        
 		        $.ajax({
 	                type: 'put',

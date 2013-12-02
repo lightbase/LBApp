@@ -152,25 +152,25 @@ function Form(id){
 
                     var $dz_message = $(this.element).find('.dz-default.dz-message');
                         $uploaded = $(this.element).find('.uploaded'),
-                        mock_files = [ ], self = this;
+                        mock_files = [ ], _self = this;
 
                     $uploaded.children().each(function(){
                         var file = JSON.parse($(this).text()),
-                            $mock_file = tpls.get_mock_file(file, self);
+                            $mock_file = tpls.get_mock_file(file, _self);
                         mock_files.push($mock_file);
                     })
 
                     if (mock_files.length > 0){
                         $dz_message.hide();
                         mock_files.forEach(function($mock_file){
-                            $(self.element).append($mock_file);
+                            $(_self.element).append($mock_file);
                         });
                     }
 
                     this.remove_mock_file = function($mock_file) {
                         $mock_file.remove();
                         $('#'+ $mock_file.id).remove();
-                        if ($(self.element).children('.dz-preview').length == 0)
+                        if ($(this.element).children('.dz-preview').length == 0)
                             $dz_message.show()
                     };
 
@@ -201,7 +201,8 @@ function Form(id){
                     });
                 },
                 paramName: "file", // The name that will be used to transfer the file
-                maxFilesize: 20, // MB
+                //maxFilesize: 20, // MB
+                maxFilesize: 1024,
                 addRemoveLinks : true,
                 dictMaxFilesExceeded: 'Este campo permite apenas um arquivo.',
                 dictDefaultMessage: tpls.dictDefaultMessage,
@@ -244,6 +245,7 @@ FieldSet.prototype = new FormProtoType();
         );
 
         $(this).append(explorer.html);
+        //$(explorer.html).dataTable();
     };
 
     function build_explorer(base, registries, id, multi) {
@@ -681,7 +683,7 @@ FieldSet.prototype = new FormProtoType();
     }
 
     function Table(id, base, multi){
-        this.id = id;
+        this.id = id
         this.base = base;
         this.name = base.metadata.alias? base.metadata.alias: base.metadata.name;
         var self = this;

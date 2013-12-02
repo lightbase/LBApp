@@ -204,7 +204,6 @@ var BaseField = Class.extend({
             this.label = new Label(structure.alias);
             this.controls = new Controls([this.form[0]]);
             this.html = new ControlGroup(this.label, this.controls).html;
-            var _html = this.html;
         },
         get_val: function(){
             var uploaded = [ ],
@@ -212,7 +211,8 @@ var BaseField = Class.extend({
                 self = this;
                 uploaded_group = this.form.find('.uploaded');
             uploaded_group.children().each(function(i, uploaded_el){
-                file_mask = Fields.get_file_mask(uploaded_el.getAttribute('id'));
+                //file_mask = Fields.get_file_mask(uploaded_el.getAttribute('id'));
+                file_mask = JSON.parse($(uploaded_el).text());
                 uploaded.push(file_mask);
             });
             if (uploaded.length > 0){
@@ -222,8 +222,7 @@ var BaseField = Class.extend({
             }
             else{
                 // Files are the same
-                var no_file_mask = this.structure.multivalued? [ ]: '';
-                return this.file_mask || no_file_mask;
+                return this.structure.multivalued? [ ]: '';
             }
         },
         add_file: function(file){
@@ -233,7 +232,6 @@ var BaseField = Class.extend({
             uploaded_group.append(uploaded);
         },
         set_val: function(val){
-            this.file_mask = val;
             var self = this;
             if (Utils.type_of(val) == 'array'){
                 val.forEach(function(file){

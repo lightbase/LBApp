@@ -26,6 +26,10 @@
 <link href="${request.route_url('home')}/static/bootstrap-editable-1.4.6/bootstrap-editable/img/loading.gif" />
 <script src="${request.route_url('home')}/static/bootstrap-editable-1.4.6/bootstrap-editable/js/bootstrap-editable.min.js"></script>-->
 
+<!--datatable plugin -->
+<script src="${request.route_url('home')}/static/js/ace/jquery.dataTables.min.js"></script>
+<script src="${request.route_url('home')}/static/js/ace/jquery.dataTables.bootstrap.js"></script>
+
 <!--gritter plugin (alert messages) -->
 <script src="${request.route_url('home')}/static/js/ace/jquery.gritter.min.js"></script>
 <link href="${request.route_url('home')}/static/css/ace/jquery.gritter.css" rel="stylesheet"/>
