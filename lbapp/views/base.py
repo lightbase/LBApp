@@ -79,6 +79,7 @@ def explore_base(request):
 
     base_id = request.matchdict['base_id']
     response = requests.get('%s/%s' %(rest_url, base_id)).json()
+
     if response.get('_status') == 500 or response.get('_status') == 404:
         raise Exception(str(response))
     base_name = response['nome_base']
@@ -96,11 +97,11 @@ def explore_base(request):
                 if utils.is_integer(response.text):
                     response = requests.get('%s/%s/reg/%s' % (rest_url, base_name, response.text))
             else:
+                path = request.params.get('name')
                 data = dict(
-                    name = request.params.get('name'),
                     value = request.params.get('value')
                 )
-                response = requests.post('%s/%s/reg/%s/path' % (rest_url, base_name, id), data=data)
+                response = requests.post('%s/%s/reg/%s/path/%s' % (rest_url, base_name, id, path), data=data)
             return Response(response.text, status=response.status_code)
 
         elif _method == 'PUT':
@@ -112,11 +113,11 @@ def explore_base(request):
                 if response.text == 'UPDATED':
                     response = requests.get('%s/%s/reg/%s' % (rest_url, base_name, id))
             else:
+                path = request.params.get('name')
                 data = dict(
-                    name = request.params.get('name'),
                     value = request.params.get('value')
                 )
-                response = requests.put('%s/%s/reg/%s/path' % (rest_url, base_name, id), data=data)
+                response = requests.put('%s/%s/reg/%s/path/%s' % (rest_url, base_name, id, path), data=data)
             return Response(response.text, status=response.status_code)
 
         elif _method == 'DELETE':
@@ -127,7 +128,9 @@ def explore_base(request):
                 response = requests.delete('%s/%s/reg/%s' % (rest_url, base_name, id_reg))
             return Response(response.text, status=response.status_code)
 
-    response = requests.get('%s/%s/reg' %(rest_url, base_name)).json()
+    response = requests.get('%s/%s/reg' %(rest_url, base_name), params={
+        '$$': '{"select":["json_reg"]}'
+    }).json()
     if response.get('_status') == 500 or response.get('_status') == 404:
         raise Exception(str(response))
 
