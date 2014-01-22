@@ -1,16 +1,19 @@
-from pyramid.config import Configurator
-from lbapp.config import routing
 
+from pyramid.config import Configurator
+from lbapp.config import set_globals
+from lbapp.config import routing
 
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
-    global rest_url
-    rest_url = settings['rest_url']
+    set_globals(**settings)
 
     config = Configurator(settings=settings)
+
     config.include('pyramid_chameleon')
+
     routing.make_routes(config)
+
     config.scan()
 
     return config.make_wsgi_app()

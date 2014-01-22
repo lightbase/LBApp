@@ -30,14 +30,14 @@ $.each(json, function(i, base){
     fastlinkclass.baseListColor(tr, color);
     fastlinkclass.baseListName(tr, id, name);
     fastlinkclass.baseListDate(tr, date);
-    fastlinkclass.baseListEdit(tr, tbody, id);
-    fastlinkclass.baseListDelete(tr, tbody, id);
+    fastlinkclass.baseListEdit(tr, tbody, id, name);
+    fastlinkclass.baseListDelete(tr, tbody, id, name);
     fastlinkclass.baseListConfig(tr, tbody, id, base);
     fastlinkclass.baseListJson(tr, tbody, id, base);
     fastlinkclass.baseListReg(tr, tbody, id, base);
     fastlinkclass.baseListPhoneButton(id);
-    fastlinkclass.baseListPhoneEdit(id);
-    fastlinkclass.baseListPhoneDelete(id);
+    fastlinkclass.baseListPhoneEdit(id, name);
+    fastlinkclass.baseListPhoneDelete(id, name);
     fastlinkclass.baseListPhoneConfig(tr, tbody, id);
     fastlinkclass.baseListPhoneJson(tr, tbody, id, base);
     fastlinkclass.baseListPhoneReg(tr, tbody, id, base);
@@ -112,7 +112,7 @@ function FastLinkClass(){
         var td = document.createElement("td");
         var a = document.createElement("a");
 
-        a.setAttribute('href', '/base/' + id + '/explore');
+        a.setAttribute('href', '/base/' + name + '/explore');
         $(a).text(name);
         td.appendChild(a);
         tr.appendChild(td);
@@ -137,7 +137,7 @@ function FastLinkClass(){
 
     }
 
-    this.baseListEdit = function(tr, tbody, id){
+    this.baseListEdit = function(tr, tbody, id, name){
         var td = document.createElement("td");
         var a = document.createElement("a");
         var div = document.createElement("div");
@@ -148,7 +148,7 @@ function FastLinkClass(){
         var span = document.createElement("span");
 
         a.setAttribute('class', 'green');
-        a.setAttribute('href', '/base/' + id + '/edit');
+        a.setAttribute('href', '/base/' + name + '/edit');
         i.setAttribute('class', 'icon-pencil bigger-130');
         i.setAttribute('id', 'edit-' + id);
         i.setAttribute('rel', 'tooltip');
@@ -177,7 +177,7 @@ function FastLinkClass(){
 
     }
 
-    this.baseListDelete = function(tr, tbody, id){
+    this.baseListDelete = function(tr, tbody, id, name){
         var td = document.getElementById("td-actions" + id);
         var div = document.getElementById("div-" + id);
         var a = document.createElement("a");
@@ -204,7 +204,7 @@ function FastLinkClass(){
                 callback: function() {
                     $.ajax({
                         type: 'DELETE',
-                        url: window.location + "?id_base=" + id,
+                        url: window.location + "?base=" + name,
                         //data: {"id_base": id},
                         cache: false,
                         success: function(data, textStatus, jqXHR ){
@@ -353,7 +353,7 @@ function FastLinkClass(){
 
     }
 
-    this.baseListPhoneEdit = function(id){
+    this.baseListPhoneEdit = function(id, name){
         var divin = document.getElementById("divin_" + id);
         var i = document.createElement("i");
         var ul = document.createElement("ul");
@@ -367,7 +367,7 @@ function FastLinkClass(){
         a.setAttribute('class', 'tooltip-success');
         a.setAttribute('data-rel', 'tooltip');
         a.setAttribute('title', 'Editar');
-        a.setAttribute('href', '/base/' + id + '/edit');
+        a.setAttribute('href', '/base/' + name + '/edit');
         ul.setAttribute('class', 'dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close');
         ul.setAttribute('id', 'ul_' + id);
 
@@ -389,7 +389,7 @@ function FastLinkClass(){
 
     }
 
-    this.baseListPhoneDelete = function(id){
+    this.baseListPhoneDelete = function(id, name){
         var ul = document.getElementById("ul_" + id);
         var li = document.createElement("li");
         var span = document.createElement("span");
@@ -416,7 +416,7 @@ function FastLinkClass(){
                     $.ajax({
                         type: 'POST',
                         url: window.location,
-                        data: {"id_base": id},
+                        data: {"base": name},
                         cache: false,
                         success: function(data, textStatus, jqXHR ){
                         window.location.reload();
