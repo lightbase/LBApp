@@ -1,6 +1,7 @@
 
 from pyramid.view import view_config
 from pyramid.exceptions import NotFound
+from pyramid.response import Response
 import traceback
 
 @view_config(context=NotFound, renderer='../templates/error/error-404.pt')
@@ -20,6 +21,7 @@ def error_view(exc, request):
     """ Customized Error view 
     """
     print(traceback.format_exc())
+    return Response('{"error_message": "%s"}' % str(exc.args), status=500)
     return {'error_message': str(exc.args)}
 
 @view_config(route_name='error-500', renderer='../templates/error/error-500.pt')

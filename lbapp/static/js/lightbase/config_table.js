@@ -290,11 +290,11 @@ function Config_Tables(){
 		        base.json_base.metadata.index_time = parseInt($('#spinner1').val());
 		        base.json_base.metadata.doc_extract = doc_extract;
 		        base.json_base.metadata.extract_time = parseInt($('#spinner2').val());
-		        
+
 		        $.ajax({
 	                type: 'put',
 	                url: '/config',
-	                data: {"id_base": base.id_base, "json_base": JSON.stringify(base.json_base)},
+	                data: {"base": base.nome_base, "json_base": JSON.stringify(base.json_base)},
 	                cache: false,
 	                success: function(data, textStatus, jqXHR ){
 	                	bootbox.dialog("Obrigado! Sua base foi alterada com sucesso!", [{

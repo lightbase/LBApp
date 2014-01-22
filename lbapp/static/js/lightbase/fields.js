@@ -36,12 +36,14 @@ var Fields = new Object();
         return false
     }, 'Inválido.');
     $.validator.addMethod('date_validator', function(value, element){
-        if (value == '') return true;
-        return /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/.test(value);
+        //if (value == '') return true;
+        //return /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/.test(value);
+        return true;
     }, 'Formato válido: ???');
     $.validator.addMethod('time_validator', function(value, element){
-        if (value == '') return true;
-        return /^([01]\d|2[0-3]):([0-5]\d)$/.test(value)
+        //if (value == '') return true;
+        //return /^([01]\d|2[0-3]):([0-5]\d)$/.test(value)
+        return true;
     }, 'Formato válido: ???');
     $.validator.addMethod('datetime_validator', function(value, element){
         if (value == '') return true;

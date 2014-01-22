@@ -1,7 +1,7 @@
 
 from pyramid.view import view_config
 from pyramid.view import view_defaults
-from lbapp import rest_url
+from lbapp.config import REST_URL as rest_url
 from lbapp.lib import utils
 import requests
 import json
