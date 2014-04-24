@@ -1198,14 +1198,14 @@
 </metal:main>
 
 
-		<script src="static/ace-final/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
-		<script src="static/ace-final/assets/js/jquery.ui.touch-punch.min.js"></script>
-		<script src="static/ace-final/assets/js/jquery.slimscroll.min.js"></script>
-		<script src="static/ace-final/assets/js/jquery.easy-pie-chart.min.js"></script>
-		<script src="static/ace-final/assets/js/jquery.sparkline.min.js"></script>
-		<script src="static/ace-final/assets/js/flot/jquery.flot.min.js"></script>
-		<script src="static/ace-final/assets/js/flot/jquery.flot.pie.min.js"></script>
-		<script src="static/ace-final/assets/js/flot/jquery.flot.resize.min.js"></script>
+        <script src="${request.route_url('home')}/static/ace/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="${request.route_url('home')}/static/ace/assets/js/jquery.ui.touch-punch.min.js"></script>
+		<script src="${request.route_url('home')}/static/ace/assets/js/jquery.slimscroll.min.js"></script>
+		<script src="${request.route_url('home')}/static/ace/assets/js/jquery.easy-pie-chart.min.js"></script>
+		<script src="${request.route_url('home')}/static/ace/assets/js/jquery.sparkline.min.js"></script>
+		<script src="${request.route_url('home')}/static/ace/assets/js/flot/jquery.flot.min.js"></script>
+		<script src="${request.route_url('home')}/static/ace/assets/js/flot/jquery.flot.pie.min.js"></script>
+		<script src="${request.route_url('home')}/static/ace/assets/js/flot/jquery.flot.resize.min.js"></script>
 
 
 		<script type="text/javascript">

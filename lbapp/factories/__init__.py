@@ -5,6 +5,8 @@ from lbapp.exception import RequestError
 import requests
 import json
 
+SESSION_COOKIES = None
+
 class RequestFactory():
     """ Base class Methods for requesting rest api
     """
@@ -19,13 +21,25 @@ class RequestFactory():
         args = [arg for arg in args if arg is not None]
         return '/'.join(args)
 
+    @property
+    def cookies(self):
+        session_cookies = getattr(self, '_cookies', None)
+        if not session_cookies:
+            self._cookies = SESSION_COOKIES
+        return self._cookies
+        
+    @cookies.setter
+    def cookies(self, c):
+        self._cookies = c
+        globals()['SESSION_COOKIES'] = c
+
     def send_request(self, method, url, **kwargs):
         """ Tries to return json response, raise RequestError if exception occurs.
         """
         # First get request method
         request_method = getattr(requests, method)
         # Make http request
-        response = request_method(url, **kwargs)
+        response = request_method(url, cookies=self.cookies, **kwargs)
         try:
             # Check if request has gone wrong
             response.raise_for_status()
@@ -34,4 +48,10 @@ class RequestFactory():
         except HTTPError:
             # Something got wrong, raise error
             raise RequestError(response.text)
+
+    def get_search(self, **search):
+        """ Return a search pattern
+        """
+        return {'$$': json.dumps(search)}
+
 

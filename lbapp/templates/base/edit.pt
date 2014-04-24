@@ -1,284 +1,214 @@
 <metal:main use-macro="load: ../master.pt">
-   <!-- Insere JavaScript -->
    <div metal:fill-slot="conteudo" id="widgets">
-    <title>LightBase - Edição da Base</title>
-
-      <header>
-        <link rel="stylesheet" href="/static/ace-final/assets/css/colorpicker.css" />
-      </header>
-
+      <title>LightBase - Edição da Base</title>
+      <head>
+         <link rel="stylesheet" href="${request.route_url('home')}/static/ace/assets/css/colorpicker.css" />
+      </head>
       <div id="controller-data" style="display:none">
-        ${base_json}
+         ${base_json}
       </div>
       <div class="page-content">
          <div class="row-fluid">
             <div class="span12">
                <!--PAGE CONTENT BEGINS-->
-               <div class="row-fluid" id="all-form">
-                  <div class="span12">
-                     <div class="widget-box">
-                        <div class="widget-header widget-header-blue widget-header-flat">
-                           <h4 class="lighter" id="table-header" />
+               <div class="row-fluid page-header position-relative">
+                  <span class="span6">
+                     <h1>Editar Base ${request.matchdict['base']}</h1>
+                  </span>
+                  <span class="span6">
+                     <div class="pull-right">
+                     </div>
+                  </span>
+               </div>
+               <div id="fuelux-wizard" class="row-fluid hide" data-target="#step-container">
+                  <ul class="wizard-steps">
+                     <li data-target="#step1" class="active">
+                        <span id="step1-button" class="step">1</span>
+                        <span class="title">Informações</span>
+                     </li>
+                     <li data-target="#step2">
+                        <span id="step2-button" class="step">2</span>
+                        <span class="title">Estrutura</span>
+                     </li>
+                     <li data-target="#step3">
+                        <span id="step3-button" class="step">3</span>
+                        <span class="title">Salvar Base</span>
+                     </li>
+                  </ul>
+               </div>
+               <div class="step-content row-fluid position-relative" id="step-container">
+                  <div class="step-pane active" id="step1">
+                     <br>
+                     <br>
+                     <form class="form-horizontal" id="validation-form" method="get">
+                        <div class="control-group">
+                           <label class="control-label" for="email">Nome:</label>
+                           <div class="controls">
+                              <div class="span6">
+                                 <input type="text" name="name" id="base-name" class="span6" />
+                              </div>
+                           </div>
                         </div>
-                        <div class="widget-body">
-                           <div class="widget-main">
-                              <div class="row-fluid">
-                                 <div id="fuelux-wizard" class="row-fluid hide" data-target="#step-container">
-                                    <ul class="wizard-steps">
-                                       <li data-target="#step1" class="active">
-                                          <span id="step1-button" class="step">1</span>
-                                          <span class="title">Informações</span>
-                                       </li>
-                                       <li data-target="#step2">
-                                          <span id="step2-button" class="step">2</span>
-                                          <span class="title">Estrutura</span>
-                                       </li>
-                                       <li data-target="#step3">
-                                          <span id="step3-button" class="step">3</span>
-                                          <span class="title">Salvar Base</span>
-                                       </li>
-                                    </ul>
-                                 </div>
-                                 <div class="step-content row-fluid position-relative" id="step-container">
-                                    <div class="step-pane active" id="step1">
-                                        <br>
-                                        <br>
-                                       <form class="form-horizontal" id="validation-form" method="get">
-                                          <div class="control-group">
-                                             <label class="control-label" for="email">Nome:</label>
-                                             <div class="controls">
-                                                <div class="span6">
-                                                   <input type="text" name="name" id="base-name" class="span6" />
-                                                </div>
-                                             </div>
-                                          </div>
-                                          <div class="control-group">
-                                             <label class="control-label">Descrição:</label>
-                                             <div class="controls">
-                                                <div class="span12">
-                                                   <textarea class="span6" type="text" name="description" id="base-description" class="span4" style="width: 80%; height: 70px;"></textarea>
-                                                </div>
-                                             </div>
-                                          </div>
-                                          <div class="control-group">
-                                             <label class="control-label">Senha:</label>
-                                             <div class="controls">
-                                                <div class="span12">
-                                                   <input class="span6" type="password" name="password" id="base-password" class="span4" style="width: 200px;" />
-                                                </div>
-                                             </div>
-                                          </div>
-                                          <div class="control-group">
-                                             <label class="control-label">Confirmar Senha:</label>
-                                             <div class="controls">
-                                                <div class="span12">
-                                                   <input class="span6" type="password" name="password_again" id="base-password-confirm" class="span4" style="width: 200px;" />
-                                                </div>
-                                             </div>
-                                          </div>
-
-                                            <!-- COLORPICKER -->
-                                          
-                                          <div class="control-group">
-                                             <label class="control-label">Cor da Base:</label>
-                                             <div class="controls">
-                                                <div class="span12">
-                                                   <input id="base-color" name="color" type="text" class="input-mini">
-                                                      <!-- <input id="colorpicker-to-show" type="text" class="input-mini" style="width: 8px; height: 10px; "   >
-                                                      </input> -->
-                                                   </input>
-                                                </div>
-                                             </div>
-                                          </div>
-
-                                            <!-- COLORPICKER ENDS -->
-                                          <!--<div class="control-group" style="display:none;">
-                                             <label class="control-label">Exportar Indice:</label>
-                                             <div class="controls">
-                                                <span class="span12">
-                                                <label>
-                                                <input name="index_export" id="index_export" class="ace-switch ace-switch-6" type="checkbox" />
-                                                <span class="lbl"></span>
-                                                </label>
-                                                </span>
-                                             </div>
-                                          </div>
-                                          <div id="control-group-URL">
-                                             <div class="control-group">
-                                                <label id="URL_label" class="control-label" for="URL">URL do indexador:</label>
-                                                <div class="controls">
-                                                   <span class="span12">
-                                                   <input class="span6" type="text" id="URL_input" name="index_url" />
-                                                   </span>
-                                                </div>
-                                             </div>
-                                             <div class="control-group">
-                                                <label class="control-label" for="name">Tempo de espera da indexação:</label>
-                                                <div class="controls">
-                                                   <span class="span12">
-                                                      <input name="index_time" type="text" class="input-mini" id="spinner1" />
-                                                      <div class="space-6"></div>
-                                                   </span>
-                                                </div>
-                                             </div>
-                                          </div>
-                                          <div class="control-group" style="display:none;">
-                                             <label class="control-label">Extrair texto do documento:</label>
-                                             <div class="controls">
-                                                <span class="span12">
-                                                <label>
-                                                <input name="doc_extract" id="doc_extract" class="ace-switch ace-switch-6" type="checkbox" />
-                                                <span class="lbl"></span>
-                                                </label>
-                                                </span>
-                                             </div>
-                                          </div>
-                                          <div id="control-group-DOC">
-                                             <div class="control-group">
-                                                <label class="control-label" for="name">Tempo de espera da extração:</label>
-                                                <div class="controls">
-                                                   <span class="span12">
-                                                      <input name="extract_time" type="text" class="input-mini" id="spinner2" />
-                                                      <div class="space-6"></div>
-                                                   </span>
-                                                </div>
-                                             </div>
-                                          </div>-->
-                                       </form>
+                        <div class="control-group">
+                           <label class="control-label">Descrição:</label>
+                           <div class="controls">
+                              <div class="span12">
+                                 <textarea class="span6" type="text" name="description" id="base-description" class="span4" style="width: 80%; height: 70px;"></textarea>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="control-group">
+                           <label class="control-label">Senha:</label>
+                           <div class="controls">
+                              <div class="span12">
+                                 <input class="span6" type="password" name="password" id="base-password" class="span4" style="width: 200px;" />
+                              </div>
+                           </div>
+                        </div>
+                        <div class="control-group">
+                           <label class="control-label">Confirmar Senha:</label>
+                           <div class="controls">
+                              <div class="span12">
+                                 <input class="span6" type="password" name="password_again" id="base-password-confirm" class="span4" style="width: 200px;" />
+                              </div>
+                           </div>
+                        </div>
+                        <!-- COLORPICKER -->
+                        <div class="control-group">
+                           <label class="control-label">Cor da Base:</label>
+                           <div class="controls">
+                              <div class="span12">
+                                 <input id="base-color" name="color" type="text" class="input-mini">
+                                 </input>
+                              </div>
+                           </div>
+                        </div>
+                     </form>
+                  </div>
+                  <div class="step-pane" id="step2">
+                     <div class="row-fluid">
+                        <!-- BASE STRUCTURE AND CONTEXT -->
+                        <div id="base-widget">
+                           <header>
+                              <link rel="stylesheet" type="text/css" href="${request.route_url('home')}/static/css/Lightbase/jquery.nestable.css">
+                              <style>
+                                 .error{
+                                 color:#db8978;
+                                 }
+                              </style>
+                           </header>
+                           <div id="nestable-to-validate" class="row-fluid">
+                              <div class="span7">
+                                 <div class="widget-box">
+                                    <div class="widget-header">
+                                       <h4>Estrutura da Base</h4>
+                                       <span class="widget-toolbar">
+                                       </span>
                                     </div>
-                                    <div class="step-pane" id="step2">
-                                       <div class="row-fluid">
-                                          <!-- BASE STRUCTURE AND CONTEXT -->
-                                          <div id="base-widget">
-                                             <header>
-                                                <link rel="stylesheet" type="text/css" href="/static/css/Lightbase/jquery.nestable.css">
-                                                <style>
-                                                   .error{
-                                                   color:#db8978;
-                                                   }
-                                                </style>
-                                             </header>
-                                             <div id="nestable-to-validate" class="row-fluid">
-                                                <div class="span7">
-                                                   <div class="widget-box">
-                                                      <div class="widget-header">
-                                                         <h4>Estrutura da Base</h4>
-                                                         <span class="widget-toolbar">
-                                                         </span>
-                                                      </div>
-                                                      <div class="widget-body">
-                                                         <div class="widget-toolbox">
-                                                            <div class="btn-toolbar">
-                                                               <div class="btn-group">
-                                                                  <button class="btn btn-small btn-info" data-action="create-field">
-                                                                  <i class="icon-plus"></i>
-                                                                  Campo
-                                                                  </button>
-                                                                  <button class="btn btn-small btn-info" data-action="create-group">
-                                                                  <i class="icon-plus bigger-110"></i>
-                                                                  Grupo
-                                                                  </button>
-                                                               </div>
-                                                               <div class="btn-group">
-                                                                  <button class="btn btn-small" data-action="collapse-all">
-                                                                  <i class="icon-collapse-top"></i>
-                                                                  Colapsar
-                                                                  </button>
-                                                                  <button class="btn btn-small" data-action="expand-all">
-                                                                  <i class="icon-collapse"></i>
-                                                                  Expandir
-                                                                  </button>
-                                                               </div>
-                                                               <div class="btn-group">
-                                                                  <button class="btn btn-small btn-danger" data-action="remove-element">
-                                                                  <i class="icon-remove"></i>
-                                                                  Deletar
-                                                                  </button>
-                                                               </div>
-                                                               <div class="btn-group open">
-                                                                  <button data-toggle="dropdown" class="btn btn-small btn-grey dropdown-toggle">
-                                                                  <i class="icon-caret-down icon-only bigger-110"></i>
-                                                                  </button>
-                                                                  <ul class="dropdown-menu pull-right dropdown-caret dropdown-close">
-                                                                     <li>
-                                                                        <a href='javascript:void(0);' data-action="auto-append">
-                                                                        <i class="icon-indent-right"></i>
-                                                                        Auto indentação
-                                                                        </a>
-                                                                     </li>
-                                                                  </ul>
-                                                               </div>
-                                                            </div>
-                                                         </div>
-                                                         <div id="div-to-scroll" class="widget-main" style="height:425px; overflow:auto;">
-                                                            <!-- nestable list -->
-                                                            <div class="dd" id="nestable">
-                                                               <ol id="base-structure" class="dd-list"></ol>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                                <div class="span5">
-                                                   <div class="widget-box">
-                                                      <div class="widget-header">
-                                                         <h4>Propriedades</h4>
-                                                         <span class="widget-toolbar">
-                                                         </span>
-                                                      </div>
-                                                      <div class="widget-body">
-                                                         <div id="base-context" class="widget-main" style="overflow:auto;">
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                </div>
+                                    <div class="widget-body">
+                                       <div class="widget-toolbox">
+                                          <div class="btn-toolbar">
+                                             <div class="btn-group">
+                                                <button class="btn btn-small btn-info" data-action="create-field">
+                                                <i class="icon-plus"></i>
+                                                Campo
+                                                </button>
+                                                <button class="btn btn-small btn-info" data-action="create-group">
+                                                <i class="icon-plus bigger-110"></i>
+                                                Grupo
+                                                </button>
+                                             </div>
+                                             <div class="btn-group">
+                                                <button class="btn btn-small" data-action="collapse-all">
+                                                <i class="icon-collapse-top"></i>
+                                                Colapsar
+                                                </button>
+                                                <button class="btn btn-small" data-action="expand-all">
+                                                <i class="icon-collapse"></i>
+                                                Expandir
+                                                </button>
+                                             </div>
+                                             <div class="btn-group">
+                                                <button class="btn btn-small btn-danger" data-action="remove-element">
+                                                <i class="icon-remove"></i>
+                                                Deletar
+                                                </button>
+                                             </div>
+                                             <div class="btn-group">
+                                                <button class="btn btn-small" id="up">
+                                                <i class="icon-arrow-up"></i>
+                                                    Up
+                                                </button>
+                                             </div>
+                                             <div class="btn-group">
+                                                <button class="btn btn-small" id="down">
+                                                <i class="icon-arrow-down"></i>
+                                                    Down
+                                                </button>
                                              </div>
                                           </div>
-                                          <!-- BASE STRUCTURE AND CONTEXT ENDS-->
+                                       </div>
+                                       <div id="div-to-scroll" class="widget-main" style="height:425px; overflow:auto;">
+                                          <!-- nestable list -->
+                                          <div class="dd" id="nestable">
+                                             <ol id="base-structure" class="dd-list"></ol>
+                                          </div>
                                        </div>
                                     </div>
-                                    <div class="step-pane" id="step3">
-                                       <div class="center">
-                                          <h3 class="blue lighter">Você esta prestes a salvar uma base!</h3>
-                                          <div class="row-fluid center">
-                                             <div class="span12">
-                                                <div id="nestable-output"></div>
-                                             </div>
-                                             <div id="auto-append-info" class="control-group info" hidden>
-                                                <div class="controls">
-                                                   <span class="span6 input-icon input-icon-right">
-                                                   <input class="span12" type="text" value="Auto indentação ativada">
-                                                   <i class="icon-info-sign"></i>
-                                                   </span>
-                                                </div>
-                                             </div>
-                                          </div>
-                                          <br>
-                                          <p>
-                                             <button id="save-data" type="submit" class="btn btn-purple" style="width: 37%;">Salvar Base</button>
-                                          </p>
+                                 </div>
+                              </div>
+                              <div class="span5">
+                                 <div class="widget-box">
+                                    <div class="widget-header">
+                                       <h4>Propriedades</h4>
+                                       <span class="widget-toolbar">
+                                       </span>
+                                    </div>
+                                    <div class="widget-body">
+                                       <div id="base-context" class="widget-main" style="overflow:auto;">
                                        </div>
                                     </div>
-                                    <div class="step-pane" id="step4">
-                                    </div>
-                                 </div>
-                                 <div id="submit-buttons" class="row-fluid wizard-actions">
-                                    <button id="button-prev" class="btn btn-prev">
-                                    <i class="icon-arrow-left"></i>
-                                    Anterior
-                                    </button>
-                                    <button id="button-submit" class="btn btn-success" data-last="Finish ">
-                                    Próximo
-                                    <i class="icon-arrow-right icon-on-right"></i>
-                                    </button>
                                  </div>
                               </div>
                            </div>
-                           <!--/widget-main-->
                         </div>
-                        <!--/widget-body-->
+                        <!-- BASE STRUCTURE AND CONTEXT ENDS-->
                      </div>
                   </div>
+                  <div class="step-pane" id="step3">
+                     <div class="center">
+                        <h3 class="blue lighter">Você esta prestes a salvar uma base!</h3>
+                        <div class="row-fluid center">
+                           <div class="span12">
+                              <div id="nestable-output"></div>
+                           </div>
+                           <div id="auto-append-info" class="control-group info" hidden>
+                              <div class="controls">
+                                 <span class="span6 input-icon input-icon-right">
+                                 <input class="span12" type="text" value="Auto indentaÃ§Ã£o ativada">
+                                 <i class="icon-info-sign"></i>
+                                 </span>
+                              </div>
+                           </div>
+                        </div>
+                        <br>
+                        <p>
+                           <button id="save-data" type="submit" class="btn btn-purple" style="width: 37%;">Salvar Base</button>
+                        </p>
+                     </div>
+                  </div>
+                  <div class="step-pane" id="step4">
+                  </div>
+               </div>
+               <div id="submit-buttons" class="row-fluid wizard-actions">
+                  <button id="button-prev" class="btn btn-prev">
+                  <i class="icon-arrow-left"></i>
+                  Anterior
+                  </button>
+                  <button id="button-submit" class="btn btn-success" data-last="Finish ">
+                  Próximo
+                  <i class="icon-arrow-right icon-on-right"></i>
+                  </button>
                </div>
                <div id="modal-wizard" class="modal hide">
                   <div class="modal-footer wizard-actions">
@@ -305,414 +235,14 @@
       <!--/.page-content-->
    </div>
 </metal:main>
-<script src="/static/js/ace/fuelux.wizard.min.js"></script>
-<script src="/static/js/ace/jquery.validate.min.js"></script>
-<script src="/static/js/lightbase/base_form.js"></script>
-<script src="/static/js/lightbase/jquery.nestable.js"></script>
-<!--<script src="/static/js/ace/additional-methods.min.js"></script>-->
-<script src="/static/js/ace/bootbox.min.js"></script>
-<script src="/static/js/lightbase/requisicaoajax.js"></script>
-<!-- colorpicker -->
-<script src="/static/ace-final/assets/js/bootstrap-colorpicker.min.js"></script>
+<script src="${request.route_url('home')}/static/ace/assets/js/fuelux/fuelux.wizard.min.js"></script>
+<script src="${request.route_url('home')}/static/ace/assets/js/fuelux/fuelux.spinner.min.js"></script>
+<script src="${request.route_url('home')}/static/ace/assets/js/jquery.validate.min.js"></script>
+<script src="${request.route_url('home')}/static/ace/assets/js/bootbox.min.js"></script>
+<script src="${request.route_url('home')}/static/ace/assets/js/bootstrap-colorpicker.min.js"></script>
+<script src="${request.route_url('home')}/static/js/base/base_form.js"></script>
+<script src="${request.route_url('home')}/static/js/lib/jquery.nestable.js"></script>
+<script src="${request.route_url('home')}/static/js/base/edit_base.js"></script>
+<script src="${request.route_url('home')}/static/ace/assets/js/jquery-nav.js"></script>
+<script src="${request.route_url('home')}/static/ace/assets/js/jquery.hotkeys.js"></script>
 
-<!-- countings-->
-<script src="/static/js/ace/jquery-ui-1.10.3.custom.min.js"></script>
-<script src="/static/js/ace/chosen.jquery.min.js"></script>
-<script src="/static/js/ace/fuelux.spinner.min.js"></script>
-<!--<script src="/static/js/ace/jquery.autosize-min.js"></script>-->
-<!--<script src="/static/js/ace/jquery.maskedinput.min.js"></script>-->
-<script type="text/javascript">
-   $(function() {
-   
-   
-                $.validator.addMethod('alphanumeric', function (value, element) {
-                    /*http://stackoverflow.com/questions/4977898/check-for-valid-sql-column-name*/
-                    return /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(value);
-                }, "Preencha com caracteres válidos");
-              basedata = new Object();
-              var x = {   
-        errorElement: 'span',
-        errorClass: 'help-inline',
-        focusInvalid: false,
-        rules: {
-            name: {
-                required: true,
-                            alphanumeric: "required",
-                            maxlength: 23
-            },
-            description: {
-                required: true,
-                            maxlength: 256
-            },
-            password: {
-                required: true,
-                maxlength: 14,
-                minlength: 8
-            },
-            password_again: {
-                required: true,
-                equalTo: '#base-password'
-            },
-            index_export: {
-                            required: false
-            },
-            index_url: {
-                            url: true,
-                required: {
-                                     depends: function(element){
-                                                  var checked = false;
-                                                  if ($("#index_export:checked").val() !== undefined){
-                                                     checked = true
-                                                  }
-                                                  return checked
-                                              }                                        
-                            }
-            },
-            index_time: {
-                            required: false
-            },
-            document_extract: {
-                required: false
-                
-            },
-            extraction_time: {
-                required: false
-            },
-            state: {
-                required: false
-            },
-            platform: {
-                required: false
-            },
-            subscription: {
-                required: false
-            },
-            gender: 'required',
-            agree: 'required'
-        },
-   
-        messages: {
-            name: {
-                required: "É necessario preencher o campo"
-            },
-            description: {
-                required: "É necessario preencher o campo"
-            },
-                        index_url: {
-                            required: "É necessario preencher o campo"
-                        }
-        },
-   
-        invalidHandler: function (event, validator) { //display error alert on form submit   
-            $('.alert-error', $('.login-form')).show();
-        },
-   
-        highlight: function (e) {
-            $(e).closest('.control-group').removeClass('info').addClass('error');
-        },
-   
-        success: function (e) {
-            $(e).closest('.control-group').removeClass('error').addClass('info');
-            $(e).remove();
-        },
-   
-        /*errorPlacement: function (error, element) {
-            if(element.is(':checkbox') || element.is(':radio')) {
-                var controls = element.closest('.controls');
-                if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
-                else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
-            }
-            else if(element.is('.chzn-select')) {
-                error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
-            }
-            else error.insertAfter(element);
-        },*/
-   
-        submitHandler: function (form) {
-        },
-        invalidHandler: function (form) {
-        }
-                };
-   
-    $('[data-rel=tooltip]').tooltip();
-   
-   
-    var $validation = true;
-    $('#fuelux-wizard').ace_wizard().on('change' , function(e, info){
-        if(info.step == 1 && $validation) {
-            if(!$('#validation-form').valid()) return false;
-        }
-    }).on('stepclick', function(e){
-        //return false;//prevent clicking on steps
-    });
-   
-   
-    $('#sample-form').hide();
-       $('#validation-form').show();
-   
-    $('#modal-wizard .modal-header').ace_wizard();
-    $('#modal-wizard .wizard-actions .btn[data-dismiss=modal]').removeAttr('disabled');
-                
-                $('#validation-form').submit(function() {
-                    var formdata = $("#validation-form").serializeArray();
-                    var returnArray = new Object();
-                    returnArray['doc_extract'] = false;
-                    returnArray['index_export'] = false;
-                    returnArray['index_url'] = '';
-                    returnArray['index_time'] = '0';
-                    returnArray['extract_time'] = '0';
-                    $.each(formdata, function(i, v){
-                        /*if (v.name == "doc_extract"){
-                            v.value = true
-                        }
-                        if (v.name == "index_export"){
-                            v.value = true
-                        }*/
-                        returnArray[v.name] = v.value;
-                    });
-                        if (!("doc_extract" in returnArray)){
-                            returnArray["doc_extract"] = false;
-                        }
-                        if (!("index_export" in returnArray)){
-                            returnArray["index_export"] = false;
-                        }
-                        return returnArray;
-                });
-                $("#control-group-URL").hide();
-                $("#index_export").click(function(){
-                    if ($("#index_export:checked").val() == undefined){
-                        $("#control-group-URL").hide();
-                    }else{
-                        $("#control-group-URL").show();
-                    }
-                });
-   
-                $("#control-group-DOC").hide();
-                $("#doc_extract").click(function(){
-                    if ($("#doc_extract:checked").val() == undefined){
-                        $("#control-group-DOC").hide();
-                    }else{
-                        $("#control-group-DOC").show();
-                    }
-                });
-   
-                var button = document.getElementById("button-submit");
-                $("#button-submit").click(function(){
-                    if ($("#fuelux-wizard").wizard("selectedItem").step == 1){
-                        $('#validation-form').validate(x);
-                        $("#fuelux-wizard").wizard("next");
-                        var formdata = $("#validation-form").serializeArray();
-                        var returnArray = new Object();
-                        returnArray['doc_extract'] = false;
-                        returnArray['index_export'] = false;
-                        returnArray['index_url'] = '';
-                        returnArray['index_time'] = '0';
-                        returnArray['extract_time'] = '0';
-                        $.each(formdata, function(i, v){
-                            /*if (v.name == "doc_extract"){
-                                v.value = true
-                            }
-                            if (v.name == "index_export"){
-                                v.value = true
-                            }*/
-                            returnArray[v.name] = v.value;
-                        });
-                        if (!("doc_extract" in returnArray)){
-                            returnArray["doc_extract"] = false;
-                        }
-                        if (!("index_export" in returnArray)){
-                            returnArray["index_export"] = false;
-                        }
-                        basedata["metadata"] = returnArray;
-                        basedata["structure"] = base.structure; 
-                        basedata["context"] = base.context.context;
-                        base.metadata = returnArray;
-                        delete returnArray["password_again"];
-                        return false;
-                    }
-                    if ($("#fuelux-wizard").wizard("selectedItem").step == 2 && base.context.validate() == true){
-                        $("#fuelux-wizard").wizard("next");
-                    }
-                    if ($('#fuelux-wizard').wizard("selectedItem").step == 3){
-                        var textarea = document.getElementById("nestable-output");
-                        $(textarea).text(base.json);
-                        textarea.setAttribute('style','overflow: auto; height: 100px; border: 2px #C0C0C0 solid;');
-                        button.setAttribute('style','display:none;');
-                        //textarea.disabled = true;
-                    }
-                });
-   
-                $("#step1-button").click(function(){
-                        button.setAttribute('style','display:inline;');
-                });
-                $("#step2-button").click(function(){
-                        button.setAttribute('style','display:inline;');
-                });
-   
-                $("#button-prev").click(function(){
-                    if ($('#fuelux-wizard').wizard("selectedItem").step == 2){
-                        button.setAttribute('style','display:inline;');
-                    }
-                });
-   
-                $("#save-data").click( function(){
-                    $("#button-submit").click();
-
-                        var options_tpl = 
-                            '<form id="save-options">' +
-                                  '<label>Opções</label>' +
-                                  '<div>' +
-                                     '<input name="save-option" type="radio" value="update" checked>' +
-                                     '<span class="lbl"> Apenas salvar</span>' +
-                                  '</div>' +
-                                  '<div>' +
-                                     '<input name="save-option" type="radio" value="create" >' +
-                                     '<span class="lbl"> Recriar</span>' +
-                                  '</div>' +
-                            '</form>';
-
-                        bootbox.confirm(options_tpl, function(result){
-                            if(result){
-                                var save_option = $('#save-options').find('input:checked').val();
-                                data = {
-                                    option: save_option,
-                                    json_base: base.json,
-                                };
-                                $.ajax({
-                                    type: 'post',
-                                    url: window.location + '?id_base=',
-                                    data: data,
-                                    success: function(data, textStatus, jqXHR ){
-                                        bootbox.dialog("Obrigado! Sua base foi salva com sucesso!", [{
-                                            "label" : "OK",
-                                            "class" : "btn-small btn-primary",
-                                            "href": '/base/list',
-                                            }]
-                                        );
-                                    },
-                                    error: function(jqXHR, textStatus, errorThrown){
-                                        window.location.href = '/error-500';
-                                    }
-                                });
-                            }
-                         });
-                    });
-   
-   
-                }); 
-</script>
-
-
-<script type="text/javascript">
-   $(document).ready(function()
-   {
-        $('#spinner1').ace_spinner({value:0,min:0,max:200,step:10, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
-   
-        $('#spinner2').ace_spinner({value:0,min:0,max:200,step:10, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
-       $('button[data-action="create-field"]').click(function(){
-           base.create_field(remand=false, check_valid=true);
-       });
-       $('button[data-action="create-group"]').click(function(){
-           base.create_group();
-       });
-       $('button[data-action="expand-all"]').click(function(){
-           $('.dd').nestable('expandAll');
-       });
-       $('button[data-action="collapse-all"]').click(function(){
-           $('.dd').nestable('collapseAll');
-       });
-       $('button[data-action="remove-element"]').click(function(){
-           base.remove_element();
-       });
-       $('a[data-action="auto-append"]').click(function(){
-           if (base.auto_append){
-               base.auto_append = false;
-               $('#auto-append-info').hide();
-           }
-           else{
-               base.auto_append = true;
-               $('#auto-append-info').show();
-           }
-       });
-   
-          var drop_callback = function(drop_info){
-               // Select list-item and focus on form
-               base.context.focus_on('base-context-' + drop_info.sourceId + '-form');
-               if(base.auto_append){
-                   if(base.current_item.is_group){
-                       base.auto_append_el = $(base.current_item).children('ol')[0]; 
-                   }
-                   else{
-                       base.auto_append_el = undefined; 
-                   }
-               }
-   
-           }
-   
-       $('#nestable').nestable({
-           group: 1,
-           maxDepth: 10,
-           dropCallback: drop_callback
-       })
-
-        var base_json = JSON.parse($('#controller-data').text());
-        base.context.edit_mode = true;
-        base.build_from_json(base_json);
-        base.context.edit_mode = false;
-   
-   });
-   
-</script>
-
-		<script type="text/javascript">
-			$(function() {
-				$('[data-rel=tooltip]').tooltip({container:'body'});
-				$('[data-rel=popover]').popover({container:'body'});
-				
-				//$('textarea[class*=autosize]').autosize({append: "\n"});
-				$('textarea[class*=limited]').each(function() {
-					var limit = parseInt($(this).attr('data-maxlength')) || 100;
-					$(this).inputlimiter({
-						"limit": limit,
-						remText: '%n character%s remaining...',
-						limitText: 'max allowed : %n.'
-					});
-				});
-				
-				$( "#eq > span" ).css({width:'90%', 'float':'left', margin:'15px'}).each(function() {
-					// read initial values from markup and remove that
-					var value = parseInt( $( this ).text(), 10 );
-					$( this ).empty().slider({
-						value: value,
-						range: "min",
-						animate: true
-						
-					});
-				});
-			
-				//dynamically change allowed formats by changing before_change callback function
-			
-				$('#spinner1').ace_spinner({value:0,min:0,max:200,step:10, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
-				.on('change', function(){
-					//alert(this.value)
-				});
-				$('#spinner2').ace_spinner({value:0,min:0,max:10000,step:100, icon_up:'icon-caret-up', icon_down:'icon-caret-down'});
-				$('#spinner3').ace_spinner({value:0,min:-100,max:100,step:10, icon_up:'icon-plus', icon_down:'icon-minus', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
-			
-				$('#base-color').colorpicker();
-				//$('#base-color').ace_colorpicker();
-
-        var colorpicker = document.getElementById('base-color');
-        colorpicker.setAttribute('style', 'background-color:' + $('#base-color').val() + ';');
-
-        $('#base-color').focusout(function(){
-               //var colorpickerToShow = document.getElementById('colorpicker-to-show'),
-                   colorpicker = document.getElementById('base-color'),
-                   //colorpickerValue = colorpicker.value;
-
-               colorpicker.setAttribute('style', 'background-color:' + colorpicker.value + ';')
-               /*colorpickerToShow.setAttribute('style', 'background-color:' + colorpickerValue + '; width: 8px; height: 10px;');*/
-        });
-			
-			});
-		</script>
