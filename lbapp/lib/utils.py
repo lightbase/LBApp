@@ -1,4 +1,4 @@
-import json 
+import json
 
 def parse_json(obj):
     if not obj:
