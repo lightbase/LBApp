@@ -32,12 +32,20 @@ $('#json_text').click(function(){
         data : data,
         cache : false,
         success: function(data, textStatus, jqXHR){
+            console.log(jqXHR.responseText)
             Utils.success('base criada com sucesso');
         },
         error: function(jqXHR, textStatus, errorThrown){
             console.log(jqXHR, textStatus, errorThrown)
             console.log(jqXHR.responseText)
-            Utils.error("Porfavor verifique seu json");
+            var a = jQuery.parseJSON(jqXHR.responseText)
+            var b = a['_error_message'].split('"')[2]
+            if(b == " already exists!" ){
+                Utils.error("Nome da Base Já existe");
+            }
+            else{
+                Utils.error("Porfavor verifique seu json");
+            }
         }
      });
   });
@@ -45,4 +53,12 @@ $('#json_text').click(function(){
 
 $('#json_text').click(function(){
     $('#text_json').slideUp( 300 ).delay( 1000  ).fadeIn( 1500 );
+});
+
+$("#alter").click(function(){
+    $('#icon').attr('class', 'icon-folder-open')
+});
+
+$("#return").click(function(){
+    $('#icon').attr('class', 'icon-folder-close')
 });

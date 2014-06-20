@@ -4,6 +4,7 @@
 var DATATYPES = {
     'Text'          : 'Texto',
     'TextArea'      : 'Área de Texto',
+    'Password'      : 'Senha',
     'Document'      : 'Documento',
     'File'          : 'Arquivo',
     'Image'         : 'Imagem',
@@ -26,6 +27,7 @@ var DATATYPES = {
 var DATATYPE_ICONS = {
     'Text'          : 'icon-text-width',
     'TextArea'      : 'icon-font',
+    'Password'      : 'icon-key',
     'Document'      : 'icon-file-text-alt',
     'File'          : 'icon-file-alt',
     'Image'         : 'icon-picture',
@@ -33,15 +35,15 @@ var DATATYPE_ICONS = {
     'Video'         : 'icon-film',
     'Integer'       : 'icon-info',
     'SelfEnumerated': 'icon-list-ol',
-    'DateTime'      : 'icon-columns',
+    'DateTime'      : 'icon-datahora',
     'Date'          : 'icon-calendar',
     'Time'          : 'icon-time',
     'Email'         : 'icon-envelope-alt',
     'Url'           : 'icon-globe',
     'Boolean'       : 'icon-check',
     'Html'          : 'icon-code',
-    'Json'          : 'icon-circle-blank',
-    'Decimal'       : 'iDecimal',
+    'Json'          : 'icon-json',
+    'Decimal'       : 'icon-decimal',
     'Money'         : 'icon-usd',
 };
 
@@ -65,6 +67,13 @@ var PROHIBITIONS= {
     'Document': [
         'Ordenado',
         'Unico',
+    ],
+    'Password': [
+        'Ordenado',
+        'Unico',
+        'Fonetico',
+        'Fuzzy',
+        'Vazio'
     ],
     'Integer': [
         'Fonetico',
@@ -1384,3 +1393,11 @@ $('#down').click(function(){
    $('html, body').animate(function(){
    });
  });
+
+$('#bnt_info').click(function(){
+    var array = base.refresh(false, true);
+    var last = $(array).last()[0];
+    var item = array.indexOf(last);
+    var position = item + 1;
+    var bnt = $('#nm_base').html('Sua base contem '+position+' campos');
+});

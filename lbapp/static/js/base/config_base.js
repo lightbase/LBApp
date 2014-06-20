@@ -10,47 +10,47 @@ $('.spinner').ace_spinner({
 
 var base_json = JSON.parse($("#controller-data").text());
 
-$('#doc-extract').attr("checked", base_json.metadata.doc_extract);
-$('#index-export').attr("checked", base_json.metadata.index_export);
+$('#file-ext').attr("checked", base_json.metadata.file_ext);
+$('#idx-exp').attr("checked", base_json.metadata.idx_exp);
 
 function check_fields(){
-    if ($("#index-export").is(":checked") == true){
-        $("#index-url").show();
-        $("#index-time").parent().show();
-        $(".index-url-small").show();
-        $(".index-time-small").show();
+    if ($("#idx-exp").is(":checked") == true){
+        $("#idx-exp-url").show();
+        $("#idx-exp-time").parent().show();
+        $(".idx-exp-url-small").show();
+        $(".idx-exp-time-small").show();
     }
     else {
-        $("#index-url").hide();
-        $("#index-time").parent().hide();
-        $(".index-url-small").hide();
-        $(".index-time-small").hide();
+        $("#idx-exp-url").hide();
+        $("#idx-exp-time").parent().hide();
+        $(".idx-exp-url-small").hide();
+        $(".idx-exp-time-small").hide();
     }
 
-    if ($("#doc-extract").is(":checked") == true){
-        $("#extract-time").parent().show();
-        $(".extract-time-small").show();
+    if ($("#file-ext").is(":checked") == true){
+        $("#file-ext-time").parent().show();
+        $(".file-ext-time-small").show();
     }
     else {
-        $("#extract-time").parent().hide();
-        $(".extract-time-small").hide();
+        $("#file-ext-time").parent().hide();
+        $(".file-ext-time-small").hide();
     }
 }
 
 check_fields();
-$("#index-export").change(check_fields);
-$("#doc-extract").change(check_fields);
-$('#index-url').val(base_json.metadata.index_url);
-$('#index-time').val(base_json.metadata.index_time);
-$('#extract-time').val(base_json.metadata.extract_time);
+$("#idx-exp").change(check_fields);
+$("#file-ext").change(check_fields);
+$('#idx-exp-url').val(base_json.metadata.idx_exp_url);
+$('#idx-exp-time').val(base_json.metadata.idx_exp_time);
+$('#file-ext-time').val(base_json.metadata.file_ext_time);
 
 $('#button-save').click(function(){
 
-    base_json.metadata.index_export = $('#index-export').is(':checked');
-    base_json.metadata.index_url = $('#index-url').val();
-    base_json.metadata.index_time = parseInt($('#index-time').val());
-    base_json.metadata.doc_extract = $('#doc-extract').is(':checked');
-    base_json.metadata.extract_time = parseInt($('#extract-time').val());
+    base_json.metadata.idx_exp = $('#idx-exp').is(':checked');
+    base_json.metadata.idx_exp_url = $('#idx-exp-url').val();
+    base_json.metadata.idx_exp_time = parseInt($('#idx-exp-time').val());
+    base_json.metadata.file_ext = $('#file-ext').is(':checked');
+    base_json.metadata.file_ext_time = parseInt($('#file-ext-time').val());
 
     $.ajax({
         type: 'put',

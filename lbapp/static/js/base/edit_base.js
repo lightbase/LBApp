@@ -29,22 +29,22 @@ $(function () {
                 required: true,
                 equalTo: '#base-password'
             },
-            index_export: {
+            idx_exp: {
                 required: false
             },
-            index_url: {
+            idx_exp_url: {
                 url: true,
                 required: {
                     depends: function (element) {
                         var checked = false;
-                        if ($("#index_export:checked").val() !== undefined) {
+                        if ($("#idx_exp:checked").val() !== undefined) {
                             checked = true
                         }
                         return checked
                     }
                 }
             },
-            index_time: {
+            idx_exp_time: {
                 required: false
             },
             document_extract: {
@@ -74,7 +74,7 @@ $(function () {
             description: {
                 required: "É necessario preencher o campo"
             },
-            index_url: {
+            idx_exp_url: {
                 required: "É necessario preencher o campo"
             }
         },
@@ -134,11 +134,11 @@ $(function () {
             $("#fuelux-wizard").wizard("next");
             var formdata = $("#validation-form").serializeArray();
             var returnArray = new Object();
-            returnArray['doc_extract'] = base_json.metadata.doc_extract;
-            returnArray['index_export'] = base_json.metadata.index_export;
-            returnArray['index_url'] = base_json.metadata.index_url;
-            returnArray['index_time'] = base_json.metadata.index_time;
-            returnArray['extract_time'] = base_json.metadata.extract_time;
+            returnArray['file_ext'] = base_json.metadata.file_ext;
+            returnArray['idx_exp'] = base_json.metadata.idx_exp;
+            returnArray['idx_exp_url'] = base_json.metadata.idx_exp_url;
+            returnArray['idx_exp_time'] = base_json.metadata.idx_exp_time;
+            returnArray['file_ext_time'] = base_json.metadata.file_ext_time;
             $.each(formdata, function (i, v) {
                 returnArray[v.name] = v.value;
             });

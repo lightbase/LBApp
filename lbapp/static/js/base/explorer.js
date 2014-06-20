@@ -141,7 +141,7 @@ var sDom_tpl = function () {
  */
 
 var view_reg_event = function(e){
-    var registry = e.data.json_reg == undefined? e.data: e.data.json_reg;
+    var registry = e.data;
     delete registry[''];
     bootbox.dialog('<h3 class="blue">JSON</h3>' +
         '<pre>' + Utils.formatJson(registry) + '</pre>',
@@ -495,7 +495,7 @@ var get_table_data = function (base, depth) {
                 "bSortable": bSortable,
                 "bVisible": bVisible, 
                 "sDefaultContent": "",
-                "mData": depth == undefined? 'json_reg.' + struct.field.name: struct.field.name,
+                "mData": struct.field.name,
                 "mRender": function (data, type, source) {
                     return new Cell(struct.field, data).get_content();
                 },
@@ -561,7 +561,7 @@ var fnRowCallback = function (table_data) {
         var oTable = this;
 
         if (oTable.attr('id') == 'datatable')
-            var row_id = 'reg-' + aData.json_reg.id_reg;
+            var row_id = 'reg-' + aData._metadata.id_reg;
         else if(table_data.multivalued)
             var row_id = oTable.attr('id') + '-' + iDisplayIndex;
         else
@@ -586,12 +586,11 @@ var fnRowCallback = function (table_data) {
             var ul_btn = $(plus_btn[1]);
             $action_td.append(td_btn);
             //$hidden_ul.append(ul_btn);
-            
+
             td_btn.click(function () {
                 var _inner_tables = [ ];
                 table_data.inner_tables.forEach(function(table, index){
-                    if (table.root) var data = aData.json_reg;
-                    else var data = aData;
+                    var data = aData;
                     data = data[table.name]
                     _inner_tables.push(get_inner_table(table, data, row_id));
                 });
@@ -643,7 +642,7 @@ $.ajax({
     },
 });
 
-var TABLE_DATA = get_table_data(BASE.json_base);
+var TABLE_DATA = get_table_data(BASE);
 
 var explorer = $("#datatable").dataTable({
     "bJQueryUI": false,

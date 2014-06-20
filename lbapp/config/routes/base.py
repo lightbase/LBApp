@@ -18,6 +18,10 @@ def make_base_routes(config):
     config.add_route('create_base_json', 'base/new/doc', factory=BaseFactory)
     config.add_view(view=BaseView, attr='create_base_json', route_name='create_base_json', request_method='POST')
 
+
+    config.add_route('doc_download', 'base/{base}/download', factory=BaseFactory)
+    config.add_view(view=BaseView, attr='doc_download', route_name='doc_download', request_method='GET')
+
     config.add_route('create_reg_json', 'base/new/reg', factory=BaseFactory)
     config.add_view(view=BaseView, attr='get_json_reg', route_name='create_reg_json', request_method='GET', renderer='templates/base/new_reg.pt')
     config.add_view(view=BaseView, attr='create_reg_json', route_name='create_reg_json', request_method='POST')
