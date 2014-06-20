@@ -401,6 +401,6 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
 .icon-vk:before{content:"\f189";}
 .icon-weibo:before{content:"\f18a";}
 .icon-renren:before{content:"\f18b";}
-.icon-datahora{background-image: url('../../../../static/css/data-hora.png'); width:20px !important; height:20px; margin-top:8px;}
-.icon-json{background-image: url('../../../../static/css//json2.png'); width:20px !important; height:20px; margin-top:12px; background-repeat: no-repeat;}
-.icon-decimal{background-image: url('../../../../static/css//decimal2.png'); width:20px !important; height:20px; margin-top:12px; background-repeat: no-repeat;}
+.icon-datahora{background-image: url('./data-hora.png'); width:20px !important; height:20px; margin-top:8px;}
+.icon-json{background-image: url('./json2.png'); width:20px !important; height:20px; margin-top:12px; background-repeat: no-repeat;}
+.icon-decimal{background-image: url('./decimal2.png'); width:20px !important; height:20px; margin-top:12px; background-repeat: no-repeat;}

@@ -42,7 +42,7 @@
 					<ul class="nav ace-nav pull-right" id="base-fast-menu">
                                                           <li class="light-blue">
                             <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                                <img class="nav-user-photo" src="static/img/foto.jpg" alt="Jason's Photo" />
+                                <img class="nav-user-photo" src="${request.route_url('home')}/static/img/dk.png" alt="Jason's Photo" />
                                 <span class="user-info">
                                     <small>Bem vindo</small>
                                     Light

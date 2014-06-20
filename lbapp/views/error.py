@@ -21,7 +21,12 @@ def error_view(exc, request):
     """ Customized Error view 
     """
     print(traceback.format_exc())
-    return Response('{"error_message": "%s"}' % str(exc.args), status=500)
+    if type(exc.args) is tuple:
+        error_message = exc.args[0]
+    else:
+        error_message = exc.args
+
+    return Response('%s' % error_message, status=500)
     return {'error_message': str(exc.args)}
 
 @view_config(route_name='error-500', renderer='../templates/error/error-500.pt')

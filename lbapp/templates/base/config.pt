@@ -16,17 +16,17 @@
                             <h4>
                             Indexação
                             <h4>
-                            <label class="control-label" for="index-export">Indexar base</label>
+                            <label class="control-label" for="idx-exp">Indexar base</label>
                             <div class="controls">
-                                <input class="ace" type="checkbox" id="index-export" name="index-export">
-                                <label class="lbl" for="index-export"> </label>
+                                <input class="ace" type="checkbox" id="idx-exp" name="idx-exp">
+                                <label class="lbl" for="idx-exp"> </label>
                                 &nbsp;&nbsp;&nbsp; 
-                                <small class="dark index-url-small">URL de indexação </small>
-                                <input class="input-xlarge" type="url" id="index-url" name="index-url">
+                                <small class="dark idx-exp-url-small">URL de indexação </small>
+                                <input class="input-xlarge" type="url" id="idx-exp-url" name="idx-exp-url">
                                 &nbsp;&nbsp;&nbsp; 
-                                <small class="dark index-time-small">Intervalo de </small>
-                                <input type="text" class="spinner" id="index-time" name="index-time">
-                                <small class="dark index-time-small">min</small>
+                                <small class="dark idx-exp-time-small">Intervalo de </small>
+                                <input type="text" class="spinner" id="idx-exp-time" name="idx-exp-time">
+                                <small class="dark idx-exp-time-small">min</small>
                             </div>
                         </div>
                         <hr/>
@@ -34,14 +34,14 @@
                             <h4>
                             Extração de Texto
                             <h4>
-                            <label class="control-label" for="doc-extract">Extrair texto</label>
+                            <label class="control-label" for="file-ext">Extrair texto</label>
                             <div class="controls">
-                                <input class="ace" name="doc-extract" type="checkbox" id="doc-extract">
-                                <label class="lbl" for="doc-extract"> </label>
+                                <input class="ace" name="file-ext" type="checkbox" id="file-ext">
+                                <label class="lbl" for="file-ext"> </label>
                                 &nbsp;&nbsp;&nbsp; 
-                                <small class="dark extract-time-small">Intervalo de </small>
-                                <input type="text" class="spinner" name="extract-time" id="extract-time" >
-                                <small class="dark extract-time-small">min</small>
+                                <small class="dark file-ext-time-small">Intervalo de </small>
+                                <input type="text" class="spinner" name="file-ext-time" id="file-ext-time" >
+                                <small class="dark file-ext-time-small">min</small>
                             </div>
                         </div>
                         <hr/>

@@ -16,8 +16,8 @@ var COLUMNS = [{
         "sWidth": "5%",
         "mData": "",
         "sDefaultContent": "",
-        "mRender": function (data, type, full) {
-            return '<a href="/api/'+ full.nome_base+'">'+ full.id_base +'</a>'
+        "mRender": function (data, type, base) {
+            return '<a href="/api/'+ base.metadata.name +'">'+ base.metadata.id_base +'</a>'
         }
     },{
         "sTitle": "Cor",
@@ -26,8 +26,8 @@ var COLUMNS = [{
         "sWidth": "3%",
         "sDefaultContent": "",
         "mData": "",
-        "mRender": function (data, type, full) {
-            var base_color = full.json_base.metadata.color
+        "mRender": function (data, type, base) {
+            var base_color = base.metadata.color
             return '<div style="width: 16px; height: 16px; background-color: '+ base_color +';"></div>'
         }
     },{
@@ -36,20 +36,20 @@ var COLUMNS = [{
         "sWidth": "15%",
         "sDefaultContent": "",
         "mData": "",
-        "mRender": function (data, type, full) {
-            return '<a href="'+ get_route(full.nome_base, 'explore_base')+'">'+ full.nome_base +'</a>'
+        "mRender": function (data, type, base) {
+            return '<a href="'+ get_route(base.metadata.name, 'explore_base')+'">'+ base.metadata.name +'</a>'
         }
     },{
         "sTitle": "Descrição",
         "sClass": "base-description",
         "bSortable": false,
         "sWidth": "45%",
-        "mData": "json_base.metadata.description"
+        "mData": "metadata.description"
     },{
         "sTitle": "Data",
         "sClass": "base-dt",
         "sWidth": "10%",
-        "mData": "dt_base"
+        "mData": "metadata.dt_base"
     },{
         "mData": "",
         "sDefaultContent": "",
@@ -61,19 +61,22 @@ var COLUMNS = [{
 
 var get_action_buttons_tpl = function(base){
     return $('<div class="hidden-phone visible-desktop action-buttons">'+
-        '<a class="blue view-base-'+ base.id_base +'" href="#">'+
+        '<a class="blue view-base-'+ base.metadata.id_base +'" href="#">'+
             '<i class="icon-zoom-in bigger-130"></i>'+
         '</a>'+
-        '<a class="grey view-model-'+ base.id_base +'" href="#">'+
+        '<a class="grey view-model-'+ base.metadata.id_base +'" href="#">'+
             '<i class="icon-file bigger-130"></i>'+
         '</a>'+
-        '<a class="green edit-base-'+ base.id_base +'" href="'+ get_route(base.nome_base, 'edit_base') +'">'+
+        '<a class="green edit-base-'+ base.metadata.id_base +'" href="'+ get_route(base.metadata.name, 'edit_base') +'">'+
             '<i class="icon-pencil bigger-130"></i>'+
         '</a>'+
-        '<a class="blue config-base-'+ base.id_base +'" href="'+ get_route(base.nome_base, 'config_base') +'">'+
+        '<a class="blue config-base-'+ base.metadata.id_base +'" href="'+ get_route(base.metadata.name, 'config_base') +'">'+
             '<i class="icon-cog bigger-130"></i>'+
         '</a>'+
-        '<a class="red delete-base-'+ base.id_base +'" href="#">'+
+        '<a href="/base/'+base.metadata.name+'/download">'+
+            '<i class="icon-download-alt bigger-130"></i>'+
+        '</a>'+
+        '<a class="red delete-base-'+ base.metadata.id_base +'" href="#">'+
             '<i class="icon-trash bigger-130"></i>'+
         '</a>'+
     '</div>'+
@@ -85,7 +88,7 @@ var get_action_buttons_tpl = function(base){
             '<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret '+
                     'dropdown-close">'+
                 '<li>'+
-                    '<a href="#" class="tooltip-info view-base-'+ base.id_base +'" ' +
+                    '<a href="#" class="tooltip-info view-base-'+ base.metadata.id_base +'" ' +
                         'data-rel="tooltip" title="Base" data-original-title="View">'+
                     '<span class="blue">'+
                         '<i class="icon-zoom-in bigger-120"></i>'+
@@ -93,7 +96,7 @@ var get_action_buttons_tpl = function(base){
                     '</a>'+
                 '</li>'+
                 '<li>'+
-                    '<a href="'+ get_route(base.nome_base, 'config_base') +'" class="tooltip-info config-base-'+ base.id_base +'" ' +
+                    '<a href="'+ get_route(base.metadata.name, 'config_base') +'" class="tooltip-info config-base-'+ base.metadata.id_base +'" ' +
                         'data-rel="tooltip" title="Configurar" data-original-title="View">'+
                     '<span class="blue">'+
                         '<i class="icon-cog bigger-120"></i>'+
@@ -101,7 +104,7 @@ var get_action_buttons_tpl = function(base){
                     '</a>'+
                 '</li>'+
                 '<li>'+
-                    '<a href="#" class="tooltip-info view-model-'+ base.id_base +'" ' +
+                    '<a href="#" class="tooltip-info view-model-'+ base.metadata.id_base +'" ' +
                         'data-rel="tooltip" title="Modelo" data-original-title="View">'+
                     '<span class="grey">'+
                         '<i class="icon-file bigger-120"></i>'+
@@ -109,7 +112,7 @@ var get_action_buttons_tpl = function(base){
                     '</a>'+
                 '</li>'+
                 '<li>'+
-                    '<a href="'+ get_route(base.nome_base, 'edit_base') +'" class="tooltip-success edit-base-'+ base.id_base +'" ' +
+                    '<a href="'+ get_route(base.metadata.name, 'edit_base') +'" class="tooltip-success edit-base-'+ base.metadata.id_base +'" ' +
                         'data-rel="tooltip" title="Editar" data-original-title="Edit">'+
                     '<span class="green">'+
                         '<i class="icon-edit bigger-120"></i>'+
@@ -117,7 +120,7 @@ var get_action_buttons_tpl = function(base){
                     '</a>'+
                 '</li>'+
                 '<li>'+
-                    '<a href="#" class="tooltip-error" delete-base-'+ base.id_base +'" ' +
+                    '<a href="#" class="tooltip-error" delete-base-'+ base.metadata.id_base +'" ' +
                         'data-rel="tooltip" title="Deletar" data-original-title="Delete">'+
                     '<span class="red">'+
                         '<i class="icon-trash bigger-120"></i>'+
@@ -154,8 +157,8 @@ var formatJson = function(json) {
 }
 
 var view_base_event = function(event){
-    bootbox.dialog('<h3 class="blue">'+ event.data.data.nome_base +'</h3>'+
-        '<pre>' + formatJson(event.data.data.json_base) + '</pre>',
+    bootbox.dialog('<h3 class="blue">'+ event.data.base.metadata.name +'</h3>'+
+        '<pre>' + formatJson(event.data.base) + '</pre>',
     [{
         "label" : "Fechar",
         "class" : "btn-small btn-primary",
@@ -163,8 +166,8 @@ var view_base_event = function(event){
 };
 
 var view_model_event = function(event){
-    bootbox.dialog('<h3 class="blue">'+ event.data.data.nome_base +'</h3>' +
-        '<pre>' + formatJson(event.data.data.reg_model) + '</pre>',
+    bootbox.dialog('<h3 class="blue">'+ event.data.base.metadata.name+'</h3>' +
+        '<pre>' + formatJson(event.data.base.metadata.model) + '</pre>',
     [{
         "label" : "Fechar",
         "class" : "btn-small btn-primary",
@@ -172,13 +175,13 @@ var view_model_event = function(event){
 };
 
 var delete_base_event = function(event){
-    bootbox.dialog('<h3 class="red">Deletar base '+ event.data.data.nome_base +' ?</h3>', [{
+    bootbox.dialog('<h3 class="red">Deletar base '+ event.data.base.metadata.name +' ?</h3>', [{
         "label" : "Deletar Base",
         "class" : "btn btn-danger",
         callback: function() {
             $.ajax({
                 type: 'DELETE',
-                url: get_route(event.data.data.nome_base, 'delete_base'),
+                url: get_route(event.data.base.metadata.name, 'delete_base'),
                 cache: false,
                 success: function(data, textStatus, jqXHR ){
                     window.location.reload();
@@ -212,9 +215,9 @@ $("#datatable").dataTable({
 
         $action_td.append($tpl);
         $action_td.find('[data-rel="tooltip"]').tooltip({placement: 'left'});
-        $action_td.find('.view-base-' + aData.id_base).click({data: aData}, view_base_event);
-        $action_td.find('.view-model-' + aData.id_base).click({data: aData}, view_model_event);
-        $action_td.find('.delete-base-' + aData.id_base).click({data: aData}, delete_base_event);
+        $action_td.find('.view-base-' + aData.metadata.id_base).click({base: aData}, view_base_event);
+        $action_td.find('.view-model-' + aData.metadata.id_base).click({base: aData}, view_model_event);
+        $action_td.find('.delete-base-' + aData.metadata.id_base).click({base: aData}, delete_base_event);
     },
     "sDom": "<'row-fluid'<'span4'l><'span4'r><'span4'f>>t<'row-fluid'<'span6'i><'span6'p>>",
     "oLanguage": {

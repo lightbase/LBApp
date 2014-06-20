@@ -17,14 +17,14 @@
                         <span>
                             <ul class="nav nav-tabs" id="myTab" style="margin-left: 100px; margin-top: -30px;">
                                 <li class="active">
-                                    <a data-toggle="tab" href="#home">
+                                    <a data-toggle="tab" id="return" href="#home">
                                         <i class="icon-edit"></i>
                                         Json
                                     </a>
                                 </li>
                                 <li>
-                                    <a data-toggle="tab" href="#profile">
-                                        <i class="icon-folder-open"></i>
+                                    <a data-toggle="tab" id="alter" href="#profile">
+                                        <i id="icon" class="icon-folder-close"></i>
                                         Documento
                                     </a>
                                 </li>
@@ -39,7 +39,7 @@
                                         <div id="home" class="tab-pane in active">
                                             <form style="margin-left: 160px; margin-top:50px;">
                                                 <div class="controls" id="insert_json">
-                                                    <label class="lbl" for="index-export"></label>
+                                                    <label class="lbl" for="idx-exp"></label>
                                                     <textarea class="span6" type="text" name="description" id="0" style="width: 80%; height: 70px;"></textarea>
                                                     <a type="button" class="btn btn-small btn-info" id="create" style="margin-top: -47px;">
                                                         <i class="icon-plus"></i>
@@ -96,4 +96,3 @@
 <script src="${request.route_url('home')}/static/js/base/new_json.js"></script>
 <script src="${request.route_url('home')}/static/ace/assets/js/jquery.validate.min.js"></script>
 <script src="${request.route_url('home')}/static/ace/assets/js/bootbox.min.js"></script>
-<script src="${request.route_url('home')}/static/ace/assets/js/jquery.form.min.js"></script>
