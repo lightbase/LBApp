@@ -1,3 +1,4 @@
+import requests
 from lbapp.factories import RequestFactory
 from lbapp.exception import RequestError
 from lbapp.lib import utils
@@ -11,7 +12,7 @@ class BaseFactory(RequestFactory):
     def get_bases(self):
         """ Get list of bases names
         """
-        params = {'$$': '{"select": ["nome_base"]}'}
+        params = {'$$': '{"select": ["name"]}'}
         response = self.send_request('get', self.rest_url, params=params)
         return response.json()['results']
 
@@ -26,7 +27,7 @@ class BaseFactory(RequestFactory):
         columns = {
            '0': 'id_base',
            '1': None,
-           '2': 'nome_base',
+           '2': 'name',
            '3': None,
            '4': 'dt_base'
         }
@@ -39,33 +40,18 @@ class BaseFactory(RequestFactory):
             }
 
         search = self.get_search(
-            select = [
-                'id_base',
-                'nome_base',
-                'json_base',
-                'reg_model',
-                'dt_base'
-            ],
             order_by = order_by,
             limit = params.get('iDisplayLength'),
             offset = params.get('iDisplayStart'),
-            literal = "Upper(json_base) like '%"+ sSearch.upper() +"%'"
+            literal = "Upper(struct) like '%"+ sSearch.upper() +"%'"
         )
-
-        """
-        iDisplayLength = self.request.params.get("iDisplayLength"),
-        iDisplayStart = self.request.params.get("iDisplayStart"),
-        sEcho = self.request.params.get("sEcho"),
-        iSortCol = self.request.params.get("iSortCol_0"),
-        iSortDir = self.request.params.get("sSortDir_0")
-        """
 
         response = self.send_request('get', self.rest_url, params=search).json()
         return {
             "aaData": response['results'],
             "sEcho": params.get('sEcho'),
             "iTotalRecords": response['limit'],
-            "iTotalDisplayRecords": response['result_count'],
+            "iTotalDisplayRecords": response['result_count']
         }
 
     def get_base(self, attr=None):
@@ -182,3 +168,8 @@ class BaseFactory(RequestFactory):
     def creat_json_reg(self):
 
         return [ ]
+
+    def download_doc(self, base):
+        url = self.to_url(self.rest_url, base)
+        response = requests.get(url)
+        return response.text

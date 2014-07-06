@@ -22,7 +22,7 @@ class BaseView():
     def get_base_json(self):
         """ Get base json
         """
-        response = self.factory.get_base(attr='json_base')
+        response = self.factory.get_base(attr='struct')
         return {'base_json': response.text}
 
     def list_bases(self):
@@ -77,16 +77,16 @@ class BaseView():
         iSortCol = self.request.params.get("iSortCol_0")
         sSearch = self.request.params.get("sSearch") or '%'
         if iSortCol == '0':
-            sort_column = 'id_reg'
+            sort_column = 'id_doc'
         else:
-            sort_column = self.request.params.get('mDataProp_' + iSortCol, 'id_reg').split('.')[-1]
+            sort_column = self.request.params.get('mDataProp_' + iSortCol, 'id_doc').split('.')[-1]
 
         search = self.factory.get_search(
-            select = ['json_reg'],
+            select = ['*'],
             order_by = {self.request.params.get("sSortDir_0"): [sort_column]},
             limit = self.request.params.get('iDisplayLength'),
             offset = self.request.params.get('iDisplayStart'),
-            literal = "Upper(json_reg) like '%"+ sSearch.upper() +"%'"
+            literal = "Upper(document) like '%"+ sSearch.upper() +"%'"
         )
         registries = self.factory.get_registries(search)
         response = {
@@ -162,9 +162,7 @@ class BaseView():
             return HTTPFound(location='http://10.1.0.121/base/lasd')
 
     def create_base_json(self):
-        print(self.request.params['json_base'])
         data = {'json_base': self.request.params['json_base']}
-        print(data)
         response = self.factory.create_json_base(data)
         return Response(response.text)
 
@@ -175,3 +173,13 @@ class BaseView():
     def create_reg_json(self):
 
         return [ ]
+
+    def doc_download(self):
+        base = self.request.matchdict['base']
+        data = self.factory.download_doc(base)
+        return Response(
+            content_type='text/plain',
+            content_disposition='attachment;filename='+base+'.txt',
+            app_iter=[data]
+
+        )

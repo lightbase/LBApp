@@ -41,22 +41,22 @@ $(function () {
                 required: true,
                 equalTo: '#base-password',
             },
-            index_export: {
+            idx_exp: {
                 required: false
             },
-            index_url: {
+            idx_exp_url: {
                 url: true,
                 required: {
                     depends: function (element) {
                         var checked = false;
-                        if ($("#index_export:checked").val() !== undefined) {
+                        if ($("#idx_exp:checked").val() !== undefined) {
                             checked = true
                         }
                         return checked
                     }
                 }
             },
-            index_time: {
+            idx_exp_time: {
                 required: false
             },
             document_extract: {
@@ -88,7 +88,7 @@ $(function () {
                 required: "É necessario preencher o campo",
                 maxlength: "Digite não mais que 255 caracteres"
             },
-            index_url: {
+            idx_exp_url: {
                 required: "É necessario preencher o campo"
             },
             password: {
@@ -159,33 +159,33 @@ $(function () {
     $('#validation-form').submit(function () {
         var formdata = $("#validation-form").serializeArray();
         var returnArray = new Object();
-        returnArray['doc_extract'] = false;
-        returnArray['index_export'] = false;
-        returnArray['index_url'] = '';
-        returnArray['index_time'] = '0';
-        returnArray['extract_time'] = '0';
+        returnArray['file_ext'] = false;
+        returnArray['idx_exp'] = false;
+        returnArray['idx_exp_url'] = '';
+        returnArray['idx_exp_time'] = '0';
+        returnArray['file_ext_time'] = '0';
         $.each(formdata, function (i, v) {
-            /*if (v.name == "doc_extract"){
+            /*if (v.name == "file_ext"){
                             v.value = true
                         }
-                        if (v.name == "index_export"){
+                        if (v.name == "idx_exp"){
                             v.value = true
                         }*/
-            if (v.name != 'doc_extract' || v.name != 'index_export') {
+            if (v.name != 'file_ext' || v.name != 'idx_exp') {
                 returnArray[v.name] = v.value;
             }
         });
-        if (!("doc_extract" in returnArray)) {
-            returnArray["doc_extract"] = false;
+        if (!("file_ext" in returnArray)) {
+            returnArray["file_ext"] = false;
         }
-        if (!("index_export" in returnArray)) {
-            returnArray["index_export"] = false;
+        if (!("idx_exp" in returnArray)) {
+            returnArray["idx_exp"] = false;
         }
         return returnArray;
     });
     $("#control-group-URL").hide();
-    $("#index_export").click(function () {
-        if ($("#index_export:checked").val() == undefined) {
+    $("#idx_exp").click(function () {
+        if ($("#idx_exp:checked").val() == undefined) {
             $("#control-group-URL").hide();
         } else {
             $("#control-group-URL").show();
@@ -193,8 +193,8 @@ $(function () {
     });
 
     $("#control-group-DOC").hide();
-    $("#doc_extract").click(function () {
-        if ($("#doc_extract:checked").val() == undefined) {
+    $("#file_ext").click(function () {
+        if ($("#file_ext:checked").val() == undefined) {
             $("#control-group-DOC").hide();
         } else {
             $("#control-group-DOC").show();
@@ -208,25 +208,25 @@ $(function () {
             $("#fuelux-wizard").wizard("next");
             var formdata = $("#validation-form").serializeArray();
             var returnArray = new Object();
-            returnArray['doc_extract'] = false;
-            returnArray['index_export'] = false;
-            returnArray['index_url'] = '';
-            returnArray['index_time'] = '0';
-            returnArray['extract_time'] = '0';
+            returnArray['file_ext'] = false;
+            returnArray['idx_exp'] = false;
+            returnArray['idx_exp_url'] = '';
+            returnArray['idx_exp_time'] = '0';
+            returnArray['file_ext_time'] = '0';
             $.each(formdata, function (i, v) {
-                /*if (v.name == "doc_extract"){
+                /*if (v.name == "file_ext"){
                                 v.value = true
                             }
-                            if (v.name == "index_export"){
+                            if (v.name == "idx_exp"){
                                 v.value = true
                             }*/
                 returnArray[v.name] = v.value;
             });
-            if (!("doc_extract" in returnArray)) {
-                returnArray["doc_extract"] = false;
+            if (!("file_ext" in returnArray)) {
+                returnArray["file_ext"] = false;
             }
-            if (!("index_export" in returnArray)) {
-                returnArray["index_export"] = false;
+            if (!("idx_exp" in returnArray)) {
+                returnArray["idx_exp"] = false;
             }
             basedata["metadata"] = returnArray;
             basedata["structure"] = base.structure;
@@ -263,7 +263,6 @@ $(function () {
 
     $("#save-data").click(function () {
         var button = document.getElementById("save-data");
-        button.setAttribute("disabled");
         $("#button-submit").click();
         bootbox.dialog("Deseja realmente salvar base?", [{
             "label": "Salvar",
