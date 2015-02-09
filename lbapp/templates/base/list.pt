@@ -23,10 +23,10 @@
                             </button>
                             <ul class="dropdown-menu pull-right">
                                 <li>
-                                    <a href="${request.route_url('home')}/base/new">Criar Base</a>
+                                    <a href="${request.route_url('home')}base/new">Criar Base</a>
                                 </li>
                                 <li>
-                                    <a href="${request.route_url('home')}/base/new/json">Criar Base usando Json</a>
+                                    <a href="${request.route_url('home')}base/new/json">Criar Base usando Json</a>
                                 </li>
                             </ul>
                         </div>
@@ -41,10 +41,10 @@
         <!--PAGE CONTENT ENDS-->
     </div>
 </metal:main>
-<script src="${request.route_url('home')}/static/ace/assets/js/jquery.gritter.min.js"></script>
-<link href="${request.route_url('home')}/static/ace/assets/css/jquery.gritter.css" rel="stylesheet"/>
-<script src="${request.route_url('home')}/static/ace/assets/js/jquery.dataTables.min.js"></script>
-<script src="${request.route_url('home')}/static/js/base/jquery.dataTables.bootstrap.js"></script>
-<script src="${request.route_url('home')}/static/ace/assets/js/bootbox.min.js"></script>
-<script src="${request.route_url('home')}/static/js/lib/utils.js"></script>
-<script src="${request.route_url('home')}/static/js/base/list_bases.js"></script>
+<script src="${request.route_url('home')}static/ace/assets/js/jquery.gritter.min.js"></script>
+<link href="${request.route_url('home')}static/ace/assets/css/jquery.gritter.css" rel="stylesheet"/>
+<script src="${request.route_url('home')}static/ace/assets/js/jquery.dataTables.min.js"></script>
+<script src="${request.route_url('home')}static/js/base/jquery.dataTables.bootstrap.js"></script>
+<script src="${request.route_url('home')}static/ace/assets/js/bootbox.min.js"></script>
+<script src="${request.route_url('home')}static/js/lib/utils.js"></script>
+<script src="${request.route_url('home')}static/js/base/list_bases.js"></script>
