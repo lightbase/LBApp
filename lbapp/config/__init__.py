@@ -1,3 +1,4 @@
+import os
 
 def set_globals(**settings):
 
