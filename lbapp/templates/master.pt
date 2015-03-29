@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="description" content="" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link href="${request.route_url('home')}static/css/master.css" rel="stylesheet"/>
+		<link href="${request.static_url('lbapp:static/css/master.css')}" rel="stylesheet"/>
 		<link href="${request.route_url('home')}static/ace/assets/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="${request.route_url('home')}static/ace/assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="${request.route_url('home')}static/ace/assets/css/font-awesome.min.css" />

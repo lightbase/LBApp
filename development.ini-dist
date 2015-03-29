@@ -6,13 +6,17 @@
 [app:main]
 use = egg:LBApp
 
-pyramid.reload_templates = false
+pyramid.reload_templates = true
 pyramid.debug_authorization = false
 pyramid.debug_notfound = false
 pyramid.debug_routematch = false
 pyramid.default_locale_name = en
 pyramid.includes = pyramid_chameleon
-rest_url = http://lbgenerator_url
+rest_url = http://localhost/api
+
+# By default, the toolbar only appears for clients from IP addresses
+# '127.0.0.1' and '::1'.
+# debugtoolbar.hosts = 127.0.0.1 ::1
 
 ###
 # wsgi server configuration
@@ -20,7 +24,7 @@ rest_url = http://lbgenerator_url
 
 [server:main]
 use = egg:waitress#main
-host = 0.0.0.0
+host = localhost
 port = 6543
 
 ###
@@ -38,11 +42,11 @@ keys = console
 keys = generic
 
 [logger_root]
-level = WARN
+level = INFO
 handlers = console
 
 [logger_lbapp]
-level = WARN
+level = DEBUG
 handlers =
 qualname = lbapp
 

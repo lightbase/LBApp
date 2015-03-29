@@ -1,10 +1,4 @@
 
-if (platform.name != "Chrome"){
-    alert("platform not supported!");
-    throw "platform not supported!";
-}
-
-
 var base_json = JSON.parse($('#controller-data').text());
 $(function () {
     $.validator.addMethod('alphanumeric', function (value, element) {
@@ -20,7 +14,7 @@ $(function () {
             name: {
                 required: true,
                 alphanumeric: "required",
-                maxlength: 10000
+                maxlength: 23
             },
             description: {
                 required: true,

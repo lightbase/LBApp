@@ -22,7 +22,7 @@ class BaseView():
     def get_base_json(self):
         """ Get base json
         """
-        response = self.factory.get_base()
+        response = self.factory.get_base(attr='struct')
         return {'base_json': response.text}
 
     def list_bases(self):
@@ -86,7 +86,7 @@ class BaseView():
             order_by = {self.request.params.get("sSortDir_0"): [sort_column]},
             limit = self.request.params.get('iDisplayLength'),
             offset = self.request.params.get('iDisplayStart'),
-            literal = "Upper(document::text) like '%"+ sSearch.upper() +"%'"
+            literal = "Upper(document) like '%"+ sSearch.upper() +"%'"
         )
         registries = self.factory.get_registries(search)
         response = {

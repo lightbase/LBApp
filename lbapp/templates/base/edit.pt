@@ -240,6 +240,5 @@
 <script src="${request.route_url('home')}/static/ace/assets/js/bootstrap-colorpicker.min.js"></script>
 <script src="${request.route_url('home')}/static/js/base/base_form.js"></script>
 <script src="${request.route_url('home')}/static/js/lib/jquery.nestable.js"></script>
-<script src="${request.route_url('home')}/static/js/lib/platform.js"></script>
 <script src="${request.route_url('home')}/static/js/base/edit_base.js"></script>
 
