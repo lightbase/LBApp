@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/lightbase-neo/!svn/ver/1099/trunk/LBApp/lbapp/templates/user
+END
+login.pt
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/lightbase-neo/!svn/ver/1099/trunk/LBApp/lbapp/templates/user/login.pt
+END
+profile.pt
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/lightbase-neo/!svn/ver/1099/trunk/LBApp/lbapp/templates/user/profile.pt
+END
+register.pt
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/lightbase-neo/!svn/ver/1099/trunk/LBApp/lbapp/templates/user/register.pt
+END

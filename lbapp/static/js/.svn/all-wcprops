@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/lightbase-neo/!svn/ver/1234/trunk/LBApp/lbapp/static/js
+END
+register.js
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/lightbase-neo/!svn/ver/1099/trunk/LBApp/lbapp/static/js/register.js
+END
+login.js
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/lightbase-neo/!svn/ver/1234/trunk/LBApp/lbapp/static/js/login.js
+END
+master.js
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/lightbase-neo/!svn/ver/1099/trunk/LBApp/lbapp/static/js/master.js
+END
+profile.js
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/lightbase-neo/!svn/ver/1099/trunk/LBApp/lbapp/static/js/profile.js
+END

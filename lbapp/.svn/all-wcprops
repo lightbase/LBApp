@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/lightbase-neo/!svn/ver/1234/trunk/LBApp/lbapp
+END
+exception.py
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/lightbase-neo/!svn/ver/910/trunk/LBApp/lbapp/exception.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/lightbase-neo/!svn/ver/910/trunk/LBApp/lbapp/__init__.py
+END
+tests.py
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/lightbase-neo/!svn/ver/325/trunk/LBApp/lbapp/tests.py
+END
+monitor.py
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/lightbase-neo/!svn/ver/485/trunk/LBApp/lbapp/monitor.py
+END
