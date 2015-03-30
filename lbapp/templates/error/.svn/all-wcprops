@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/lightbase-neo/!svn/ver/601/trunk/LBApp/lbapp/templates/error
+END
+error-500.pt
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/lightbase-neo/!svn/ver/601/trunk/LBApp/lbapp/templates/error/error-500.pt
+END
+error-404.pt
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/lightbase-neo/!svn/ver/601/trunk/LBApp/lbapp/templates/error/error-404.pt
+END

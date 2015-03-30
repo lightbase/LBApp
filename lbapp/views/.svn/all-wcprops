@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/lightbase-neo/!svn/ver/1234/trunk/LBApp/lbapp/views
+END
+ace.py
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/lightbase-neo/!svn/ver/1099/trunk/LBApp/lbapp/views/ace.py
+END
+error.py
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/lightbase-neo/!svn/ver/1234/trunk/LBApp/lbapp/views/error.py
+END
+base.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/lightbase-neo/!svn/ver/1282/trunk/LBApp/lbapp/views/base.py
+END
+user.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/lightbase-neo/!svn/ver/1099/trunk/LBApp/lbapp/views/user.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/lightbase-neo/!svn/ver/473/trunk/LBApp/lbapp/views/__init__.py
+END
+explorer.py
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/lightbase-neo/!svn/ver/910/trunk/LBApp/lbapp/views/explorer.py
+END

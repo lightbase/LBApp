@@ -1,0 +1,69 @@
+<metal:main use-macro="load: ../master.pt">
+    <script metal:fill-slot="javascript" type="text/javascript" src=""></script>
+    <div metal:fill-slot="conteudo" id="widgets">
+        <title>LightBase - Configurar Bases</title>
+        <header>
+        </header>
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="page-header position-relative">
+                    <h1>Configurar Base ${request.matchdict['base']}</h1>
+                </div>
+                <!--PAGE CONTENT BEGINS-->
+                <div class="row-fluid">
+                    <form id="base-config-form" class="form-horizontal">
+                        <div class="control-group">
+                            <h4>
+                            Indexação
+                            <h4>
+                            <label class="control-label" for="idx-exp">Indexar base</label>
+                            <div class="controls">
+                                <input class="ace" type="checkbox" id="idx-exp" name="idx-exp">
+                                <label class="lbl" for="idx-exp"> </label>
+                                &nbsp;&nbsp;&nbsp; 
+                                <small class="dark idx-exp-url-small">URL de indexação </small>
+                                <input class="input-xlarge" type="url" id="idx-exp-url" name="idx-exp-url">
+                                &nbsp;&nbsp;&nbsp; 
+                                <small class="dark idx-exp-time-small">Intervalo de </small>
+                                <input type="text" class="spinner" id="idx-exp-time" name="idx-exp-time">
+                                <small class="dark idx-exp-time-small">min</small>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="control-group">
+                            <h4>
+                            Extração de Texto
+                            <h4>
+                            <label class="control-label" for="file-ext">Extrair texto</label>
+                            <div class="controls">
+                                <input class="ace" name="file-ext" type="checkbox" id="file-ext">
+                                <label class="lbl" for="file-ext"> </label>
+                                &nbsp;&nbsp;&nbsp; 
+                                <small class="dark file-ext-time-small">Intervalo de </small>
+                                <input type="text" class="spinner" name="file-ext-time" id="file-ext-time" >
+                                <small class="dark file-ext-time-small">min</small>
+                            </div>
+                        </div>
+                        <hr/>
+                    </form>
+                    <div class="form-actions">
+                        <button id="button-save" class="btn btn-large btn-info" type="button">
+                        <i class="icon-ok bigger-110"></i>
+                        Salvar alterações
+                        </button>
+                    </div>
+                </div>
+                <!--PAGE CONTENT ENDS-->
+            </div>
+            <!--/.span-->
+        </div>
+        <!--/.row-fluid-->
+    </div>
+</metal:main>
+<div id=controller-data style="display: none">${base_json}<div>
+<script src="${request.route_url('home')}/static/ace/assets/js/fuelux/fuelux.spinner.min.js"></script>
+<script src="${request.route_url('home')}/static/ace/assets/js/jquery.gritter.min.js"></script>
+<link href="${request.route_url('home')}/static/ace/assets/css/jquery.gritter.css" rel="stylesheet"/>
+<script src="${request.route_url('home')}/static/js/lib/utils.js"></script>
+<script src="${request.route_url('home')}/static/js/base/config_base.js"></script>
+<script src="${request.route_url('home')}/static/ace/assets/js/jquery.validate.min.js"></script>

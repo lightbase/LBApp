@@ -1,0 +1,25 @@
+fieldset {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+legend {
+    width:inherit; /* Or auto */
+    padding:0 10px; /* To give a bit of padding on the left and right */
+    border-bottom:none;
+}
+.error {
+    color:#db8978;
+}
+.tabs-left > .nav-tabs > li > a, .tabs-right > .nav-tabs > li > a {
+    min-width: 10px;
+}
+.dropzone {
+    min-height: 0px;
+}
+.modal {
+    width: 800px;
+}
+.dropzone .dz-default.dz-message {
+    margin-top: -10.5px;
+}

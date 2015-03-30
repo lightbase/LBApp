@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link href="${request.route_url('home')}static/css/master.css" rel="stylesheet"/>
+		<link href="${request.route_url('home')}static/ace/assets/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="${request.route_url('home')}static/ace/assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="${request.route_url('home')}static/ace/assets/css/font-awesome.min.css" />
+		<!--<link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />-->
+		<link rel="stylesheet" href="${request.route_url('home')}static/ace/assets/css/ace-fonts.css"/>
+		<link rel="stylesheet" href="${request.route_url('home')}static/ace/assets/css/ace.min.css"/>
+		<link rel="stylesheet" href="${request.route_url('home')}static/ace/assets/css/ace-responsive.min.css"/>
+		<link rel="stylesheet" href="${request.route_url('home')}static/ace/assets/css/ace-skins.min.css" />
+		<!--<link rel="stylesheet" href="assets/css/ace-ie.min.css" />-->
+		<script src="${request.route_url('home')}/static/ace/assets/js/ace-extra.min.js"></script>
+		<script src="${request.route_url('home')}/static/ace/assets/js/jquery-2.0.3.min.js"></script>
+		<script src="${request.route_url('home')}/static/ace/assets/js/jquery-ui-1.10.3.full.min.js"></script>
+		<script src="${request.route_url('home')}/static/ace/assets/js/bootstrap.min.js"></script>
+		<script src="${request.route_url('home')}/static/ace/assets/js/ace-elements.min.js"></script>
+		<script src="${request.route_url('home')}/static/ace/assets/js/ace.js"></script>
+		<script src="${request.route_url('home')}/static/js/master.js"></script>
+		<script type="text/javascript">
+			/*if("ontouchend" in document){
+                document.write("<script src=\""+
+                    "${request.route_url('home')}"+
+                    "static/ace/assets/js/jquery.mobile.custom.min.js\">"+"<"+"/script>");
+            }*/ 
+		</script>
+        <link id="logout_route" href="${request.route_url('logout')}"/>
+        <link id="login_route" href="${request.route_url('login')}"/>
+	</head>
+	<body>
+		<div class="navbar">
+			<div class="navbar-inner">
+				<div class="container-fluid" style="background: #000000;">
+					<a class="brand" href="${ request.route_url('list_bases') }" >
+							<i class="icon-sun orange"></i>
+							LightBase
+					</a><!--/.brand-->
+					<ul class="nav ace-nav pull-right" id="base-fast-menu">
+                                                          <li class="light-blue">
+                            <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+                                <img class="nav-user-photo" src="${request.route_url('home')}/static/img/dk.png" alt="Jason's Photo" />
+                                <span class="user-info">
+                                    <small>Bem vindo</small>
+                                    Light
+                                </span>
+
+                                <i class="icon-caret-down"></i>
+                            </a>
+
+                            <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
+                                <li>
+                                    <a href="#">
+                                        <i class="icon-cog"></i>
+                                        Settings
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#">
+                                        <i class="icon-user"></i>
+                                        Profile
+                                    </a>
+                                </li>
+
+                                <li class="divider"></li>
+
+                                <li>
+                                    <a id="logout" href="#">
+                                        <i class="icon-off"></i>
+                                        Logout
+                                    </a>
+                                </li>
+                            </ul> 
+                                </li>
+                   </ul><!--/.ace-nav-->
+				</div><!--/.container-fluid-->
+			</div><!--/.navbar-inner-->
+		</div>
+
+		<small>
+		<div class="main-container container-fluid">
+				<div class="page-content">
+					<div class="row-fluid">
+						<div class="span12">
+                        <!--PAGE CONTENT BEGINS-->
+                        <metal:content define-slot="conteudo" />
+						<!--PAGE CONTENT ENDS-->
+						</div><!--/.span-->
+					</div><!--/.row-fluid-->
+				</div><!--/.page-content-->
+		</div><!--/.main-container-->
+		</small>
+
+		<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-small btn-inverse">
+			<i class="icon-double-angle-up icon-only bigger-110"></i>
+		</a>
+
+	</body>
+</html>
