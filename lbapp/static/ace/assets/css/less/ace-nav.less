@@ -1,149 +1,121 @@
-.navbar {
-  margin-bottom:0;
-  //position:relative;
-  //z-index:@zindexFixedNavbar+1;
-}
+//ace top nav/bar
+@navbar-background: #438EB9;//navbar background color
+@navbar-text-color: #FFF;
+
+@ace-nav-border: rgba(255,255,255,0.4);
 
 .navbar {
-  padding-left:0; padding-right:0;
-  margin-left:0; margin-right:0;
-  
- .navbar-inner {
-	  border:none;
-	  .box-shadow(none);
-	  .border-radius(0);
+  margin: 0;
+  padding-left: 0;
+  padding-right: 0;
 
-	  margin:0;
-	  padding-left:0; padding-right:0;
-	  
-	  min-height:@navbar-mh;
-	  position:relative;
+  border-width: 0;
+  border-radius : 0;
+ .box-shadow(none);
 
-	  background:@navbar-bg;
-  }
+  min-height: @navbar-min-height;
 
+  background: @navbar-background;
 
   .navbar-text, .navbar-link {
-	 color:@navbar-text-color;
-  }
-  .brand {
-	 color:@navbar-text-color;
-	 font-size:@brand-size;
-	 text-shadow:none;
+	 color: @navbar-text-color;
   }
 
+  .navbar-brand {
+	 color: @navbar-text-color;
+	 font-size: @font-size-brand;
+	 text-shadow: none;
 
-  .nav {
-	> li {
-	   > a {
-			& , &:hover , &:focus {
-				font-size:13px;
-				text-shadow:none;
-				color:@navbar-text-color;
-			}
-		}
-	}//li
-  }//.nav
+	 padding-top: 10px;
+	 padding-bottom: 10px;
 
+	 height: auto;
+
+	 &:hover , &:focus {
+		color: @navbar-text-color;
+	 }
+  }
+}
+
+/**
+@media (min-width: @grid-float-breakpoint) {
+  .navbar > .container .navbar-brand,
+  .navbar > .container-fluid .navbar-brand {
+    margin-left: 0;
+	margin-right: 0;
+  }
+}
+*/
+
+@media only screen and (min-width: @grid-float-breakpoint) {
+ .navbar-container {
+	padding-left: 10px;
+	padding-right: 10px;
+ }
+}
+//inside .container
+.navbar-container.container {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+
+
+//ace-nav
+@import "navbar/user-buttons.less";
+@import "navbar/user-dropdown-position.less";
+@import "navbar/user-buttons-move-down.less";//move down when screen size is below 460px (@screen-topbar-down) 
+@import "navbar/user-menu.less";//the menu and photo of logged in user
+
+//collapsible (.navbar.navbar-collapse)
+@import "navbar/collapsible.less";
+@import "navbar/navbar-menu-form.less";
+
+
+//some bs resetting!
+.navbar-fixed-top , .navbar-static-top , .navbar-fixed-bottom  {
+    .navbar-collapse {
+		padding-left: floor(@grid-gutter-width / 2);
+		padding-right: floor(@grid-gutter-width / 2);
+	}
 }
 
 
 
 
-/* ace-nav */
-.ace-nav {
- height:100%;
- 
- > li {
-	line-height:@navbar-mh;
-	max-height:@navbar-mh;
-	
-	background:@ace-nav-default;
+////
+//this is only because of "inside-container"
+//we want the top blue section not to be more than 45px(inherit)
+ @media only screen and (min-width: @screen-sm-min) and (max-width: @grid-float-breakpoint-max)  {
+  .navbar.navbar-collapse {
+	 background-color: transparent;
 
-	border-left:1px solid #DDD;
-	padding:0;
+	 &:before {
+			background: @navbar-background;
+			content: "";
+			display: block;
 
-	position:relative;
-	
-	&:first-child {
-	  border-left:none;
+			position: absolute;
+			min-height: inherit;
+
+			left: 0;
+			right: 0;
+			top: 0;
+
+			z-index: -1;
+			border-radius: inherit;
+	 }
+
+	.navbar-container {
+		background-color: @navbar-background;
 	}
-	
-	> a {
-		position:relative;
-		color:#EEE;
-		 
-		display:block;
-		height:100%;
-
-		padding:0 8px !important;
-		background-color:transparent;
-		
-		> [class*="icon-"] {
-			font-size:16px;
-			color:#EEE;
-			display:inline-block;
-			width:20px;
-			text-align:center;
-		}
-		
-		> .badge {
-			position:relative;
-			top:-4px; left:2px;
-
-			padding-right:5px; padding-left:5px;
-		}
-	}
-	
-	
-	
-	/* different colors */
-	&.grey { background:@ace-nav-grey; }
-	&.purple { background:@ace-nav-purple; }
-	&.green { background:@ace-nav-green; }
-	&.light-blue { background:@ace-nav-light-blue; }
-	&.light-blue2 { background:@ace-nav-light-blue2; }
-	&.red { background:@ace-nav-red; }
-	&.light-green { background:@ace-nav-light-green; }
-	&.light-purple { background:@ace-nav-light-purple; }
-	&.light-orange { background:@ace-nav-light-orange; }
-	&.light-pink { background:@ace-nav-light-pink; }
-	&.dark { background:@ace-nav-dark; }	
-	&.white-opaque { background:@ace-nav-white-opaque;}
-	&.dark-opaque { background:@ace-nav-dark-opaque;}
-	
-	//no border
-	&.no-border { border:none;}
-	
-	//margins
-	.marginX (@index) when (@index > 0) {
-		&.margin-@{index} { margin-left:unit(@index,px); }
-		.marginX(@index - 1);
-	}
-	.marginX(4);
-
-	
-	///
-	.dropdown-menu {
-		z-index:@zindexFixedNavbar+1;
-	}
- }
- 
- .nav-user-photo {
-	 margin:-4px 8px 0 0;
-
-	 border-radius:24px;
-	 border:2px solid #FFF;
-	 
-	 max-width:36px !important;
- }
- 
- 
-  li:last-child  a [class^="icon-"] {/* the arrow indicating "See more" on each dropdown , and the icons of user menu */
-	display:inline-block;
-	width:1.25em;
-	text-align:center;
   }
+ }
 
-}
+
+
+
+
+
+@import "navbar/toggle-button.less";
 

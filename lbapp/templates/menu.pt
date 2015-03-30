@@ -1,0 +1,18 @@
+<ul class="nav nav-list">
+    <li class="active">
+        <a href="${request.route_url('home')}">
+            <i class="menu-icon fa fa-tachometer"></i>
+            <span class="menu-text"> Início</span>
+        </a>
+
+        <b class="arrow"></b>
+    </li>
+    <li class="">
+        <a href="${request.route_url('list_bases')}">
+            <i class="menu-icon fa fa-list-alt"></i>
+            <span class="menu-text"> Lista de Bases </span>
+        </a>
+
+        <b class="arrow"></b>
+    </li>
+</ul><!-- /.nav-list -->

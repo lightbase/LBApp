@@ -61,9 +61,9 @@
     </div>
 </metal:main>
 <div id=controller-data style="display: none">${base_json}<div>
-<script src="${request.route_url('home')}/static/ace/assets/js/fuelux/fuelux.spinner.min.js"></script>
-<script src="${request.route_url('home')}/static/ace/assets/js/jquery.gritter.min.js"></script>
-<link href="${request.route_url('home')}/static/ace/assets/css/jquery.gritter.css" rel="stylesheet"/>
-<script src="${request.route_url('home')}/static/js/lib/utils.js"></script>
-<script src="${request.route_url('home')}/static/js/base/config_base.js"></script>
-<script src="${request.route_url('home')}/static/ace/assets/js/jquery.validate.min.js"></script>
+<script src="${request.route_url('home')}static/ace/assets/js/fuelux/fuelux.spinner.min.js"></script>
+<script src="${request.route_url('home')}static/ace/assets/js/jquery.gritter.min.js"></script>
+<link href="${request.route_url('home')}static/ace/assets/css/jquery.gritter.css" rel="stylesheet"/>
+<script src="${request.route_url('home')}static/js/lib/utils.js"></script>
+<script src="${request.route_url('home')}static/js/base/config_base.js"></script>
+<script src="${request.route_url('home')}static/ace/assets/js/jquery.validate.min.js"></script>

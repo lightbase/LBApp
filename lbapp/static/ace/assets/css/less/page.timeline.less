@@ -1,3 +1,6 @@
+.enable_timeline() when(@enable-timeline = true) {
+
+
 .timeline-container {
  position:relative;
  padding-top:4px;
@@ -17,14 +20,14 @@
 	bottom:0;
 	border:1px solid #E2E3E7;
 	background-color:#E7EAEF;
-	width:2px;
+	width:4px;
 	border-width:0 1px;
  }
  &:first-child:before {
 	border-top-width:1px;
  }
  &:last-child:before {
-	border-bottom-width:1px;
+	border-bottom-width: 1px;
  }
 }
 
@@ -43,11 +46,11 @@
  }
  .transparent {
 	.widget-header {
-		background-color:#ECF1F4;
-		border-bottom:none;
+		background-color: #ECF1F4;
+		border-bottom-width: 0;
 
-		> :first-child {
-			margin-left:8px;
+		> .widget-title {
+			margin-left: 8px;
 		}
 	}
  }
@@ -72,28 +75,27 @@
 
 .timeline-item {
 	.widget-box	{
-		margin:0;
-		position:relative;
-		max-width:none;
-		border-bottom:none;
-		margin-left:60px;
+		margin: 0;
+		position: relative;
+		max-width: none;
+		//border-bottom-width: 0;
+		margin-left: 60px;
 	}
 	.widget-main {
-		margin:0;
-		position:relative;
-		max-width:none;
-		border-bottom:none;
+		margin: 0;
+		position: relative;
+		max-width: none;
+		border-bottom-width: 0;
 	}
 	.widget-body {
-		background-color:transparent;
+		background-color: transparent;
 	}
 
 	.widget-toolbox {
-		padding:4px 8px 0 !important;
-		background-color:transparent !important;
-		border:0 solid #CCC !important;
-		border-top:none !important;
-		margin:0 0px !important;
+		padding: 4px 8px 0 !important;
+		background-color: transparent !important;
+		border-width: 0 !important;
+		margin: 0 0px !important;
 	}
 }
 
@@ -111,38 +113,31 @@
 	
 	img {
 		border-radius:100%;
-		max-width:36px;
+		max-width:42px;
 	}
 	.label , .badge {
-		font-size:12px;
+		font-size: @font-size-timeline-badge;
 	}
 }
 
 
 
 .timeline-container:not(.timeline-style2) .timeline-indicator {
-	opacity:1;
+	opacity: 1;
     border-radius: 100%;
     display: inline-block;
-    font-size: 16px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    width: 30px;
+    font-size: @font-size-timeline-icon;
+    height: 36px;
+    line-height: 30px;    
+    width: 36px;
+	text-align: center;
 	text-shadow: none !important;
 	padding:0;
 	cursor:default;
 
 	border:3px solid #FFF !important;
-	
-	img& {
-		border-color:#FFF !important;
-		padding:3px;
-		width:auto; height:auto; line-height:auto;
-		max-width:32px;
-	}
-}
 
+}
 
 
 .timeline-label {
@@ -153,9 +148,9 @@
 }
 
 .timeline-item img {
-	border:1px solid #AAA;
-	padding:2px;
-	background-color:#FFF;
+	border: 1px solid #AAA;
+	padding: 2px;
+	background-color: #FFF;
 }
 
 
@@ -165,7 +160,7 @@
 
 
 
-
+.enable_timeline_style_2() when (@enable-timeline-style-2 = true) {
 .timeline-style2 {
 
  &:before {
@@ -225,15 +220,15 @@
 
 	.timeline-indicator {
 		font-size: 0;
-		height: 8px;
-		line-height: 8px;
-		width: 8px;
+		height: 12px;
+		line-height: 12px;
+		width: 12px;
 		
 		border-width: 1px !important;
 		background-color: #FFFFFF !important;
 		
 		position:absolute;
-		left:86px; top:3px;
+		left:85px; top:3px;
 		
 		opacity:1;
 		border-radius: 100%;
@@ -254,17 +249,19 @@
 	}
 
 	.timeline-label {
-		width:75px;
-		text-align:center;
-		margin-left:0; margin-bottom:10px;
-		text-align:right;
-		color:#666;
-		font-size:14px;
+		width: 75px;
+		text-align: center;
+		margin-left: 0;
+		margin-bottom: 10px;
+		text-align: right;
+		color: #666;
+		font-size: @font-size-timeline-style2-label;
 	}
 
 }
 
-
+}
+.enable_timeline_style_2();
 
 
 
@@ -273,3 +270,8 @@
 	position:static;
 }
 
+
+
+
+}
+.enable_timeline();

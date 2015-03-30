@@ -1,4 +1,0 @@
-LBApp
-=====
-
-Lightbase Apllication
