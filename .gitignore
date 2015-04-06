@@ -20,7 +20,6 @@ lib64
 __pycache__
 production.ini
 
-
 # Installer logs
 pip-log.txt
 
