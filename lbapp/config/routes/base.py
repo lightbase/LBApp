@@ -7,6 +7,9 @@ def make_base_routes(config):
     config.add_route('get_base', 'base/{base}/get', factory=BaseFactory)
     config.add_view(view=BaseView, attr='get_base', route_name='get_base', request_method='GET')
 
+    config.add_route('create_base_form', 'base/form', factory=BaseFactory)
+    config.add_view(view=BaseView, attr='get_bases', route_name='create_base_form', request_method='GET', renderer='templates/base/form.pt')
+    
     config.add_route('create_base', 'base/new', factory=BaseFactory)
     config.add_view(view=BaseView, attr='get_bases', route_name='create_base', request_method='GET', renderer='templates/base/new.pt')
     config.add_view(view=BaseView, attr='create_base', route_name='create_base', request_method='POST')
