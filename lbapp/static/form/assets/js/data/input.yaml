@@ -78,7 +78,64 @@
     required:
       label  : Obrigatório
       type   : checkbox
-      value  : false         
+      value  : false      
+-
+  title  : DataHora
+  fields :
+    id:
+      label  : ID / Nome
+      type   : input
+      value  : datahora
+    label:
+      label  : Apelido
+      type   : input
+      value  : Data/Hora 
+    descricao:
+      label  : Descrição
+      type   : input
+      value  : placeholder
+    required:
+      label  : Obrigatório
+      type   : checkbox
+      value  : false     
+-
+  title  : Data
+  fields :
+    id:
+      label  : ID / Nome
+      type   : input
+      value  : data
+    label:
+      label  : Apelido
+      type   : input
+      value  : Data
+    descricao:
+      label  : Descrição
+      type   : input
+      value  : placeholder
+    required:
+      label  : Obrigatório
+      type   : checkbox
+      value  : false      
+-
+  title  : Hora
+  fields :
+    id:
+      label  : ID / Nome
+      type   : input
+      value  : data
+    label:
+      label  : Apelido
+      type   : input
+      value  : Hora
+    descricao:
+      label  : Descrição
+      type   : input
+      value  : placeholder
+    required:
+      label  : Obrigatório
+      type   : checkbox
+      value  : false                    
 -
   title  : Text Input
   fields :

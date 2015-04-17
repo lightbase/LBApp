@@ -20,10 +20,12 @@ define(function(require) {
   , selectbasic              = require('text!templates/snippet/selectbasic.html')
   , selectmultiple           = require('text!templates/snippet/selectmultiple.html')
   , textarea                 = require('text!templates/snippet/textarea.html')
-  , textinput                = require('text!templates/snippet/textinput.html')
   , texto                    = require('text!templates/snippet/texto.html')
   , senha                    = require('text!templates/snippet/senha.html')
   , numero                   = require('text!templates/snippet/numero.html')
+  , datahora                 = require('text!templates/snippet/datahora.html')
+  , data                     = require('text!templates/snippet/data.html')
+  , hora                     = require('text!templates/snippet/hora.html')
   , endereco                 = require('text!templates/snippet/endereco.html');
 
   return {
@@ -48,10 +50,12 @@ define(function(require) {
     , selectbasic              : selectbasic
     , selectmultiple           : selectmultiple
     , textarea                 : textarea
-    , textinput                : textinput
     , texto                    : texto 
     , senha                    : senha
     , numero                   : numero
+    , datahora                 : datahora
+    , data                     : data
+    , hora                     : hora
     , endereco                 : endereco                   
   }
 });
