@@ -2,30 +2,29 @@ define([
        "jquery", "underscore", "backbone"
       , "views/temp-snippet"
       , "helper/pubsub"
-      , "text!templates/app/renderform.html"
+      , "text!templates/app/preview.html"
 ], function(
   $, _, Backbone
   , TempSnippetView
   , PubSub
-  , _renderForm
+  , _preview
 ){
   return Backbone.View.extend({
     tagName: "fieldset"
     , initialize: function(){
-    	console.log("...........................");
+    	console.log('xxxxxxxxxxxxxxxxxxxx ....');
       this.collection.on("add", this.render, this);
       this.collection.on("remove", this.render, this);
       this.collection.on("change", this.render, this);
-      PubSub.on("mySnippetDrag", this.handleSnippetDrag, this);
-      PubSub.on("tempMove", this.handleTempMove, this);
-      PubSub.on("tempDrop", this.handleTempDrop, this);
-      this.$build = $("#build");
-      this.renderForm = _.template(_renderForm);
+      //PubSub.on("mySnippetDrag", this.handleSnippetDrag, this);
+      //PubSub.on("tempMove", this.handleTempMove, this);
+      //PubSub.on("tempDrop", this.handleTempDrop, this);
+      this.$preview = $("#preview");
+      this.renderForm = _.template(_preview);
       this.render();
     }
 
     , render: function(){
-    	console.log("........sdgsdh...................");
       //Render Snippet Views
       this.$el.empty();
       var that = this;
@@ -33,60 +32,13 @@ define([
       _.each(this.collection.renderAll(), function(snippet){
         that.$el.append(snippet);
       });
-      
-      console.log('collection = '+this.collection.length);
-      console.log('--->'+JSON.stringify(this.collection));
-      
-      var obj = JSON.parse(JSON.stringify(this.collection));
-      console.log('obj='+JSON.stringify(obj[0]["title"]));
-      console.log('obj.length='+obj.length);
-
-      for (i=0; i < this.collection.length; i++) {
-          console.log('field='+obj[i]["title"]);
-          console.log("tamanho="+obj[i]["fields"]);
-          //console.log('\tattr='+JSON.stringify(obj[i]["fields"]));
-          //var keys = Object.keys(obj[i]["fields"]);
-          for(var k in obj[i]["fields"]){
-        	  console.log('k='+JSON.stringify(obj[i]["fields"][k]));
-        	  for(var f in obj[i]["fields"][k]){
-        		  //console.log('----f='+JSON.stringify(obj[i]["fields"][k][f]));
-        		  console.log('----f>>>'+f+"="+obj[i]["fields"][k][f]);
-        	  }
-          }
-          
-          /*for(j=0; j < obj[i]["fields"].length; j++){
-        	  console.log('--- attr='+JSON.stringify(obj[i]["fields"][j]));
-        	  // Get the keys
-        	  var keys = Object.keys(dictionary);
-          }*/
-      }
-      
-      
-      
-      /*for (var k in this.collection) {
-          console.log('col='+JSON.stringify(k));
-      }
-      
-      var obj = JSON.parse(JSON.stringify(this.collection));
-      console.log("===="+obj);
-      for (var k in obj) {
-          console.log('obj='+JSON.stringify(k));
-      }
-      
-      for (var m in this.collection.models) {
-          console.log('model='+m.fields);          
-      }
-      
-      console.log('zzzz .....'+this.collection.renderAllClean());*/
-      
-      //console.log(_.map(this.collection.renderAll(), function(e){return e.html()}).join("\n"));
-      
-      
-      $("#render").val(that.renderForm({
-        multipart: this.collection.containsFileType(),
+      console.log('ENTROU ....');
+      //console.log('collection = '+this.collection);
+      //console.log('--->'+JSON.stringify(this.collection));
+      $("#render_preview").val(that.renderForm({
         text: _.map(this.collection.renderAllClean(), function(e){return e.html()}).join("\n")
       }));
-      this.$el.appendTo("#build form");
+      this.$el.appendTo("#preview form");
       this.delegateEvents();
     }
 

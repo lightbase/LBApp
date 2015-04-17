@@ -1,9 +1,25 @@
 <h3>Preview:</h3>
-<div id="preview" class="span12" onload="">
-
-<script>
-var formdata = $("#target").serializeArray();
-console.log("FORM: "+formdata)
-</script>
-
+<div id="preview" class="span12"> 
+<%= text %>
+<textarea id="render_preview" class="span12"></textarea>
 </div>
+
+<!-- 
+<script>
+var AppView = Backbone.View.extend({
+    // el - stands for element. Every view has a element associate in with HTML content will be rendered.
+    el: '#preview',
+    // It's the first function called when this view it's instantiated.
+    initialize: function(){
+      this.render();
+    },
+    // $el - it's a cached jQuery object (el), in which you can use jQuery functions to push content. Like the Hello World in this case.
+    render: function(){
+      this.$el.html("Hello World");
+    }
+  });
+
+var appView = new AppView();
+</script> -->
+
+

@@ -11,14 +11,6 @@
 		    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		    <![endif]-->
 		</head>
-		<!--
-		<div class="navbar navbar-fixed-top">
-			<div class="navbar-inner">
-				<div class="container">
-					<a class="brand" href="#">Bootstrap 2 Form Builder</a>
-				</div>
-			</div>
-		</div> -->
 		<div class="container">
 			<div class="row clearfix">
 				<!-- Building Form. -->

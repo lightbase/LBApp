@@ -1,13 +1,13 @@
 define([
        "jquery" , "underscore" , "backbone"
        , "collections/snippets" , "collections/my-form-snippets"
-       , "views/tab" , "views/my-form"
+       , "views/tab" , "views/my-form" , "views/preview" 
        , "text!data/input.json", "text!data/radio.json", "text!data/select.json", "text!data/buttons.json"
        , "text!data/custom.json", "text!templates/app/render.html",  "text!templates/app/preview.html", "text!templates/app/about.html", 
 ], function(
   $, _, Backbone
   , SnippetsCollection, MyFormSnippetsCollection
-  , TabView, MyFormView
+  , TabView, MyFormView, PreviewView
   , inputJSON, radioJSON, selectJSON, buttonsJSON
   , customJSON, renderTab, previewTab, aboutTab
 ){
@@ -83,6 +83,10 @@ define([
             }
           }
         ])
+      });
+      new PreviewView({
+          title: "Original"
+          , collection: new MyFormSnippetsCollection()
       });
     }
   }
