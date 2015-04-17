@@ -26,6 +26,8 @@ define(function(require) {
   , datahora                 = require('text!templates/snippet/datahora.html')
   , data                     = require('text!templates/snippet/data.html')
   , hora                     = require('text!templates/snippet/hora.html')
+  , email                    = require('text!templates/snippet/email.html')
+  , url                      = require('text!templates/snippet/url.html')
   , endereco                 = require('text!templates/snippet/endereco.html');
 
   return {
@@ -56,6 +58,8 @@ define(function(require) {
     , datahora                 : datahora
     , data                     : data
     , hora                     : hora
+    , email                    : email
+    , url                      : url
     , endereco                 : endereco                   
   }
 });

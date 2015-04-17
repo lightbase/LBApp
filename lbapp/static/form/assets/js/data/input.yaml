@@ -78,6 +78,10 @@
     required:
       label  : Obrigatório
       type   : checkbox
+      value  : false  
+    multivalorado:
+      label  : Multivalorado
+      type   : checkbox
       value  : false      
 -
   title  : DataHora
@@ -97,7 +101,11 @@
     required:
       label  : Obrigatório
       type   : checkbox
-      value  : false     
+      value  : false   
+    multivalorado:
+      label  : Multivalorado
+      type   : checkbox
+      value  : false    
 -
   title  : Data
   fields :
@@ -116,7 +124,11 @@
     required:
       label  : Obrigatório
       type   : checkbox
-      value  : false      
+      value  : false 
+    multivalorado:
+      label  : Multivalorado
+      type   : checkbox
+      value  : false       
 -
   title  : Hora
   fields :
@@ -135,7 +147,65 @@
     required:
       label  : Obrigatório
       type   : checkbox
-      value  : false                    
+      value  : false  
+    multivalorado:
+      label  : Multivalorado
+      type   : checkbox
+      value  : false  
+-
+  title  : Email
+  fields :
+    id:
+      label  : ID / Nome
+      type   : input
+      value  : email
+    label:
+      label  : Apelido
+      type   : input
+      value  : Email
+    placeholder:
+      label  : Placeholder
+      type   : input
+      value  : placeholder
+    descricao:
+      label  : Descrição
+      type   : input
+      value  : placeholder
+    required:
+      label  : Obrigatório
+      type   : checkbox
+      value  : false
+    multivalorado:
+      label  : Multivalorado
+      type   : checkbox
+      value  : false      
+-
+  title  : URL
+  fields :
+    id:
+      label  : ID / Nome
+      type   : input
+      value  : url
+    label:
+      label  : Apelido
+      type   : input
+      value  : URL
+    placeholder:
+      label  : Placeholder
+      type   : input
+      value  : http://...
+    descricao:
+      label  : Descrição
+      type   : input
+      value  : placeholder 
+    required:
+      label  : Obrigatório
+      type   : checkbox
+      value  : false
+    multivalorado:
+      label  : Multivalorado
+      type   : checkbox
+      value  : false                              
 -
   title  : Text Input
   fields :
