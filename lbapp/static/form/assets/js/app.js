@@ -56,11 +56,12 @@ define([
         title: "Original"
         , collection: new MyFormSnippetsCollection([
           { "title" : "Form Name"
+        	  //ao alterar o title deve alterar em my-fom-snippet.js tbm
             , "fields": {
             	"name" : {
-            		"label"   : "Form Name"
+            		"label"   : "Nome da Base"
             		, "type"  : "input"
-            		, "value" : ""
+            		, "value" : "Nome da base ..."
             		//TODO , "placeholder" : "......."
             	},
             	"descricao" : {

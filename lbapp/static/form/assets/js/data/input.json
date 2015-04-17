@@ -31,6 +31,18 @@
         "label": "Multivalorado",
         "type": "checkbox",
         "value": false
+      },
+      "index": {
+        "label": "Índices",
+        "type": "textarea-split",
+        "value": [
+          "Textual",
+          "Ordenado",
+          "Único",
+          "Fonético",
+          "Fuzzy",
+          "Vazio"
+        ]
       }
     }
   },
