@@ -97,6 +97,11 @@
         "type": "number",
         "value": -1
       },
+      "decimal": {
+        "label": "Permite decimal",
+        "type": "checkbox",
+        "value": false
+      },
       "required": {
         "label": "Obrigatório",
         "type": "checkbox",
