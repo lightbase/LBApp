@@ -22,8 +22,13 @@
         "type": "input",
         "value": "placeholder"
       },
+      "tamanho": {
+        "label": "Tamanho",
+        "type": "number",
+        "value": 80
+      },
       "required": {
-        "label": "Required",
+        "label": "Obrigatório",
         "type": "checkbox",
         "value": false
       },
@@ -31,18 +36,6 @@
         "label": "Multivalorado",
         "type": "checkbox",
         "value": false
-      },
-      "index": {
-        "label": "Índices",
-        "type": "textarea-split",
-        "value": [
-          "Textual",
-          "Ordenado",
-          "Único",
-          "Fonético",
-          "Fuzzy",
-          "Vazio"
-        ]
       }
     }
   },
@@ -70,7 +63,7 @@
         "value": "help"
       },
       "required": {
-        "label": "Obrigatorio",
+        "label": "Required",
         "type": "checkbox",
         "value": false
       },

@@ -7,6 +7,7 @@ define([
   , "text!templates/popover/popover-textarea-split.html"
   , "text!templates/popover/popover-checkbox.html"
   , "text!templates/popover/popover-password.html"
+  , "text!templates/popover/popover-number.html"
   , "templates/snippet/snippet-templates"
   , "bootstrap"
 ], function(
@@ -18,6 +19,7 @@ define([
   , _PopoverTextAreaSplit
   , _PopoverCheckbox
   , _PopoverPassword
+  , _PopoverNumber
   , _snippetTemplates
 ){
   return Backbone.View.extend({
@@ -32,6 +34,7 @@ define([
         , "textarea-split" : _.template(_PopoverTextAreaSplit)
         , "checkbox" : _.template(_PopoverCheckbox)
         , "password" : _.template(_PopoverPassword)
+        , "number" : _.template(_PopoverNumber)
       }
     }
     , render: function(withAttributes){
