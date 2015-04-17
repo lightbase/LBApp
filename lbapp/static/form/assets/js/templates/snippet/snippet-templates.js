@@ -22,6 +22,8 @@ define(function(require) {
   , textarea                 = require('text!templates/snippet/textarea.html')
   , textinput                = require('text!templates/snippet/textinput.html')
   , texto                    = require('text!templates/snippet/texto.html')
+  , senha                    = require('text!templates/snippet/senha.html')
+  , numero                   = require('text!templates/snippet/numero.html')
   , endereco                 = require('text!templates/snippet/endereco.html');
 
   return {
@@ -47,7 +49,9 @@ define(function(require) {
     , selectmultiple           : selectmultiple
     , textarea                 : textarea
     , textinput                : textinput
-    , texto                    : texto    
+    , texto                    : texto 
+    , senha                    : senha
+    , numero                   : numero
     , endereco                 : endereco                   
   }
 });

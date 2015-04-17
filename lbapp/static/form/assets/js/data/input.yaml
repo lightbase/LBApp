@@ -30,6 +30,56 @@
       type   : checkbox
       value  : false
 -
+  title  : Senha
+  fields :
+    id:
+      label  : ID / Nome
+      type   : input
+      value  : senha
+    label:
+      label  : Apelido
+      type   : input
+      value  : Senha    
+    descricao:
+      label  : Descrição
+      type   : input
+      value  : placeholder
+    tamanho:
+      label  : Tamanho Máximo
+      type   : number
+      value  : 80    
+    required:
+      label  : Obrigatório
+      type   : checkbox
+      value  : false   
+-
+  title  : Numero
+  fields :
+    id:
+      label  : ID / Nome
+      type   : input
+      value  : numero
+    label:
+      label  : Apelido
+      type   : input
+      value  : Número    
+    descricao:
+      label  : Descrição
+      type   : input
+      value  : placeholder
+    min:
+      label  : Tamanho Mínimo
+      type   : number
+      value  : -1   
+    max:
+      label  : Tamanho Máximo
+      type   : number
+      value  : -1 
+    required:
+      label  : Obrigatório
+      type   : checkbox
+      value  : false         
+-
   title  : Text Input
   fields :
     id:
