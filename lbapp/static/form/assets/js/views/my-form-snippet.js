@@ -61,12 +61,15 @@ define([
             case "checkbox":
               boundContext.model.setField(name, $e.is(":checked"));
               break;
-            case "input":
+            /*case "input":
               boundContext.model.setField(name, $e.val());
               break;
+            case "password":
+                boundContext.model.setField(name, $e.val());
+                break;
             case "textarea":
               boundContext.model.setField(name, $e.val());
-              break;
+              break;*/
             case "textarea-split":
               boundContext.model.setField(name,
                 _.chain($e.val().split("\n"))
@@ -81,6 +84,11 @@ define([
               });
               boundContext.model.setField(name, valarr);
               break;
+              //comportamento default para: input, password e textarea.
+              //todos os campos que possuem comportamento diferente do default,
+              //devem ter uma clausula case especifica
+            default: 
+            	boundContext.model.setField(name, $e.val());
           }
         });
         boundContext.model.trigger("change");

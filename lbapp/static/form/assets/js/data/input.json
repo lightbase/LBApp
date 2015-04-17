@@ -8,7 +8,7 @@
         "value": "texto"
       },
       "label": {
-        "label": "Label Text",
+        "label": "Apelido",
         "type": "input",
         "value": "Texto"
       },
@@ -17,8 +17,18 @@
         "type": "input",
         "value": "placeholder"
       },
+      "descricao": {
+        "label": "Descrição",
+        "type": "input",
+        "value": "placeholder"
+      },
       "required": {
         "label": "Required",
+        "type": "checkbox",
+        "value": false
+      },
+      "multivalorado": {
+        "label": "Multivalorado",
         "type": "checkbox",
         "value": false
       }

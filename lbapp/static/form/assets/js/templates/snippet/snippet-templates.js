@@ -21,7 +21,8 @@ define(function(require) {
   , selectmultiple           = require('text!templates/snippet/selectmultiple.html')
   , textarea                 = require('text!templates/snippet/textarea.html')
   , textinput                = require('text!templates/snippet/textinput.html')
-  , texto                    = require('text!templates/snippet/texto.html');
+  , texto                    = require('text!templates/snippet/texto.html')
+  , endereco                 = require('text!templates/snippet/endereco.html');
 
   return {
     formname                   : formname
@@ -46,6 +47,7 @@ define(function(require) {
     , selectmultiple           : selectmultiple
     , textarea                 : textarea
     , textinput                : textinput
-    , texto                    : texto
+    , texto                    : texto    
+    , endereco                 : endereco                   
   }
 });

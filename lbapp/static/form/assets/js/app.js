@@ -3,13 +3,13 @@ define([
        , "collections/snippets" , "collections/my-form-snippets"
        , "views/tab" , "views/my-form"
        , "text!data/input.json", "text!data/radio.json", "text!data/select.json", "text!data/buttons.json"
-       , "text!templates/app/render.html",  "text!templates/app/about.html", 
+       , "text!data/custom.json", "text!templates/app/render.html",  "text!templates/app/preview.html", "text!templates/app/about.html", 
 ], function(
   $, _, Backbone
   , SnippetsCollection, MyFormSnippetsCollection
   , TabView, MyFormView
   , inputJSON, radioJSON, selectJSON, buttonsJSON
-  , renderTab, aboutTab
+  , customJSON, renderTab, previewTab, aboutTab
 ){
   return {
     initialize: function(){
@@ -32,9 +32,17 @@ define([
         , collection: new SnippetsCollection(JSON.parse(buttonsJSON))
       });
       new TabView({
+          title: "Custom"
+          , collection: new SnippetsCollection(JSON.parse(customJSON))
+        });
+      new TabView({
         title: "Ver HTML"
         , content: renderTab
       });
+      new TabView({
+          title: "Preview"
+          , content: previewTab
+        });
       new TabView({
         title: "Sobre"
         , content: aboutTab
@@ -49,11 +57,28 @@ define([
         , collection: new MyFormSnippetsCollection([
           { "title" : "Form Name"
             , "fields": {
-              "name" : {
-                "label"   : "Form Name"
-                , "type"  : "input"
-                , "value" : "Form Name"
-              }
+            	"name" : {
+            		"label"   : "Form Name"
+            		, "type"  : "input"
+            		, "value" : ""
+            		//TODO , "placeholder" : "......."
+            	},
+            	"descricao" : {
+            		"label"   : "Descrição"
+            		, "type"  : "textarea"
+            		, "value" : "..."
+            	},
+            	"senha" : {
+            		"label"   : "Senha"
+            		, "type"  : "password"
+            		, "value" : ""
+            	}
+            	,
+            	"confirmaSenha" : {
+            		"label"   : "Confirmar Senha"
+            		, "type"  : "password"
+            		, "value" : ""
+            	}
             }
           }
         ])
