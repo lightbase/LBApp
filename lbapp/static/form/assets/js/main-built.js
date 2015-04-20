@@ -5849,7 +5849,7 @@ function() {
             }
         }
     }), require.config({
-        baseUrl: "http://127.0.0.1:6544/static/form/assets/js/lib/",
+        baseUrl: "/static/form/assets/js/lib/",
         shim: {
             backbone: {
                 deps: ["underscore", "jquery"],

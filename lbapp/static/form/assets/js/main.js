@@ -1,6 +1,6 @@
 require.config({
-  baseUrl: "http://127.0.0.1:6544/static/form/assets/js/lib/"
-	  //remover o urlArgs ... apenas para o desenvolvimento (cache)
+  baseUrl: "/static/form/assets/js/lib/"
+	  //TODO remover o urlArgs ... apenas para o desenvolvimento (cache)
   , urlArgs: "bust=" + (new Date()).getTime()
   , shim: {
     'backbone': {
