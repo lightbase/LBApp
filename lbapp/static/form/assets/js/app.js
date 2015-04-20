@@ -1,13 +1,13 @@
 define([
        "jquery" , "underscore" , "backbone"
        , "collections/snippets" , "collections/my-form-snippets"
-       , "views/tab" , "views/my-form" , "views/preview" 
+       , "views/tab" , "views/my-form"
        , "text!data/input.json", "text!data/radio.json", "text!data/select.json", "text!data/buttons.json"
        , "text!data/custom.json", "text!templates/app/render.html",  "text!templates/app/preview.html", "text!templates/app/about.html", 
 ], function(
   $, _, Backbone
   , SnippetsCollection, MyFormSnippetsCollection
-  , TabView, MyFormView, PreviewView
+  , TabView, MyFormView
   , inputJSON, radioJSON, selectJSON, buttonsJSON
   , customJSON, renderTab, previewTab, aboutTab
 ){
@@ -39,10 +39,6 @@ define([
         title: "Ver HTML"
         , content: renderTab
       });
-      new TabView({
-          title: "Preview"
-          , content: previewTab
-        });
       new TabView({
         title: "Sobre"
         , content: aboutTab
@@ -83,11 +79,7 @@ define([
             }
           }
         ])
-      });
-      new PreviewView({
-          title: "Original"
-          , collection: new MyFormSnippetsCollection()
-      });
+      });      
     }
   }
 });
