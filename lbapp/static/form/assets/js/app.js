@@ -51,33 +51,39 @@ define([
       new MyFormView({
         title: "Original"
         , collection: new MyFormSnippetsCollection([
-          { "title" : "Form Name"
-        	  //ao alterar o title deve alterar em my-fom-snippet.js tbm
-            , "fields": {
-            	"name" : {
-            		"label"   : "Nome da Base"
-            		, "type"  : "input"
-            		, "value" : "Nome da base ..."
-            		//TODO , "placeholder" : "......."
-            	},
-            	"description" : {
-            		"label"   : "Descrição"
-            		, "type"  : "textarea"
-            		, "value" : "..."
-            	},
-            	"password" : {
-            		"label"   : "Senha"
-            		, "type"  : "password"
-            		, "value" : ""
-            	}
-            	,
-            	"confirmPassword" : {
-            		"label"   : "Confirmar Senha"
-            		, "type"  : "password"
-            		, "value" : ""
-            	}
-            }
-          }
+           {
+			"title" : "Form Name"
+			//ao alterar o title deve alterar em my-fom-snippet.js tbm
+			,
+			"fields" : {
+				"name" : {
+					"label" : "Nome da Base",
+					"type" : "input",
+					"value" : "Nome da base ..."
+					//"placeholder" : "......."
+				},
+				"description" : {
+					"label" : "Descrição",
+					"type" : "textarea",
+					"value" : "..."
+				},
+				"password" : {
+					"label" : "Senha",
+					"type" : "password",
+					"value" : ""
+				},
+				"confirmPassword" : {
+					"label" : "Confirmar Senha",
+					"type" : "password",
+					"value" : ""
+				},
+				"color" : {
+					"label" : "Cor",
+					"type" : "color",
+					"value" : ""
+				}
+			}
+		}
         ])
       });      
     }

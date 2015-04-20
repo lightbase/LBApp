@@ -8,6 +8,7 @@ define([
   , "text!templates/popover/popover-checkbox.html"
   , "text!templates/popover/popover-password.html"
   , "text!templates/popover/popover-number.html"
+  , "text!templates/popover/popover-color.html"
   , "templates/snippet/snippet-templates"
   , "bootstrap"
 ], function(
@@ -20,6 +21,7 @@ define([
   , _PopoverCheckbox
   , _PopoverPassword
   , _PopoverNumber
+  , _PopoverColor
   , _snippetTemplates
 ){
   return Backbone.View.extend({
@@ -35,6 +37,7 @@ define([
         , "checkbox" : _.template(_PopoverCheckbox)
         , "password" : _.template(_PopoverPassword)
         , "number" : _.template(_PopoverNumber)
+        , "color" : _.template(_PopoverColor)
       }
     }
     , render: function(withAttributes){

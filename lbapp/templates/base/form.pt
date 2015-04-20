@@ -50,3 +50,5 @@
 		
 	</div><!--  end <div metal:fill-slot="conteudo" id="widgets"> -->
 </metal:main>
+
+<script src="${request.route_url('home')}static/js/lib/utils.js"></script>

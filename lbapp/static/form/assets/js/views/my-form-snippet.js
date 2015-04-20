@@ -47,54 +47,60 @@ define([
         $("body").off("mousemove");
     }
 
-    , saveHandler : function(boundContext) {
-      return function(mouseEvent) {
-        mouseEvent.preventDefault();
-        var fields = $(".popover .field");
-        _.each(fields, function(e){
+		    ,
+		saveHandler : function(boundContext) {
+			return function(mouseEvent) {
+				mouseEvent.preventDefault();
+				var fields = $(".popover .field");
+				_.each(fields, function(e) {
 
-          var $e = $(e)
-          , type = $e.attr("data-type")
-          , name = $e.attr("id");
+					var $e = $(e), 
+						type = $e.attr("data-type"), 
+						name = $e.attr("id");
 
-          switch(type) {
-            case "checkbox":
-              boundContext.model.setField(name, $e.is(":checked"));
-              break;
-            /*case "input":
-              boundContext.model.setField(name, $e.val());
-              break;
-            case "password":
-                boundContext.model.setField(name, $e.val());
-                break;
-            case "textarea":
-              boundContext.model.setField(name, $e.val());
-              break;*/
-            case "textarea-split":
-              boundContext.model.setField(name,
-                _.chain($e.val().split("\n"))
-                  .map(function(t){return $.trim(t)})
-                  .filter(function(t){return t.length > 0})
-                  .value()
-                  );
-              break;
-            case "select":
-              var valarr = _.map($e.find("option"), function(e){
-                return {value: e.value, selected: e.selected, label:$(e).text()};
-              });
-              boundContext.model.setField(name, valarr);
-              break;
-              //comportamento default para: input, password e textarea.
-              //todos os campos que possuem comportamento diferente do default,
-              //devem ter uma clausula case especifica
-            default: 
-            	boundContext.model.setField(name, $e.val());
-          }
-        });
-        boundContext.model.trigger("change");
-        $(".popover").remove();
-      }
-    }
+					//TODO The placeholder attribute works with the following input types: text, search, url, tel, email, and password.
+
+					switch (type) {
+						/*case "input":
+						case "number":
+						case "password":
+							TODO var placeholder = $e.attr("placeholder");
+							console.log("placeholder="+placeholder);
+							boundContext.model.setField(name, $e.val());
+							break;*/
+						case "checkbox":
+							boundContext.model.setField(name, $e.is(":checked"));
+							break;
+						case "textarea-split":
+							boundContext.model.setField(name, 
+							_.chain($e.val().split("\n"))
+							  .map(function(t) {
+								return $.trim(t)
+							}).filter(function(t) {
+								return t.length > 0
+							}).value());
+							break;
+						case "select":
+							var valarr = _.map($e.find("option"), function(e) {
+								return {
+									value : e.value,
+									selected : e.selected,
+									label : $(e).text()
+								};
+							});
+							boundContext.model.setField(name, valarr);
+							break;
+						//comportamento default para: input, password e textarea.
+						//todos os campos que possuem comportamento diferente do default,
+						//devem ter uma clausula case especifica
+						default:
+							boundContext.model.setField(name, $e.val());
+					}
+				});
+				boundContext.model.trigger("change");
+				$(".popover").remove();
+			}
+		}
 
     , cancelHandler : function(boundContext) {
       return function(mouseEvent) {
