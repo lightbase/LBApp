@@ -76,12 +76,18 @@ define([
 
 				base["content"].push(field);
 			}
-			$("#render").val(that.renderForm({
-				multipart : this.collection.containsFileType(),
-				text : _.map(this.collection.renderAllClean(), function(e) {return e.html()}).join("\n"),				
-				formJSON : JSON.stringify(this.collection.toJSON()),
-				baseJSON : JSON.stringify(base)
-			}));
+			var values = {
+					multipart : this.collection.containsFileType(),
+					text : _.map(this.collection.renderAllClean(), function(e) {return e.html()}).join("\n"),
+					formJSON : JSON.stringify(this.collection.toJSON()),
+					baseJSON : JSON.stringify(base)
+				};
+			
+			//descomentar se quiser "ver" o form ... $("#render_form").html(values['text']);
+			$("#render").val(that.renderForm(values));
+			$("#json_form").html(values['formJSON']);
+			$("#json_base").html(values['baseJSON']);
+
 			this.$el.appendTo("#build form");
 			this.delegateEvents();
 		}
