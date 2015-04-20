@@ -64,18 +64,18 @@ define([
             		, "value" : "Nome da base ..."
             		//TODO , "placeholder" : "......."
             	},
-            	"descricao" : {
+            	"description" : {
             		"label"   : "Descrição"
             		, "type"  : "textarea"
             		, "value" : "..."
             	},
-            	"senha" : {
+            	"password" : {
             		"label"   : "Senha"
             		, "type"  : "password"
             		, "value" : ""
             	}
             	,
-            	"confirmaSenha" : {
+            	"confirmPassword" : {
             		"label"   : "Confirmar Senha"
             		, "type"  : "password"
             		, "value" : ""

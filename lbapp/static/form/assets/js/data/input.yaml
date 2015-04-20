@@ -13,11 +13,11 @@
       label  : Placeholder
       type   : input
       value  : placeholder
-    descricao:
+    description:
       label  : Descrição
       type   : input
       value  : placeholder
-    tamanho:
+    size:
       label  : Tamanho Máximo
       type   : number
       value  : 80    
@@ -25,7 +25,7 @@
       label  : Obrigatório
       type   : checkbox
       value  : false
-    multivalorado:
+    multivalued:
       label  : Multivalorado
       type   : checkbox
       value  : false
@@ -40,18 +40,22 @@
       label  : Apelido
       type   : input
       value  : Senha    
-    descricao:
+    description:
       label  : Descrição
       type   : input
       value  : placeholder
-    tamanho:
+    size:
       label  : Tamanho Máximo
       type   : number
       value  : 80    
     required:
       label  : Obrigatório
       type   : checkbox
-      value  : false   
+      value  : false
+    multivalued:
+      label  : Multivalorado
+      type   : checkbox
+      value  : false 
 -
   title  : Numero
   fields :
@@ -63,7 +67,7 @@
       label  : Apelido
       type   : input
       value  : Número    
-    descricao:
+    description:
       label  : Descrição
       type   : input
       value  : placeholder
@@ -82,11 +86,11 @@
     required:
       label  : Obrigatório
       type   : checkbox
-      value  : false  
-    multivalorado:
+      value  : false
+    multivalued:
       label  : Multivalorado
       type   : checkbox
-      value  : false      
+      value  : false   
 -
   title  : DataHora
   fields :
@@ -98,18 +102,18 @@
       label  : Apelido
       type   : input
       value  : Data/Hora 
-    descricao:
+    description:
       label  : Descrição
       type   : input
       value  : placeholder
     required:
       label  : Obrigatório
       type   : checkbox
-      value  : false   
-    multivalorado:
+      value  : false
+    multivalued:
       label  : Multivalorado
       type   : checkbox
-      value  : false    
+      value  : false
 -
   title  : Data
   fields :
@@ -121,18 +125,18 @@
       label  : Apelido
       type   : input
       value  : Data
-    descricao:
+    description:
       label  : Descrição
       type   : input
       value  : placeholder
     required:
       label  : Obrigatório
       type   : checkbox
-      value  : false 
-    multivalorado:
+      value  : false
+    multivalued:
       label  : Multivalorado
       type   : checkbox
-      value  : false       
+      value  : false    
 -
   title  : Hora
   fields :
@@ -144,18 +148,18 @@
       label  : Apelido
       type   : input
       value  : Hora
-    descricao:
+    description:
       label  : Descrição
       type   : input
       value  : placeholder
     required:
       label  : Obrigatório
       type   : checkbox
-      value  : false  
-    multivalorado:
+      value  : false
+    multivalued:
       label  : Multivalorado
       type   : checkbox
-      value  : false  
+      value  : false
 -
   title  : Email
   fields :
@@ -171,7 +175,7 @@
       label  : Placeholder
       type   : input
       value  : placeholder
-    descricao:
+    decription:
       label  : Descrição
       type   : input
       value  : placeholder
@@ -179,10 +183,10 @@
       label  : Obrigatório
       type   : checkbox
       value  : false
-    multivalorado:
+    multivalued:
       label  : Multivalorado
       type   : checkbox
-      value  : false      
+      value  : false    
 -
   title  : URL
   fields :
@@ -198,7 +202,7 @@
       label  : Placeholder
       type   : input
       value  : http://...
-    descricao:
+    decription:
       label  : Descrição
       type   : input
       value  : placeholder 
@@ -206,10 +210,10 @@
       label  : Obrigatório
       type   : checkbox
       value  : false
-    multivalorado:
+    multivalued:
       label  : Multivalorado
       type   : checkbox
-      value  : false                              
+      value  : false                         
 -
   title  : Text Input
   fields :

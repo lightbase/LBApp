@@ -23,72 +23,68 @@ define([
       this.renderForm = _.template(_renderForm);
       this.render();
     }
+		
+    , render : function() {			
+			// Render Snippet Views
+			this.$el.empty();
+			var that = this;
+			var containsFile = false;
+			
+			//render all fields already defined
+			_.each(this.collection.renderAll(), function(snippet) { that.$el.append(snippet); });
 
-    , render: function(){
-    	console.log("........sdgsdh...................");
-      //Render Snippet Views
-      this.$el.empty();
-      var that = this;
-      var containsFile = false;
-      _.each(this.collection.renderAll(), function(snippet){
-        that.$el.append(snippet);
-      });
-      
-      console.log('collection = '+this.collection.length);
-      console.log('--->'+JSON.stringify(this.collection));
-      
-      var obj = JSON.parse(JSON.stringify(this.collection));
-      console.log('obj='+JSON.stringify(obj[0]["title"]));
-      console.log('obj.length='+obj.length);
+			//starting base (object) creation
+			var base = JSON.parse('{"metadata":{"file_ext":false,"idx_exp":false,"idx_exp_url":"","idx_exp_time":"0","file_ext_time":"0","name":"","description":"","password":"","color":""}, "content":[]}');
+			var obj = this.collection.toJSON();
 
-      for (i=0; i < this.collection.length; i++) {
-          console.log('field='+obj[i]["title"]);
-          console.log("tamanho="+obj[i]["fields"]);
-          //console.log('\tattr='+JSON.stringify(obj[i]["fields"]));
-          //var keys = Object.keys(obj[i]["fields"]);
-          for(var k in obj[i]["fields"]){
-        	  console.log('k='+JSON.stringify(obj[i]["fields"][k]));
-        	  for(var f in obj[i]["fields"][k]){
-        		  //console.log('----f='+JSON.stringify(obj[i]["fields"][k][f]));
-        		  console.log('----f>>>'+f+"="+obj[i]["fields"][k][f]);
-        	  }
-          }
-          
-          /*for(j=0; j < obj[i]["fields"].length; j++){
-        	  console.log('--- attr='+JSON.stringify(obj[i]["fields"][j]));
-        	  // Get the keys
-        	  var keys = Object.keys(dictionary);
-          }*/
-      }
-      
-      
-      
-      /*for (var k in this.collection) {
-          console.log('col='+JSON.stringify(k));
-      }
-      
-      var obj = JSON.parse(JSON.stringify(this.collection));
-      console.log("===="+obj);
-      for (var k in obj) {
-          console.log('obj='+JSON.stringify(k));
-      }
-      
-      for (var m in this.collection.models) {
-          console.log('model='+m.fields);          
-      }
-      
-      console.log('zzzz .....'+this.collection.renderAllClean());*/
-      
-      //console.log(_.map(this.collection.renderAll(), function(e){return e.html()}).join("\n"));
-      
-      
-      $("#render").val(that.renderForm({
-        multipart: this.collection.containsFileType(),
-        text: _.map(this.collection.renderAllClean(), function(e){return e.html()}).join("\n")
-      }));
-      this.$el.appendTo("#build form");
-      this.delegateEvents();
-    }
+			// parse form (first element, idx=0)
+			console.log('title=' + JSON.stringify(obj[0]["fields"]["name"]));
+			base['metadata']['name'] = obj[0]["fields"]["name"]["value"];
+			base['metadata']['description'] = obj[0]["fields"]["description"]["value"];
+			base['metadata']['password'] = obj[0]["fields"]["password"]["value"];
+
+			// TODO tratar cor, indices (textual, etc...) e campos novos
+			// adicionais (que nao estao no banco ainda: size, min, max, etc)
+
+			// parsing fields (first field, idx=1)
+			for (i = 1; i < this.collection.length; i++) {
+				console.log('FIELDS:::::::::' + JSON.stringify(obj[i]["fields"]));
+
+				var field = {
+					"field" : {
+						"name" : "",
+						"alias" : "",
+						"description" : "",
+						"datatype" : "",
+						"required" : false,
+						"multivalued" : false,
+						"indices" : []
+					}
+				};
+				
+				field['field']['name'] = obj[i]["fields"]["id"]["value"]
+				field['field']['alias'] = obj[i]["fields"]["label"]["value"]
+				field['field']['description'] = obj[i]["fields"]["description"]["value"]
+				field['field']['required'] = obj[i]["fields"]["required"]["value"]
+				field['field']['multivalued'] = obj[i]["fields"]["multivalued"]["value"]
+				//TODO rever os campos necessarios ... ainda da bug no drag&drop de alguns componentes. 
+				//EX: email lança --> Uncaught TypeError: Cannot read property 'value' of undefined
+				
+				//TODO tratar tipo (datatype) e campos adicionais ...
+				
+				console.log("FIELD=====" + JSON.stringify(field));
+
+				base["content"].push(field);
+			}
+			$("#render").val(that.renderForm({
+				multipart : this.collection.containsFileType(),
+				text : _.map(this.collection.renderAllClean(), function(e) {return e.html()}).join("\n"),				
+				formJSON : JSON.stringify(this.collection.toJSON()),
+				baseJSON : JSON.stringify(base)
+			}));
+			this.$el.appendTo("#build form");
+			this.delegateEvents();
+		}
 
     , getBottomAbove: function(eventY){
       var myFormBits = $(this.$el.find(".component"));
@@ -136,6 +132,6 @@ define([
       } else {
         $(".target").removeClass("target");
       }
-    }
+    }    
   })
 });

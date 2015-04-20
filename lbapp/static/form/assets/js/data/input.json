@@ -17,12 +17,12 @@
         "type": "input",
         "value": "placeholder"
       },
-      "descricao": {
+      "description": {
         "label": "Descrição",
         "type": "input",
         "value": "placeholder"
       },
-      "tamanho": {
+      "size": {
         "label": "Tamanho Máximo",
         "type": "number",
         "value": 80
@@ -32,7 +32,7 @@
         "type": "checkbox",
         "value": false
       },
-      "multivalorado": {
+      "multivalued": {
         "label": "Multivalorado",
         "type": "checkbox",
         "value": false
@@ -52,18 +52,23 @@
         "type": "input",
         "value": "Senha"
       },
-      "descricao": {
+      "description": {
         "label": "Descrição",
         "type": "input",
         "value": "placeholder"
       },
-      "tamanho": {
+      "size": {
         "label": "Tamanho Máximo",
         "type": "number",
         "value": 80
       },
       "required": {
         "label": "Obrigatório",
+        "type": "checkbox",
+        "value": false
+      },
+      "multivalued": {
+        "label": "Multivalorado",
         "type": "checkbox",
         "value": false
       }
@@ -82,7 +87,7 @@
         "type": "input",
         "value": "Número"
       },
-      "descricao": {
+      "description": {
         "label": "Descrição",
         "type": "input",
         "value": "placeholder"
@@ -107,7 +112,7 @@
         "type": "checkbox",
         "value": false
       },
-      "multivalorado": {
+      "multivalued": {
         "label": "Multivalorado",
         "type": "checkbox",
         "value": false
@@ -127,7 +132,7 @@
         "type": "input",
         "value": "Data/Hora"
       },
-      "descricao": {
+      "description": {
         "label": "Descrição",
         "type": "input",
         "value": "placeholder"
@@ -137,7 +142,7 @@
         "type": "checkbox",
         "value": false
       },
-      "multivalorado": {
+      "multivalued": {
         "label": "Multivalorado",
         "type": "checkbox",
         "value": false
@@ -157,7 +162,7 @@
         "type": "input",
         "value": "Data"
       },
-      "descricao": {
+      "description": {
         "label": "Descrição",
         "type": "input",
         "value": "placeholder"
@@ -167,7 +172,7 @@
         "type": "checkbox",
         "value": false
       },
-      "multivalorado": {
+      "multivalued": {
         "label": "Multivalorado",
         "type": "checkbox",
         "value": false
@@ -187,7 +192,7 @@
         "type": "input",
         "value": "Hora"
       },
-      "descricao": {
+      "description": {
         "label": "Descrição",
         "type": "input",
         "value": "placeholder"
@@ -197,7 +202,7 @@
         "type": "checkbox",
         "value": false
       },
-      "multivalorado": {
+      "multivalued": {
         "label": "Multivalorado",
         "type": "checkbox",
         "value": false
@@ -222,7 +227,7 @@
         "type": "input",
         "value": "placeholder"
       },
-      "descricao": {
+      "decription": {
         "label": "Descrição",
         "type": "input",
         "value": "placeholder"
@@ -232,7 +237,7 @@
         "type": "checkbox",
         "value": false
       },
-      "multivalorado": {
+      "multivalued": {
         "label": "Multivalorado",
         "type": "checkbox",
         "value": false
@@ -257,7 +262,7 @@
         "type": "input",
         "value": "http://..."
       },
-      "descricao": {
+      "decription": {
         "label": "Descrição",
         "type": "input",
         "value": "placeholder"
@@ -267,7 +272,7 @@
         "type": "checkbox",
         "value": false
       },
-      "multivalorado": {
+      "multivalued": {
         "label": "Multivalorado",
         "type": "checkbox",
         "value": false
