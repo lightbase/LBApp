@@ -11,7 +11,7 @@
 
 <metal:content fill-slot="content">
 <!-- #section:basics/navbar.layout -->
-<div id="navbar" class="navbar navbar-default" style="background-color: #53535D">
+<div id="navbar" class="navbar navbar-default" style="background-color: #103D05">
     <script type="text/javascript">
         try {
             ace.settings.check('navbar', 'fixed')
@@ -36,7 +36,7 @@
             <!-- #section:basics/navbar.layout.brand -->
             <a href="#" class="navbar-brand">
                 <small>
-                    <i class="fa fa-sun-o"></i>
+                    <i class="fa fa-database"></i>
                     LIGHTBASE
                 </small>
             </a>
@@ -312,7 +312,7 @@
                 </li>-->
 
                 <!-- #section:basics/navbar.user_menu -->
-                <li class="light-blue">
+                <li class="green">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
                         <span class="fa fa-user"></span>&nbsp
                         José
@@ -372,7 +372,7 @@
             }
         </script>
 
-        <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+        <div class="sidebar-shortcuts" id="sidebar-shortcuts" style="background-color: #D4E0D1">
             <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
                 <button class="btn btn-success">
                     <i class="ace-icon fa fa-signal"></i>
@@ -427,7 +427,7 @@
     <div class="main-content">
         <div class="main-content-inner">
             <!-- #section:basics/content.breadcrumbs -->
-            <div class="breadcrumbs" id="breadcrumbs">
+            <div class="breadcrumbs" id="breadcrumbs" style="background-color: #D4E0D1">
                 <script type="text/javascript">
                     try {
                         ace.settings.check('breadcrumbs', 'fixed')
@@ -466,7 +466,7 @@
                     <div class="ace-settings-box clearfix" id="ace-settings-box">
                         <div class="pull-left width-50">
                             <!-- #section:settings.skins -->
-                            <div class="ace-settings-item">
+                            <!-- <div class="ace-settings-item">
                                 <div class="pull-left">
                                     <select id="skin-colorpicker" class="hide">
                                         <option data-skin="no-skin" value="#438EB9">#438EB9</option>
@@ -476,14 +476,14 @@
                                     </select>
                                 </div>
                                 <span>&nbsp; Choose Skin</span>
-                            </div>
+                            </div> -->
 
                             <!-- /section:settings.skins -->
 
                             <!-- #section:settings.navbar -->
                             <div class="ace-settings-item">
                                 <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-navbar"/>
-                                <label class="lbl" for="ace-settings-navbar"> Fixed Navbar</label>
+                                <label class="lbl" for="ace-settings-navbar"> Fixar Barra Superior.</label>
                             </div>
 
                             <!-- /section:settings.navbar -->
@@ -491,7 +491,7 @@
                             <!-- #section:settings.sidebar -->
                             <div class="ace-settings-item">
                                 <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-sidebar"/>
-                                <label class="lbl" for="ace-settings-sidebar"> Fixed Sidebar</label>
+                                <label class="lbl" for="ace-settings-sidebar"> Fixer Barra Lateral</label>
                             </div>
 
                             <!-- /section:settings.sidebar -->
@@ -499,16 +499,16 @@
                             <!-- #section:settings.breadcrumbs -->
                             <div class="ace-settings-item">
                                 <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-breadcrumbs"/>
-                                <label class="lbl" for="ace-settings-breadcrumbs"> Fixed Breadcrumbs</label>
+                                <label class="lbl" for="ace-settings-breadcrumbs"> Fixer Navegação</label>
                             </div>
 
                             <!-- /section:settings.breadcrumbs -->
 
                             <!-- #section:settings.rtl -->
-                            <div class="ace-settings-item">
+                            <!-- <div class="ace-settings-item">
                                 <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-rtl"/>
                                 <label class="lbl" for="ace-settings-rtl"> Right To Left (rtl)</label>
-                            </div>
+                            </div> -->
 
                             <!-- /section:settings.rtl -->
 
@@ -516,8 +516,7 @@
                             <div class="ace-settings-item">
                                 <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-add-container"/>
                                 <label class="lbl" for="ace-settings-add-container">
-                                    Inside
-                                    <b>.container</b>
+                                    Expandir/Encolher
                                 </label>
                             </div>
 
@@ -534,7 +533,7 @@
 
                             <div class="ace-settings-item">
                                 <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-compact"/>
-                                <label class="lbl" for="ace-settings-compact"> Compact Sidebar</label>
+                                <label class="lbl" for="ace-settings-compact"> Modo Compacto</label>
                             </div>
 
                             <div class="ace-settings-item">

@@ -48,26 +48,26 @@
         </div>
     </div>
 </metal:main>
-<script src="${request.route_url('home')}static/ace/assets/js/bootbox.min.js"></script>
-<script src="${request.route_url('home')}static/ace/assets/js/x-editable/bootstrap-editable.min.js"></script>
-<link href="${request.route_url('home')}static/ace/assets/css/bootstrap-editable.css" rel="stylesheet"/>
+<script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/bootbox.min.js"></script>
+<script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/x-editable/bootstrap-editable.min.js"></script>
+<link href="${request.route_url('home')}templates/acev2/static/ace/assets/css/bootstrap-editable.css" rel="stylesheet"/>
 <!--datatable plugin -->
-<script src="${request.route_url('home')}static/ace/assets/js/jquery.dataTables.min.js"></script>
-<script src="${request.route_url('home')}static/ace/assets/js/jquery.dataTables.bootstrap.js"></script>
-<script src="${request.route_url('home')}static/ColVis-1.1.0/js/dataTables.colVis.min.js"></script>
-<link href="${request.route_url('home')}static/ColVis-1.1.0/css/dataTables.colVis.min.css" rel="stylesheet"/>
+<script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.dataTables.min.js"></script>
+<script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.dataTables.bootstrap.js"></script>
+<script src="${request.route_url('home')}templates/acev2/static/ColVis-1.1.0/js/dataTables.colVis.min.js"></script>
+<link href="${request.route_url('home')}templates/acev2/static/ColVis-1.1.0/css/dataTables.colVis.min.css" rel="stylesheet"/>
 <!--gritter plugin (alert messages) -->
-<script src="${request.route_url('home')}static/ace/assets/js/jquery.gritter.min.js"></script>
-<link href="${request.route_url('home')}static/ace/assets/css/jquery.gritter.css" rel="stylesheet"/>
+<script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.gritter.min.js"></script>
+<link href="${request.route_url('home')}templates/acev2/static/ace/assets/css/jquery.gritter.css" rel="stylesheet"/>
 <!--validate plugin-->
-<script src="${request.route_url('home')}static/ace/assets/js/jquery.validate.min.js"></script>
+<script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.validate.min.js"></script>
 <!--dropzone plugin-->
-<script src="${request.route_url('home')}static/ace/assets/js/dropzone.min.js"></script>
-<link href="${request.route_url('home')}static/ace/assets/css/dropzone.css" rel="stylesheet"/>
+<script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/dropzone.min.js"></script>
+<link href="${request.route_url('home')}templates/acev2/static/ace/assets/css/dropzone.css" rel="stylesheet"/>
 <!--bootstrap-wysiwyg plugin-->
-<script src="${request.route_url('home')}static/ace/assets/js/bootstrap-wysiwyg.min.js"></script>
-<script src="${request.route_url('home')}static/ace/assets/js/jquery.hotkeys.min.js"></script>
+<script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/bootstrap-wysiwyg.min.js"></script>
+<script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.hotkeys.min.js"></script>
 <!--Explorer-->
-<script src="${request.route_url('home')}static/js/lib/utils.js"></script>
-<script src="${request.route_url('home')}static/js/lib/fields.js"></script>
-<script src="${request.route_url('home')}static/js/base/explorer.js"></script>
+<script src="${request.route_url('home')}templates/acev2/static/js/lib/utils.js"></script>
+<script src="${request.route_url('home')}templates/acev2/static/js/lib/fields.js"></script>
+<script src="${request.route_url('home')}templates/acev2/static/js/base/explorer.js"></script>

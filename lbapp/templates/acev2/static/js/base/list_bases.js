@@ -80,54 +80,42 @@ var get_action_buttons_tpl = function(base){
             '<i class="icon-trash bigger-130"></i>'+
         '</a>'+
     '</div>'+
-    '<div class="hidden-desktop visible-phone">'+
-        '<div class="inline position-relative">'+
-            '<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">'+
-                '<i class="icon-caret-down icon-only bigger-120"></i>'+
-            '</button>'+
-            '<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret '+
-                    'dropdown-close">'+
-                '<li>'+
+    '<div>'+
+        '<div>'+
                     '<a href="#" class="tooltip-info view-base-'+ base.metadata.id_base +'" ' +
                         'data-rel="tooltip" title="Base" data-original-title="View">'+
                     '<span class="blue">'+
-                        '<i class="icon-zoom-in bigger-120"></i>'+
+                        '<i class="fa fa-search-plus fa-lg"></i> '+
                     '</span>'+
                     '</a>'+
-                '</li>'+
-                '<li>'+
+                    '&nbsp'+
                     '<a href="'+ get_route(base.metadata.name, 'config_base') +'" class="tooltip-info config-base-'+ base.metadata.id_base +'" ' +
                         'data-rel="tooltip" title="Configurar" data-original-title="View">'+
-                    '<span class="blue">'+
-                        '<i class="icon-cog bigger-120"></i>'+
+                    '<span class="grey">'+
+                        '<i class="fa fa-cog fa-lg"></i>'+
                     '</span>'+
                     '</a>'+
-                '</li>'+
-                '<li>'+
+                    '&nbsp'+
                     '<a href="#" class="tooltip-info view-model-'+ base.metadata.id_base +'" ' +
                         'data-rel="tooltip" title="Modelo" data-original-title="View">'+
-                    '<span class="grey">'+
-                        '<i class="icon-file bigger-120"></i>'+
+                    '<span class="blue">'+
+                        '<i class="fa fa-file-code-o fa-lg"></i>'+
                     '</span>'+
                     '</a>'+
-                '</li>'+
-                '<li>'+
+                    '&nbsp'+
                     '<a href="'+ get_route(base.metadata.name, 'edit_base') +'" class="tooltip-success edit-base-'+ base.metadata.id_base +'" ' +
                         'data-rel="tooltip" title="Editar" data-original-title="Edit">'+
                     '<span class="green">'+
-                        '<i class="icon-edit bigger-120"></i>'+
+                        '<i class="fa fa-edit fa-lg"></i>'+
                     '</span>'+
                     '</a>'+
-                '</li>'+
-                '<li>'+
+                    '&nbsp'+
                     '<a href="#" class="tooltip-error" delete-base-'+ base.metadata.id_base +'" ' +
                         'data-rel="tooltip" title="Deletar" data-original-title="Delete">'+
                     '<span class="red">'+
-                        '<i class="icon-trash bigger-120"></i>'+
+                        '<i class="fa fa-trash fa-lg"></i>'+
                     '</span>'+
                     '</a>'+
-                '</li>'+
-            '</ul>'+
         '</div>'+
     '</div>');
 }
@@ -157,21 +145,16 @@ var formatJson = function(json) {
 }
 
 var view_base_event = function(event){
-    bootbox.dialog('<h3 class="blue">'+ event.data.base.metadata.name +'</h3>'+
+bootbox.alert('<h3 class="blue">'+ event.data.base.metadata.name+'</h3>' +
         '<pre>' + formatJson(event.data.base) + '</pre>',
-    [{
-        "label" : "Fechar",
-        "class" : "btn-small btn-primary",
-    }]);
+        function() { });
 };
 
+
 var view_model_event = function(event){
-    bootbox.dialog('<h3 class="blue">'+ event.data.base.metadata.name+'</h3>' +
+    bootbox.alert('<h3 class="blue">'+ event.data.base.metadata.name+'</h3>' +
         '<pre>' + formatJson(event.data.base.metadata.model) + '</pre>',
-    [{
-        "label" : "Fechar",
-        "class" : "btn-small btn-primary",
-    }]);
+        function() {});
 };
 
 var delete_base_event = function(event){
@@ -198,11 +181,11 @@ var delete_base_event = function(event){
 };
 
 $("#datatable").dataTable({
-    "bJQueryUI": false,
+    "bJQueryUI": true,
     "bProcessing": true,
     "bServerSide": true,
     "bPaginate": true,
-    "sPageLast": false,
+    "sPageLast": true,
     "bInfo": true,
     "aaSorting": [[0, "asc"]],
     "sAjaxSource": get_route(null, 'list_bases'),
@@ -219,13 +202,13 @@ $("#datatable").dataTable({
         $action_td.find('.view-model-' + aData.metadata.id_base).click({base: aData}, view_model_event);
         $action_td.find('.delete-base-' + aData.metadata.id_base).click({base: aData}, delete_base_event);
     },
-    "sDom": "<'row-fluid'<'span4'l><'span4'r><'span4'f>>t<'row-fluid'<'span6'i><'span6'p>>",
+    //"sDom": "<'row-fluid'<'span2'l><'span2'r><'span2'f>>t<'row-fluid'<'span4'i><'span4'p>>",
     "oLanguage": {
         "oPaginate": {
-            "sFirst": "<<",
-            "sLast": ">>",
-            "sNext": ">",
-            "sPrevious": "<"
+            "sFirst": "Primeiro",
+            "sLast": "Último",
+            "sNext": "Próximo",
+            "sPrevious": "Anterior"
         },
         "sEmptyTable": "Não foram encontrados registros",
         "sInfo": "<span>Exibindo de <b>_START_</b> até <b>_END_</b> de <b>_TOTAL_</b> registros encontrados.</span>",

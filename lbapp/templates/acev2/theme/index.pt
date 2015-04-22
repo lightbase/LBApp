@@ -3,28 +3,20 @@
         Inicio
     </metal:content>
     <metal:content fill-slot="dash">
-        <!--?<li>
-            <i class="ace-icon fa fa-home home-icon"></i>
-            <a href="#">Home</a>
-        </li>
-
-        <li>
-            <a href="#">Other Pages</a>
-        </li>
-        <li class="active">Blank Page</li>-->
         <li>
             <i class="ace-icon fa fa-home home-icon"></i>
-            <a href="${request.route_url('home')}">Início</a>
+            <a href="${request.route_url('home')}">Home</a>
         </li>
     </metal:content>
     <metal:content fill-slot="page-header">
-        Início
+       <span class="fa fa-home"></span> Início
     </metal:content>
     <metal:content fill-slot="content">
         <div class="well well-sm">
             <h4 class="lighter no-margin-bottom">
-                <i class="ace-icon fa fa-hand-o-right icon-animated-hand-pointer blue"></i>
-                <a href="#custom/content-slider" class="pink btn-display-help"> Teste malígno </a>
+                <ul>
+                    <li><a href="${request.route_url('list_bases')}"> Lista de Bases</a></li>
+                </ul>
             </h4>
         </div>
     </metal:content>
