@@ -21,6 +21,7 @@ var get_route = function(route, id, path){
             .replace('_id', id).replace('_path', path),
         'delete_reg_path': $('link#delete_reg_path_route').attr('href').replace('_base', base)
             .replace('_id', id).replace('_path', path),
+        'create_reg': $('link#create_reg').attr('href').replace('_base', base)
     }
     return routes[route];
 };
@@ -451,25 +452,37 @@ console.log("html="+label);
 
         return data;
     },
+    
+    /*{
+    	value: { nome: "pedro"}
+    	}*/
 
     submit: function (data) {
-    	console.log("submit ...."+JSON.stringify(data));
     	var base = $('#base-name').text();
     	console.log("base="+base);
-        $.ajax({
-            type: 'POST',
+    	
+        var url = 'http://127.0.0.1:6543/simples/doc';//get_route('create_reg');    	
+    	console.log("submit ...."+JSON.stringify(data));
+    	console.log("URL="+url);
+    	
+    	$.ajax({
+            type: 'post',
+            url: url,
             data: {
-                path: 'path',
-                value: JSON.stringify(data),
-            }, 
-            url: window.location, 
-            async: false,
-            success: function(data, textStatus, jqXHR ){
-            	//Utils.success("Sucesso");
-            	alert(1);
+            	value: JSON.stringify(data)
             },
-            error: function(jqXHR, textStatus, errorThrown) {
-                alert(2)
+            async: false,
+            success: function (data, textStatus, jqXHR) {
+            	console.log('salvou ...');
+                /*bootbox.dialog("Obrigado! O registro foi salvo com sucesso!", [{
+                    "label": "OK",
+                    "class": "btn-small btn-primary",
+                    "href": '/base/'+base+'/explore',
+                }]);*/
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                     console.log(jqXHR, textStatus, errorThrown)
+                     Utils.error('Por favor Tente novamente mais tarde!');
             }
         });
     }
