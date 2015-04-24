@@ -38,6 +38,7 @@ define([
 			var base = new BaseModel();			
 			base.setData(this.collection);
 						
+			//update global var
 			baseJson = JSON.stringify(base);
 			
 			// create a dictionary with some values to be rendered

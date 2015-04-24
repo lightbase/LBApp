@@ -9,6 +9,9 @@
       label  : Apelido
       type   : input
       value  : Texto
+    datatype:            
+      type   : hidden
+      value  : Text
     placeholder:
       label  : Placeholder
       type   : input
@@ -40,6 +43,9 @@
       label  : Apelido
       type   : input
       value  : Senha    
+    datatype:            
+      type   : hidden
+      value  : Password
     description:
       label  : Descrição
       type   : input
@@ -67,6 +73,9 @@
       label  : Apelido
       type   : input
       value  : Número    
+    datatype:            
+      type   : hidden
+      value  : Integer
     description:
       label  : Descrição
       type   : input
@@ -102,6 +111,9 @@
       label  : Apelido
       type   : input
       value  : Data/Hora 
+    datatype:            
+      type   : hidden
+      value  : DateTime
     description:
       label  : Descrição
       type   : input
@@ -125,6 +137,9 @@
       label  : Apelido
       type   : input
       value  : Data
+    datatype:            
+      type   : hidden
+      value  : Date
     description:
       label  : Descrição
       type   : input
@@ -148,6 +163,9 @@
       label  : Apelido
       type   : input
       value  : Hora
+    datatype:            
+      type   : hidden
+      value  : Time
     description:
       label  : Descrição
       type   : input
@@ -170,6 +188,9 @@
     label:
       label  : Apelido
       type   : input
+      value  : Email
+    datatype:            
+      type   : hidden
       value  : Email
     placeholder:
       label  : Placeholder
@@ -198,6 +219,9 @@
       label  : Apelido
       type   : input
       value  : URL
+    datatype:            
+      type   : hidden
+      value  : Url
     placeholder:
       label  : Placeholder
       type   : input

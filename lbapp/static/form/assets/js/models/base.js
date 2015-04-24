@@ -53,8 +53,11 @@ define([ 'jquery', 'underscore', 'backbone' ], function($, _, Backbone) {
 				//TODO datatype e indices
 				field['field']['datatype'] = "Text";
 				
+				console.log("FIELD="+JSON.stringify(obj[i]["fields"]));
+				
 				field['field']['name'] = obj[i]["fields"]["id"]["value"]
 				field['field']['alias'] = obj[i]["fields"]["label"]["value"]
+				field['field']['datatype'] = obj[i]["fields"]["datatype"]["value"]
 				field['field']['description'] = obj[i]["fields"]["description"]["value"]
 				field['field']['required'] = obj[i]["fields"]["required"]["value"]
 				field['field']['multivalued'] = obj[i]["fields"]["multivalued"]["value"]

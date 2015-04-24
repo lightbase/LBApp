@@ -9,6 +9,7 @@ define([
   , "text!templates/popover/popover-password.html"
   , "text!templates/popover/popover-number.html"
   , "text!templates/popover/popover-color.html"
+  , "text!templates/popover/popover-hidden.html"
   , "templates/snippet/snippet-templates"
   , "bootstrap"
 ], function(
@@ -22,6 +23,7 @@ define([
   , _PopoverPassword
   , _PopoverNumber
   , _PopoverColor
+  , _PopoverHidden
   , _snippetTemplates
 ){
   return Backbone.View.extend({
@@ -38,6 +40,7 @@ define([
         , "password" : _.template(_PopoverPassword)
         , "number" : _.template(_PopoverNumber)
         , "color" : _.template(_PopoverColor)
+        , "hidden" : _.template(_PopoverHidden)
       }
     }
     , render: function(withAttributes){
