@@ -1,7 +1,6 @@
-require.config({
-  baseUrl: "/static/form/assets/js/deps/"
-	  //TODO remover o urlArgs ... apenas para o desenvolvimento (cache)
-  , urlArgs: "bust=" + (new Date()).getTime()
+({
+  name: "../main",
+  out: "../main-built.js"
   , shim: {
     'backbone': {
       deps: ['underscore', 'jquery'],
@@ -16,7 +15,7 @@ require.config({
     }
   }
   , paths: {
-    app           : ".."
+    app         : ".."
     , collections : "../collections"
     , data        : "../data"
     , models      : "../models"
@@ -24,7 +23,4 @@ require.config({
     , templates   : "../templates"
     , views       : "../views"
   }
-});
-require([ 'app/app'], function(app){
-  app.initialize();
-});
+})

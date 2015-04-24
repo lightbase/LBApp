@@ -236,6 +236,7 @@ var config_editables = function(editables){
         $(editable).attr('data-pk', tr_id.split('-')[1]);
         $(editable).on('hidden', function(e, reason){
             if(reason === 'save' || reason === 'nochange') {
+            	console.log("save2="+editable_id);
                 var next = $(this).parent('td').next().find('.editable');
                 next.editable('show');
             }
@@ -292,6 +293,7 @@ Cell.prototype = {
             var content = this.json_tpl(this.data);
         else
             var content = this.editable_tpl();
+        console.log("get_content="+content);
         return content;
     },
 
@@ -364,6 +366,7 @@ RegForm.prototype = $.extend({ }, Cell.prototype, {
     },
 
     editable_tpl: function (struct) {
+    	console.log("editable_tpl");
         var a = '<a href="javascript:void(0)" '+
            ' data-type="'+struct.datatype.toLowerCase()+'"'+
            ' data-title="'+struct.name+'"'+
@@ -371,6 +374,7 @@ RegForm.prototype = $.extend({ }, Cell.prototype, {
         var editable = $(a).editable();
         $(editable).on('hidden', function(e, reason){
             if(reason === 'save' || reason === 'nochange') {
+            	console.log("save = "+struct.name);
                 var next = $(this).parent('td').parent('tr').next().find('.editable');
                 next.editable('show');
             }
@@ -380,7 +384,7 @@ RegForm.prototype = $.extend({ }, Cell.prototype, {
     },
 
     html: function (base, table_id, label) {
-
+console.log("html="+label);
         if (!base) {
             base = this.base;
             label = this.base.metadata.alias || this.base.metadata.name;
@@ -399,6 +403,7 @@ RegForm.prototype = $.extend({ }, Cell.prototype, {
         wrapper.append(this.header_tpl(label)).append(table);
 
         $(base.content).each(function (i, struct) {
+        	console.log("DENTRO ........... "+struct);
             if (struct.field){
                 var row = $(self.row_tpl(struct.field, self.editable_tpl(struct.field)));
                 tbody.append(row);
@@ -429,6 +434,7 @@ RegForm.prototype = $.extend({ }, Cell.prototype, {
     },
 
     validate: function () {
+    	console.log("validating ....");
         var data = { };
         var self = this;
 
@@ -437,6 +443,7 @@ RegForm.prototype = $.extend({ }, Cell.prototype, {
             var field_name = editable.attr('data-title');
             var path = table_id.split('-');
             var value = $(editable).editable('getValue', true);
+            console.log("validate: "+field_name+"="+this.value);
             path.push(field_name);
             path = path.slice(1); // remove base
             self.set_value(data, path, value)
@@ -446,6 +453,9 @@ RegForm.prototype = $.extend({ }, Cell.prototype, {
     },
 
     submit: function (data) {
+    	console.log("submit ...."+JSON.stringify(data));
+    	var base = $('#base-name').text();
+    	console.log("base="+base);
         $.ajax({
             type: 'POST',
             data: {
@@ -455,7 +465,8 @@ RegForm.prototype = $.extend({ }, Cell.prototype, {
             url: window.location, 
             async: false,
             success: function(data, textStatus, jqXHR ){
-                alert(1)
+            	//Utils.success("Sucesso");
+            	alert(1);
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 alert(2)
@@ -469,6 +480,7 @@ RegForm.prototype = $.extend({ }, Cell.prototype, {
  */
 
 var get_table_data = function (base, depth) {
+	console.log("get_table_data");
     var table_data = {
         base: base,
         name: base.metadata.name,
@@ -554,6 +566,7 @@ var get_inner_table = function (table, registries, par_id) {
  */
 
 var fnRowCallback = function (table_data) {
+	console.log("fnRowCallback ... "+table_data);
     return function (nRow, aData, iDisplayIndex) {
         var editables = $(nRow).find('.editable');
         var $action_td = $(nRow).find('.action-buttons');

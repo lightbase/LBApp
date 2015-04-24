@@ -38,6 +38,8 @@ define([
 			var base = new BaseModel();			
 			base.setData(this.collection);
 						
+			baseJson = JSON.stringify(base);
+			
 			// create a dictionary with some values to be rendered
 			var values = {
 					multipart : this.collection.containsFileType(),

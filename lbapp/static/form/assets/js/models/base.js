@@ -46,9 +46,12 @@ define([ 'jquery', 'underscore', 'backbone' ], function($, _, Backbone) {
 						"datatype" : "",
 						"required" : false,
 						"multivalued" : false,
-						"indices" : []
+						"indices" : ["Textual"]
 					}
 				};
+				//"indices":["Textual"]
+				//TODO datatype e indices
+				field['field']['datatype'] = "Text";
 				
 				field['field']['name'] = obj[i]["fields"]["id"]["value"]
 				field['field']['alias'] = obj[i]["fields"]["label"]["value"]
