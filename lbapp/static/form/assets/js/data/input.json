@@ -42,9 +42,9 @@
         "value": false
       },
       "indices": {
-        "label": "Indices",
+        "label": "Índices",
         "type": "multicheckbox",
-        "value": "Textual:false,Ordenado:false"
+        "value": "Textual:false,Ordenado:false,Unico:false,Fonetico:false,Fuzzy:false,Vazio:false"
       }
     }
   },
@@ -133,6 +133,11 @@
         "label": "Multivalorado",
         "type": "checkbox",
         "value": false
+      },
+      "indices": {
+        "label": "Índices",
+        "type": "multicheckbox",
+        "value": "Textual:false,Ordenado:false,Unico:false,Vazio:false"
       }
     }
   },
@@ -167,6 +172,11 @@
         "label": "Multivalorado",
         "type": "checkbox",
         "value": false
+      },
+      "indices": {
+        "label": "Índices",
+        "type": "multicheckbox",
+        "value": "Textual:false,Ordenado:false,Unico:false,Vazio:false"
       }
     }
   },
@@ -201,6 +211,11 @@
         "label": "Multivalorado",
         "type": "checkbox",
         "value": false
+      },
+      "indices": {
+        "label": "Índices",
+        "type": "multicheckbox",
+        "value": "Textual:false,Ordenado:false,Unico:false,Vazio:false"
       }
     }
   },
@@ -235,6 +250,11 @@
         "label": "Multivalorado",
         "type": "checkbox",
         "value": false
+      },
+      "indices": {
+        "label": "Índices",
+        "type": "multicheckbox",
+        "value": "Textual:false,Ordenado:false,Unico:false,Vazio:false"
       }
     }
   },
@@ -274,6 +294,11 @@
         "label": "Multivalorado",
         "type": "checkbox",
         "value": false
+      },
+      "indices": {
+        "label": "Índices",
+        "type": "multicheckbox",
+        "value": "Textual:false,Ordenado:false,Unico:false,Fonetico:false,Fuzzy:false,Vazio:false"
       }
     }
   },
@@ -313,6 +338,11 @@
         "label": "Multivalorado",
         "type": "checkbox",
         "value": false
+      },
+      "indices": {
+        "label": "Índices",
+        "type": "multicheckbox",
+        "value": "Textual:false,Ordenado:false,Unico:false,Vazio:false"
       }
     }
   },

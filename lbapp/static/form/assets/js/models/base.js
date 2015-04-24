@@ -50,12 +50,14 @@ define([ 'jquery', 'underscore', 'backbone' ], function($, _, Backbone) {
 					}
 				};
 								
-				var value = obj[i]["fields"]["indices"]["value"];
-				var lista = value.split(',');
-				for(j=0; j < lista.length; j++){
-					var split = lista[j].split(":");
-					if(split[1] == "true"){
-						field['field']['indices'].push(split[0]);
+				if(obj[i]["fields"]["indices"] != undefined){
+					var value = obj[i]["fields"]["indices"]["value"];
+					var lista = value.split(',');
+					for(j=0; j < lista.length; j++){
+						var split = lista[j].split(":");
+						if(split[1] == "true"){
+							field['field']['indices'].push(split[0]);
+						}
 					}
 				}
 				

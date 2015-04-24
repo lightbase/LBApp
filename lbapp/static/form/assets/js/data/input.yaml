@@ -33,9 +33,9 @@
       type   : checkbox
       value  : false
     indices:
-      label  : Indices
+      label  : Índices
       type   : multicheckbox
-      value  : Textual:false,Ordenado:false
+      value  : Textual:false,Ordenado:false,Unico:false,Fonetico:false,Fuzzy:false,Vazio:false
 -
   title  : Senha
   fields :
@@ -103,7 +103,11 @@
     multivalued:
       label  : Multivalorado
       type   : checkbox
-      value  : false   
+      value  : false  
+    indices:
+      label  : Índices
+      type   : multicheckbox
+      value  : Textual:false,Ordenado:false,Unico:false,Vazio:false 
 -
   title  : DataHora
   fields :
@@ -130,6 +134,10 @@
       label  : Multivalorado
       type   : checkbox
       value  : false
+    indices:
+      label  : Índices
+      type   : multicheckbox
+      value  : Textual:false,Ordenado:false,Unico:false,Vazio:false
 -
   title  : Data
   fields :
@@ -156,6 +164,10 @@
       label  : Multivalorado
       type   : checkbox
       value  : false    
+    indices:
+      label  : Índices
+      type   : multicheckbox
+      value  : Textual:false,Ordenado:false,Unico:false,Vazio:false
 -
   title  : Hora
   fields :
@@ -182,6 +194,10 @@
       label  : Multivalorado
       type   : checkbox
       value  : false
+    indices:
+      label  : Índices
+      type   : multicheckbox
+      value  : Textual:false,Ordenado:false,Unico:false,Vazio:false
 -
   title  : Email
   fields :
@@ -212,6 +228,10 @@
       label  : Multivalorado
       type   : checkbox
       value  : false    
+    indices:
+      label  : Índices
+      type   : multicheckbox
+      value  : Textual:false,Ordenado:false,Unico:false,Fonetico:false,Fuzzy:false,Vazio:false
 -
   title  : URL
   fields :
@@ -241,7 +261,11 @@
     multivalued:
       label  : Multivalorado
       type   : checkbox
-      value  : false                         
+      value  : false          
+    indices:
+      label  : Índices
+      type   : multicheckbox
+      value  : Textual:false,Ordenado:false,Unico:false,Vazio:false               
 -
   title  : Text Input
   fields :
