@@ -23,5 +23,9 @@ define([
       fields[name]["value"] = value;
       this.set("fields", fields);
     }
+    , getField: function(name) {
+        var fields = this.get("fields")
+        return fields[name];        
+      }
   });
 });

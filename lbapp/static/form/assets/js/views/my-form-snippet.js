@@ -71,6 +71,36 @@ define([
 						case "checkbox":
 							boundContext.model.setField(name, $e.is(":checked"));
 							break;
+						case "multicheckbox":
+							//TODO refactoring
+							var indices = boundContext.model.getField("indices");
+							var container = [];
+							var value = indices.value;
+							var lista = value.split(',');
+							for(i=0; i < lista.length; i++){
+								var split = lista[i].split(':');
+								var nome = split[0];
+								var tmp = nome+":";
+								if(name == nome){
+									var sel = e.checked;
+									if(sel){								
+										tmp += "true";
+									}else{
+										tmp += "false";
+									}
+								}else{
+									tmp = lista[i];
+								}			
+								container.push(tmp);
+							}
+							value = container[0];
+							for(i=1; i < container.length; i++){
+								value += ","+container[i];
+							}
+							console.log("novo valor="+value);
+
+							boundContext.model.setField("indices", value);
+							break;
 						case "textarea-split":
 							boundContext.model.setField(name, 
 							_.chain($e.val().split("\n"))

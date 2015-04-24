@@ -46,14 +46,18 @@ define([ 'jquery', 'underscore', 'backbone' ], function($, _, Backbone) {
 						"datatype" : "",
 						"required" : false,
 						"multivalued" : false,
-						"indices" : ["Textual"]
+						"indices" : []
 					}
 				};
-				//"indices":["Textual"]
-				//TODO datatype e indices
-				field['field']['datatype'] = "Text";
-				
-				console.log("FIELD="+JSON.stringify(obj[i]["fields"]));
+								
+				var value = obj[i]["fields"]["indices"]["value"];
+				var lista = value.split(',');
+				for(j=0; j < lista.length; j++){
+					var split = lista[j].split(":");
+					if(split[1] == "true"){
+						field['field']['indices'].push(split[0]);
+					}
+				}
 				
 				field['field']['name'] = obj[i]["fields"]["id"]["value"]
 				field['field']['alias'] = obj[i]["fields"]["label"]["value"]
@@ -61,16 +65,14 @@ define([ 'jquery', 'underscore', 'backbone' ], function($, _, Backbone) {
 				field['field']['description'] = obj[i]["fields"]["description"]["value"]
 				field['field']['required'] = obj[i]["fields"]["required"]["value"]
 				field['field']['multivalued'] = obj[i]["fields"]["multivalued"]["value"]
+				
 				//TODO rever os campos necessarios ... ainda da bug no drag&drop de alguns componentes. 
 				//EX: email lança --> Uncaught TypeError: Cannot read property 'value' of undefined
 				
-				//TODO tratar tipo (datatype) e campos adicionais ...
-				
-				//console.log("FIELD=====" + JSON.stringify(field));
+				//TODO tratar campos adicionais ...
 
 				fields.push(field);
-			}
-			//var _content = this.get('content');	
+			}			
 			this.set("content", fields);
 		}
 /*

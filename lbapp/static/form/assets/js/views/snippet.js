@@ -10,6 +10,7 @@ define([
   , "text!templates/popover/popover-number.html"
   , "text!templates/popover/popover-color.html"
   , "text!templates/popover/popover-hidden.html"
+  , "text!templates/popover/popover-multicheckbox.html"
   , "templates/snippet/snippet-templates"
   , "bootstrap"
 ], function(
@@ -24,6 +25,7 @@ define([
   , _PopoverNumber
   , _PopoverColor
   , _PopoverHidden
+  , _PopoverMultiCheckbox
   , _snippetTemplates
 ){
   return Backbone.View.extend({
@@ -41,6 +43,7 @@ define([
         , "number" : _.template(_PopoverNumber)
         , "color" : _.template(_PopoverColor)
         , "hidden" : _.template(_PopoverHidden)
+        , "multicheckbox" : _.template(_PopoverMultiCheckbox)
       }
     }
     , render: function(withAttributes){
