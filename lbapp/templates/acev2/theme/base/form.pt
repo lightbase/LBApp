@@ -88,44 +88,12 @@
     </metal:content>
     
     <metal:content fill-slot="javascript">
-    	<link href="${request.route_url('home')}templates/acev2/static/ace/assets/css/jquery.gritter.css" rel="stylesheet"/>
-        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.gritter.min.js"></script>
-        <script src="${request.route_url('home')}templates/acev2/static/js/lib/utils.js"></script>
-		<script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/bootbox.min.js"></script>
+    	<!--<link href="${request.route_url('home')}templates/acev2/static/ace/assets/css/jquery.gritter.css" rel="stylesheet"/>
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.gritter.min.js"></script>        
+        <script src="${request.route_url('home')}templates/acev2/static/js/lib/utils.js"></script> -->
         
-        <script>
-	    var baseJson = "";
-	    function salvar(){
-	    console.log("salvar ..."+baseJson);
-	    bootbox.dialog("Deseja realmente salvar base?", [{
-        "label": "Salvar",
-        "class": "btn btn-succes",
-        callback: function () {
-            $.ajax({
-                type: 'post',
-                url: '/base/new',
-                data: {
-                    json_base: baseJson
-                },
-                success: function (data, textStatus, jqXHR) {
-                    bootbox.dialog("Obrigado! Sua base foi salva com sucesso!", [{
-                        "label": "OK",
-                        "class": "btn-small btn-primary",
-                        "href": '/base/list',
-                    }]);
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                         console.log(jqXHR, textStatus, errorThrown)
-                         Utils.error('Por favor Tente novamente mais tarde!');
-                }
-            });
-        }
-    }, {
-        "label": "Cancelar",
-        "class": "btn btn-danger",
-    }]);
-	    }		   		    
-	    </script>
+		<script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/bootbox.min.js"></script>        
+        <script src="${request.route_url('home')}templates/acev2/static/js/base/new.js"></script>        	   
     </metal:content>
 
 </metal:main>
