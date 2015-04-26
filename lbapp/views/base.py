@@ -103,7 +103,7 @@ class BaseView():
     def create_reg(self):
         """ Create registry 
         """
-        data = {'json_reg': self.request.params['json_reg']}
+        data = {'value': self.request.params['value']}
         response = self.factory.create_registry(data)
         return Response(response.text, status=response.status_code)
 

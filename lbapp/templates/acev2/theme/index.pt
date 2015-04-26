@@ -15,7 +15,7 @@
         <div class="well well-sm">
             <h4 class="lighter no-margin-bottom">
                 <ul>
-                    <li><a href="${request.route_url('list_bases')}"> Lista de Bases</a></li>
+                    <li><a href="${request.route_url('list_bases')}"> Lista de Bases</a></li>                    
                 </ul>
             </h4>
         </div>

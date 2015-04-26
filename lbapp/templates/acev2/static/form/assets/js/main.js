@@ -15,6 +15,7 @@ require.config({
       exports: '$.fn.popover'
     }
   }
+  //, namespace: "lb"
   , paths: {
     app           : ".."
     , collections : "../collections"

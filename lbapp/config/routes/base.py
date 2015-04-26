@@ -26,6 +26,8 @@ def make_base_routes(config):
     config.add_view(view=BaseView, attr='get_json_reg', route_name='create_reg_json', request_method='GET', renderer='templates/routes/new_reg.pt')
     config.add_view(view=BaseView, attr='create_reg_json', route_name='create_reg_json', request_method='POST')
 
+    config.add_route('create_registry', 'base/{base}/doc', factory=BaseFactory)
+    config.add_view(view=BaseView, attr='create_reg', route_name='create_registry', request_method='POST')
 
     config.add_route('edit_base', 'base/{base}/edit', factory=BaseFactory)
     config.add_view(view=BaseView, attr='get_base_json', route_name='edit_base', request_method='GET', renderer='templates/routes/edit.pt')

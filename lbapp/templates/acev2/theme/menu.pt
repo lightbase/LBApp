@@ -15,4 +15,12 @@
 
         <b class="arrow"></b>
     </li>
+    <li class="">
+        <a href="${request.route_url('create_base')}">
+            <i class="menu-icon fa fa-list"></i>
+            <span class="menu-text"> Criar Base </span>
+        </a>
+
+        <b class="arrow"></b>
+    </li>
 </ul><!-- /.nav-list -->
