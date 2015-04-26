@@ -110,7 +110,7 @@ class BaseFactory(RequestFactory):
 
     def create_registry_path(self, id, path, data):
         """ Create path in registry 
-        """
+        """        
         url = self.to_url(self.rest_url, self.base, 'doc', id, 'path', path)
         response = self.send_request('post', url, data=data)
         return response

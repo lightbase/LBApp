@@ -46,6 +46,9 @@ def make_base_routes(config):
 
     config.add_route('get_registries', 'base/{base}/reg', factory=BaseFactory)
     config.add_view(view=BaseView, attr='get_registries', route_name='get_registries', request_method='GET')
+    
+    config.add_route('create_registry', 'base/{base}/doc', factory=BaseFactory)
+    config.add_view(view=BaseView, attr='create_reg', route_name='create_registry', request_method='POST')
 
     config.add_route('explore_base', 'base/{base}/explore', factory=BaseFactory)
     config.add_view(route_name='explore_base', request_method='GET', renderer='templates/base/explore.pt')

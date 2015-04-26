@@ -452,37 +452,26 @@ console.log("html="+label);
 
         return data;
     },
-    
-    /*{
-    	value: { nome: "pedro"}
-    	}*/
 
-    submit: function (data) {
-    	var base = $('#base-name').text();
-    	console.log("base="+base);
-    	
-        var url = 'http://127.0.0.1:6543/simples/doc';//get_route('create_reg');    	
-    	console.log("submit ...."+JSON.stringify(data));
-    	console.log("URL="+url);
-    	
+    submit: function (dataReceived) {
+    	var base = $('#base-name').text();    	
     	$.ajax({
             type: 'post',
-            url: url,
+            url: '/base/'+base+'/doc',
             data: {
-            	value: JSON.stringify(data)
+            	value: JSON.stringify(dataReceived)
             },
             async: false,
             success: function (data, textStatus, jqXHR) {
-            	console.log('salvou ...');
-                /*bootbox.dialog("Obrigado! O registro foi salvo com sucesso!", [{
+                bootbox.dialog("Obrigado! O registro foi salvo com sucesso!", [{
                     "label": "OK",
                     "class": "btn-small btn-primary",
                     "href": '/base/'+base+'/explore',
-                }]);*/
+                }]);
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                     console.log(jqXHR, textStatus, errorThrown)
-                     Utils.error('Por favor Tente novamente mais tarde!');
+                 console.log(jqXHR, textStatus, errorThrown)
+                 Utils.error('Por favor Tente novamente mais tarde!');
             }
         });
     }
@@ -491,7 +480,6 @@ console.log("html="+label);
 /*
  * DataTable Data Scripts 
  */
-
 var get_table_data = function (base, depth) {
 	console.log("get_table_data");
     var table_data = {
