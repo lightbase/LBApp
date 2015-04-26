@@ -1,0 +1,132 @@
+<metal:main use-macro="load: ../master.pt">
+	<metal:content fill-slot="title">
+        LightBase - Criar Base
+    </metal:content>
+
+    <metal:content fill-slot="page-header">
+        <span class="fa fa-list-alt"></span> Criar Base
+        <div class="btn-group" style="margin-left: 70%">
+            <button data-toggle="dropdown" class="btn btn-mini btn-primary dropdown-toggle">
+                <i class="fa fa-cloud-upload fa-2x"></i>
+            </button>
+            <ul class="dropdown-menu pull-right">
+            	<li>
+                    <a href="${request.route_url('list_bases')}">Lista de Base</a>
+                </li>
+                <li>
+                    <a href="${request.route_url('home')}base/new">Criar Base</a>
+                </li>
+                <li>
+                    <a href="${request.route_url('home')}base/new/json">Criar Base usando Json</a>
+                </li>
+            </ul>
+        </div>
+    </metal:content>
+    
+    <metal:content fill-slot="dash">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="${request.route_url('home')}">Home</a>
+        </li>
+        <li>
+            <a href="${request.route_url('home')}base/new">Criar Base</a>
+        </li>
+    </metal:content>
+    
+    <metal:content fill-slot="head">
+        <head>
+            <link id="edit_base_route" href="${request.route_url('edit_base', base='_base')}">
+            <link id="config_base_route" href="${request.route_url('config_base', base='_base')}">
+            <link id="delete_base_route" href="${request.route_url('delete_base', base='_base')}">
+            <link id="explore_base_route" href="${request.route_url('explore_base', base='_base')}">
+            <link id="list_base_route" href="${request.route_url('list_bases')}">
+        </head>
+    </metal:content>  
+    
+    <metal:content fill-slot="content">
+        <div id="widgets">
+            <!--PAGE CONTENT BEGINS-->
+            <div class="container">
+				<div class="row clearfix">
+					<div class="span6">
+						<div class="clearfix">
+							<h2>Nova Base</h2> <button type="button" id="save-data" onclick="salvar()">Salvar Base</button>
+							<hr>
+							<div id="build">
+								<form id="target" class="form-horizontal"></form>
+							</div>
+						</div>
+					</div>
+					<div class="span6">
+						<h2>Componentes</h2>
+						<hr>
+						<div class="tabbable">
+							<ul class="nav nav-tabs" id="formtabs">
+								<!-- Tab nav -->
+							</ul>
+							<form class="form-horizontal" id="components">
+								<fieldset>
+									<div class="tab-content">
+										<!-- Tabs of snippets go here -->
+									</div>
+								</fieldset>
+							</form>
+						</div>
+					</div>
+				</div><!-- <div class="row clearfix"> -->
+			</div>
+            <!--PAGE CONTENT ENDS-->
+        </div>
+        
+        <script data-main="${request.route_url('home')}templates/acev2/static/form/assets/js/main.js" 
+		              src="${request.route_url('home')}templates/acev2/static/form/assets/js/deps/require.js"></script>
+        
+    </metal:content>
+    
+    <metal:content fill-slot="css">
+        <link href="${request.route_url('home')}templates/acev2/static/form/assets/css/custom.css" rel="stylesheet">
+    </metal:content>
+    
+    <metal:content fill-slot="javascript">
+    	<link href="${request.route_url('home')}templates/acev2/static/ace/assets/css/jquery.gritter.css" rel="stylesheet"/>
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.gritter.min.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/js/lib/utils.js"></script>
+		<script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/bootbox.min.js"></script>
+        
+        <script>
+	    var baseJson = "";
+	    function salvar(){
+	    console.log("salvar ..."+baseJson);
+	    bootbox.dialog("Deseja realmente salvar base?", [{
+        "label": "Salvar",
+        "class": "btn btn-succes",
+        callback: function () {
+            $.ajax({
+                type: 'post',
+                url: '/base/new',
+                data: {
+                    json_base: baseJson
+                },
+                success: function (data, textStatus, jqXHR) {
+                    bootbox.dialog("Obrigado! Sua base foi salva com sucesso!", [{
+                        "label": "OK",
+                        "class": "btn-small btn-primary",
+                        "href": '/base/list',
+                    }]);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                         console.log(jqXHR, textStatus, errorThrown)
+                         Utils.error('Por favor Tente novamente mais tarde!');
+                }
+            });
+        }
+    }, {
+        "label": "Cancelar",
+        "class": "btn btn-danger",
+    }]);
+	    }		   		    
+	    </script>
+    </metal:content>
+
+</metal:main>
+

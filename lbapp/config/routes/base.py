@@ -8,7 +8,7 @@ def make_base_routes(config):
     config.add_view(view=BaseView, attr='get_base', route_name='get_base', request_method='GET')
 
     config.add_route('create_base', 'base/new', factory=BaseFactory)
-    config.add_view(view=BaseView, attr='get_bases', route_name='create_base', request_method='GET', renderer='templates/routes/new.pt')
+    config.add_view(view=BaseView, attr='get_bases', route_name='create_base', request_method='GET', renderer='templates/routes/form.pt')
     config.add_view(view=BaseView, attr='create_base', route_name='create_base', request_method='POST')
 
     config.add_route('create_doc_json', 'base/new/json', factory=BaseFactory)
