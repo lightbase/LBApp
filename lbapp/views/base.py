@@ -22,7 +22,8 @@ class BaseView():
     def get_base_json(self):
         """ Get base json
         """
-        response = self.factory.get_base(attr='struct')
+        # attr='struct'
+        response = self.factory.get_base()
         return {'base_json': response.text}
 
     def list_bases(self):
@@ -160,9 +161,9 @@ class BaseView():
         data = {'json_base': base_json}
         response = self.factory.create_json_doc(data)
         if(response == '1'):
-            return HTTPFound(location='http://10.1.0.121/base/'+ nm_base + '/edit')
+            return HTTPFound(location=self.request.route_url('home')+'base/'+ nm_base + '/edit')
         else:
-            return HTTPFound(location='http://10.1.0.121/base/lasd')
+            return HTTPFound(location=self.request.route_url('error-404'))
 
     def create_base_json(self):
         data = {'json_base': self.request.params['json_base']}
