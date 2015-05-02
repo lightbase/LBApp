@@ -5,6 +5,10 @@
   }
 }
 
+.container {
+  width: 70%;
+}
+
 #components {
   min-height: 500px;
 }

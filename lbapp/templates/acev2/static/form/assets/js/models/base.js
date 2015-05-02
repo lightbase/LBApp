@@ -23,15 +23,15 @@ define([ 'jquery', 'underscore', 'backbone' ], function($, _, Backbone) {
 			this.setContent(obj, collection.length);
 		},
 		setMetadata : function(form){
-			console.log('metadata=' + JSON.stringify(form["name"]));
+			//console.log('metadata=' + JSON.stringify(form["name"]));
 			var _meta = this.get('metadata');			
-			console.log("name="+ form["name"]["value"]);
+			//console.log("name="+ form["name"]["value"]);
 			_meta['name'] = form["name"]["value"];			
 			_meta['description'] = form["description"]["value"];
 			_meta['password'] = form["password"]["value"];
 			_meta['color'] = form["color"]["value"];
 			this.set('metadata', _meta);
-			console.log('metadata_apos=' + JSON.stringify(this.get('metadata')));
+			//console.log('metadata_apos=' + JSON.stringify(this.get('metadata')));
 		}, 
 		setContent : function(obj,size){
 			var fields = new Array();
@@ -64,9 +64,12 @@ define([ 'jquery', 'underscore', 'backbone' ], function($, _, Backbone) {
 				field['field']['name'] = obj[i]["fields"]["id"]["value"]
 				field['field']['alias'] = obj[i]["fields"]["label"]["value"]
 				field['field']['datatype'] = obj[i]["fields"]["datatype"]["value"]
-				field['field']['description'] = obj[i]["fields"]["description"]["value"]
-				field['field']['required'] = obj[i]["fields"]["required"]["value"]
+				field['field']['description'] = obj[i]["fields"]["description"]["value"]				
 				field['field']['multivalued'] = obj[i]["fields"]["multivalued"]["value"]
+				
+				if(obj[i]["fields"]["required"] != undefined){
+					field['field']['required'] = obj[i]["fields"]["required"]["value"]
+				}
 				
 				//TODO rever os campos necessarios ... ainda da bug no drag&drop de alguns componentes. 
 				//EX: email lança --> Uncaught TypeError: Cannot read property 'value' of undefined
@@ -76,7 +79,38 @@ define([ 'jquery', 'underscore', 'backbone' ], function($, _, Backbone) {
 				fields.push(field);
 			}			
 			this.set("content", fields);
-		}
+		}/*,
+		validate: function (attrs) {
+	        //console.log('validating base: '+JSON.stringify(attrs));
+	        var errors = [];
+	        
+	        //validate base values
+	        var meta = attrs['metadata'];
+	        
+	        if(! this.validateString(meta['name'])){
+	        	//console.log('base name error ...');
+	        	errors.push({name: 'name', message: 'O nome da base é obrigatório'});
+	        }
+	        
+	        if(! this.validateString(meta['password'])){
+	        	//console.log('base name error ...');
+	        	errors.push({name: 'name', message: 'A senha é obrigatória'});
+	        }
+	        
+	        
+	        //validate fields
+
+	        
+	        
+	        return errors.length > 0 ? errors : false;
+	        //return "Erro ... nome da base"
+	        
+	    }, 
+	    validateString: function (value){
+	        if(value == null || value == ''){
+	        	return false;
+	        }
+		}*/
 /*
 		validate : function(attrs) {
 			if (!attrs.email) {

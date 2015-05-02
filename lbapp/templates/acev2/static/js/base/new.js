@@ -1,10 +1,108 @@
 var baseJson = "";
+//var baseModel;
+
+function validateBase(){
+	var obj = $.parseJSON( baseJson );
+	console.log('********** baseModel='+baseJson);
+	var errors = [];
+	
+	validateMetadata(obj, errors);
+    validateContents(obj, errors);
+	
+    console.log("ERRORS: "+errors);
+    
+    return errors;
+}
+
+function validateMetadata(obj, errors){
+	var meta = obj['metadata'];
+
+	if(! validateString(meta['name'])){
+		errors.push('O nome da base é obrigatório');
+    }    
+	if(meta['name'] == 'Nome da base ...'){
+		errors.push('O nome da base é inválido');
+	}
+	if(meta['name'].split(' ').length > 1){
+		errors.push('O nome da base não pode conter espaços');
+	}
+	
+    if(! validateString(meta['password'])){
+    	errors.push('A senha da base é obrigatória');
+    }
+    
+    if(! validateString(meta['color'])){
+    	errors.push('A cor é obrigatória');
+    }
+}
+
+
+var fieldNames = [];
+
+function validateContents(obj, errors){
+	var contents = obj['content'];
+	
+	console.log("CONTENTS="+JSON.stringify(contents));
+	
+	if(contents.length == 0){
+		errors.push('É necessária a criação de ao menos um campo');
+	}
+	
+	for(i=0; i < contents.length; i++){
+		validateContent(contents[i], errors);
+	}
+	
+}
+
+function validateContent(obj, errors){
+	console.log('validateContent='+JSON.stringify(obj));
+	
+	var field = obj['field'];
+	
+	if(! validateString(field['name'])){
+		errors.push('O nome (ID) do campo é obrigatório');
+	}else if(! validateNameId(field['name'])){
+		errors.push('O nome (ID) do campo é inválido: '+field['name']);
+	}else if(fieldNameExists(field['name'])){
+		errors.push('O nome (ID) do campo deve ser único: '+field['name']);
+	}else{
+		// is valid, append to fieldNames array
+		fieldNames.push(field['name']);
+	}
+	
+	if(! validateString(field['alias'])){
+		errors.push('O alias do campo '+field['name']+' é obrigatório');
+    }  
+}
+
+function fieldNameExists(name){
+	if(fieldNames.indexOf(name) != -1){
+		return true;
+	}
+	return false;
+}
+
+function validateNameId(name){
+	return /^[a-z_][a-z0-9_]*$/.test(name);
+}
+
+function validateString(value){
+    if(value == null || value == ''){
+    	return false;
+    }
+    return true;
+}
 
 function salvar(){
 	console.log("salvar ..."+baseJson);
 	
+	var errors = validateBase();
+	if(errors.length > 0){
+		alert(errors.join('\n'));
+		return;
+	}
 	//TODO arrumar ... gambiarra enquanto o bootbox nao funciona
-	$.ajax({
+	/*$.ajax({
         type: 'post',
         url: '/base/new',
         data: {
@@ -17,10 +115,10 @@ function salvar(){
              console.log(jqXHR, textStatus, errorThrown)
              //Utils.error('Por favor Tente novamente mais tarde!');
         }
-	});
+	});*/
 	
-	/*
-	bootbox.dialog("Deseja realmente salvar base?", [{
+	
+	/*bootbox.dialog("Deseja realmente salvar base?", [{
 		"label": "Salvar",
 		"class": "btn btn-succes",
 		callback: function () {
@@ -46,6 +144,6 @@ function salvar(){
 	}, {
 		"label": "Cancelar",
 		"class": "btn btn-danger",
-	}]);
-	*/
+	}]);*/
+	
 }		 

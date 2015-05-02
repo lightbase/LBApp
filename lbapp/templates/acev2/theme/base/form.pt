@@ -74,7 +74,7 @@
 						</div>
 					</div>
 				</div><!-- <div class="row clearfix"> -->
-			</div>
+			</div> <!--<div class="container"> -->
             <!--PAGE CONTENT ENDS-->
         </div>
         
@@ -92,8 +92,8 @@
         <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.gritter.min.js"></script>        
         <script src="${request.route_url('home')}templates/acev2/static/js/lib/utils.js"></script> -->
         
-		<script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/bootbox.min.js"></script>        
-        <script src="${request.route_url('home')}templates/acev2/static/js/base/new.js"></script>        	   
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/bootbox.min.js"></script>  
+        <script src="${request.route_url('home')}templates/acev2/static/js/base/new.js"></script>   
     </metal:content>
 
 </metal:main>
