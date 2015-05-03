@@ -29,3 +29,25 @@
       label  : Numero Obrigatorio
       type   : checkbox
       value  : false
+-
+  title  : Grupo
+  fields :
+    id:
+      label  : ID / Nome
+      type   : input
+      value  : grupo
+    label:
+      label  : Apelido
+      type   : input
+      value  : Grupo...
+    datatype:            
+      type   : hidden
+      value  : Group    
+    description:
+      label  : Descrição
+      type   : input
+      value  :     
+    multivalued:
+      label  : Multivalorado
+      type   : checkbox
+      value  : false      
