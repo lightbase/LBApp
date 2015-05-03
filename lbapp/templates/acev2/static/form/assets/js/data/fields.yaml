@@ -274,20 +274,20 @@
       type   : input
       value  : textarea
     label:
-      label  : Label Text
+      label  : Apelido
       type   : input
-      value  : Text Area
+      value  : Área de texto
     datatype:            
       type   : hidden
       value  : TextArea
     textarea:
-      label  : Starting Text
+      label  : Texto inicial
       type   : textarea
-      value  : default text
+      value  : 
     decription:
       label  : Descrição
       type   : input
-      value  : placeholder 
+      value  :  
     required:
       label  : Obrigatório
       type   : checkbox
@@ -300,3 +300,33 @@
       label  : Índices
       type   : multicheckbox
       value  : Textual:false,Ordenado:false,Unico:false,Fonetico:false,Fuzzy:false,Vazio:false
+-
+  title  : File Button
+  fields : 
+    id:
+      label  : ID / Nome
+      type   : input
+      value  : filebutton
+    label:
+      label  : Label Text
+      type   : input
+      value  : Arquivo
+    datatype:            
+      type   : hidden
+      value  : TextArea
+    decription:
+      label  : Descrição
+      type   : input
+      value  :  
+    required:
+      label  : Obrigatório
+      type   : checkbox
+      value  : false
+    multivalued:
+      label  : Multivalorado
+      type   : checkbox
+      value  : false
+    indices:
+      label  : Índices
+      type   : multicheckbox
+      value  : Textual:false,Fonetico:false,Fuzzy:false,Vazio:false

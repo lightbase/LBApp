@@ -29,6 +29,7 @@ define(function(require) {
   , email                    = require('text!templates/snippet/email.html')
   , url                      = require('text!templates/snippet/url.html')
   , areatexto                = require('text!templates/snippet/areatexto.html')
+  , arquivo                  = require('text!templates/snippet/arquivo.html')
   , grupo                    = require('text!templates/snippet/grupo.html')
   , endereco                 = require('text!templates/snippet/endereco.html');
 
@@ -63,6 +64,7 @@ define(function(require) {
     , email                    : email
     , url                      : url
     , areatexto                : areatexto
+    , arquivo                  : arquivo
     , grupo                    : grupo
     , endereco                 : endereco                   
   }
