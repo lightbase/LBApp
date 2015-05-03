@@ -84,7 +84,7 @@
     </metal:content>
     
     <metal:content fill-slot="css">
-    	<!--<link href="${request.route_url('home')}templates/acev2/static/form/assets/css/lib/bootstrap.min.css" rel="stylesheet">-->
+    	<link href="${request.route_url('home')}templates/acev2/static/form/assets/css/lib/bootstrap.min.css" rel="stylesheet">
         <link href="${request.route_url('home')}templates/acev2/static/form/assets/css/custom.css" rel="stylesheet">
     </metal:content>
     

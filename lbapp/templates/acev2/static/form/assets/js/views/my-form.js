@@ -40,8 +40,8 @@ function($, _, Backbone, TempSnippetView, PubSub, _renderForm) {
 				text : _.map(this.collection.renderAllClean(), function(e) {
 					return e.html()
 				}).join("\n"),
-				formJSON : JSON.stringify(this.collection.toJSON()),
-				baseJSON : JSON.stringify(base)
+				formJSON : JSON.stringify(this.collection.toJSON(), null, 3),
+				baseJSON : JSON.stringify(base, null, 3)
 			};
 
 			// descomentar se quiser "ver" o form ...

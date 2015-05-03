@@ -1,12 +1,14 @@
 define([ "jquery", "underscore", "backbone", 
          "collections/snippets", "collections/my-form-snippets", 
          "views/tab", "views/my-form", 
-         "text!data/fields.json", "text!data/groups.json", "text!data/default.json", 
+         "text!data/fields.json", "text!data/groups.json", 
+         "text!data/default.json", "text!data/arquivos.json", 
          "text!templates/app/render.html" 
 ],function($, _, Backbone, SnippetsCollection, 
 		MyFormSnippetsCollection, 
 		TabView, MyFormView, 
-		fieldsJSON, groupsJSON, defaultJSON, 
+		fieldsJSON, groupsJSON, 
+		defaultJSON, arquivosJSON, 
 		renderTab) {
 	return {
 		initialize : function() {
@@ -14,6 +16,10 @@ define([ "jquery", "underscore", "backbone",
 			new TabView({
 				title : "Campos",
 				collection : new SnippetsCollection(JSON.parse(fieldsJSON))
+			});
+			new TabView({
+				title : "Arquivos",
+				collection : new SnippetsCollection(JSON.parse(arquivosJSON))
 			});
 			new TabView({
 				title : "Grupos",
