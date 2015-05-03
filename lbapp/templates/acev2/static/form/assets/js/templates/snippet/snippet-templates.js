@@ -28,6 +28,7 @@ define(function(require) {
   , hora                     = require('text!templates/snippet/hora.html')
   , email                    = require('text!templates/snippet/email.html')
   , url                      = require('text!templates/snippet/url.html')
+  , areatexto                = require('text!templates/snippet/areatexto.html')
   , grupo                    = require('text!templates/snippet/grupo.html')
   , endereco                 = require('text!templates/snippet/endereco.html');
 
@@ -61,6 +62,7 @@ define(function(require) {
     , hora                     : hora
     , email                    : email
     , url                      : url
+    , areatexto                : areatexto
     , grupo                    : grupo
     , endereco                 : endereco                   
   }
