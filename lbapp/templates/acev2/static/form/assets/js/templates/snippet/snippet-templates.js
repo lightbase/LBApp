@@ -30,6 +30,9 @@ define(function(require) {
   , url                      = require('text!templates/snippet/url.html')
   , areatexto                = require('text!templates/snippet/areatexto.html')
   , arquivo                  = require('text!templates/snippet/arquivo.html')
+  , imagem                   = require('text!templates/snippet/imagem.html')
+  , som                      = require('text!templates/snippet/som.html')
+  , video                    = require('text!templates/snippet/video.html')
   , grupo                    = require('text!templates/snippet/grupo.html')
   , endereco                 = require('text!templates/snippet/endereco.html');
 
@@ -65,6 +68,9 @@ define(function(require) {
     , url                      : url
     , areatexto                : areatexto
     , arquivo                  : arquivo
+    , imagem                   : imagem
+    , som                      : som
+    , video                    : video
     , grupo                    : grupo
     , endereco                 : endereco                   
   }
