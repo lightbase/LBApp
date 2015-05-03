@@ -34,12 +34,37 @@ function($, _, Backbone, SnippetView, TempSnippetView, PubSub) {
 		mouseUpHandler : function(mouseUpEvent) {
 			$("body").off("mousemove");
 		},
+		validate : function(fields) {
+			console.log("______________validate: "+JSON.stringify(fields));
+			//var errors = [];
+			/*_.each(fields, function(e) {
+				console.log("tipo="+$e.attr("data-type"));
+				var $e = $(e), type = $e.attr("data-type"), name = $e.attr("id");
+				
+				switch (type) {
+					case "input":					
+						if(name == "id"){
+							validateIdField(name, errors);
+						}
+						break;					
+				}			
+			}*/				
+		},
 		saveHandler : function(boundContext) {
 			return function(mouseEvent) {
 				mouseEvent.preventDefault();
 				var fields = $(".popover .field");
+				
+				//this.validate(fields);
+				/*var errors = this.validate(fields);
+				if(errors.length > 0){
+					for(i=0; i < errors.length; i++){
+						console.log("erro: "+errors[i]);
+					}
+					//return;
+				}*/
+				
 				_.each(fields, function(e) {
-
 					var $e = $(e), type = $e.attr("data-type"), name = $e.attr("id");
 
 					// TODO The placeholder attribute works with the following

@@ -1,9 +1,9 @@
-var baseJson = "";
+var base_form;
 //var baseModel;
 
 function validateBase(){
-	var obj = $.parseJSON( baseJson );
-	console.log('********** baseModel='+baseJson);
+	var obj = base_form;//$.parseJSON( baseJson );
+	console.log('********** base_form='+base_form);
 	var errors = [];
 	
 	validateMetadata(obj, errors);
@@ -118,19 +118,20 @@ function validateString(value){
 }
 
 function salvar(){
-	console.log("salvar ..."+baseJson);
+	console.log("salvar ..."+JSON.stringify(base_form));
 	
-	var errors = validateBase();
+	/*var errors = validateBase();
 	if(errors.length > 0){
 		alert(errors.join('\n'));
 		return;
-	}
+	}*/
+	
 	//TODO arrumar ... gambiarra enquanto o bootbox nao funciona
-	/*$.ajax({
+	$.ajax({
         type: 'post',
         url: '/base/new',
         data: {
-            json_base: baseJson
+            json_base: JSON.stringify(base_form)
         },
         success: function (data, textStatus, jqXHR) {
         	alert('Obrigado! Sua base foi salva com sucesso!');		           
@@ -139,7 +140,7 @@ function salvar(){
              console.log(jqXHR, textStatus, errorThrown)
              //Utils.error('Por favor Tente novamente mais tarde!');
         }
-	});*/
+	});
 	
 	
 	/*bootbox.dialog("Deseja realmente salvar base?", [{

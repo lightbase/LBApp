@@ -31,8 +31,8 @@ function($, _, Backbone, TempSnippetView, PubSub, _renderForm) {
 			});
 			
 			// update global var
-			base = this.collection.toLightbase();
-			console.log("BASE="+JSON.stringify(base));
+			base_form = this.collection.toLightbase();
+			console.log("BASE="+JSON.stringify(base_form));
 
 			// create a dictionary with some values to be rendered
 			var values = {
@@ -41,7 +41,7 @@ function($, _, Backbone, TempSnippetView, PubSub, _renderForm) {
 					return e.html()
 				}).join("\n"),
 				formJSON : JSON.stringify(this.collection.toJSON(), null, 3),
-				baseJSON : JSON.stringify(base, null, 3)
+				baseJSON : JSON.stringify(base_form, null, 3)
 			};
 
 			// descomentar se quiser "ver" o form ...
