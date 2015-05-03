@@ -1,5 +1,5 @@
-define([ "jquery", "underscore", "backbone", "views/temp-snippet", "models/base", "helper/pubsub", "text!templates/app/renderform.html" ], 
-function($, _, Backbone, TempSnippetView, BaseModel, PubSub, _renderForm) {
+define([ "jquery", "underscore", "backbone", "views/temp-snippet", "helper/pubsub", "text!templates/app/renderform.html" ], 
+function($, _, Backbone, TempSnippetView, PubSub, _renderForm) {
 	return Backbone.View.extend({
 		tagName : "fieldset",
 		
@@ -29,16 +29,10 @@ function($, _, Backbone, TempSnippetView, BaseModel, PubSub, _renderForm) {
 			_.each(this.collection.renderAll(), function(snippet) {
 				that.$el.append(snippet);
 			});
-
-			// convert the collection into a Base model
-			var base = new BaseModel();
-			base.setData(this.collection);
-
-			//console.log("*** Collection: "+JSON.stringify(this.collection.toJSON()));
 			
 			// update global var
-			baseJson = JSON.stringify(base);
-			//baseModel = base;
+			base = this.collection.toLightbase();
+			console.log("BASE="+JSON.stringify(base));
 
 			// create a dictionary with some values to be rendered
 			var values = {
@@ -77,7 +71,6 @@ function($, _, Backbone, TempSnippetView, BaseModel, PubSub, _renderForm) {
 		},
 
 		handleSnippetDrag : function(mouseEvent, snippetModel) {
-			//console.log("handleSnippetDrag: model="+JSON.stringify(snippetModel)+" --->>>> "+hoverElem.name);
 			$("body").append(new TempSnippetView({
 				model : snippetModel
 			}).render());
@@ -86,7 +79,6 @@ function($, _, Backbone, TempSnippetView, BaseModel, PubSub, _renderForm) {
 		},
 
 		handleTempMove : function(mouseEvent) {
-			//console.log("handleTempMove ");
 			$(".target").removeClass("target");
 			if (mouseEvent.pageX >= this.$build.position().left 
 					&& mouseEvent.pageX < (this.$build.width() + this.$build.position().left)
@@ -99,7 +91,6 @@ function($, _, Backbone, TempSnippetView, BaseModel, PubSub, _renderForm) {
 		},
 		
 		handleTempDrop : function(mouseEvent, model, index) {
-			//console.log("handleTempDrop: model="+JSON.stringify(model.toJSON())+" >>>> evt="+mouseEvent.pageX+", "+mouseEvent.pageY);
 			if (mouseEvent.pageX >= this.$build.position().left 
 					&& mouseEvent.pageX < (this.$build.width() + this.$build.position().left)
 					&& mouseEvent.pageY >= this.$build.position().top 

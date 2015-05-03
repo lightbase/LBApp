@@ -54,25 +54,49 @@ function validateContents(obj, errors){
 	
 }
 
+function validateSnippet(attrs){
+	var errors = [];
+	
+	console.log("validateSnippet: "+JSON.stringify(attrs));
+	
+	var fields = attrs['fields'];
+	var value = null;
+	if(fields['id'] !== undefined){
+		value = fields['id']['value'];
+	}
+	
+	validateIdField(value, errors);
+	
+	return errors;	
+}
+function _teste(){
+	console.log("chegou aqui ................................");
+}
+
 function validateContent(obj, errors){
 	console.log('validateContent='+JSON.stringify(obj));
 	
 	var field = obj['field'];
 	
-	if(! validateString(field['name'])){
-		errors.push('O nome (ID) do campo é obrigatório');
-	}else if(! validateNameId(field['name'])){
-		errors.push('O nome (ID) do campo é inválido: '+field['name']);
-	}else if(fieldNameExists(field['name'])){
-		errors.push('O nome (ID) do campo deve ser único: '+field['name']);
-	}else{
-		// is valid, append to fieldNames array
-		fieldNames.push(field['name']);
-	}
+	validateIdField(field['name'], errors);
 	
 	if(! validateString(field['alias'])){
 		errors.push('O alias do campo '+field['name']+' é obrigatório');
     }  
+}
+
+function validateIdField(value, errors){
+	console.log('validateIdField='+value);
+	if(! validateString(value)){
+		errors.push('O nome (ID) do campo é obrigatório');
+	}else if(! validateNameId(value)){
+		errors.push('O nome (ID) do campo é inválido: '+value);
+	}else if(fieldNameExists(value)){
+		errors.push('O nome (ID) do campo deve ser único: '+value);
+	}else{
+		// is valid, append to fieldNames array
+		fieldNames.push(value);
+	}
 }
 
 function fieldNameExists(name){

@@ -6,7 +6,8 @@
 }
 
 .container {
-  width: 70%;
+  width: 75%;
+  align: "left";
 }
 
 #components {
