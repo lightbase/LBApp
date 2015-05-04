@@ -1,0 +1,20 @@
+<!-- Endereço -->
+
+<fieldset>
+	<legend>Endereço</legend>
+	<div class="control-group">
+		<!-- Logradouro -->
+		<label class="control-label" for="<%- id %>"><%- label %></label>
+		<div class="controls">
+	    	<input id="<%- id %>" name="<%- id %>" type="text" placeholder="<%- placeholder %>" <% if(required) {%> required <% } %> />
+		</div>
+	</div>
+	<div class="control-group">
+		<!-- Numero -->
+		<label class="control-label" for="end_numero"><%- numero_label %></label>
+		<div class="controls">
+	    	<input id="end_numero" name="end_numero" type="text" placeholder="<%- numero_placeholder %>" <% if(numero_required) {%> required <% } %> />
+		</div>
+	</div>
+</fieldset>
+
