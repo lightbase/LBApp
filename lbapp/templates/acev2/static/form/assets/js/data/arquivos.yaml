@@ -1,0 +1,129 @@
+-
+  title  : Arquivo
+  fields : 
+    id:
+      label  : ID / Nome
+      type   : input
+      value  : filebutton
+    label:
+      label  : Label Text
+      type   : input
+      value  : Arquivo
+    datatype:            
+      type   : hidden
+      value  : File
+    accept:
+      label  : Arquivos aceitos
+      type   : input
+      value  : 
+    placeholder:
+      label  : Placeholder
+      type   : input
+      value  : Selecione o arquivo
+    decription:
+      label  : Descrição
+      type   : input
+      value  :  
+    required:
+      label  : Obrigatório
+      type   : checkbox
+      value  : false
+    multivalued:
+      label  : Multivalorado
+      type   : checkbox
+      value  : false
+    indices:
+      label  : Índices
+      type   : multicheckbox
+      value  : Textual:false,Fonetico:false,Fuzzy:false,Vazio:false
+-
+  title  : Imagem
+  fields : 
+    id:
+      label  : ID / Nome
+      type   : input
+      value  : filebutton
+    label:
+      label  : Label Text
+      type   : input
+      value  : Imagem
+    datatype:            
+      type   : hidden
+      value  : Image
+    decription:
+      label  : Descrição
+      type   : input
+      value  :  
+    required:
+      label  : Obrigatório
+      type   : checkbox
+      value  : false
+    multivalued:
+      label  : Multivalorado
+      type   : checkbox
+      value  : false
+    indices:
+      label  : Índices
+      type   : multicheckbox
+      value  : Textual:false,Vazio:false
+-
+  title  : Som
+  fields : 
+    id:
+      label  : ID / Nome
+      type   : input
+      value  : filebutton
+    label:
+      label  : Label Text
+      type   : input
+      value  : Som
+    datatype:            
+      type   : hidden
+      value  : Sound
+    decription:
+      label  : Descrição
+      type   : input
+      value  :  
+    required:
+      label  : Obrigatório
+      type   : checkbox
+      value  : false
+    multivalued:
+      label  : Multivalorado
+      type   : checkbox
+      value  : false
+    indices:
+      label  : Índices
+      type   : multicheckbox
+      value  : Textual:false,Vazio:false
+-
+  title  : Video
+  fields : 
+    id:
+      label  : ID / Nome
+      type   : input
+      value  : filebutton
+    label:
+      label  : Label Text
+      type   : input
+      value  : Vídeo
+    datatype:            
+      type   : hidden
+      value  : Image
+    decription:
+      label  : Descrição
+      type   : input
+      value  :  
+    required:
+      label  : Obrigatório
+      type   : checkbox
+      value  : false
+    multivalued:
+      label  : Multivalorado
+      type   : checkbox
+      value  : false
+    indices:
+      label  : Índices
+      type   : multicheckbox
+      value  : Textual:false,Vazio:false
+
