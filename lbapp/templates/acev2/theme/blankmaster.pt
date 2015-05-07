@@ -19,6 +19,7 @@
 
     <!-- text fonts -->
     <link rel="stylesheet" href="${request.route_url('home')}templates/acev2/static/ace/assets/css/ace-fonts.css"/>
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 
     <!-- ace styles -->
     <link rel="stylesheet" href="${request.route_url('home')}templates/acev2/static/ace/assets/css/ace.css" class="ace-main-stylesheet"

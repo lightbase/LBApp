@@ -11,7 +11,7 @@
 
 <metal:content fill-slot="content">
 <!-- #section:basics/navbar.layout -->
-<div id="navbar" class="navbar navbar-default" style="background-color: #e6e4e3">
+<div id="navbar" class="navbar navbar-default" style="background-color: #58585b">
     <script type="text/javascript">
         try {
             ace.settings.check('navbar', 'fixed')
@@ -34,13 +34,9 @@
         <!-- /section:basics/sidebar.mobile.toggle -->
         <div class="navbar-header pull-left">
             <!-- #section:basics/navbar.layout.brand -->
-            <a href="${request.route_url('home')}" class="navbar-brand">
-                <small style="color: #e6c11f">
-                    <i class="fa fa-database"></i>
-                    LightBase
-                </small>
+            <a href="${request.route_url('home')}">
+             <img class="imgNav" src="${request.route_url('home')}templates/acev2/static/img/lightbase.png" />
             </a>
-
             <!-- /section:basics/navbar.layout.brand -->
 
             <!-- #section:basics/navbar.toggle -->
@@ -61,7 +57,7 @@
         <div class="main-content-inner">
             <!-- #login-form -->
   
-            <img src="${request.route_url('home')}../static/img/lbsideimage.png"/>
+            <img class="imgLB" src="${request.route_url('home')}templates/acev2/static/img/lbsideimage.png"/>
          
       <form class="form-signin">
 
@@ -97,10 +93,17 @@
         </div>
     </div>
     <!-- /.main-content -->
+	
+	<footer class="footerLB">
+		&copy; 2014-2015 Lightbase
+	</footer>
 
+
+	<!--
     <div class="footer">
         <div class="footer-inner">
             <!-- #section:basics/footer -->
+            <!--
             <div class="footer-content">
 						<span class="bigger-120">
 							<span class="black bolder">LightBase</span>
@@ -110,8 +113,10 @@
             </div>
 
             <!-- /section:basics/footer -->
+			<!--
         </div>
     </div>
+    -->
 
     <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
         <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>

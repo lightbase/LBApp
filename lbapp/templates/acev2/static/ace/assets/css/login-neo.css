@@ -1,15 +1,14 @@
 body {
-font-family: "HelveticaNeue-Light", "Helvetica Neue Light";
+font-family: 'Lato', sans-serif;
   background-color: #fff;
 }
-
 
 .form-signin {
 	position: relative;
 	left: 300px;
   max-width: 430px;
   padding: 30px;
-  margin: 0 auto;
+  margin: 100px 300px;
 }
 .form-signin .form-signin-heading,
 .form-signin .checkbox {
@@ -50,7 +49,7 @@ font-family: "HelveticaNeue-Light", "Helvetica Neue Light";
 .loginButton{
 float: right;
 	padding:3px 16px;
-	background-color: #000;
+	background-color: #58585b;
 	border: 1px solid #666;
 	color:#fff;
 	font-style: italic;
@@ -69,6 +68,24 @@ float: right;
 	text-align: left;
 }
 
+.imgNav{
+	position: relative;
+	align-self: center;
+	margin: 10px;
+}
 .imgLB{
+	position: absolute;
 	float: left;
+	margin: 100px auto auto 300px;
+	
+}
+
+.footerLB{
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	height: 40px;
+	text-align: -webkit-center;
+	color: #58585b;
+	
 }
