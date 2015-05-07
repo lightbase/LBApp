@@ -10,7 +10,8 @@ requires = [
     'pyramid == 1.6a1',
     'pyramid_chameleon == 0.3',
     'waitress == 0.8.9',
-    'requests == 2.7.0'
+    'requests == 2.7.0',
+    'Chameleon == 2.22'
     ]
 
 setup(name='LBApp',
