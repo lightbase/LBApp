@@ -1,0 +1,9 @@
+<metal:main use-macro="load: ../master-login.pt">
+    <metal:content fill-slot="title">
+        LightBase Login
+    </metal:content>
+    
+    <head>
+    	<link rel="stylesheet" href="${request.route_url('home')}templates/acev2/static/ace/assets/css/login-neo.css"/>
+    </head>
+</metal:main>

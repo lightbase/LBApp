@@ -31,7 +31,7 @@
 						</small>
 					</a>
 					<div class="space-8"></div>
-<a href="${request.route_url('home')}/register" class="btn pull-right btn-app btn-mini btn-success radius-4 width-20 heigth-10">
+<a href="${request.route_url('home')}register" class="btn pull-right btn-app btn-mini btn-success radius-4 width-20 heigth-10">
  <b> CADASTRAR </b>
                                     </a>
 				</div>

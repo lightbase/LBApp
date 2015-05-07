@@ -5,17 +5,17 @@
 		<title>Login - LightBase</title>
 		<meta name="description" content="User login page" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link href="${request.route_url('home')}/static/ace/assets/css/bootstrap.min.css" rel="stylesheet" />
-		<link href="${request.route_url('home')}/static/ace/assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
-		<link rel="stylesheet" href="${request.route_url('home')}/static/ace/assets/css/font-awesome.min.css" />
-		<link rel="stylesheet" href="${request.route_url('home')}/static/ace/assets/css/ace-fonts.css" />
-		<link rel="stylesheet" href="${request.route_url('home')}/static/ace/assets/css/ace.min.css" />
-		<link rel="stylesheet" href="${request.route_url('home')}/static/ace/assets/css/ace-responsive.min.css" />
-		<link rel="stylesheet" href="${request.route_url('home')}/static/ace/assets/css/ace-skins.min.css" />
-		<link rel="stylesheet" type="text/css" href="${request.route_url('home')}/static/css/login.css">
-		<script src="${request.route_url('home')}/static/ace/assets/js/ace-extra.min.js"></script>
-		<script src="${request.route_url('home')}/static/ace/assets/js/jquery-2.0.3.min.js"></script>
-		<script src="${request.route_url('home')}/static/ace/assets/js/jquery.validate.min.js"></script>
+		<link href="${request.route_url('home')}static/ace/assets/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="${request.route_url('home')}static/ace/assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="${request.route_url('home')}static/ace/assets/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="${request.route_url('home')}static/ace/assets/css/ace-fonts.css" />
+		<link rel="stylesheet" href="${request.route_url('home')}static/ace/assets/css/ace.min.css" />
+		<link rel="stylesheet" href="${request.route_url('home')}static/ace/assets/css/ace-responsive.min.css" />
+		<link rel="stylesheet" href="${request.route_url('home')}static/ace/assets/css/ace-skins.min.css" />
+		<link rel="stylesheet" type="text/css" href="${request.route_url('home')}static/css/login.css">
+		<script src="${request.route_url('home')}static/ace/assets/js/ace-extra.min.js"></script>
+		<script src="${request.route_url('home')}static/ace/assets/js/jquery-2.0.3.min.js"></script>
+		<script src="${request.route_url('home')}static/ace/assets/js/jquery.validate.min.js"></script>
 	</head>
 	<body style>
 		<div class="navbar" id="navbar">
@@ -23,14 +23,14 @@
 				<div class="container-fluid" id="navbar">
 					<a href="#" class="brand">
 						<small>
-							<label style="font-size: 25px; margin-top: 6px;  "  >
+							<label style="font-size: 25px; margin-top: 6px;"  >
 								<i class="icon-sun orange"></i>
 								Light Base
 							</label>
 						</small>
 					</a>
 					<div class="space-8"></div>
-<a href="${request.route_url('home')}/login" class="btn pull-right btn-app btn-mini btn-primary radius-4 width-10 heigth-10">
+<a href="${request.route_url('home')}login" class="btn pull-right btn-app btn-mini btn-primary radius-4 width-10 heigth-10">
  <b>LOGIN</b>
                                     </a>
 				</div>
@@ -103,5 +103,5 @@
 				</div>
 	    	</div>
 		</body>
-        <script src="${request.route_url('home')}/static/js/register.js"></script>
+        <script src="${request.route_url('home')}static/js/register.js"></script>
 </html>
