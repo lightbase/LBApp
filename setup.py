@@ -7,10 +7,11 @@ README = open(os.path.join(here, 'README.txt')).read()
 CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
 requires = [
-    'pyramid',
-    'pyramid_chameleon',
-    'waitress',
-    'requests'
+    'pyramid == 1.5.1',
+    'pyramid_chameleon == 0.1',
+    'waitress == 0.8.9',
+    'requests == 2.3.0',
+    'Chameleon == 2.16'
     ]
 
 setup(name='LBApp',
