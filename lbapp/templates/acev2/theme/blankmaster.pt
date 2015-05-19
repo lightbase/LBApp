@@ -13,16 +13,21 @@
     <!-- bootstrap & fontawesome -->
     <link rel="stylesheet" href="${request.route_url('home')}templates/acev2/static/ace/assets/css/bootstrap.css"/>
     <link rel="stylesheet" href="${request.route_url('home')}templates/acev2/static/ace/assets/css/font-awesome.css"/>
+    
 
     <!-- page specific plugin styles -->
 
     <!-- text fonts -->
     <link rel="stylesheet" href="${request.route_url('home')}templates/acev2/static/ace/assets/css/ace-fonts.css"/>
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 
     <!-- ace styles -->
     <link rel="stylesheet" href="${request.route_url('home')}templates/acev2/static/ace/assets/css/ace.css" class="ace-main-stylesheet"
           id="main-ace-style"/>
 
+    <!-- Custom CSS Login Page -->
+	<link rel="stylesheet" href="${request.route_url('home')}templates/acev2/static/ace/assets/css/login-neo.css"/>
+	
     <!--[if lte IE 9]>
     <link rel="stylesheet" href="${request.route_url('home')}templates/acev2/static/ace/assets/css/ace-part2.css"
           class="ace-main-stylesheet"/>

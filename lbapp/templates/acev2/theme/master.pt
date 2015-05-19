@@ -35,9 +35,9 @@
         <div class="navbar-header pull-left">
             <!-- #section:basics/navbar.layout.brand -->
             <a href="#" class="navbar-brand">
-                <small>
+                <small style="color: #e6c11f">
                     <i class="fa fa-database"></i>
-                    LIGHTBASE
+                    LightBase
                 </small>
             </a>
 
@@ -337,7 +337,7 @@
                         <li class="divider"></li>
 
                         <li>
-                            <a href="#">
+                            <a href="${request.route_url('login')}">
                                 <i class="ace-icon fa fa-power-off"></i>
                                 Logout
                             </a>
@@ -371,39 +371,16 @@
             } catch (e) {
             }
         </script>
-
+        
+		
         <div class="sidebar-shortcuts" id="sidebar-shortcuts" style="background-color: #D4E0D1">
-            <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-                <button class="btn btn-success">
-                    <i class="ace-icon fa fa-signal"></i>
-                </button>
+        	<!-- 4 botões coloridos acima do Menu esquerdo -->
 
-                <button class="btn btn-info">
-                    <i class="ace-icon fa fa-pencil"></i>
-                </button>
 
-                <!-- #section:basics/sidebar.layout.shortcuts -->
-                <button class="btn btn-warning">
-                    <i class="ace-icon fa fa-users"></i>
-                </button>
-
-                <button class="btn btn-danger">
-                    <i class="ace-icon fa fa-cogs"></i>
-                </button>
-
-                <!-- /section:basics/sidebar.layout.shortcuts -->
-            </div>
-
-            <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
-                <span class="btn btn-success"></span>
-
-                <span class="btn btn-info"></span>
-
-                <span class="btn btn-warning"></span>
-
-                <span class="btn btn-danger"></span>
-            </div>
-        </div>
+            
+			<!-- 4 botões coloridos acima do Menu esquerdo -->    
+	
+	        </div>
         <!-- /.sidebar-shortcuts -->
 
         <metal:macro use-macro="load: menu.pt">
@@ -574,7 +551,6 @@
             <!-- #section:basics/footer -->
             <div class="footer-content">
 						<span class="bigger-120">
-							<span class="black bolder">LightBase</span>
 							&copy; 2014-2015
 						</span>
 
