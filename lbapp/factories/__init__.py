@@ -2,6 +2,7 @@
 from requests.exceptions import HTTPError
 from lbapp import config
 from lbapp.exception import RequestError
+from pyramid.security import Allow, Deny, Everyone
 import requests
 import json
 
@@ -10,6 +11,9 @@ SESSION_COOKIES = None
 class RequestFactory():
     """ Base class Methods for requesting rest api
     """
+    __acl__ = [
+                (Allow, 'admin', 'view'),
+             ]
     rest_url = config.REST_URL
 
     def to_json(self, obj):
@@ -38,6 +42,11 @@ class RequestFactory():
         """
         # First get request method
         request_method = getattr(requests, method)
+        print("Realizando requisição LBGenerator...")
+        print("Method : + " + str(request_method))
+        print("Args : " + str(kwargs))
+        #print("Cookies : " + str(self.cookies))
+        print("")
         # Make http request
         response = request_method(url, cookies=self.cookies, **kwargs)
         try:
@@ -45,7 +54,9 @@ class RequestFactory():
             response.raise_for_status()
             # Everything is alright, return response
             return response
-        except HTTPError:
+        except HTTPError as e:
+            print("Something gone wrong...")
+            print(str(e))
             # Something got wrong, raise error
             raise RequestError(response.text)
 

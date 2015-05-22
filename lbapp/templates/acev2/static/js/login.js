@@ -23,26 +23,38 @@ $(document).ready(function(){
     });
         $("#login_button").click(function(){
 
-        if (!form.valid()) return false;
+        //if (!form.valid()) return false;
         var data = {
             'nm_user': $('#user').val(),
-            'passwd_user': $('#passwd_user').val()
+            'passwd_user': $('#passwd_user').val(),
+			'url_forwarder' : window.location.href
         };
+            console.log("Dados : " + data);
+
         $.ajax({
             type : 'POST',
-            url : window.location.href,
+            url : getLoginURL(),
             data : data,
             cache: false,
             success: function(data, textStatus, jqXHR ){
+                console.log("Requisição enviada com sucesso");
                 window.location.href =  '/';
             },
             error: function(jqXHR, textStatus, errorThrown){
-                console.log(jqXHR, textStatus, errorThrown)
-                Utils.error('Por favor Tente novamente mais tarde!');
+                console.log(jqXHR, textStatus, errorThrown);
+                console.log("Usuário logado!");
+                //Utils.error('Por favor Tente novamente mais tarde!');
             }
         });
     });
 });
+
+function getLoginURL(){
+    var loginResouce = "/login";
+    var location = window.location;
+    var baseUrl = location.protocol + "//" + location.hostname + loginResouce
+    return baseUrl;
+}
 
 
 
