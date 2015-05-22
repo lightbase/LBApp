@@ -38,10 +38,14 @@ class BaseFactory(RequestFactory):
             order_by = {
                 iSortDir: [column]
             }
+        #TODO : Alterar
+        #limit = params.get('iDisplayLength'),
+        limit = 25
+
 
         search = self.get_search(
             order_by = order_by,
-            limit = params.get('iDisplayLength'),
+            limit = limit,
             offset = params.get('iDisplayStart'),
             literal = "Upper(struct) like '%"+ sSearch.upper() +"%'"
         )
