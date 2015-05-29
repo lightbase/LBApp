@@ -20,15 +20,17 @@ def main(global_config, **settings):
     routing.make_routes(config)
 
     secret = str(uuid.uuid4())
-    # TODO : Include parameter to decide if use
-    # security
-    # Configure Authentication and Authorization policy
-    authn_policy = AuthTktAuthenticationPolicy(secret,
-    callback=user_callback, hashalg='sha512')
-    authz_policy = ACLAuthorizationPolicy()
 
-    config.set_authentication_policy(authn_policy)
-    config.set_authorization_policy(authz_policy)
+    from . import config as global_config
+
+    # Configure Authentication and Authorization policy
+    if global_config.AUTH_ENABLED is True:
+        authn_policy = AuthTktAuthenticationPolicy(secret,
+        callback=user_callback, hashalg='sha512')
+        authz_policy = ACLAuthorizationPolicy()
+
+        config.set_authentication_policy(authn_policy)
+        config.set_authorization_policy(authz_policy)
 
     config.scan()
 
