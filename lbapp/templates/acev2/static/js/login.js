@@ -29,7 +29,9 @@ $(document).ready(function(){
             'passwd_user': $('#passwd_user').val(),
 			'url_forwarder' : window.location.href
         };
-            console.log("Dados : " + data);
+		var url_forwarder = window.location.href;
+		var default_url = 'http://localhost/base/list';
+		console.log("URL : " + url_forwarder);
 
         $.ajax({
             type : 'POST',
@@ -38,7 +40,11 @@ $(document).ready(function(){
             cache: false,
             success: function(data, textStatus, jqXHR ){
                 console.log("Requisição enviada com sucesso");
-                window.location.href =  '/';
+				if(url_forwarder.indexOf('login') != -1){
+					window.location.href = default_url;
+				}else{
+                	window.location.href =  url_forwarder;
+				}
             },
             error: function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR, textStatus, errorThrown);
