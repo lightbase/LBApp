@@ -5,8 +5,17 @@
     <metal:content fill-slot="css">
         <metal:content define-slot="css"/>
     </metal:content>
-    <metal:content fill-slot="javascript">
-        <metal:content define-slot="javascript"/>
+    <metal:content fill-slot="javascript" >
+    <!--
+        <script metal:fill-slot="javascript" type="text/javascript" src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.validate.min.js"></script>
+        <script metal:fill-slot="javascript" type="text/javascript" src="${request.route_url('home')}templates/acev2/static/ace/assets/js/ace-extra.min.js"></script>
+        <script metal:fill-slot="javascript" type="text/javascript" src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery-2.0.3.min.js"></script>
+        <script metal:fill-slot="javascript" type="text/javascript" src="${request.route_url('home')}templates/acev2/static/js/login.js"></script>
+    -->
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/ace-extra.min.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery-2.0.3.min.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.validate.min.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/js/login.js"></script>
     </metal:content>
 
 <metal:content fill-slot="content">
@@ -59,7 +68,7 @@
   
             <img class="imgLB" src="${request.route_url('home')}templates/acev2/static/img/lbsideimage.png"/>
          
-      <form class="form-signin">
+      <form class="form-signin" id="form">
 
         <div class="divLeft" style="font-size: large">Faça seu Login</div>
         <div class="divRight"> <a class="aLB" href="#">➔ Não tenho registro</a></div>
@@ -67,11 +76,11 @@
         <div style="clear: both">E-mail ou nome de usuário</div>
         
         <label for="inputEmail" class="sr-only">E-mail ou nome de usuário</label>
-        <input type="email" id="inputEmail" class="form-control" required autofocus>
+        <input id="user" class="form-control" required autofocus>
         
         <div>Senha</div>
         <label for="inputPassword" class="sr-only">Senha</label>
-        <input type="password" id="inputPassword" class="form-control" required>
+        <input type="password" id="passwd_user" class="form-control" required>
         
         <div>
 	        <a class="aLB" href="#" style="background-color: #e6c11f">Esqueci a minha senha</a>
@@ -81,7 +90,11 @@
           <label>
             <input type="checkbox" value="remember-me"> Continuar logado
           </label>
-          <button class="loginButton" type="submit" >login</button>
+          <!--? <button id="login_button" class="loginButton" type="submit" >login</button>-->
+
+            <a href="#" id="login_button" class="loginButton">
+                                       Login
+                                    </a>
         </div>
       
       </form>
