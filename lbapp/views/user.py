@@ -29,7 +29,7 @@ class UserView():
 
     def logout(self):
         response = self.factory.logout()
-        return Response(response.text)
+        return response
 
     def register(self):
         data = dict(

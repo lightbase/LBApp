@@ -40,7 +40,7 @@ class BaseFactory(RequestFactory):
             }
         #TODO : Alterar
         #limit = params.get('iDisplayLength'),
-        limit = 25
+        limit = 100
 
 
         search = self.get_search(

@@ -29,7 +29,10 @@ $(document).ready(function(){
             'passwd_user': $('#passwd_user').val(),
 			'url_forwarder' : window.location.href
         };
-            console.log("Dados : " + data);
+		var url_forwarder = window.location.href;
+		var default_path = '/base/list';
+        var path_url = window.location.pathname;
+		console.log("Pathname : " + path_url);
 
         $.ajax({
             type : 'POST',
@@ -38,23 +41,32 @@ $(document).ready(function(){
             cache: false,
             success: function(data, textStatus, jqXHR ){
                 console.log("Requisição enviada com sucesso");
-                window.location.href =  '/';
+				if(path_url.indexOf('login') != -1 || path_url == '/'){
+					console.log("Redirecionando default : " + getURLResource(default_path));
+					window.location.href = getURLResource(default_path);
+				}else{
+					console.log("Redirecionando : " + getURLResource(path_url));
+                	window.location.href = getURLResource(path_url);
+				}
             },
             error: function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR, textStatus, errorThrown);
-                console.log("Usuário logado!");
+				console.log("Exceção : ");
+				// TODO : Criar função javascript que recebe o Response Text e renderiza
+				console.log(jqXHR['responseText']);
+				var exception = JSON.parse(jqXHR['responseText']);
+				alert(exception['error_message']);
                 //Utils.error('Por favor Tente novamente mais tarde!');
             }
         });
     });
 });
 
-function getLoginURL(){
-    var loginResouce = "/login";
+function getURLResource(resource){
     var location = window.location;
-    var baseUrl = location.protocol + "//" + location.hostname + loginResouce
-    return baseUrl;
+    return location.protocol + "//" + location.hostname + resource
 }
 
-
-
+function getLoginURL(){
+	return getURLResource("/login");
+}
