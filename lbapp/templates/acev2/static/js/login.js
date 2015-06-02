@@ -64,7 +64,7 @@ $(document).ready(function(){
 
 function getURLResource(resource){
     var location = window.location;
-    return location.protocol + "//" + location.hostname + resource
+    return location.protocol + "//" + location.hostname + ":" + location.port + resource
 }
 
 function getLoginURL(){
