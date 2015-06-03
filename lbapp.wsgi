@@ -1,6 +1,3 @@
 from pyramid.paster import get_app
 application = get_app(
-  '/srv/lightbaseneo-dev/src/LBApp/development.ini', 'main')
-
-import lbapp.monitor
-lbapp.monitor.start(interval=1.0)
+  '/usr/local/pgfndocs-rest-1.0/lightbase-neo/src/LBApp/production.ini', 'main')

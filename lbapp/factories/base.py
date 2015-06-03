@@ -38,14 +38,10 @@ class BaseFactory(RequestFactory):
             order_by = {
                 iSortDir: [column]
             }
-        #TODO : Alterar
-        #limit = params.get('iDisplayLength'),
-        limit = 100
-
 
         search = self.get_search(
             order_by = order_by,
-            limit = limit,
+            limit = params.get('iDisplayLength'),
             offset = params.get('iDisplayStart'),
             literal = "Upper(struct) like '%"+ sSearch.upper() +"%'"
         )
@@ -114,7 +110,7 @@ class BaseFactory(RequestFactory):
 
     def create_registry_path(self, id, path, data):
         """ Create path in registry 
-        """
+        """        
         url = self.to_url(self.rest_url, self.base, 'doc', id, 'path', path)
         response = self.send_request('post', url, data=data)
         return response

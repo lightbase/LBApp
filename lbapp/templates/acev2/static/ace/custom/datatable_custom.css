@@ -1,8 +1,0 @@
-/* Customização do DataTable */
-
-.dataTables_wrapper .row:first-child {
-    background-color: #D4E0D1 !important;;
-}
-.dataTables_wrapper .row:last-child {
-background-color: #D4E0D1 !important;
-}

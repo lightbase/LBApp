@@ -1,9 +1,6 @@
 from pyramid.response import Response
 from lbapp.lib import utils
 import json
-import logging
-
-log = logging.getLogger(__name__)
 
 class UserView():
 
@@ -12,7 +9,6 @@ class UserView():
         self.request = request
 
     def login(self):
-        url_forwarder = self.request.params['url_forwarder']
         data = dict(
             nm_user = self.request.params['nm_user'],
             passwd_user= self.request.params['passwd_user']
@@ -22,14 +18,11 @@ class UserView():
             del data['nm_user']
 
         response = self.factory.login(**data)
-        print("Redirecionar : "+ str(url_forwarder))
-        response.url = url_forwarder
-        #return Response(response.text)
-        return response
+        return Response(response.text)
 
     def logout(self):
         response = self.factory.logout()
-        return response
+        return Response(response.text)
 
     def register(self):
         data = dict(
@@ -58,16 +51,3 @@ class UserView():
         )
         response = self.factory.put_profile(user, **data)
         return Response(response.text)
-
-USERS = {'admin':'12345', 'viewer':'viewer'}
-GROUPS = {'admin':['group:admins']} 
-
-def user_callback(id_user, request):
-
-    print('0000000000Usuário recebido :' + id_user)
-    log.debug('0000000000Usuário recebido :' + id_user)
-    #user = request.sesion['user']
-    if id_user is not None:
-        return ['admin']
-    else:
-        return None

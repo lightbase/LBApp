@@ -29,14 +29,11 @@ class BaseView():
     def list_bases(self):
         """ Get all bases 
         """
-        theme = 'acev2'
-        
         if self.request.params:
             results = self.factory.list_base(**self.request.params)
             return Response(json.dumps(results))
 
-        return {'theme': theme}
-        
+        return { }
 
     def create_base(self):
         """ Create base
@@ -90,7 +87,7 @@ class BaseView():
             order_by = {self.request.params.get("sSortDir_0"): [sort_column]},
             limit = self.request.params.get('iDisplayLength'),
             offset = self.request.params.get('iDisplayStart'),
-            literal = "Upper(document) like '%"+ sSearch.upper() +"%'"
+            literal = "Upper(document::text) like '%"+ sSearch.upper() +"%'"
         )
         registries = self.factory.get_registries(search)
         response = {
