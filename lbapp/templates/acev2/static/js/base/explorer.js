@@ -96,7 +96,7 @@ var action_buttons_tpl = function(){
 
 var default_column_tpl = function () {
     return {
-        "sTitle": '<a class="add-reg icon-plus-sign bigger-120" href="javascript:void(0);" data-tooltip="tooltip" title="Adicionar registro"></a>',
+        "sTitle": '<a class="add-reg icon-plus-sign bigger-120" href="javascript:void(0);" data-tooltip="tooltip" title="Adicionar registro">+</a>',
         "sClass": '',
         "bSortable": false,
         "sWidth": "7%",
