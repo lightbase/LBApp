@@ -15,7 +15,7 @@
         <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/ace-extra.min.js"></script>
         <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery-2.0.3.min.js"></script>
         <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.validate.min.js"></script>
-        <script src="${request.route_url('home')}templates/acev2/static/js/login.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/js/register.js"></script>
     </metal:content>
 
 <metal:content fill-slot="content">
@@ -70,30 +70,34 @@
          
       <form class="form-signin" id="form">
 
-        <div class="divLeft" style="font-size: large">Faça seu Login</div>
-		<div class="divRight"> <a class="aLB" <a href="${request.route_url('home')}/register">➔ Não tenho registro</a></div>
-        
-        <div style="clear: both">E-mail ou nome de usuário</div>
-        
-        <label for="inputEmail" class="sr-only">E-mail ou nome de usuário</label>
+        <div class="divLeft" style="font-size: large">Cadastro</div>
+
+        <div style="clear: both">Nome</div>
+        <label for="inputEmail" class="sr-only">Nome</label>
+        <input id="name" class="form-control" required autofocus>
+
+        <div style="clear: both">Usuário</div>
+        <label for="inputEmail" class="sr-only">Usuário</label>
         <input id="user" class="form-control" required autofocus>
+        
+        <div style="clear: both">Email</div>
+        <label for="inputEmail" class="sr-only">E-mail</label>
+        <input type="email" id="email" class="form-control" required autofocus>
         
         <div>Senha</div>
         <label for="inputPassword" class="sr-only">Senha</label>
         <input type="password" id="passwd_user" class="form-control" required>
         
-        <div>
-	        <a class="aLB" href="#" style="background-color: #e6c11f">Esqueci a minha senha</a>
-        </div>
-        
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Continuar logado
-          </label>
-          <!--? <button id="login_button" class="loginButton" type="submit" >login</button>-->
+        <div>Confirmação de senha</div>
+        <label for="inputPassword" class="sr-only">Senha</label>
+        <input type="password" id="confirm_passwd_user" class="form-control" required>
 
-            <a href="#" id="login_button" class="loginButton">
-                                       Login
+        <div class="checkbox">
+			<label>
+				<input type="checkbox" value="agree"> Li e concordo com os <a href="#">Termos</a>
+		    </label>
+            <a href="#" id="register_button" class="loginButton">
+                                      Cadastrar 
                                     </a>
         </div>
       
