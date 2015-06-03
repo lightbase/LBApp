@@ -33,10 +33,12 @@ class UserView():
 
     def register(self):
         data = dict(
-            nm_user = self.request.params['nm_user'],
-            email_user = self.request.params['email_user'],
-            passwd_user= self.request.params['passwd_user']
+            id_user = self.request.params.get('id_user'),
+            name_user = self.request.params.get('name_user'),
+            email_user = self.request.params.get('email_user'),
+            passwd_user= self.request.params.get('passwd_user')
         )
+        print("Criando usuário :" + data['id_user'])
         response = self.factory.register(**data)
         return Response(response.text)
 

@@ -42,6 +42,12 @@ class BaseView():
         """ Create base
         """
         data = dict(self.request.params)
+        #metadata = dict(data['json_base'])['metadata']
+        id_user = self.request.session.get('id_user')
+        print("ID User recuperado session : " + id_user)
+        #data['json_base']['metadata']['owner'] = id_user
+        #print("Data : " + str(metadata))
+        #print("Type json_base: " + str(type(metadata)))
         response = self.factory.create_base(data)
         return Response(response.text)
 
