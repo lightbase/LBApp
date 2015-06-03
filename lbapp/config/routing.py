@@ -6,7 +6,7 @@ def make_routes(config):
 
     # ** STATIC **
     config.add_static_view('static', 'static', cache_max_age=3600)
-
+    config.add_static_view('templates', 'templates', cache_max_age=3600)
     # ** HOME **
     config.add_route('home', '/')
     config.add_route('master', 'master')

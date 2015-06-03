@@ -1,0 +1,9 @@
+#widgets {
+	margin: 85px 0px !important;
+}
+
+.navbar {
+	position: fixed;
+	z-index: 999;
+	width: 100%;
+}

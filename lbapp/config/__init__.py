@@ -1,8 +1,16 @@
+
 import os
 
 def set_globals(**settings):
 
     global REST_URL
-    REST_URL = os.environ.get('REST_URL', None) 
-    if REST_URL is None:
-    	REST_URL = settings['rest_url']
+    REST_URL = settings['rest_url']
+
+    global AUTH_ENABLED
+    AUTH_ENABLED = os.environ.get('AUTH_ENABLED', None)
+    if AUTH_ENABLED is None:
+        AUTH_ENABLED = bool(int(settings['auth.enabled']))
+    else:
+        AUTH_ENABLED = bool(int(AUTH_ENABLED))
+
+    print("Configurado : " + str(AUTH_ENABLED))
