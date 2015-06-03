@@ -16,6 +16,7 @@ def main(global_config, **settings):
     config = Configurator(settings=settings)
 
     config.include('pyramid_chameleon')
+    config.include('pyramid_beaker')
 
     routing.make_routes(config)
 

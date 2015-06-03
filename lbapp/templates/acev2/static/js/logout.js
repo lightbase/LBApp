@@ -8,7 +8,7 @@ $(document).ready(function(){
             cache: false,
             success: function(data, textStatus, jqXHR ){
                 console.log("Requisição enviada com sucesso");
-                window.location =  'http://localhost/login';
+                window.location.href =  '/login';
             },
             error: function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR, textStatus, errorThrown);

@@ -42,6 +42,8 @@ class BaseView():
         """ Create base
         """
         data = dict(self.request.params)
+        id_user = self.request.session.get('id_user')
+        print("ID User recuperado session : " + id_user)
         response = self.factory.create_base(data)
         return Response(response.text)
 
