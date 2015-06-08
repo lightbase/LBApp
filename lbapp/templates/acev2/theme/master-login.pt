@@ -71,7 +71,7 @@
       <form class="form-signin" id="form">
 
         <div class="divLeft" style="font-size: large">Faça seu Login</div>
-		<div class="divRight"> <a class="aLB" <a href="${request.route_url('home')}/register">➔ Não tenho registro</a></div>
+		<div class="divRight"> <a href="${request.route_url('home')}register">➔ Não tenho registro</a></div>
         
         <div style="clear: both">E-mail ou nome de usuário</div>
         
