@@ -42,6 +42,8 @@ class BaseView():
         """ Create base
         """
         data = dict(self.request.params)
+        id_user = self.request.session.get('id_user')
+        print("ID User recuperado session : " + id_user)
         response = self.factory.create_base(data)
         return Response(response.text)
 
@@ -90,7 +92,7 @@ class BaseView():
             order_by = {self.request.params.get("sSortDir_0"): [sort_column]},
             limit = self.request.params.get('iDisplayLength'),
             offset = self.request.params.get('iDisplayStart'),
-            literal = "Upper(document) like '%"+ sSearch.upper() +"%'"
+            literal = "Upper(document::text) like '%"+ sSearch.upper() +"%'"
         )
         registries = self.factory.get_registries(search)
         response = {

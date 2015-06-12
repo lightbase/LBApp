@@ -69,7 +69,7 @@
         if ('ontouchstart' in document.documentElement) document.write("<script src='${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.mobile.custom.js'>" + "<" + "/script>");
     </script>
     <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.js"></script>
-    <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/bootstrap.js"></script>
+    <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/bootstrap.min.js"></script>
 
     <!-- page specific plugin scripts -->
 

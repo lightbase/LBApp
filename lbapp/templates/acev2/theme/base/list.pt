@@ -1,6 +1,6 @@
 <metal:main use-macro="load: ../master.pt">
     <metal:content fill-slot="title">
-        LightBase - Lista de Bases
+        LightBase - Lista de Bases 
     </metal:content>
     <metal:content fill-slot="page-header">
         <span class="fa fa-list-alt"></span> Lista de Bases
@@ -30,13 +30,11 @@
 
     </metal:content>
     <metal:content fill-slot="head">
-        <head>
             <link id="edit_base_route" href="${request.route_url('edit_base', base='_base')}">
             <link id="config_base_route" href="${request.route_url('config_base', base='_base')}">
             <link id="delete_base_route" href="${request.route_url('delete_base', base='_base')}">
             <link id="explore_base_route" href="${request.route_url('explore_base', base='_base')}">
             <link id="list_base_route" href="${request.route_url('list_bases')}">
-        </head>
     </metal:content>
     <metal:content fill-slot="content">
         <div id="widgets">

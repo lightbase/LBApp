@@ -15,18 +15,20 @@ class UserFactory(RequestFactory):
         url = self.to_url(self.rest_url, 'user/login')
         response = self.send_request('post', url, data=data)
         self.cookies = response.cookies
-        headers = remember(self.request, data['nm_user'])
+        id_user = data['nm_user']
+        headers = remember(self.request, id_user)
+        self.request.session['id_user'] = id_user
+        self.request.session.changed()
         #response.cookies.update(headers)
         #response.headers = headers
         #return response
         return Response('OK', headers=headers)
 
-
-
-
-
     def logout(self, **data):
         headers = forget(self.request)
+        if 'id_user' in self.request.session:
+            del self.request.session['id_user']
+            self.request.session.changed()
         url = self.to_url(self.rest_url, 'user/logout')
         response = self.send_request('post', url)
         self.cookies = response.cookies
