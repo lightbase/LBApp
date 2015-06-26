@@ -6,118 +6,336 @@
         <metal:content define-slot="css"/>
     </metal:content>
     <metal:content fill-slot="javascript" >
-    <!--
-        <script metal:fill-slot="javascript" type="text/javascript" src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.validate.min.js"></script>
-        <script metal:fill-slot="javascript" type="text/javascript" src="${request.route_url('home')}templates/acev2/static/ace/assets/js/ace-extra.min.js"></script>
-        <script metal:fill-slot="javascript" type="text/javascript" src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery-2.0.3.min.js"></script>
-        <script metal:fill-slot="javascript" type="text/javascript" src="${request.route_url('home')}templates/acev2/static/js/login.js"></script>
-    -->
-        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/ace-extra.min.js"></script>
         <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery-2.0.3.min.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/ace-extra.min.js"></script>
         <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.validate.min.js"></script>
         <script src="${request.route_url('home')}templates/acev2/static/js/login.js"></script>
     </metal:content>
 
 <metal:content fill-slot="content">
-<!-- #section:basics/navbar.layout -->
-<div id="navbar" class="navbar navbar-default" style="background-color: #58585b">
-    <script type="text/javascript">
-        try {
-            ace.settings.check('navbar', 'fixed')
-        } catch (e) {
-        }
-    </script>
+    <div class="login-layout">
+        <div class="main-container" id="main-container">
+            <div class="main-content">
+                <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1">
+                        <div class="login-container">
+                            <div class="center">
+                                <h1>
+                                    <!-- <i class="ace-icon fa fa-leaf green"></i> -->
+                                    <!--
+                                    <span class="red">Ace</span>
+                                    <span class="white" id="id-text2">Application</span>
+                                    -->
+                                    <span id="lightbaseName" class="light-yellowLightbase">Light</span>
+                                    <span id="lightbaseName" class="yellowLightbase" style="font: bold">base</span>
+                                </h1>
+                                <!--
+                                <h4 class="blue" id="id-company-text">&copy; Lightbase</h4> -->
+                            </div>
 
-    <div class="navbar-container" id="navbar-container">
-        <!-- #section:basics/sidebar.mobile.toggle -->
-        <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
-            <span class="sr-only">Toggle sidebar</span>
+                            <div class="space-6"></div>
 
-            <span class="icon-bar"></span>
+                            <div class="position-relative">
+                                <div id="login-box" class="login-box visible widget-box no-border">
+                                    <div class="widget-body">
+                                        <div class="widget-main">
+                                            <h4 class="header dark bigger">
+                                                <i class="ace-icon fa fa-coffee yellowLightbase"></i>
+                                                Faça seu login
+                                            </h4>
 
-            <span class="icon-bar"></span>
+                                            <div class="space-6"></div>
 
-            <span class="icon-bar"></span>
-        </button>
+                                            <form id="form">
+                                                <fieldset>
+                                                    <label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input type="text" id="user" class="form-control" placeholder="Nome do usuário" required autofocus/>
+                                                            <i class="ace-icon fa fa-user"></i>
+                                                        </span>
+                                                    </label>
 
-        <!-- /section:basics/sidebar.mobile.toggle -->
-        <div class="navbar-header pull-left">
-            <!-- #section:basics/navbar.layout.brand -->
-            <a href="${request.route_url('home')}">
-             <img class="imgNav" src="${request.route_url('home')}templates/acev2/static/img/lightbase.png" />
-            </a>
-            <!-- /section:basics/navbar.layout.brand -->
+                                                    <label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input type="password" id="passwd_user" class="form-control" placeholder="Senha" required/>
+                                                            <i class="ace-icon fa fa-lock"></i>
+                                                        </span>
+                                                    </label>
 
-            <!-- #section:basics/navbar.toggle -->
+                                                    <div class="space"></div>
 
-            <!-- /section:basics/navbar.toggle -->
-        </div>
+                                                    <div class="clearfix">
+                                                        <label class="inline">
+                                                            <input type="checkbox" value="remember-me" class="ace" />
+                                                            <span class="lbl"> Continuar Logado</span>
+                                                        </label>
 
+                                                        <button type="button" id="login_button" class="width-35 pull-right btn btn-sm btn-primary">
+                                                            <i class="ace-icon fa fa-key"></i>
+                                                            <span class="bigger-110">Login</span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="space-4"></div>
+                                                </fieldset>
+                                            </form>
+
+                                            <!--
+
+                                            <div class="social-or-login center">
+                                                <span class="bigger-110">Or Login Using</span>
+                                            </div> -->
+
+                                            <div class="space-6"></div>
+                                            <!--
+                                            <div class="social-login center">
+                                                <a class="btn btn-primary">
+                                                    <i class="ace-icon fa fa-facebook"></i>
+                                                </a>
+
+                                                <a class="btn btn-info">
+                                                    <i class="ace-icon fa fa-twitter"></i>
+                                                </a>
+
+                                                <a class="btn btn-danger">
+                                                    <i class="ace-icon fa fa-google-plus"></i>
+                                                </a>
+                                            </div> -->
+                                        </div>
+                                        <!-- /.widget-main -->
+
+                                        <div class="toolbar clearfix">
+                                            <div>
+                                                <a href="#" data-target="#forgot-box" class="forgot-password-link">
+                                                    <i class="ace-icon fa fa-arrow-left"></i>
+                                                    Esqueci minha senha
+                                                </a>
+                                            </div>
+
+                                            <div>
+                                                <a href="${request.route_url('home')}register" data-target="#signup-box" class="user-signup-link">
+                                                    Quero me registrar
+                                                    <i class="ace-icon fa fa-arrow-right"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div><!-- /.widget-body -->
+                                </div><!-- /.login-box -->
+
+                                <!-- TELA RECUPERAR SENHA -->
+
+                                <div id="forgot-box" class="forgot-box widget-box no-border">
+                                    <div class="widget-body">
+                                        <div class="widget-main">
+                                            <h4 class="header red lighter bigger">
+                                                <i class="ace-icon fa fa-key"></i>
+                                                Recuperar Senha
+                                            </h4>
+
+                                            <div class="space-6"></div>
+                                            <p>
+                                                Digite seu e-mail para receber instruções
+                                            </p>
+
+                                            <form>
+                                                <fieldset>
+                                                    <label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input type="email" class="form-control" placeholder="E-mail" />
+                                                            <i class="ace-icon fa fa-envelope"></i>
+                                                        </span>
+                                                    </label>
+
+                                                    <div class="clearfix">
+                                                        <button type="button" class="width-35 pull-right btn btn-sm btn-danger">
+                                                            <i class="ace-icon fa fa-lightbulb-o"></i>
+                                                            <span class="bigger-110">Enviar!</span>
+                                                        </button>
+                                                    </div>
+                                                </fieldset>
+                                            </form>
+                                        </div><!-- /.widget-main -->
+
+                                        <div class="toolbar center">
+                                            <a href="#" data-target="#login-box" class="back-to-login-link">
+                                                Voltar para login
+                                                <i class="ace-icon fa fa-arrow-right"></i>
+                                            </a>
+                                        </div>
+                                    </div><!-- /.widget-body -->
+                                </div><!-- /.forgot-box -->
+
+                                <!-- TELA DE REGISTRO -->
+
+                                <div id="signup-box" class="signup-box widget-box no-border">
+                                    <div class="widget-body">
+                                        <div class="widget-main">
+                                            <h4 class="header green lighter bigger">
+                                                <i class="ace-icon fa fa-users blue"></i>
+                                                Registrar novo usuário
+                                            </h4>
+
+                                            <div class="space-6"></div>
+                                            <p> Preencha os campos a seguir:</p>
+
+                                            <form>
+                                                <fieldset>
+                                                    <label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input type="email" id="email" class="form-control" placeholder="E-mail" />
+                                                            <i class="ace-icon fa fa-envelope"></i>
+                                                        </span>
+                                                    </label>
+
+                                                    <label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input type="text" id="user" class="form-control" placeholder="Nome de usuário" />
+                                                            <i class="ace-icon fa fa-user"></i>
+                                                        </span>
+                                                    </label>
+
+                                                    <label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input type="password" id="passwd_user" class="form-control" placeholder="Senha" />
+                                                            <i class="ace-icon fa fa-lock"></i>
+                                                        </span>
+                                                    </label>
+
+                                                    <label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input type="password" id="confirm_passwd_user" class="form-control" placeholder="Repita a senha" />
+                                                            <i class="ace-icon fa fa-retweet"></i>
+                                                        </span>
+                                                    </label>
+
+                                                    <label class="block">
+                                                        <input type="checkbox" class="ace" />
+                                                        <span class="lbl">
+                                                            Eu aceito o
+                                                            <a href="#">Termo de Uso</a>
+                                                        </span>
+                                                    </label>
+
+                                                    <div class="space-24"></div>
+
+                                                    <div class="clearfix">
+                                                        <button type="reset" class="width-30 pull-left btn btn-sm">
+                                                            <i class="ace-icon fa fa-refresh"></i>
+                                                            <span class="bigger-110">Limpar</span>
+                                                        </button>
+
+                                                        <button type="button" id="register_button" class="width-65 pull-right btn btn-sm btn-success">
+                                                            <span class="bigger-110">Registrar</span>
+
+                                                            <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+                                                        </button>
+                                                    </div>
+                                                </fieldset>
+                                            </form>
+                                        </div>
+
+                                        <div class="toolbar center">
+                                            <a href="#" data-target="#login-box" class="back-to-login-link">
+                                                <i class="ace-icon fa fa-arrow-left"></i>
+                                                Voltar para login
+                                            </a>
+                                        </div>
+                                    </div><!-- /.widget-body -->
+                                </div><!-- /.signup-box -->
+                            </div><!-- /.position-relative -->
+
+                            <!-- ALTERAR BACKGROUND -->
+                            <div class="navbar-fixed-top align-right">
+                                <br />
+                                &nbsp;
+                                <a id="btn-login-dark" href="#">Dark</a>
+                                &nbsp;
+                                <span class="blue">/</span>
+                                &nbsp;
+                                <a id="btn-login-blur" href="#">Blur</a>
+                                &nbsp;
+                                <span class="blue">/</span>
+                                &nbsp;
+                                <a id="btn-login-light" href="#">Light</a>
+                                &nbsp; &nbsp; &nbsp;
+                            </div>
+                        </div>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.main-content -->
+        </div><!-- /.main-container -->
+
+        <!-- basic scripts -->
+
+        <!--[if !IE]> -->
+        <metal:content fill-slot="javascript">
+            <metal:content define-slot="javascript"/>
+                <script type="text/javascript">
+                    window.jQuery || document.write('<script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.js"></script>');
+                </script>
+            </metal:content>
+        <!-- <![endif]-->
+
+        <!--[if IE]>
+<script type="text/javascript">
+ window.jQuery || document.write("<script src='../assets/js/jquery1x.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+
+        <metal:content fill-slot="javascript">
+            <metal:content define-slot="javascript"/>
+                <script type="text/javascript">
+                    if('ontouchstart' in document.documentElement) document.write('<script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.mobile.custom.js"></script>');
+                </script>
+        </metal:content>
+
+
+
+        <!-- inline scripts related to this page -->
+
+        <metal:content fill-slot="javascript">
+            <metal:content define-slot="javascript"/>
+                <script type="text/javascript">
+            jQuery(function($) {
+             $(document).on('click', '.toolbar a[data-target]', function(e) {
+                e.preventDefault();
+                var target = $(this).data('target');
+                $('.widget-box.visible').removeClass('visible');//hide others
+                $(target).addClass('visible');//show target
+             });
+            });
+            
+            
+            // SCRIPT PARA ALTERAR A COR DO BACKGROUND
+            //you don't need this, just used for changing background
+            jQuery(function($) {
+             $('#btn-login-dark').on('click', function(e) {
+                $('body').attr('class', 'login-layout');
+                $('#id-text2').attr('class', 'white');
+                $('#id-company-text').attr('class', 'blue');
+                
+                e.preventDefault();
+             });
+             $('#btn-login-light').on('click', function(e) {
+                $('body').attr('class', 'login-layout light-login');
+                $('#id-text2').attr('class', 'grey');
+                $('#id-company-text').attr('class', 'blue');
+                $('#id-lightbaseName').attr('class', 'dark');
+                
+                e.preventDefault();
+             });
+             $('#btn-login-blur').on('click', function(e) {
+                $('body').attr('class', 'login-layout blur-login');
+                $('#id-text2').attr('class', 'white');
+                $('#id-company-text').attr('class', 'light-blue');
+                
+                e.preventDefault();
+             });
+             
+            });
+            </script>
+        </metal:content>
     </div>
-    <!-- /.navbar-container -->
-</div>
-
-<!-- /section:basics/navbar.layout -->
-<div class="main-container" id="main-container">
-
-
-    <!-- /Login Page -->
-    <div class="main-content">
-        <div class="main-content-inner">
-            <!-- #login-form -->
-  
-            <img class="imgLB" src="${request.route_url('home')}templates/acev2/static/img/lbsideimage.png"/>
-         
-      <form class="form-signin" id="form">
-
-        <div class="divLeft" style="font-size: large">Faça seu Login</div>
-		<div class="divRight"> <a href="${request.route_url('home')}register">➔ Não tenho registro</a></div>
-        
-        <div style="clear: both">E-mail ou nome de usuário</div>
-        
-        <label for="inputEmail" class="sr-only">E-mail ou nome de usuário</label>
-        <input id="user" class="form-control" required autofocus>
-        
-        <div>Senha</div>
-        <label for="inputPassword" class="sr-only">Senha</label>
-        <input type="password" id="passwd_user" class="form-control" required>
-        
-        <div>
-	        <a class="aLB" href="#" style="background-color: #e6c11f">Esqueci a minha senha</a>
-        </div>
-        
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Continuar logado
-          </label>
-          <!--? <button id="login_button" class="loginButton" type="submit" >login</button>-->
-
-            <a href="#" id="login_button" class="loginButton">
-                                       Login
-                                    </a>
-        </div>
-      
-      </form>
-            <!-- /section:basics/content.login-form -->
-            <div class="page-content">
-              
-            </div>
-            <!-- /.page-content -->
-        </div>
-    </div>
-    <!-- /.main-content -->
-	
-	<footer class="footerLB">
-		&copy; 2014-2015 Lightbase
-	</footer>
-
-    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
-        <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
-    </a>
-</div>
-<!-- /.main-container -->
-
-<!-- basic scripts -->
 
 </metal:content>
 
