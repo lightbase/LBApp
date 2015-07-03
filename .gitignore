@@ -38,3 +38,4 @@ development.ini
 .project
 .pydevproject
 lbapp.wsgi
+heroku.ini
