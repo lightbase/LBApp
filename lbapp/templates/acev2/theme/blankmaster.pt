@@ -58,16 +58,16 @@
         window.jQuery || document.write("<script src='${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.js'>" + "<" + "/script>");
     </script>
 
-    <!-- <![endif]-->
+    <![endif]-->
 
     <!--[if IE]>
     <script type="text/javascript">
         window.jQuery || document.write("<script src='${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery1x.js'>" + "<" + "/script>");
     </script>
     <![endif]-->
-    <script type="text/javascript">
-        if ('ontouchstart' in document.documentElement) document.write("<script src='${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.mobile.custom.js'>" + "<" + "/script>");
-    </script>
+        <script type="text/javascript">
+                    if('ontouchstart' in document.documentElement) document.write('\x3Cscript src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.mobile.custom.js">\x3C/script>');
+        </script>
     <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.js"></script>
     <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/bootstrap.min.js"></script>
 

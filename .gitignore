@@ -37,3 +37,4 @@ development.ini
 .mr.developer.cfg
 .project
 .pydevproject
+lbapp.wsgi

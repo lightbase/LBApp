@@ -5,12 +5,7 @@
     <metal:content fill-slot="css">
         <metal:content define-slot="css"/>
     </metal:content>
-    <metal:content fill-slot="javascript" >
-        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery-2.0.3.min.js"></script>
-        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/ace-extra.min.js"></script>
-        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.validate.min.js"></script>
-        <script src="${request.route_url('home')}templates/acev2/static/js/login.js"></script>
-    </metal:content>
+
 
 <metal:content fill-slot="content">
     <div class="login-layout">
@@ -266,35 +261,42 @@
         </div><!-- /.main-container -->
 
         <!-- basic scripts -->
+        </div>
+       
 
-        <!--[if !IE]> -->
-        <metal:content fill-slot="javascript">
+
+       <metal:content define-slot="javascript">
             <metal:content define-slot="javascript"/>
-                <script type="text/javascript">
-                    window.jQuery || document.write('<script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.js"></script>');
-                </script>
-            </metal:content>
-        <!-- <![endif]-->
-
-        <!--[if IE]>
-<script type="text/javascript">
- window.jQuery || document.write("<script src='../assets/js/jquery1x.js'>"+"<"+"/script>");
-</script>
-<![endif]-->
-
-        <metal:content fill-slot="javascript">
-            <metal:content define-slot="javascript"/>
-                <script type="text/javascript">
-                    if('ontouchstart' in document.documentElement) document.write('<script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.mobile.custom.js"></script>');
-                </script>
-        </metal:content>
 
 
+		 <!--[if !IE]> -->
+			<metal:content fill-slot="javascript">
+
+				<script type="text/javascript">
+				    window.jQuery || document.write('\x3Cscript src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.js">\x3C/script>');
+				</script>
+			    </metal:content>
+			<!-- <![endif]-->
+
+			<!--[if IE]>
+		<script type="text/javascript">
+		 window.jQuery || document.write("\x3Cscript src='../assets/js/jquery1x.js'>\x3C/script>");
+		</script>
+		<![endif]-->
+
+
+
+
+
+
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery-2.0.3.min.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/ace-extra.min.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.validate.min.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/js/login.js"></script>
 
         <!-- inline scripts related to this page -->
 
-        <metal:content fill-slot="javascript">
-            <metal:content define-slot="javascript"/>
+
                 <script type="text/javascript">
             jQuery(function($) {
              $(document).on('click', '.toolbar a[data-target]', function(e) {
@@ -335,7 +337,7 @@
             });
             </script>
         </metal:content>
-    </div>
+
 
 </metal:content>
 
