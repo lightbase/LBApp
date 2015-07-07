@@ -45,7 +45,7 @@
                                                 <fieldset>
                                                     <label class="block clearfix">
                                                         <span class="block input-icon input-icon-right">
-                                                            <input type="text" id="user" class="form-control" placeholder="Nome do usuário" required autofocus/>
+                                                            <input type="text" id="user" class="form-control" placeholder="Login do usuário" required autofocus/>
                                                             <i class="ace-icon fa fa-user"></i>
                                                         </span>
                                                     </label>
@@ -108,7 +108,7 @@
                                             </div>
 
                                             <div>
-                                                <a href="${request.route_url('home')}register" data-target="#signup-box" class="user-signup-link">
+                                                <a href="#" data-target="#signup-box" class="user-signup-link">
                                                     Quero me registrar
                                                     <i class="ace-icon fa fa-arrow-right"></i>
                                                 </a>
@@ -173,7 +173,7 @@
                                             <div class="space-6"></div>
                                             <p> Preencha os campos a seguir:</p>
 
-                                            <form>
+                                            <form id="formRegister">
                                                 <fieldset>
                                                     <label class="block clearfix">
                                                         <span class="block input-icon input-icon-right">
@@ -184,11 +184,17 @@
 
                                                     <label class="block clearfix">
                                                         <span class="block input-icon input-icon-right">
-                                                            <input type="text" id="user" class="form-control" placeholder="Nome de usuário" />
+                                                            <input type="text" id="user" class="form-control" placeholder="Login do usuário" />
                                                             <i class="ace-icon fa fa-user"></i>
                                                         </span>
                                                     </label>
 
+                                                    <label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input type="text" id="name" class="form-control" placeholder="Nome de usuário" />
+                                                            <i class="ace-icon fa fa-user"></i>
+                                                        </span>
+                                                    </label>
                                                     <label class="block clearfix">
                                                         <span class="block input-icon input-icon-right">
                                                             <input type="password" id="passwd_user" class="form-control" placeholder="Senha" />
@@ -293,6 +299,7 @@
         <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/ace-extra.min.js"></script>
         <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.validate.min.js"></script>
         <script src="${request.route_url('home')}templates/acev2/static/js/login.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/js/register.js"></script>
 
         <!-- inline scripts related to this page -->
 

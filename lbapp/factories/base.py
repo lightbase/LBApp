@@ -30,7 +30,7 @@ class BaseFactory(RequestFactory):
             Get users' bases
             '''
             list_bases_user = []
-            bases_user = app_user['bases_user']
+            bases_user = app_user.get('bases_user', [])
             print("bases  : " + str(bases_user))
             access_base_user = dict()
             if bases_user is not None:

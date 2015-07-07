@@ -5,7 +5,9 @@ from lbapp import config as global_config
 from pyramid.security import remember
 from pyramid.security import forget 
 from pyramid.response import Response
+import ast
 import json
+import datetime
 
 USER_PASSWD_INVALID = "Username or password invalid"
 
@@ -46,8 +48,18 @@ class UserFactory(RequestFactory):
         return Response(charset='utf8', headers=headers)
 
     def register(self, **data):
-        url = self.to_url(self.rest_url, 'user')
-        response = self.send_request('post', url, data=data)
+        today = datetime.date.today()
+        data['creation_date_user'] = today.strftime("%d/%m/%Y")
+        data['status_user'] = True
+        groups = []
+        #TODO Configurar grupo padrão para criação de usuário
+        groups.append('admin_base')
+        data['groups_user'] = groups
+        newData = dict()
+        newData['value'] = json.dumps(data)
+        url = self.to_url(self.rest_url, '_app_user/doc')
+        print("Data a ser enviado : " + str(newData))
+        response = self.send_request('post', url, data=newData)
         if utils.is_integer(response.text):
             return response
         else:

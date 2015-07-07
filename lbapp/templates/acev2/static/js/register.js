@@ -1,6 +1,6 @@
 $(document).ready(function(){
-    var form = $('#form');
-    form.validate({
+    var form = $('#formRegister');
+    /*form.validate({
         rules:{
             user : {
                 required : true
@@ -20,7 +20,7 @@ $(document).ready(function(){
         highlight: function (e) {
             $(e).closest('.control-group').removeClass('info').addClass('error');
         },
-    });
+    });*/
         $("#register_button").click(function(){
 
         //if (!form.valid()) return false;
