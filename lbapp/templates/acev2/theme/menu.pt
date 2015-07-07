@@ -1,6 +1,6 @@
 <ul class="nav nav-list">
     <li>
-        <a href="${request.route_url('home')}">
+        <a href="${request.route_url('list_bases')}">
             <i class="menu-icon fa fa-home"></i>
             <span class="menu-text"> Início</span>
         </a>

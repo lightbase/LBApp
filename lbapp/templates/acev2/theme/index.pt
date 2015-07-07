@@ -5,7 +5,7 @@
     <metal:content fill-slot="dash">
         <li>
             <i class="ace-icon fa fa-home home-icon"></i>
-            <a href="${request.route_url('home')}">Home</a>
+            <a href="${request.route_url('list_bases')}">Home</a>
         </li>
     </metal:content>
     <metal:content fill-slot="page-header">
@@ -15,7 +15,7 @@
         <div class="well well-sm">
             <h4 class="lighter no-margin-bottom">
                 <ul>
-                    <li><a href="${request.route_url('list_bases')}"> Lista de Bases</a></li>                    
+                    <li><a href="${request.route_url('list_bases')}"> Lista de Bases</a></li>
                 </ul>
             </h4>
         </div>
