@@ -37,3 +37,6 @@ development.ini
 .mr.developer.cfg
 .project
 .pydevproject
+lbapp.wsgi
+heroku.ini
+runapp.py
