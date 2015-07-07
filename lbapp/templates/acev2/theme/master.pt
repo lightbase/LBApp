@@ -420,6 +420,7 @@
                 <!-- /.breadcrumb -->
 
                 <!-- #section:basics/content.searchbox -->
+				<!--
                 <div class="nav-search" id="nav-search">
                     <form class="form-search">
 								<span class="input-icon">
@@ -429,6 +430,7 @@
 								</span>
                     </form>
                 </div>
+				-->
                 <!-- /.nav-search -->
 
                 <!-- /section:basics/content.searchbox -->
