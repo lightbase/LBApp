@@ -12,7 +12,6 @@ class UserView():
         self.request = request
 
     def login(self):
-        url_forwarder = self.request.params['url_forwarder']
         data = dict(
             nm_user = self.request.params['nm_user'],
             passwd_user= self.request.params['passwd_user']
@@ -22,8 +21,6 @@ class UserView():
             del data['nm_user']
 
         response = self.factory.login(**data)
-        print("Redirecionar : "+ str(url_forwarder))
-        response.url = url_forwarder
         #return Response(response.text)
         return response
 

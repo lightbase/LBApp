@@ -317,7 +317,7 @@
                 <li class="green">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
                         <span class="fa fa-user"></span>&nbsp
-						${request.session['id_user']}
+						${request.session['id_app_user']}
                         <i class="ace-icon fa fa-caret-down"></i>
                     </a>
 

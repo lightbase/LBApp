@@ -13,4 +13,8 @@ def set_globals(**settings):
     else:
         AUTH_ENABLED = bool(int(AUTH_ENABLED))
 
-    print("Configurado : " + str(AUTH_ENABLED))
+    global LBGENERATOR_TOKEN_KEY
+    LBGENERATOR_TOKEN_KEY = settings['lbgenerator.token_key']
+
+    global LBGENERATOR_TOKEN_NAME
+    LBGENERATOR_TOKEN_NAME = settings['lbgenerator.token_name']

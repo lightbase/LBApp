@@ -27,9 +27,7 @@ $(document).ready(function(){
         var data = {
             'nm_user': $('#user').val(),
             'passwd_user': $('#passwd_user').val(),
-			'url_forwarder' : window.location.href
         };
-		var url_forwarder = window.location.href;
 		var default_path = '/base/list';
         var path_url = window.location.pathname;
 		console.log("Pathname : " + path_url);
@@ -54,8 +52,9 @@ $(document).ready(function(){
 				console.log("Exceção : ");
 				// TODO : Criar função javascript que recebe o Response Text e renderiza
 				console.log(jqXHR['responseText']);
-				var exception = JSON.parse(jqXHR['responseText']);
-				alert(exception['error_message']);
+				alert(jqXHR['responseText']);
+				//var exception = JSON.parse(jqXHR['responseText']);
+				//alert(exception['error_message']);
                 //Utils.error('Por favor Tente novamente mais tarde!');
             }
         });
