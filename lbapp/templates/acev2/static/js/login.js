@@ -1,5 +1,5 @@
 $(document).ready(function(){
-/*
+
     var form = $('#form');
     form.validate({
         rules:{
@@ -22,7 +22,7 @@ $(document).ready(function(){
             $(e).closest('.control-group').removeClass('info').addClass('error');
         },
     });
-*/
+
         $("#login_button").click(function(){
 
         //if (!form.valid()) return false;

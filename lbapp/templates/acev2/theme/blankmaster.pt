@@ -68,7 +68,9 @@
         <script type="text/javascript">
                     if('ontouchstart' in document.documentElement) document.write('\x3Cscript src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.mobile.custom.js">\x3C/script>');
         </script>
-    <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.js"></script>
+    <!--
+    <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.js"></script>-->
+    <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery-2.0.3.min.js"></script>
     <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/bootstrap.min.js"></script>
 
     <!-- page specific plugin scripts -->
@@ -116,6 +118,7 @@
     <script src="${request.route_url('home')}templates/acev2/static/ace/docs/assets/js/language/css.js"></script>
     <script src="${request.route_url('home')}templates/acev2/static/ace/docs/assets/js/language/javascript.js"></script>-->
     <metal:content define-slot="javascript"/>
+    
 
 </body>
 </html>
