@@ -1,5 +1,6 @@
 from pyramid.response import Response
 from lbapp.lib import utils
+from lbapp.lib import email
 import json
 import logging
 
@@ -35,8 +36,15 @@ class UserView():
             email_user = self.request.params.get('email_user'),
             passwd_user= self.request.params.get('passwd_user')
         )
+
         print("Criando usuário :" + data['id_user'])
         response = self.factory.register(**data)
+        # Envia email de boas vindas
+        subject_email = "Bem Vindo ao Lightbase"
+        msg_welcome  = "Olá {name_user}, seja bem vindo ao Lightbase!"
+        body_email = msg_welcome.format(name_user=data['name_user'])
+        email.send_email(data['email_user'], subject_email,
+                   body_email)
         return Response(response.text)
 
     def profile(self):
