@@ -16,17 +16,31 @@ class UserFactory(RequestFactory):
     def __init__(self, request):
          self.request = request
 
+    def get_url_base_user(self):
+        return self.to_url(self.rest_url, '_app_user/doc')
+
+    def get_user(self, id_app_user):
+        try:
+            url_app_user = self.get_url_base_user()
+            params = {'$$': '{"select": ["*"],"literal":"id_user=\''+id_app_user+'\'"}'}
+            response_app_user = self.send_request('get', url_app_user, params=params)
+            print("Resultado busca usuário : " + str(response_app_user.json()))
+            list_user = response_app_user.json()['results']
+            if list_user:
+                user = list_user[0]
+                print("User : " + str(user))
+                return user
+            else:
+                return None
+        except Exception as e:
+            print("Erro ao buscar usuário : " + str(e))
+            return None
+
     def login(self, **data):
-        url_app_user = self.to_url(self.rest_url, '_app_user/doc')
         id_app_user = data['nm_user']
-        params = {'$$': '{"select": ["*"],"literal":"id_user=\''+id_app_user+'\'"}'}
-        response_app_user = self.send_request('get', url_app_user, params=params)
-        print("Resultado busca usuário : " + str(response_app_user.json()))
-        list_user = response_app_user.json()['results']
-        if list_user:
-            user = list_user[0]
-            print("User : " + str(user))
-            passwd = user['passwd_user']
+        user = self.get_user(id_app_user)
+        if user:
+            passwd = user.get('passwd_user', '')
             if passwd == data['passwd_user']:
                 headers = remember(self.request, id_app_user)
                 self.request.session['id_app_user'] = id_app_user
@@ -36,7 +50,7 @@ class UserFactory(RequestFactory):
             else:
                 raise RequestError(USER_PASSWD_INVALID)
         else:
-                raise RequestError(USER_PASSWD_INVALID)
+            raise RequestError(USER_PASSWD_INVALID)
 
     def logout(self, **data):
         headers = forget(self.request)
@@ -64,6 +78,24 @@ class UserFactory(RequestFactory):
             return response
         else:
             raise RequestError(response.text)
+
+    def update_base_user(self, id_app_user, name_base):
+        user = self.get_user(id_app_user)
+        print("update_base_user user : " + str(user))
+        bases_user = user.get('bases_user', [])
+        metadata_user = user['_metadata']
+        print("update_base_user metadata : " + str(metadata_user))
+        id_doc = metadata_user['id_doc']
+        created_base = {'access_groups' : ['owner_base'], 'name_base' : name_base}
+        bases_user.append(created_base)
+        user['bases_user'] = bases_user
+        print("User a ser atualizado : " + str(user))
+
+        #Atualiza user
+        responseUser = self.send_request('put', self.get_url_base_user() + '/' + str(id_doc), data={'value': json.dumps(user)})
+        name_bases_user = self.request.session.get('bases_user', [])
+        name_bases_user.append(name_base)
+        self.request.session['app_user'] = user
 
     def get_profile(self, user):
         url = self.to_url(self.rest_url, 'user', user)

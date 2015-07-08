@@ -1,7 +1,9 @@
 import requests
 from lbapp.factories import RequestFactory
+from lbapp.factories.user import UserFactory
 from lbapp.exception import RequestError
 from lbapp.lib import utils
+import json
 
 class BaseFactory(RequestFactory):
 
@@ -105,8 +107,18 @@ class BaseFactory(RequestFactory):
     def create_base(self, data):
         """ Create base
         """
+        # Get ID user
+        id_app_user = data['id_app_user']
+        del data['id_app_user']
+        if not id_app_user:
+            raise RequestError('Usuário não definido')
+
         response = self.send_request('post', self.rest_url, data=data)
         if utils.is_integer(response.text):
+            json_base = json.loads(data['json_base'])
+            name_base = json_base['metadata']['name']
+            userFactory = UserFactory(self.request)
+            userFactory.update_base_user(id_app_user, name_base)
             return response
         else:
             raise RequestError(response.text)
