@@ -1,6 +1,6 @@
 $(document).ready(function(){
     var form = $('#formRegister');
-    /*form.validate({
+    form.validate({
         rules:{
             user : {
                 required : true
@@ -20,8 +20,8 @@ $(document).ready(function(){
         highlight: function (e) {
             $(e).closest('.control-group').removeClass('info').addClass('error');
         },
-    });*/
-        $("#register_button").click(function(){
+    });
+    $("#register_button").click(function(){
 
         //if (!form.valid()) return false;
         var data = {
@@ -56,7 +56,7 @@ $(document).ready(function(){
 
 function getURLResource(resource){
     var location = window.location;
-    return location.protocol + "//" + location.hostname + resource
+    return location.protocol + "//" + location.hostname + ":" + location.port + resource
 }
 
 function getLoginURL(){
