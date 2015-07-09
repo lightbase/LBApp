@@ -414,6 +414,10 @@ pre.prettyprint {
   color: #E0B600 !important;
 }
 
+.orangeLightbase{
+  color: #D8341A;
+}
+
 .light-yellowLightbase{
   color: #D6D4AB !important;
 }
@@ -1065,6 +1069,11 @@ pre.prettyprint {
   padding-bottom: 4px;
   border-bottom: 1px solid #CCC;
 }
+
+.header.lborange{
+  border-bottom-color: #D8341A;
+}
+
 .header.blue {
   border-bottom-color: #d5e3ef;
 }
@@ -1075,7 +1084,7 @@ pre.prettyprint {
   border-bottom-color: #e0d1ea;
 }
 .header.orange {
-  border-bottom-color: #fdd0ac;
+  border-bottom-color: #D8341A;
 }
 .header.orange2 {
   border-bottom-color: #fbd36b;
@@ -5494,15 +5503,16 @@ fieldset[disabled] .btn-default.active {
 /* Login button */
 .btn-primary,
 .btn-primary:focus {
-  background-color: #363639  !important;
-  border-color:  #363639;
+  background-color: #D8341A  !important;
+  border-color:  #D8341A;
+  box-shadow: 0px 0px 10px #666;
 }
 
 .btn-primary:hover,
 .btn-primary:active,
 .open > .btn-primary.dropdown-toggle {
-  background-color: #1b6aaa !important;
-  border-color: #428bca;
+  background-color: #2E9888 !important;
+  border-color: #2E9888;
 }
 .btn-primary.no-border:hover,
 .btn-primary.no-border:active {
@@ -6849,6 +6859,7 @@ fieldset[disabled] .btn-white.btn-grey.active {
 .btn-group > .btn-sm,
 .btn-group + .btn-sm {
   border-width: 2px;
+  box-shadow: 10px 10px 10px 10px #666;
   /* the border under an active button in button groups */
 }
 .btn-group > .btn-sm.active:after,
@@ -8721,7 +8732,7 @@ input[type="tel"],
 input[type="color"] {
   border-radius: 0 !important;
   color: #858585;
-  background-color: #ffffff;
+  background-color: #EDEDED;
   border: 1px solid #d5d5d5;
   padding: 5px 4px 6px;
   font-size: 14px;
@@ -8746,7 +8757,7 @@ input[type="url"]:hover,
 input[type="search"]:hover,
 input[type="tel"]:hover,
 input[type="color"]:hover {
-  border-color: #b5b5b5;
+  border-color: #666;
 }
 textarea:focus,
 input[type="text"]:focus,
@@ -8766,8 +8777,8 @@ input[type="color"]:focus {
   -webkit-box-shadow: none;
   box-shadow: none;
   color: #696969;
-  border-color: #f59942;
-  background-color: #ffffff;
+  border-color: #D8341A;
+  background-color: #EDEDED;
   outline: none;
 }
 input::-webkit-input-placeholder,
@@ -8877,6 +8888,7 @@ select.form-control option:focus {
 select option.no-option,
 select.form-control option.no-option {
   padding: 1px 0;
+
 }
 input[disabled] {
   color: #848484 !important;
@@ -8925,7 +8937,7 @@ span.input-icon {
   left: 3px;
   line-height: 30px;
   display: inline-block;
-  color: #909090;
+  color: #AFAFAF;
   font-size: 16px;
 }
 .input-icon.input-icon-right > .ace-icon {
@@ -8933,7 +8945,7 @@ span.input-icon {
   right: 3px;
 }
 .input-icon > input:focus + .ace-icon {
-  color: #579;
+  color: #D8341A;
 }
 .input-icon ~ .help-inline {
   padding-left: 8px;
@@ -10677,10 +10689,10 @@ td .lbl:only-child {
 }
 .widget-box {
   padding: 0;
-  -webkit-box-shadow: none;
-  box-shadow: none;
+  -webkit-box-shadow: 20px 20px 20px 20px black;
+  box-shadow: 20px 20px 20px 20px black;
   margin: 3px 0;
-  border: 1px solid #CCC;
+  border: 10px solid #CCC;
 }
 @media only screen and (max-width: 767px) {
   .widget-box {
@@ -10899,7 +10911,7 @@ td .lbl:only-child {
   transform: scale(1.2);
 }
 .widget-body {
-  background-color: #FFF;
+  background-color: #666;
 }
 .widget-main {
   padding: 12px;
@@ -12472,10 +12484,15 @@ td .lbl:only-child {
 .login-container {
   width: 375px;
   margin: 0 auto;
+  background-color: white;
+}
+
+aFontSize{
+  font-size: 12px;
 }
 .login-layout {
   /*background-color: #1D2024;*/
-  background-color: transparent;
+  background-color: white;
 }
 .login-layout .main-container:before {
   display: none;
@@ -12495,9 +12512,9 @@ td .lbl:only-child {
   position: fixed;
   z-index: -5;
   border-bottom: none;
-  box-shadow: none;
-  padding: 6px;
-  background-color: #394557;
+  box-shadow: 0px 0px 10px 0px #B8B6B7;
+  padding-top: 10px;
+  background-color: #D8341A;
   -moz-transform: scale(0,1) translate(-150px);
   -webkit-transform: scale(0,1) translate(-150px);
   -o-transform: scale(0,1) translate(-150px);
@@ -12520,28 +12537,29 @@ td .lbl:only-child {
 }
 .login-layout .widget-box .widget-main {
   padding: 16px 36px 36px;
-  background: #F7F7F7;
+  background: white;
 }
 .login-layout .widget-box .widget-main form {
   margin: 0;
 }
 .login-layout .widget-box .widget-body .toolbar > div > a {
-  font-size: 15px;
+  font-size: 10px;
   font-weight: 400;
-  text-shadow: 1px 0px 1px rgba(0, 0, 0, 0.25);
+  text-shadow: 20px 10px 20px rgba(0, 0, 0, 0.25);
 }
 .login-box .forgot-password-link {
   /*color: #FE9;*/
-  color: #E0B600;
+  color: white;
 }
 .login-box .user-signup-link {
   /*color: #CF7;*/
   color: white;
+  font-size: 12px;
 }
 .login-box .toolbar {
   /*background: #5090C1;*/
-  background: #464649;
-  border-top: 2px solid #597597;
+  background: #D8341A;
+  border-top: 2px solid #666;
 }
 .login-box .toolbar > div {
   width: 50%;
