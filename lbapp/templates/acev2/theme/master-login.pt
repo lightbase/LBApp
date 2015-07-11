@@ -13,7 +13,7 @@
             <script type="text/javascript">
                 try{ace.settings.check('navbar' , 'fixed')}catch(e){}
             </script>
-
+            <!--########################## NAVIGATION BAR ################################-->
             <div class="navbar-container" id="navbar-container">
                 <div class="navbar-header pull-left">
                     <!-- #section:basics/navbar.layout.brand -->
@@ -85,7 +85,7 @@
                 </div>
             </div><!-- /.navbar-container -->
         </div>
-
+<!--########################## LOGIN ################################-->
         <div class="login-layout">
             <div class="main-container" id="main-container">
                 <div class="main-content">
@@ -185,7 +185,7 @@
                                         </div><!-- /.widget-body -->
                                     </div><!-- /.login-box -->
 
-                                    <!-- TELA RECUPERAR SENHA -->
+<!--########################## RECUPERAR SENHA ################################-->
 
                                     <div id="forgot-box" class="forgot-box widget-box no-border">
                                         <div class="widget-body">
@@ -228,7 +228,7 @@
                                         </div><!-- /.widget-body -->
                                     </div><!-- /.forgot-box -->
 
-                                    <!-- TELA DE REGISTRO -->
+<!--########################## REGISTRO ################################-->
 
                                     <div id="signup-box" class="signup-box widget-box no-border">
                                         <div class="widget-body">
@@ -388,7 +388,6 @@
             });
             </script>
             <metal:content define-slot="javascript"/>
-
    </metal:content>
 
 </metal:main>

@@ -11,6 +11,7 @@ body {
   color: #393939;
   line-height: 1.5;
 }
+
 .main-container:before {
   display: block;
   content: "";
@@ -12497,7 +12498,7 @@ aFontSize{
 }
 .login-layout {
   /*background-color: #1D2024;*/
-  background-color: white;
+  background-color: transparent;
 }
 .login-layout .main-container:before {
   display: none;
@@ -12564,7 +12565,7 @@ aFontSize{
 .login-box .toolbar {
   /*background: #5090C1;*/
   background: #D8341A;
-  border-top: 2px solid #666;
+  border-top: 2px solid #D3D1D1;
 }
 .login-box .toolbar > div {
   width: 50%;
@@ -19090,6 +19091,9 @@ input.typeahead.scrollable ~ .tt-dropdown-menu {
   }
 }
 .no-skin {
+  background-image: url("../../../img/gavetas-bg-05.png");
+  background-size: auto 100%;
+  background-repeat: no-repeat;
   /**
   .nav-list > li.disabled.active:after {
     border-color: #999;
