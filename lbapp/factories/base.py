@@ -1,7 +1,9 @@
 import requests
 from lbapp.factories import RequestFactory
+from lbapp.factories.user import UserFactory
 from lbapp.exception import RequestError
 from lbapp.lib import utils
+import json
 
 class BaseFactory(RequestFactory):
 
@@ -16,13 +18,51 @@ class BaseFactory(RequestFactory):
         response = self.send_request('get', self.rest_url, params=params)
         return response.json()['results']
 
+
     def list_base(self, **params):
-        """ Get all bases 
+        """ Get all bases from the logged user
         """
+        def get_filter_bases_user(bases_user):
+            str_bases_user = str(list_bases_user).replace('[','(').replace(']',')')
+            filter_bases_user = "name in "+ str_bases_user + "and "
+            return filter_bases_user
+
+        def get_bases_user(app_user):
+            '''
+            Get users' bases
+            '''
+            list_bases_user = []
+            bases_user = app_user.get('bases_user', [])
+            print("bases  : " + str(bases_user))
+            access_base_user = dict()
+            if bases_user is not None:
+                for b in bases_user:
+                    access_base_user[b['name_base']] = b['access_groups']
+                    if access_base_user.__len__() == 0:
+                        print("bases_user not defined")
+                    self.request.session['bases_user'] = list(access_base_user.keys())
+                    list_bases_user = list(access_base_user.keys())
+                print("bases  : " + str(list_bases_user))
+                return list_bases_user
+            else:
+                print("User don't have bases")
+                return []
 
         iSortCol = self.request.params.get("iSortCol_0")
         iSortDir = self.request.params.get("sSortDir_0")
         sSearch = self.request.params.get("sSearch") or '%'
+
+        app_user = self.request.session.get('app_user', None)
+        print("Usuário sessão : " + str(app_user))
+        list_bases_user = get_bases_user(app_user)
+        filter_bases_user = ""
+        if list_bases_user:
+            filter_bases_user = get_filter_bases_user(list_bases_user)
+        else:
+            return {
+                "aaData": [],
+                "sEcho": params.get('sEcho', None),
+            }
 
         columns = {
            '0': 'id_base',
@@ -47,12 +87,13 @@ class BaseFactory(RequestFactory):
             order_by = order_by,
             limit = limit,
             offset = params.get('iDisplayStart'),
-            literal = "Upper(struct) like '%"+ sSearch.upper() +"%'"
+            literal = filter_bases_user + " upper(struct) like '%"+ sSearch.upper() +"%'"
         )
 
         response = self.send_request('get', self.rest_url, params=search).json()
+        results = response['results']
         return {
-            "aaData": response['results'],
+            "aaData": results,
             "sEcho": params.get('sEcho'),
             "iTotalRecords": response['limit'],
             "iTotalDisplayRecords": response['result_count']
@@ -66,8 +107,18 @@ class BaseFactory(RequestFactory):
     def create_base(self, data):
         """ Create base
         """
+        # Get ID user
+        id_app_user = data['id_app_user']
+        del data['id_app_user']
+        if not id_app_user:
+            raise RequestError('Usuário não definido')
+
         response = self.send_request('post', self.rest_url, data=data)
         if utils.is_integer(response.text):
+            json_base = json.loads(data['json_base'])
+            name_base = json_base['metadata']['name']
+            userFactory = UserFactory(self.request)
+            userFactory.update_base_user(id_app_user, name_base)
             return response
         else:
             raise RequestError(response.text)

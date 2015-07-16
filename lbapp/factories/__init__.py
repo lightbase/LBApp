@@ -5,6 +5,7 @@ from lbapp.exception import RequestError
 from pyramid.security import Allow, Deny, Everyone
 import requests
 import json
+from .. import config as global_config
 
 SESSION_COOKIES = None
 
@@ -42,13 +43,12 @@ class RequestFactory():
         """
         # First get request method
         request_method = getattr(requests, method)
-        print("Realizando requisição LBGenerator...")
-        print("Method : + " + str(request_method))
-        print("Args : " + str(kwargs))
-        #print("Cookies : " + str(self.cookies))
-        print("")
+        token_name = global_config.LBGENERATOR_TOKEN_NAME
+        token_key = global_config.LBGENERATOR_TOKEN_KEY
+        header = {'Authorization': token_name + ' ' + token_key}
         # Make http request
-        response = request_method(url, cookies=self.cookies, **kwargs)
+        #response = request_method(url, cookies=self.cookies, **kwargs)
+        response = request_method(url, headers=header, **kwargs)
         try:
             # Check if request has gone wrong
             response.raise_for_status()

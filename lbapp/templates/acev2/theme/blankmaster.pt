@@ -22,8 +22,7 @@
     <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 
     <!-- ace styles -->
-    <link rel="stylesheet" href="${request.route_url('home')}templates/acev2/static/ace/assets/css/ace.css" class="ace-main-stylesheet"
-          id="main-ace-style"/>
+    <link rel="stylesheet" href="${request.route_url('home')}templates/acev2/static/ace/assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style"/>
 
     <!-- Custom CSS Login Page -->
 	<link rel="stylesheet" href="${request.route_url('home')}templates/acev2/static/ace/assets/css/login-neo.css"/>
@@ -58,17 +57,19 @@
         window.jQuery || document.write("<script src='${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.js'>" + "<" + "/script>");
     </script>
 
-    <!-- <![endif]-->
+    <![endif]-->
 
     <!--[if IE]>
     <script type="text/javascript">
         window.jQuery || document.write("<script src='${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery1x.js'>" + "<" + "/script>");
     </script>
     <![endif]-->
-    <script type="text/javascript">
-        if ('ontouchstart' in document.documentElement) document.write("<script src='${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.mobile.custom.js'>" + "<" + "/script>");
-    </script>
-    <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.js"></script>
+        <script type="text/javascript">
+                    if('ontouchstart' in document.documentElement) document.write('\x3Cscript src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.mobile.custom.js">\x3C/script>');
+        </script>
+    <!--
+    <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.js"></script>-->
+    <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery-2.0.3.min.js"></script>
     <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/bootstrap.min.js"></script>
 
     <!-- page specific plugin scripts -->
@@ -116,6 +117,7 @@
     <script src="${request.route_url('home')}templates/acev2/static/ace/docs/assets/js/language/css.js"></script>
     <script src="${request.route_url('home')}templates/acev2/static/ace/docs/assets/js/language/javascript.js"></script>-->
     <metal:content define-slot="javascript"/>
+    
 
 </body>
 </html>

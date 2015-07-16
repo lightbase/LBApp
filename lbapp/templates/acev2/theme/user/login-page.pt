@@ -3,7 +3,7 @@
         LightBase Login
     </metal:content>
     
-    <head>
+    <metal:content fill-slot="css">
     	<link rel="stylesheet" href="${request.route_url('home')}templates/acev2/static/ace/assets/css/login-neo.css"/>
-    </head>
+    </metal:content>
 </metal:main>
