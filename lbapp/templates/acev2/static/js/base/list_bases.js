@@ -1,4 +1,4 @@
-﻿
+
 var get_route = function(base, route){
     var routes = {
         'edit_base': $('link#edit_base_route').attr('href').replace('_base', base),
@@ -43,7 +43,7 @@ var COLUMNS = [{
         "sTitle": "Descrição",
         "sClass": "base-description",
         "bSortable": false,
-        "sWidth": "45%",
+        "sWidth": "44%",
         "mData": "metadata.description"
     },{
         "sTitle": "Data",
@@ -56,7 +56,7 @@ var COLUMNS = [{
         "bSortable": false,
         "sTitle": "",
         "sClass": "base-action-buttons",
-        "sWidth": "10%",
+        "sWidth": "11%",
 }];
 
 var get_action_buttons_tpl = function(base){
@@ -116,6 +116,11 @@ var get_action_buttons_tpl = function(base){
                         '<i class="fa fa-trash fa-lg"></i>'+
                     '</span>'+
                     '</a>'+
+                    '&nbsp'+
+                    '<button type="button" class="btn btn-primary" title="Compartilhar"' +
+                        'data-toggle="modal" data-target="#shareModal" data-teste="camilo"' +  
+						'data-baseid="' + base.metadata.name+ '">Share'+
+                    '</button>'+
         '</div>'+
     '</div>');
 }
@@ -152,10 +157,12 @@ bootbox.alert('<h3 class="blue">'+ event.data.base.metadata.name+'</h3>' +
 
 
 var view_model_event = function(event){
+	console.log("Teste de view_model_event");
     bootbox.alert('<h3 class="blue">'+ event.data.base.metadata.name+'</h3>' +
         '<pre>' + formatJson(event.data.base.metadata.model) + '</pre>',
         function() {});
 };
+
 
 var delete_base_event = function(event){
     bootbox.dialog('<h3 class="red">Deletar base '+ event.data.base.metadata.name +' ?</h3>', [{
@@ -201,6 +208,7 @@ $("#datatable").dataTable({
         $action_td.find('.view-base-' + aData.metadata.id_base).click({base: aData}, view_base_event);
         $action_td.find('.view-model-' + aData.metadata.id_base).click({base: aData}, view_model_event);
         $action_td.find('.delete-base-' + aData.metadata.id_base).click({base: aData}, delete_base_event);
+        //$action_td.find('.share-base-' + aData.metadata.id_base).click({base: aData} );
     },
     //"sDom": "<'row-fluid'<'span2'l><'span2'r><'span2'f>>t<'row-fluid'<'span4'i><'span4'p>>",
     "oLanguage": {
@@ -223,3 +231,45 @@ $("#datatable").dataTable({
     }
 });
 
+$("#shareModal").on("show.bs.modal", function(event){
+	console.log("Abrindo popup");
+	var button = $(event.relatedTarget);
+	var baseId = button.data('baseid');
+	var baseId2 = $(this).data('baseid');
+	var teste = button.data('teste');
+	console.log("Base : " + baseId);
+	console.log("Base : " + baseId2);
+	console.log("Teste : " + teste);
+});
+
+$("#share_button").click(function(){
+	var data = {
+		'usernames_share' : $('username_share').val(),
+		'base_share' : 'base_teste11'
+	};
+
+        $.ajax({
+            type : 'POST',
+            url : '/base/share',
+            data : data,
+            cache: false,
+            success: function(data, textStatus, jqXHR ){
+				console.log("Requsição enviada com sucesso!");
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR, textStatus, errorThrown)
+                Utils.error('Por favor Tente novamente mais tarde!');
+            }
+        });	
+});
+
+$('#exampleModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var recipient = button.data('whatever') // Extract info from data-* attributes
+  console.log("Recipient: " + recipient);
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  modal.find('.modal-title').text('New message to ' + recipient)
+  modal.find('.modal-body input').val(recipient)
+})
