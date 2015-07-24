@@ -17,6 +17,7 @@ class UserView():
             nm_user = self.request.params['nm_user'],
             passwd_user= utils.hash_password(self.request.params['passwd_user'])
         )
+
         if '@' in data['nm_user']:
             data['email_user'] = data['nm_user']
             del data['nm_user']
