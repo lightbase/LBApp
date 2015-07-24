@@ -118,7 +118,7 @@ var get_action_buttons_tpl = function(base){
                     '</a>'+
                     '&nbsp'+
                     '<button type="button" class="btn btn-primary" title="Compartilhar"' +
-                        'data-toggle="modal" data-target="#shareModal" data-teste="camilo"' +  
+                        'data-toggle="modal" data-target="#shareModal"' +  
 						'data-baseid="' + base.metadata.name+ '">Share'+
                     '</button>'+
         '</div>'+
@@ -187,89 +187,81 @@ var delete_base_event = function(event){
     );
 };
 
+
 $("#datatable").dataTable({
-    "bJQueryUI": true,
-    "bProcessing": true,
-    "bServerSide": true,
-    "bPaginate": true,
-    "sPageLast": true,
-    "bInfo": true,
-    "aaSorting": [[0, "asc"]],
-    "sAjaxSource": get_route(null, 'list_bases'),
-    "aoColumns": COLUMNS,
-    "bFilter": true,
-    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+        "bJQueryUI": true,
+        "bProcessing": true,
+        "bServerSide": true,
+        "bPaginate": true,
+        "sPageLast": true,
+        "bInfo": true,
+        "aaSorting": [[0, "asc"]],
+        "sAjaxSource": get_route(null, 'list_bases'),
+        "aoColumns": COLUMNS,
+        "bFilter": true,
+        "fnRowCallback": function (nRow, aData, iDisplayIndex) {
 
-        var $action_td = $(nRow).find('.base-action-buttons');
-        var $tpl = get_action_buttons_tpl(aData)
+            var $action_td = $(nRow).find('.base-action-buttons');
+            var $tpl = get_action_buttons_tpl(aData)
 
-        $action_td.append($tpl);
-        $action_td.find('[data-rel="tooltip"]').tooltip({placement: 'left'});
-        $action_td.find('.view-base-' + aData.metadata.id_base).click({base: aData}, view_base_event);
-        $action_td.find('.view-model-' + aData.metadata.id_base).click({base: aData}, view_model_event);
-        $action_td.find('.delete-base-' + aData.metadata.id_base).click({base: aData}, delete_base_event);
-        //$action_td.find('.share-base-' + aData.metadata.id_base).click({base: aData} );
-    },
-    //"sDom": "<'row-fluid'<'span2'l><'span2'r><'span2'f>>t<'row-fluid'<'span4'i><'span4'p>>",
-    "oLanguage": {
-        "oPaginate": {
-            "sFirst": "Primeiro",
-            "sLast": "Último",
-            "sNext": "Próximo",
-            "sPrevious": "Anterior"
+            $action_td.append($tpl);
+            $action_td.find('[data-rel="tooltip"]').tooltip({placement: 'left'});
+            $action_td.find('.view-base-' + aData.metadata.id_base).click({base: aData}, view_base_event);
+            $action_td.find('.view-model-' + aData.metadata.id_base).click({base: aData}, view_model_event);
+            $action_td.find('.delete-base-' + aData.metadata.id_base).click({base: aData}, delete_base_event);
+            //$action_td.find('.share-base-' + aData.metadata.id_base).click({base: aData} );
         },
-        "sEmptyTable": "Não foram encontrados registros",
-        "sInfo": "<span>Exibindo de <b>_START_</b> até <b>_END_</b> de <b>_TOTAL_</b> registros encontrados.</span>",
-        "sInfoEmpty": " ",
-        "sInfoFiltered": "",
-        "sInfoThousands": ".",
-        "sLengthMenu": "Exibir _MENU_ registros",
-        "sLoadingRecords": "Carregando...",
-        "sProcessing": "Processando...",
-        "sSearch": "Pesquisa:",
-        "sZeroRecords": "Não foram encontrados registros"
-    }
-});
+        //"sDom": "<'row-fluid'<'span2'l><'span2'r><'span2'f>>t<'row-fluid'<'span4'i><'span4'p>>",
+        "oLanguage": {
+            "oPaginate": {
+                "sFirst": "Primeiro",
+                "sLast": "Último",
+                "sNext": "Próximo",
+                "sPrevious": "Anterior"
+            },
+            "sEmptyTable": "Não foram encontrados registros",
+            "sInfo": "<span>Exibindo de <b>_START_</b> até <b>_END_</b> de <b>_TOTAL_</b> registros encontrados.</span>",
+            "sInfoEmpty": " ",
+            "sInfoFiltered": "",
+            "sInfoThousands": ".",
+            "sLengthMenu": "Exibir _MENU_ registros",
+            "sLoadingRecords": "Carregando...",
+            "sProcessing": "Processando...",
+            "sSearch": "Pesquisa:",
+            "sZeroRecords": "Não foram encontrados registros"
+        }
+    });
 
-$("#shareModal").on("show.bs.modal", function(event){
-	console.log("Abrindo popup");
-	var button = $(event.relatedTarget);
-	var baseId = button.data('baseid');
-	var baseId2 = $(this).data('baseid');
-	var teste = button.data('teste');
-	console.log("Base : " + baseId);
-	console.log("Base : " + baseId2);
-	console.log("Teste : " + teste);
-});
 
-$("#share_button").click(function(){
-	var data = {
-		'usernames_share' : $('username_share').val(),
-		'base_share' : 'base_teste11'
-	};
+    $("#shareModal").on("show.bs.modal", function(event){
+        var recipient = $(event.relatedTarget).data('baseid');
+        $(event.currentTarget).find('#username_share').val(recipient);
+    });
+
+
+    $("#share_button").click(function(){
+    	var data = {
+    		'usernames_share' : $('#username_share').val(),
+    		'base_share' : 'base_teste11'
+    	};
 
         $.ajax({
-            type : 'POST',
-            url : '/base/share',
-            data : data,
-            cache: false,
-            success: function(data, textStatus, jqXHR ){
-				console.log("Requsição enviada com sucesso!");
-            },
-            error: function(jqXHR, textStatus, errorThrown){
-                console.log(jqXHR, textStatus, errorThrown)
-                Utils.error('Por favor Tente novamente mais tarde!');
-            }
+                type : 'POST',
+                url : '/base/share',
+                data : data,
+                cache: false,
+                success: function(data, textStatus, jqXHR ){
+    				console.log("Requsição enviada com sucesso!");
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    console.log(jqXHR, textStatus, errorThrown)
+                    Utils.error('Por favor Tente novamente mais tarde!');
+                }
         });	
-});
+    });
 
-$('#exampleModal').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget) // Button that triggered the modal
-  var recipient = button.data('whatever') // Extract info from data-* attributes
-  console.log("Recipient: " + recipient);
-  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-  var modal = $(this)
-  modal.find('.modal-title').text('New message to ' + recipient)
-  modal.find('.modal-body input').val(recipient)
-})
+
+
+
+
+
