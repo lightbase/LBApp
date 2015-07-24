@@ -1,4 +1,5 @@
 import json
+import hashlib
 
 def parse_json(obj):
     if not obj:
@@ -19,3 +20,7 @@ def is_integer(text):
         return True
     except:
         return False
+
+def hash_password(password):
+    hash_object = hashlib.sha512(password.encode("utf-8"))
+    return hash_object.hexdigest()
