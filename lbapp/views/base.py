@@ -189,3 +189,24 @@ class BaseView():
             app_iter=[data]
 
         )
+
+    def share_base(self):
+        print("Params : " + str(self.request.params))
+        base = self.request.params['base']
+        users = self.request.params['usernames']
+        print("Base : " + str(base))
+        print("Users: " + str(users))
+        self.factory.share_base(base, users)
+        #self.send_email_base_shared(base, users)
+        return Response()
+
+    def send_email_base_shared(self, base, users):
+        subject_email = "Nova base compartilhada no Lightbase"
+        msg = "Olá {name_user}, a base {base_name} foi compartilhada com você!"
+        emails = []
+        msgs_body = []
+        for user in users:
+            emails.append(user.email)
+            msgs_body.append(msg.format(name_user=user, base_name=base.name))
+        email.send_email(emails, subject_email, msgs_body)
+

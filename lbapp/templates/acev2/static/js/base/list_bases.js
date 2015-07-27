@@ -235,14 +235,15 @@ $("#datatable").dataTable({
 
     $("#shareModal").on("show.bs.modal", function(event){
         var recipient = $(event.relatedTarget).data('baseid');
-        $(event.currentTarget).find('#username_share').val(recipient);
+        $(event.currentTarget).find('#base_share').val(recipient);
+		$('#base_share').val(recipient);
     });
 
 
     $("#share_button").click(function(){
     	var data = {
-    		'usernames_share' : $('#username_share').val(),
-    		'base_share' : 'base_teste11'
+    		'usernames' : $('#username_share').val(),
+    		'base' : $('#base_share').val()
     	};
 
         $.ajax({
