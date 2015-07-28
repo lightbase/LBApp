@@ -117,10 +117,14 @@ var get_action_buttons_tpl = function(base){
                     '</span>'+
                     '</a>'+
                     '&nbsp'+
-                    '<button type="button" class="btn btn-primary" title="Compartilhar"' +
-                        'data-toggle="modal" data-target="#shareModal"' +  
-						'data-baseid="' + base.metadata.name+ '">Share'+
-                    '</button>'+
+                    '<a href="#" class="tooltip-info" ' +
+                        'data-rel="tooltip" title="Compartilhar" data-original-title="Compartilhar" '+
+                        'data-toggle="modal" data-target="#shareModal" ' +  
+						'data-baseid="' + base.metadata.name+ '">'+
+                    '<span class="blue">'+
+                        '<i class="fa fa-share fa-lg"></i>'+
+                    '</span>'+
+                    '</a>'+
         '</div>'+
     '</div>');
 }
@@ -237,6 +241,7 @@ $("#datatable").dataTable({
         var recipient = $(event.relatedTarget).data('baseid');
         $(event.currentTarget).find('#base_share').val(recipient);
 		$('#base_share').val(recipient);
+		$('#username_share').val('');
     });
 
 
@@ -253,6 +258,7 @@ $("#datatable").dataTable({
                 cache: false,
                 success: function(data, textStatus, jqXHR ){
     				console.log("Requsição enviada com sucesso!");
+					$("#shareModal").modal('toggle');
                 },
                 error: function(jqXHR, textStatus, errorThrown){
                     console.log(jqXHR, textStatus, errorThrown)
