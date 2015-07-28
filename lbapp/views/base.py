@@ -1,5 +1,7 @@
 import json
 from lbapp.lib import utils
+from lbapp.lib import email
+from lbapp.factories.user import UserFactory
 from pyramid.response import Response
 from pyramid.httpexceptions import HTTPFound
 
@@ -191,22 +193,20 @@ class BaseView():
         )
 
     def share_base(self):
-        print("Params : " + str(self.request.params))
         base = self.request.params['base']
-        users = self.request.params['usernames']
-        print("Base : " + str(base))
-        print("Users: " + str(users))
-        self.factory.share_base(base, users)
-        #self.send_email_base_shared(base, users)
+        username = self.request.params['usernames']
+        print("Base Compartilhar : " + str(base))
+        print("User Compartilhar : " + str(username))
+        self.factory.share_base(base, username)
+        userFactory = UserFactory(self.request)
+        user = userFactory.get_user(username)
+        if user :
+            self.send_email_base_shared(base, user)
         return Response()
 
-    def send_email_base_shared(self, base, users):
+    def send_email_base_shared(self, base, user):
+        print("Enviando email para : " + str(user['email_user']))
         subject_email = "Nova base compartilhada no Lightbase"
         msg = "Olá {name_user}, a base {base_name} foi compartilhada com você!"
-        emails = []
-        msgs_body = []
-        for user in users:
-            emails.append(user.email)
-            msgs_body.append(msg.format(name_user=user, base_name=base.name))
-        email.send_email(emails, subject_email, msgs_body)
-
+        msg_body = msg.format(name_user=user['name_user'], base_name=base)
+        email.send_email(user['email_user'], subject_email, msg_body)
