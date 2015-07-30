@@ -262,7 +262,12 @@ $("#datatable").dataTable({
                 },
                 error: function(jqXHR, textStatus, errorThrown){
                     console.log(jqXHR, textStatus, errorThrown)
-                    Utils.error('Por favor Tente novamente mais tarde!');
+					//console.log(JSON.parse(jqXHR['responseText']));
+					if(jqXHR['responseText'] != ''){
+						Utils.error(jqXHR['responseText']);
+					}else{
+                        Utils.error('Por favor Tente novamente mais tarde!');
+					}
                 }
         });	
     });

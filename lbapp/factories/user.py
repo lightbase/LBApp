@@ -81,10 +81,10 @@ class UserFactory(RequestFactory):
 
     def update_base_user(self, id_app_user, name_base, access_group=None):
         user = self.get_user(id_app_user)
-        print("update_base_user user : " + str(user))
+        if user is None:
+           raise RequestError("Usuário não existe!")
         bases_user = user.get('bases_user', [])
         metadata_user = user['_metadata']
-        print("update_base_user metadata : " + str(metadata_user))
         id_doc = metadata_user['id_doc']
         created_base = {'access_groups' : [access_group], 'name_base' : name_base}
         bases_user.append(created_base)
