@@ -16,6 +16,11 @@ rest_url = http://127.0.0.1/api
 auth.enabled = 1
 lbgenerator.token_key = 0
 lbgenerator.token_name = 0
+link_lightbase=http://lightbaseapp.herokuapp.com
+
+#Configuracoes de email de compartilhamento base
+share_base_subject=Nova base compartilhada no Lightbase
+share_base_file=templates/share_base.html
 
 # By default, the toolbar only appears for clients from IP addresses
 # '127.0.0.1' and '::1'.
