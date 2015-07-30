@@ -10,7 +10,7 @@ SMTP_USER   = "br.lightbase@gmail.com"
 SMTP_PASSWD = "Light!@#"
 
 def send_email(to_email, subject, 
-               text_msg, html_msg=None):
+               text_msg=None, html_msg=None):
     msg = MIMEMultipart('alternative')
     msg['To'] = to_email
     msg['From'] = SMTP_USER

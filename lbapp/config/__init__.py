@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 import os
 
 def set_globals(**settings):
@@ -15,6 +15,13 @@ def set_globals(**settings):
 
     global LBGENERATOR_TOKEN_KEY
     LBGENERATOR_TOKEN_KEY = settings['lbgenerator.token_key']
-
     global LBGENERATOR_TOKEN_NAME
     LBGENERATOR_TOKEN_NAME = settings['lbgenerator.token_name']
+
+    global LINK_LIGHTBASE
+    LINK_LIGHTBASE = settings['link_lightbase']
+
+    global SHARE_BASE_SUBJECT
+    global SHARE_BASE_FILE
+    SHARE_BASE_SUBJECT = settings['share_base_subject']
+    SHARE_BASE_FILE = settings['share_base_file']

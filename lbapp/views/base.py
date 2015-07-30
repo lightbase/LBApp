@@ -1,6 +1,10 @@
+import codecs
 import json
+import os
+from .. import config as global_config
 from lbapp.lib import utils
 from lbapp.lib import email
+#from lbapp.factories.user import BaseFactory
 from lbapp.factories.user import UserFactory
 from pyramid.response import Response
 from pyramid.httpexceptions import HTTPFound
@@ -193,20 +197,30 @@ class BaseView():
         )
 
     def share_base(self):
-        base = self.request.params['base']
+        basename = self.request.params['base']
         username = self.request.params['usernames']
-        print("Base Compartilhar : " + str(base))
+        print("Base Compartilhar : " + str(basename))
         print("User Compartilhar : " + str(username))
-        self.factory.share_base(base, username)
+        self.factory.share_base(basename, username)
         userFactory = UserFactory(self.request)
         user = userFactory.get_user(username)
         if user :
-            self.send_email_base_shared(base, user)
+            self.send_email_base_shared(basename, user)
         return Response()
 
     def send_email_base_shared(self, base, user):
         print("Enviando email para : " + str(user['email_user']))
-        subject_email = "Nova base compartilhada no Lightbase"
-        msg = "Olá {name_user}, a base {base_name} foi compartilhada com você!"
-        msg_body = msg.format(name_user=user['name_user'], base_name=base)
-        email.send_email(user['email_user'], subject_email, msg_body)
+        subject_email = global_config.SHARE_BASE_SUBJECT 
+        # TODO : Verifica se há uma maneira melhor de ler conteúdo file
+        file_name = os.path.dirname(os.path.realpath(__file__))
+        file_name += '/../' + global_config.SHARE_BASE_FILE
+        # TODO : Carregar somente uma vez ao inicializar app
+        file_body = codecs.open(file_name, encoding='utf-8', mode='r')
+        msg = file_body.read()
+        format = {
+                  'user_name':user['name_user'],
+                  'base_name':base,
+                  'link_lightbase':global_config.LINK_LIGHTBASE
+                  }
+        msg_body = msg.format(**format)
+        email.send_email(user['email_user'], subject_email, msg_body, msg_body)
