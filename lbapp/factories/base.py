@@ -118,7 +118,7 @@ class BaseFactory(RequestFactory):
             json_base = json.loads(data['json_base'])
             name_base = json_base['metadata']['name']
             userFactory = UserFactory(self.request)
-            userFactory.update_base_user(id_app_user, name_base)
+            userFactory.update_base_user(id_app_user, name_base, 'owner_base')
             return response
         else:
             raise RequestError(response.text)
@@ -228,3 +228,11 @@ class BaseFactory(RequestFactory):
         url = self.to_url(self.rest_url, base)
         response = requests.get(url)
         return response.text
+
+    def share_base(self, base, user):
+        # Verificar se o usuário é o owner da base
+        # Verificar se a base não começa com _
+        userFactory = UserFactory(self.request)
+        userFactory.update_base_user(user, base, 'view_base')
+        #for user in users:
+        #    userFactory.update_base_user(user, base, 'view_base')

@@ -15,8 +15,9 @@ class UserView():
     def login(self):
         data = dict(
             nm_user = self.request.params['nm_user'],
-            passwd_user= self.request.params['passwd_user']
+            passwd_user= utils.hash_password(self.request.params['passwd_user'])
         )
+
         if '@' in data['nm_user']:
             data['email_user'] = data['nm_user']
             del data['nm_user']
@@ -34,7 +35,7 @@ class UserView():
             id_user = self.request.params.get('id_user'),
             name_user = self.request.params.get('name_user'),
             email_user = self.request.params.get('email_user'),
-            passwd_user= self.request.params.get('passwd_user')
+            passwd_user= utils.hash_password(self.request.params.get('passwd_user'))
         )
 
         print("Criando usuário :" + data['id_user'])
@@ -43,8 +44,7 @@ class UserView():
         subject_email = "Bem Vindo ao Lightbase"
         msg_welcome  = "Olá {name_user}, seja bem vindo ao Lightbase!"
         body_email = msg_welcome.format(name_user=data['name_user'])
-        email.send_email(data['email_user'], subject_email,
-                   body_email)
+        email.send_email(data['email_user'], subject_email, body_email)
         return Response(response.text)
 
     def profile(self):

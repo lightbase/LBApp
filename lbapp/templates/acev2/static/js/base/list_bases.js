@@ -1,4 +1,4 @@
-﻿
+
 var get_route = function(base, route){
     var routes = {
         'edit_base': $('link#edit_base_route').attr('href').replace('_base', base),
@@ -43,7 +43,7 @@ var COLUMNS = [{
         "sTitle": "Descrição",
         "sClass": "base-description",
         "bSortable": false,
-        "sWidth": "45%",
+        "sWidth": "44%",
         "mData": "metadata.description"
     },{
         "sTitle": "Data",
@@ -56,7 +56,7 @@ var COLUMNS = [{
         "bSortable": false,
         "sTitle": "",
         "sClass": "base-action-buttons",
-        "sWidth": "10%",
+        "sWidth": "11%",
 }];
 
 var get_action_buttons_tpl = function(base){
@@ -116,6 +116,15 @@ var get_action_buttons_tpl = function(base){
                         '<i class="fa fa-trash fa-lg"></i>'+
                     '</span>'+
                     '</a>'+
+                    '&nbsp'+
+                    '<a href="#" class="tooltip-info" ' +
+                        'data-rel="tooltip" title="Compartilhar" data-original-title="Compartilhar" '+
+                        'data-toggle="modal" data-target="#shareModal" ' +  
+						'data-baseid="' + base.metadata.name+ '">'+
+                    '<span class="blue">'+
+                        '<i class="fa fa-share fa-lg"></i>'+
+                    '</span>'+
+                    '</a>'+
         '</div>'+
     '</div>');
 }
@@ -152,10 +161,12 @@ bootbox.alert('<h3 class="blue">'+ event.data.base.metadata.name+'</h3>' +
 
 
 var view_model_event = function(event){
+	console.log("Teste de view_model_event");
     bootbox.alert('<h3 class="blue">'+ event.data.base.metadata.name+'</h3>' +
         '<pre>' + formatJson(event.data.base.metadata.model) + '</pre>',
         function() {});
 };
+
 
 var delete_base_event = function(event){
     bootbox.dialog('<h3 class="red">Deletar base '+ event.data.base.metadata.name +' ?</h3>', [{
@@ -180,46 +191,89 @@ var delete_base_event = function(event){
     );
 };
 
+
 $("#datatable").dataTable({
-    "bJQueryUI": true,
-    "bProcessing": true,
-    "bServerSide": true,
-    "bPaginate": true,
-    "sPageLast": true,
-    "bInfo": true,
-    "aaSorting": [[0, "asc"]],
-    "sAjaxSource": get_route(null, 'list_bases'),
-    "aoColumns": COLUMNS,
-    "bFilter": true,
-    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+        "bJQueryUI": true,
+        "bProcessing": true,
+        "bServerSide": true,
+        "bPaginate": true,
+        "sPageLast": true,
+        "bInfo": true,
+        "aaSorting": [[0, "asc"]],
+        "sAjaxSource": get_route(null, 'list_bases'),
+        "aoColumns": COLUMNS,
+        "bFilter": true,
+        "fnRowCallback": function (nRow, aData, iDisplayIndex) {
 
-        var $action_td = $(nRow).find('.base-action-buttons');
-        var $tpl = get_action_buttons_tpl(aData)
+            var $action_td = $(nRow).find('.base-action-buttons');
+            var $tpl = get_action_buttons_tpl(aData)
 
-        $action_td.append($tpl);
-        $action_td.find('[data-rel="tooltip"]').tooltip({placement: 'left'});
-        $action_td.find('.view-base-' + aData.metadata.id_base).click({base: aData}, view_base_event);
-        $action_td.find('.view-model-' + aData.metadata.id_base).click({base: aData}, view_model_event);
-        $action_td.find('.delete-base-' + aData.metadata.id_base).click({base: aData}, delete_base_event);
-    },
-    //"sDom": "<'row-fluid'<'span2'l><'span2'r><'span2'f>>t<'row-fluid'<'span4'i><'span4'p>>",
-    "oLanguage": {
-        "oPaginate": {
-            "sFirst": "Primeiro",
-            "sLast": "Último",
-            "sNext": "Próximo",
-            "sPrevious": "Anterior"
+            $action_td.append($tpl);
+            $action_td.find('[data-rel="tooltip"]').tooltip({placement: 'left'});
+            $action_td.find('.view-base-' + aData.metadata.id_base).click({base: aData}, view_base_event);
+            $action_td.find('.view-model-' + aData.metadata.id_base).click({base: aData}, view_model_event);
+            $action_td.find('.delete-base-' + aData.metadata.id_base).click({base: aData}, delete_base_event);
+            //$action_td.find('.share-base-' + aData.metadata.id_base).click({base: aData} );
         },
-        "sEmptyTable": "Não foram encontrados registros",
-        "sInfo": "<span>Exibindo de <b>_START_</b> até <b>_END_</b> de <b>_TOTAL_</b> registros encontrados.</span>",
-        "sInfoEmpty": " ",
-        "sInfoFiltered": "",
-        "sInfoThousands": ".",
-        "sLengthMenu": "Exibir _MENU_ registros",
-        "sLoadingRecords": "Carregando...",
-        "sProcessing": "Processando...",
-        "sSearch": "Pesquisa:",
-        "sZeroRecords": "Não foram encontrados registros"
-    }
-});
+        //"sDom": "<'row-fluid'<'span2'l><'span2'r><'span2'f>>t<'row-fluid'<'span4'i><'span4'p>>",
+        "oLanguage": {
+            "oPaginate": {
+                "sFirst": "Primeiro",
+                "sLast": "Último",
+                "sNext": "Próximo",
+                "sPrevious": "Anterior"
+            },
+            "sEmptyTable": "Não foram encontrados registros",
+            "sInfo": "<span>Exibindo de <b>_START_</b> até <b>_END_</b> de <b>_TOTAL_</b> registros encontrados.</span>",
+            "sInfoEmpty": " ",
+            "sInfoFiltered": "",
+            "sInfoThousands": ".",
+            "sLengthMenu": "Exibir _MENU_ registros",
+            "sLoadingRecords": "Carregando...",
+            "sProcessing": "Processando...",
+            "sSearch": "Pesquisa:",
+            "sZeroRecords": "Não foram encontrados registros"
+        }
+    });
+
+
+    $("#shareModal").on("show.bs.modal", function(event){
+        var recipient = $(event.relatedTarget).data('baseid');
+        $(event.currentTarget).find('#base_share').val(recipient);
+		$('#base_share').val(recipient);
+		$('#username_share').val('');
+    });
+
+
+    $("#share_button").click(function(){
+    	var data = {
+    		'usernames' : $('#username_share').val(),
+    		'base' : $('#base_share').val()
+    	};
+
+        $.ajax({
+                type : 'POST',
+                url : '/base/share',
+                data : data,
+                cache: false,
+                success: function(data, textStatus, jqXHR ){
+    				console.log("Requsição enviada com sucesso!");
+					$("#shareModal").modal('toggle');
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    console.log(jqXHR, textStatus, errorThrown)
+					//console.log(JSON.parse(jqXHR['responseText']));
+					if(jqXHR['responseText'] != ''){
+						Utils.error(jqXHR['responseText']);
+					}else{
+                        Utils.error('Por favor Tente novamente mais tarde!');
+					}
+                }
+        });	
+    });
+
+
+
+
+
 
