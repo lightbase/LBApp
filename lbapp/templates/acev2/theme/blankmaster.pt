@@ -13,6 +13,7 @@
     <!-- bootstrap & fontawesome -->
     <link rel="stylesheet" href="${request.route_url('home')}templates/acev2/static/ace/assets/css/bootstrap.css"/>
     <link rel="stylesheet" href="${request.route_url('home')}templates/acev2/static/ace/assets/css/font-awesome.css"/>
+
     
 
     <!-- page specific plugin styles -->
@@ -26,6 +27,8 @@
 
     <!-- Custom CSS Login Page -->
 	<link rel="stylesheet" href="${request.route_url('home')}templates/acev2/static/ace/assets/css/login-neo.css"/>
+    <!--Custom CSS for Carousel Effect-->
+    <link rel="stylesheet" href="${request.route_url('home')}templates/acev2/static/css/full-slider.css"/>
 	
     <!--[if lte IE 9]>
     <link rel="stylesheet" href="${request.route_url('home')}templates/acev2/static/ace/assets/css/ace-part2.css"
