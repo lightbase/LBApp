@@ -70,11 +70,10 @@
         <script type="text/javascript">
                     if('ontouchstart' in document.documentElement) document.write('\x3Cscript src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.mobile.custom.js">\x3C/script>');
         </script>
-    <!--
-    <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.js"></script>-->
+
     <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery-2.0.3.min.js"></script>
     
-    <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/bootstrap.js"></script>
+    <script type="text/javascript" src="${request.route_url('home')}templates/acev2/static/ace/assets/js/bootstrap.js"></script>
 
     <!-- page specific plugin scripts -->
 

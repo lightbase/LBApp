@@ -1134,6 +1134,8 @@ pre.prettyprint {
   -ms-transform: scale(1.2);
   transform: scale(1.2);
 }
+
+/*lightbase*/
 .navbar {
   margin: 0;
   padding-left: 0;
@@ -1143,14 +1145,14 @@ pre.prettyprint {
   -webkit-box-shadow: none;
   box-shadow: none;
   min-height: 90px;
-  background: #2E9888;
+  background: white;
 }
 .navbar .navbar-text,
 .navbar .navbar-link {
-  color: #ffffff;
+  color: white;
 }
 .navbar .navbar-brand {
-  color: #ffffff;
+  color: #2E9888;
   font-size: 24px;
   text-shadow: none;
   padding-top: 30px;
@@ -1195,15 +1197,16 @@ pre.prettyprint {
   font-size: 10px;
 }
 .borderLB{
-  border: 1px solid #2E6F68;
+  border: 2px solid #2E6F68;
 }
 
 .ace-nav > li:first-child {
   border-left-width: 0;
 }
+/*Lightbase*/
 .ace-nav > li > a {
   background-color: #2e6589;
-  color: #FFF;
+  color: #808284;
   display: block;
   line-height: inherit;
   text-align: center;
@@ -19091,7 +19094,7 @@ input.typeahead.scrollable ~ .tt-dropdown-menu {
   }
 } 
 .no-skin {
-  background-image: url("../../../img/gavetas-bg-05.png");
+  /*background-image: url("../../../img/gavetas-bg-05.png");*/
   background-size: auto 100%;
   background-repeat: no-repeat;
   /**
