@@ -2,20 +2,6 @@
    "content":[
       {
          "field":{
-            "description":"LightBase's api key",
-            "datatype":"Text",
-            "required":true,
-            "alias":"api_key",
-            "multivalued":false,
-            "indices":[
-               "Textual",
-               "Ordenado"
-            ],
-            "name":"api_key"
-         }
-      },
-      {
-         "field":{
             "description":"LightBase's uses ID",
             "datatype":"Text",
             "required":true,
@@ -171,7 +157,6 @@
             }
          ],
          "id_user":"Text",
-	 "api_key":"Text",
          "creation_date_user":"Date",
          "email_user":"Text",
          "passwd_user":"Text"
@@ -179,6 +164,6 @@
       "password":"3Ax!vj6gV#DEtR",
       "dt_base":"29/05/2014 17:58:31",
       "file_ext":false,
-      "name":"_user"
+      "name": "app_user"
    }
 }

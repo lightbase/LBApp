@@ -252,14 +252,7 @@
 
                                                         <label class="block clearfix">
                                                             <span class="block input-icon input-icon-right">
-                                                                <input type="text" id="user" class="form-control" placeholder="Login do usuário" />
-                                                                <i class="ace-icon fa fa-user"></i>
-                                                            </span>
-                                                        </label>
-
-                                                        <label class="block clearfix">
-                                                            <span class="block input-icon input-icon-right">
-                                                                <input type="text" id="name" class="form-control" placeholder="Nome de usuário" />
+                                                                <input type="text" id="name" class="form-control" placeholder="Nome Completo" />
                                                                 <i class="ace-icon fa fa-user"></i>
                                                             </span>
                                                         </label>
