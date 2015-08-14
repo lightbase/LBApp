@@ -2,14 +2,19 @@
 from requests.exceptions import HTTPError
 from lbapp import config
 from lbapp.exception import RequestError
+from pyramid.security import Allow, Deny, Everyone
 import requests
 import json
+from .. import config as global_config
 
 SESSION_COOKIES = None
 
 class RequestFactory():
     """ Base class Methods for requesting rest api
     """
+    __acl__ = [
+                (Allow, 'admin', 'view'),
+             ]
     rest_url = config.REST_URL
 
     def to_json(self, obj):
@@ -38,14 +43,20 @@ class RequestFactory():
         """
         # First get request method
         request_method = getattr(requests, method)
+        token_name = global_config.LBGENERATOR_TOKEN_NAME
+        token_key = global_config.LBGENERATOR_TOKEN_KEY
+        header = {'Authorization': token_name + ' ' + token_key}
         # Make http request
-        response = request_method(url, cookies=self.cookies, **kwargs)
+        #response = request_method(url, cookies=self.cookies, **kwargs)
+        response = request_method(url, headers=header, **kwargs)
         try:
             # Check if request has gone wrong
             response.raise_for_status()
             # Everything is alright, return response
             return response
-        except HTTPError:
+        except HTTPError as e:
+            print("Something gone wrong...")
+            print(str(e))
             # Something got wrong, raise error
             raise RequestError(response.text)
 

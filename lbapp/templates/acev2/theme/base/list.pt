@@ -1,0 +1,97 @@
+<metal:main use-macro="load: ../master.pt">
+    <metal:content fill-slot="title">
+        LightBase - Lista de Bases 
+    </metal:content>
+    <metal:content fill-slot="page-header">
+        <span class="fa fa-list-alt"></span> Lista de Bases
+        <div class="btn-group" style="margin-left: 70%">
+            <button data-toggle="dropdown" class="btn btn-mini btn-primary dropdown-toggle">
+                <i class="fa fa-cloud-upload fa-2x"></i>
+            </button>
+            <ul class="dropdown-menu pull-right">
+                <li>
+                    <a href="${request.route_url('home')}base/new">Criar Base</a>
+                </li>
+                <li>
+                    <a href="${request.route_url('home')}base/new/json">Criar Base usando Json</a>
+                </li>
+            </ul>
+        </div>
+
+    </metal:content>
+    <metal:content fill-slot="dash">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="${request.route_url('list_bases')}">Home</a>
+        </li>
+
+        <li>
+            <a href="${request.route_url('list_bases')}">Lista de Bases</a>
+        </li>
+
+    </metal:content>
+    <metal:content fill-slot="head">
+            <link id="edit_base_route" href="${request.route_url('edit_base', base='_base')}">
+            <link id="config_base_route" href="${request.route_url('config_base', base='_base')}">
+            <link id="delete_base_route" href="${request.route_url('delete_base', base='_base')}">
+            <link id="explore_base_route" href="${request.route_url('explore_base', base='_base')}">
+            <link id="list_base_route" href="${request.route_url('list_bases')}">
+    </metal:content>
+    <metal:content fill-slot="content">
+        <div id="widgets">
+            <!--PAGE CONTENT BEGINS-->
+            <div class="row-fluid">
+                <table width="100%"  class="table table-striped table-bordered table-hover form-inline no-footer" id="datatable">
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <!--PAGE CONTENT ENDS-->
+        </div>
+
+	<div class="modal fade" id="shareModal">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title" id="shareModal">Compartilhar base</h4>
+	      </div>
+	      <div class="modal-body">
+    		<form class="form-horizontal" role="form">
+    		  <div class="form-group">
+    		    <label for="base_share" class="col-sm-3 control-label no-padding-right">Base</label>
+				<div class="col-sm-9">
+				  <input type="text" id="base_share" readOnly=true/> 
+				</div>
+			</div>
+    		<div class="form-group">
+    		    <label for="username_share" class="col-sm-3 control-label no-padding-right">Usuário</label>
+				<div class="col-sm-9">
+    		      <input type="text" id="username_share" size="30" maxlength="30"/>
+				</div>
+    		  </div>
+    		</form>
+	      </div>
+	      <div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		<button type="button" id="share_button" class="btn btn-success">Compartilhar</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+    </metal:content>
+    <metal:content fill-slot="css">
+        <link href="${request.route_url('home')}templates/acev2/static/ace/custom/datatable_custom.css" rel="stylesheet"/>
+    </metal:content>
+    <metal:content fill-slot="javascript">
+        <link href="${request.route_url('home')}templates/acev2/static/ace/assets/css/jquery.gritter.css" rel="stylesheet"/>
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.gritter.min.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/dataTables/jquery.dataTables.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/dataTables/jquery.dataTables.bootstrap.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/dataTables/extensions/TableTools/js/dataTables.tableTools.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/dataTables/extensions/ColVis/js/dataTables.colVis.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/bootbox.min.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/js/lib/utils.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/js/base/list_bases.js"></script>
+    </metal:content>
+</metal:main>

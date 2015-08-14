@@ -1,0 +1,68 @@
+###
+# app configuration
+# http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/environment.html
+###
+
+[app:main]
+use = egg:LBApp
+
+pyramid.reload_templates = true
+pyramid.debug_authorization = false
+pyramid.debug_notfound = false
+pyramid.debug_routematch = false
+pyramid.default_locale_name = en
+pyramid.includes = pyramid_chameleon
+rest_url = http://127.0.0.1/api
+auth.enabled = 1
+lbgenerator.token_key = 0
+lbgenerator.token_name = 0
+link_lightbase=http://lightbaseapp.herokuapp.com
+
+#Configuracoes de email de compartilhamento base
+share_base_subject=Nova base compartilhada no Lightbase
+share_base_file=templates/share_base.html
+
+# By default, the toolbar only appears for clients from IP addresses
+# '127.0.0.1' and '::1'.
+# debugtoolbar.hosts = 127.0.0.1 ::1
+
+###
+# wsgi server configuration
+###
+
+[server:main]
+use = egg:waitress#main
+host = localhost
+port = 6543
+
+###
+# logging configuration
+# http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/logging.html
+###
+
+[loggers]
+keys = root, lbapp
+
+[handlers]
+keys = console
+
+[formatters]
+keys = generic
+
+[logger_root]
+level = INFO
+handlers = console
+
+[logger_lbapp]
+level = DEBUG
+handlers =
+qualname = lbapp
+
+[handler_console]
+class = StreamHandler
+args = (sys.stderr,)
+level = NOTSET
+formatter = generic
+
+[formatter_generic]
+format = %(asctime)s %(levelname)-5.5s [%(name)s][%(threadName)s] %(message)s

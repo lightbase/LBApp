@@ -1,0 +1,148 @@
+<metal:main use-macro="load: blankmaster.pt">
+    <metal:content fill-slot="title">
+        <metal:content define-slot="title"/>
+    </metal:content>
+    <metal:content fill-slot="css">
+        <metal:content define-slot="css"/>
+    </metal:content>
+    <metal:content fill-slot="javascript" >
+    <!--
+        <script metal:fill-slot="javascript" type="text/javascript" src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.validate.min.js"></script>
+        <script metal:fill-slot="javascript" type="text/javascript" src="${request.route_url('home')}templates/acev2/static/ace/assets/js/ace-extra.min.js"></script>
+        <script metal:fill-slot="javascript" type="text/javascript" src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery-2.0.3.min.js"></script>
+        <script metal:fill-slot="javascript" type="text/javascript" src="${request.route_url('home')}templates/acev2/static/js/login.js"></script>
+    -->
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/ace-extra.min.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery-2.0.3.min.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.validate.min.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/js/register.js"></script>
+    </metal:content>
+
+<metal:content fill-slot="content">
+<!-- #section:basics/navbar.layout -->
+<div id="navbar" class="navbar navbar-default" style="background-color: #58585b">
+    <script type="text/javascript">
+        try {
+            ace.settings.check('navbar', 'fixed')
+        } catch (e) {
+        }
+    </script>
+
+    <div class="navbar-container" id="navbar-container">
+        <!-- #section:basics/sidebar.mobile.toggle -->
+        <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
+            <span class="sr-only">Toggle sidebar</span>
+
+            <span class="icon-bar"></span>
+
+            <span class="icon-bar"></span>
+
+            <span class="icon-bar"></span>
+        </button>
+
+        <!-- /section:basics/sidebar.mobile.toggle -->
+        <div class="navbar-header pull-left">
+            <!-- #section:basics/navbar.layout.brand -->
+            <a href="${request.route_url('home')}">
+             <img class="imgNav" src="${request.route_url('home')}templates/acev2/static/img/lightbase.png" />
+            </a>
+            <!-- /section:basics/navbar.layout.brand -->
+
+            <!-- #section:basics/navbar.toggle -->
+
+            <!-- /section:basics/navbar.toggle -->
+        </div>
+
+    </div>
+    <!-- /.navbar-container -->
+</div>
+
+<!-- /section:basics/navbar.layout -->
+<div class="main-container" id="main-container">
+
+
+    <!-- /Login Page -->
+    <div class="main-content">
+        <div class="main-content-inner">
+            <!-- #login-form -->
+  
+            <img class="imgLB" src="${request.route_url('home')}templates/acev2/static/img/lbsideimage.png"/>
+         
+      <form class="form-signin" id="form">
+
+        <div class="divLeft" style="font-size: large">Cadastro</div>
+
+        <div style="clear: both">Nome</div>
+        <label for="inputEmail" class="sr-only">Nome</label>
+        <input id="name" class="form-control" required autofocus>
+
+        <div style="clear: both">Usuário</div>
+        <label for="inputEmail" class="sr-only">Usuário</label>
+        <input id="user" class="form-control" required autofocus>
+        
+        <div style="clear: both">Email</div>
+        <label for="inputEmail" class="sr-only">E-mail</label>
+        <input type="email" id="email" class="form-control" required autofocus>
+        
+        <div>Senha</div>
+        <label for="inputPassword" class="sr-only">Senha</label>
+        <input type="password" id="passwd_user" class="form-control" required>
+        
+        <div>Confirmação de senha</div>
+        <label for="inputPassword" class="sr-only">Senha</label>
+        <input type="password" id="confirm_passwd_user" class="form-control" required>
+
+        <div class="checkbox">
+			<label>
+				<input type="checkbox" value="agree"> Li e concordo com os <a href="#">Termos</a>
+		    </label>
+            <a href="#" id="register_button" class="loginButton">
+                                      Cadastrar 
+                                    </a>
+        </div>
+      
+      </form>
+            <!-- /section:basics/content.login-form -->
+            <div class="page-content">
+              
+            </div>
+            <!-- /.page-content -->
+        </div>
+    </div>
+    <!-- /.main-content -->
+	
+	<footer class="footerLB">
+		&copy; 2014-2015 Lightbase
+	</footer>
+
+
+	<!--
+    <div class="footer">
+        <div class="footer-inner">
+            <!-- #section:basics/footer -->
+            <!--
+            <div class="footer-content">
+						<span class="bigger-120">
+							<span class="black bolder">LightBase</span>
+							&copy; 2014-2015
+						</span>
+                &nbsp; &nbsp;
+            </div>
+
+            <!-- /section:basics/footer -->
+			<!--
+        </div>
+    </div>
+    -->
+
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+    </a>
+</div>
+<!-- /.main-container -->
+
+<!-- basic scripts -->
+
+</metal:content>
+
+</metal:main>

@@ -1,0 +1,349 @@
+[
+  {
+    "title": "Texto",
+    "fields": {
+      "id": {
+        "label": "ID / Nome",
+        "type": "input",
+        "value": "texto"
+      },
+      "label": {
+        "label": "Apelido",
+        "type": "input",
+        "value": "Texto"
+      },
+      "datatype": {
+        "type": "hidden",
+        "value": "Text"
+      },
+      "placeholder": {
+        "label": "Placeholder",
+        "type": "input",
+        "value": "placeholder"
+      },
+      "description": {
+        "label": "Descrição",
+        "type": "input",
+        "value": "placeholder"
+      },
+      "size": {
+        "label": "Tamanho Máximo",
+        "type": "number",
+        "value": 80
+      },
+      "required": {
+        "label": "Obrigatório",
+        "type": "checkbox",
+        "value": false
+      },
+      "multivalued": {
+        "label": "Multivalorado",
+        "type": "checkbox",
+        "value": false
+      },
+      "indices": {
+        "label": "Índices",
+        "type": "multicheckbox",
+        "value": "Textual:false,Ordenado:false,Unico:false,Fonetico:false,Fuzzy:false,Vazio:false"
+      }
+    }
+  },
+  {
+    "title": "Senha",
+    "fields": {
+      "id": {
+        "label": "ID / Nome",
+        "type": "input",
+        "value": "senha"
+      },
+      "label": {
+        "label": "Apelido",
+        "type": "input",
+        "value": "Senha"
+      },
+      "datatype": {
+        "type": "hidden",
+        "value": "Password"
+      },
+      "description": {
+        "label": "Descrição",
+        "type": "input",
+        "value": "placeholder"
+      },
+      "size": {
+        "label": "Tamanho Máximo",
+        "type": "number",
+        "value": 80
+      },
+      "required": {
+        "label": "Obrigatório",
+        "type": "checkbox",
+        "value": false
+      },
+      "multivalued": {
+        "label": "Multivalorado",
+        "type": "checkbox",
+        "value": false
+      }
+    }
+  },
+  {
+    "title": "Numero",
+    "fields": {
+      "id": {
+        "label": "ID / Nome",
+        "type": "input",
+        "value": "numero"
+      },
+      "label": {
+        "label": "Apelido",
+        "type": "input",
+        "value": "Número"
+      },
+      "datatype": {
+        "type": "hidden",
+        "value": "Integer"
+      },
+      "description": {
+        "label": "Descrição",
+        "type": "input",
+        "value": "placeholder"
+      },
+      "min": {
+        "label": "Tamanho Mínimo",
+        "type": "number",
+        "value": -1
+      },
+      "max": {
+        "label": "Tamanho Máximo",
+        "type": "number",
+        "value": -1
+      },
+      "decimal": {
+        "label": "Permite decimal",
+        "type": "checkbox",
+        "value": false
+      },
+      "required": {
+        "label": "Obrigatório",
+        "type": "checkbox",
+        "value": false
+      },
+      "multivalued": {
+        "label": "Multivalorado",
+        "type": "checkbox",
+        "value": false
+      },
+      "indices": {
+        "label": "Índices",
+        "type": "multicheckbox",
+        "value": "Textual:false,Ordenado:false,Unico:false,Vazio:false"
+      }
+    }
+  },
+  {
+    "title": "DataHora",
+    "fields": {
+      "id": {
+        "label": "ID / Nome",
+        "type": "input",
+        "value": "datahora"
+      },
+      "label": {
+        "label": "Apelido",
+        "type": "input",
+        "value": "Data/Hora"
+      },
+      "datatype": {
+        "type": "hidden",
+        "value": "DateTime"
+      },
+      "description": {
+        "label": "Descrição",
+        "type": "input",
+        "value": "placeholder"
+      },
+      "required": {
+        "label": "Obrigatório",
+        "type": "checkbox",
+        "value": false
+      },
+      "multivalued": {
+        "label": "Multivalorado",
+        "type": "checkbox",
+        "value": false
+      },
+      "indices": {
+        "label": "Índices",
+        "type": "multicheckbox",
+        "value": "Textual:false,Ordenado:false,Unico:false,Vazio:false"
+      }
+    }
+  },
+  {
+    "title": "Data",
+    "fields": {
+      "id": {
+        "label": "ID / Nome",
+        "type": "input",
+        "value": "data"
+      },
+      "label": {
+        "label": "Apelido",
+        "type": "input",
+        "value": "Data"
+      },
+      "datatype": {
+        "type": "hidden",
+        "value": "Date"
+      },
+      "description": {
+        "label": "Descrição",
+        "type": "input",
+        "value": "placeholder"
+      },
+      "required": {
+        "label": "Obrigatório",
+        "type": "checkbox",
+        "value": false
+      },
+      "multivalued": {
+        "label": "Multivalorado",
+        "type": "checkbox",
+        "value": false
+      },
+      "indices": {
+        "label": "Índices",
+        "type": "multicheckbox",
+        "value": "Textual:false,Ordenado:false,Unico:false,Vazio:false"
+      }
+    }
+  },
+  {
+    "title": "Hora",
+    "fields": {
+      "id": {
+        "label": "ID / Nome",
+        "type": "input",
+        "value": "data"
+      },
+      "label": {
+        "label": "Apelido",
+        "type": "input",
+        "value": "Hora"
+      },
+      "datatype": {
+        "type": "hidden",
+        "value": "Time"
+      },
+      "description": {
+        "label": "Descrição",
+        "type": "input",
+        "value": "placeholder"
+      },
+      "required": {
+        "label": "Obrigatório",
+        "type": "checkbox",
+        "value": false
+      },
+      "multivalued": {
+        "label": "Multivalorado",
+        "type": "checkbox",
+        "value": false
+      },
+      "indices": {
+        "label": "Índices",
+        "type": "multicheckbox",
+        "value": "Textual:false,Ordenado:false,Unico:false,Vazio:false"
+      }
+    }
+  },
+  {
+    "title": "Email",
+    "fields": {
+      "id": {
+        "label": "ID / Nome",
+        "type": "input",
+        "value": "email"
+      },
+      "label": {
+        "label": "Apelido",
+        "type": "input",
+        "value": "Email"
+      },
+      "datatype": {
+        "type": "hidden",
+        "value": "Email"
+      },
+      "placeholder": {
+        "label": "Placeholder",
+        "type": "input",
+        "value": "placeholder"
+      },
+      "decription": {
+        "label": "Descrição",
+        "type": "input",
+        "value": "placeholder"
+      },
+      "required": {
+        "label": "Obrigatório",
+        "type": "checkbox",
+        "value": false
+      },
+      "multivalued": {
+        "label": "Multivalorado",
+        "type": "checkbox",
+        "value": false
+      },
+      "indices": {
+        "label": "Índices",
+        "type": "multicheckbox",
+        "value": "Textual:false,Ordenado:false,Unico:false,Fonetico:false,Fuzzy:false,Vazio:false"
+      }
+    }
+  },
+  {
+    "title": "URL",
+    "fields": {
+      "id": {
+        "label": "ID / Nome",
+        "type": "input",
+        "value": "url"
+      },
+      "label": {
+        "label": "Apelido",
+        "type": "input",
+        "value": "URL"
+      },
+      "datatype": {
+        "type": "hidden",
+        "value": "Url"
+      },
+      "placeholder": {
+        "label": "Placeholder",
+        "type": "input",
+        "value": "http://..."
+      },
+      "decription": {
+        "label": "Descrição",
+        "type": "input",
+        "value": "placeholder"
+      },
+      "required": {
+        "label": "Obrigatório",
+        "type": "checkbox",
+        "value": false
+      },
+      "multivalued": {
+        "label": "Multivalorado",
+        "type": "checkbox",
+        "value": false
+      },
+      "indices": {
+        "label": "Índices",
+        "type": "multicheckbox",
+        "value": "Textual:false,Ordenado:false,Unico:false,Vazio:false"
+      }
+    }
+  }
+]
