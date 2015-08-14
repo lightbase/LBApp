@@ -2,7 +2,7 @@
 
 # Overview
 
-LBApp is an interface for Lightbase database for end users. This interface offer options to manager databases and reports for all user data. 
+LBApp is an interface for [Lightbase](http://lightbase.com.br) database for end users. This interface offer options to manage databases and reports. 
 
 ![Lightbase Bases](https://dl.dropboxusercontent.com/u/6061429/lightbase-docs/89056015.png)
 
