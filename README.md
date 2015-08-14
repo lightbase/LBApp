@@ -65,6 +65,12 @@ auth.enabled = 1                       # set 1 if you need user authentication
 link_lightbase=http://lightbaseapp.herokuapp.com        # set your domain here
 ```
 
+Install model 
+
+```bash
+$ python version/1__cria_base_user.py  
+```
+
 
 Finally, start the server
 
