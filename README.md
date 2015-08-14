@@ -80,12 +80,11 @@ $ pserve develpment.ini
 
 ## Community
 
-* Access our community in Software Público Brasileiro [Software Público Brasileiro](https://portal.softwarepublico.gov.br/social/lightbase/) (pt_BR)
-* Have a question that's not a feature request or bug report? [Discuss on the Ionic Forum](http://forum.ionicframework.com/)
+* Access our community in [Software Público Brasileiro](https://portal.softwarepublico.gov.br/social/lightbase/) (pt_BR)
 * Read our [Blog](http://lightbase.com.br/) (pt_BR)
 
 
 ## LICENSE
 
-Ionic is licensed under the GNU GENERAL PUBLIC LICENSE Version 2. For more information, see the LICENSE file in this repository.
+LBApp is licensed under the GNU GENERAL PUBLIC LICENSE Version 2. For more information, see the LICENSE file in this repository.
 
