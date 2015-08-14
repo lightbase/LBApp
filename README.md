@@ -11,7 +11,7 @@ LBApp is an interface for Lightbase database for end users. This interface offer
 
 ## Changes Log
 
-## v0.1-beta  (2015-04-01)
+## v0.1-beta  (2015-08-01)
 
 Workarounds:
 
