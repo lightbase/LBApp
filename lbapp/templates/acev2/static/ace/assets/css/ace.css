@@ -12,6 +12,16 @@ body {
   line-height: 1.5;
 }
 
+/*******/
+
+#owl-demo .item img{
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/*******/
+
 .main-container:before {
   display: block;
   content: "";
