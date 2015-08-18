@@ -429,6 +429,9 @@ pre.prettyprint {
   color: #D8341A;
 }
 
+.greenLightbase{
+  color: #24A699;
+}
 .light-yellowLightbase{
   color: #D6D4AB !important;
 }
@@ -1083,6 +1086,10 @@ pre.prettyprint {
 
 .header.lborange{
   border-bottom-color: #D8341A;
+}
+
+.header.lbgreen {
+  border-bottom-color: #24A699;
 }
 
 .header.blue {
@@ -5523,8 +5530,8 @@ fieldset[disabled] .btn-default.active {
 /* Login button */
 .btn-primary,
 .btn-primary:focus {
-  background-color: #D8341A  !important;
-  border-color:  #D8341A;
+  background-color: #24A699  !important;
+  border-color:  #24A699;
   box-shadow: 0px 0px 10px #666;
 }
 
@@ -8796,7 +8803,7 @@ input[type="color"]:focus {
   -webkit-box-shadow: none;
   box-shadow: none;
   color: #696969;
-  border-color: #D8341A;
+  border-color: #24A699;
   background-color: #EDEDED;
   outline: none;
 }
@@ -8964,7 +8971,7 @@ span.input-icon {
   right: 3px;
 }
 .input-icon > input:focus + .ace-icon {
-  color: #D8341A;
+  color: #24A699;
 }
 .input-icon ~ .help-inline {
   padding-left: 8px;
@@ -12533,7 +12540,7 @@ aFontSize{
   border-bottom: none;
   box-shadow: 0px 0px 10px 0px #B8B6B7;
   padding-top: 10px;
-  background-color: #D8341A;
+  background-color: #24A699;
   -moz-transform: scale(0,1) translate(-150px);
   -webkit-transform: scale(0,1) translate(-150px);
   -o-transform: scale(0,1) translate(-150px);
@@ -12577,7 +12584,7 @@ aFontSize{
 }
 .login-box .toolbar {
   /*background: #5090C1;*/
-  background: #D8341A;
+  background: #24A699;
   border-top: 2px solid #D3D1D1;
 }
 .login-box .toolbar > div {

@@ -9,7 +9,7 @@
 
 <metal:content fill-slot="content">
  
-        <div id="navbar" class="navbar navbar-default    navbar-collapse       h-navbar" style="font-family: 'Maven Pro', sans-serif;">
+        <div id="navbar" class="navbar navbar-default navbar-collapse h-navbar" style="font-family: 'Maven Pro', sans-serif;">
             <script type="text/javascript">
                 try{ace.settings.check('navbar' , 'fixed')}catch(e){}
             </script>
@@ -17,9 +17,9 @@
             <div class="navbar-container" id="navbar-container">
                 <div class="navbar-header pull-left">
                     <!-- #section:basics/navbar.layout.brand -->
-                    <a href="#" class="navbar-brand">
+                    <a href="${request.route_url('home')}" class="navbar-brand">
                         <medium>
-                            LightBase
+                            light<strong>Base</strong>
                         </medium>
                     </a>
 
