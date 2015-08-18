@@ -86,6 +86,7 @@
             </div><!-- /.navbar-container -->
         </div>
 
+<<<<<<< HEAD
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
 
 
@@ -108,6 +109,84 @@
                 <img src="${request.route_url('home')}templates/acev2/static/img/encontre.png" alt="Encontre" width="auto" height="auto">
             </div>
         </div>
+=======
+                                            <div class="toolbar center">
+                                                <a href="#" data-target="#login-box" class="back-to-login-link">
+                                                    Voltar para login
+                                                    <i class="ace-icon fa fa-arrow-right"></i>
+                                                </a>
+                                            </div>
+                                        </div><!-- /.widget-body -->
+                                    </div><!-- /.forgot-box -->
+
+<!--########################## REGISTRO ################################-->
+
+                                    <div id="signup-box" class="signup-box widget-box no-border">
+                                        <div class="widget-body">
+                                            <div class="widget-main">
+                                                <h4 class="header green lighter bigger">
+                                                    <i class="ace-icon fa fa-users blue"></i>
+                                                    Registrar novo usuário
+                                                </h4>
+
+                                                <div class="space-6"></div>
+                                                <p> Preencha os campos a seguir:</p>
+
+                                                <form id="formRegister">
+                                                    <fieldset>
+                                                        <label class="block clearfix">
+                                                            <span class="block input-icon input-icon-right">
+                                                                <input type="email" id="email" class="form-control" placeholder="E-mail" />
+                                                                <i class="ace-icon fa fa-envelope"></i>
+                                                            </span>
+                                                        </label>
+
+                                                        <label class="block clearfix">
+                                                            <span class="block input-icon input-icon-right">
+                                                                <input type="text" id="name" class="form-control" placeholder="Nome Completo" />
+                                                                <i class="ace-icon fa fa-user"></i>
+                                                            </span>
+                                                        </label>
+                                                        <label class="block clearfix">
+                                                            <span class="block input-icon input-icon-right">
+                                                                <input type="password" id="passwd_user" class="form-control" placeholder="Senha" />
+                                                                <i class="ace-icon fa fa-lock"></i>
+                                                            </span>
+                                                        </label>
+
+                                                        <label class="block clearfix">
+                                                            <span class="block input-icon input-icon-right">
+                                                                <input type="password" id="confirm_passwd_user" class="form-control" placeholder="Repita a senha" />
+                                                                <i class="ace-icon fa fa-retweet"></i>
+                                                            </span>
+                                                        </label>
+
+                                                        <label class="block">
+                                                            <input type="checkbox" class="ace" />
+                                                            <span class="lbl">
+                                                                Eu aceito o
+                                                                <a href="#">Termo de Uso</a>
+                                                            </span>
+                                                        </label>
+
+                                                        <div class="space-24"></div>
+
+                                                        <div class="clearfix">
+                                                            <button type="reset" class="width-30 pull-left btn btn-sm">
+                                                                <i class="ace-icon fa fa-refresh"></i>
+                                                                <span class="bigger-110">Limpar</span>
+                                                            </button>
+
+                                                            <button type="button" id="register_button" class="width-65 pull-right btn btn-sm btn-success">
+                                                                <span class="bigger-110">Registrar</span>
+
+                                                                <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+                                                            </button>
+                                                        </div>
+                                                    </fieldset>
+                                                </form>
+                                            </div>
+>>>>>>> 534046e449069890f871ddb095477cf3107f0f6e
 
         <!-- Left and right controls -->
         <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">

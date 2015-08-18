@@ -17,7 +17,7 @@ class UserFactory(RequestFactory):
          self.request = request
 
     def get_url_base_user(self):
-        return self.to_url(self.rest_url, '_app_user/doc')
+        return self.to_url(self.rest_url, 'app_user/doc')
 
     def get_user(self, id_app_user):
         try:
@@ -71,7 +71,7 @@ class UserFactory(RequestFactory):
         data['groups_user'] = groups
         newData = dict()
         newData['value'] = json.dumps(data)
-        url = self.to_url(self.rest_url, '_app_user/doc')
+        url = self.to_url(self.rest_url, 'app_user/doc')
         print("Data a ser enviado : " + str(newData))
         response = self.send_request('post', url, data=newData)
         if utils.is_integer(response.text):

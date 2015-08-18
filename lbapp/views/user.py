@@ -17,10 +17,10 @@ class UserView():
             nm_user = self.request.params['nm_user'],
             passwd_user= utils.hash_password(self.request.params['passwd_user'])
         )
-
-        if '@' in data['nm_user']:
-            data['email_user'] = data['nm_user']
-            del data['nm_user']
+        print(data['passwd_user'])
+        #if '@' in data['nm_user']:
+        #    data['email_user'] = data['nm_user']
+        #    del data['nm_user']
 
         response = self.factory.login(**data)
         #return Response(response.text)
@@ -32,7 +32,7 @@ class UserView():
 
     def register(self):
         data = dict(
-            id_user = self.request.params.get('id_user'),
+            id_user = self.request.params.get('email_user'),
             name_user = self.request.params.get('name_user'),
             email_user = self.request.params.get('email_user'),
             passwd_user= utils.hash_password(self.request.params.get('passwd_user'))

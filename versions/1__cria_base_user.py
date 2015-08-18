@@ -11,7 +11,7 @@ if len(sys.argv) == 2:
     file_base_name = sys.argv[1]
 print ("Nome do arquivo : " + file_base_name)
 
-url = 'http://localhost/lbgenerator/'
+url = 'http://api.brlight.net/homolog/lbgenerator/'
 file_base = open(file_base_name, 'r')
 base = file_base.read()
 
