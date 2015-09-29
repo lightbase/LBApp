@@ -88,7 +88,6 @@ $(document).ready(function(){
 
         //if (!form.valid()) return false;
         var data = {
-            'id_user': $('#user').val(),
             'name_user': $('#name').val(),
             'email_user': $('#email').val(),
             'passwd_user': $('#passwd_user').val(),

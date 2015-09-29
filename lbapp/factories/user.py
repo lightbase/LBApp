@@ -17,7 +17,7 @@ class UserFactory(RequestFactory):
          self.request = request
 
     def get_url_base_user(self):
-        return self.to_url(self.rest_url, '_app_user/doc')
+        return self.to_url(self.rest_url, 'app_user/doc')
 
     def get_user(self, id_app_user):
         try:
@@ -71,7 +71,7 @@ class UserFactory(RequestFactory):
         data['groups_user'] = groups
         newData = dict()
         newData['value'] = json.dumps(data)
-        url = self.to_url(self.rest_url, '_app_user/doc')
+        url = self.to_url(self.rest_url, 'app_user/doc')
         print("Data a ser enviado : " + str(newData))
         response = self.send_request('post', url, data=newData)
         if utils.is_integer(response.text):
@@ -79,14 +79,14 @@ class UserFactory(RequestFactory):
         else:
             raise RequestError(response.text)
 
-    def update_base_user(self, id_app_user, name_base):
+    def update_base_user(self, id_app_user, name_base, access_group=None):
         user = self.get_user(id_app_user)
-        print("update_base_user user : " + str(user))
+        if user is None:
+           raise RequestError("Usuário não existe!")
         bases_user = user.get('bases_user', [])
         metadata_user = user['_metadata']
-        print("update_base_user metadata : " + str(metadata_user))
         id_doc = metadata_user['id_doc']
-        created_base = {'access_groups' : ['owner_base'], 'name_base' : name_base}
+        created_base = {'access_groups' : [access_group], 'name_base' : name_base}
         bases_user.append(created_base)
         user['bases_user'] = bases_user
         print("User a ser atualizado : " + str(user))

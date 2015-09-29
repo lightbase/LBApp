@@ -117,10 +117,14 @@ var get_action_buttons_tpl = function(base){
                     '</span>'+
                     '</a>'+
                     '&nbsp'+
-                    '<button type="button" class="btn btn-primary" title="Compartilhar"' +
-                        'data-toggle="modal" data-target="#shareModal"' +  
-						'data-baseid="' + base.metadata.name+ '">Share'+
-                    '</button>'+
+                    '<a href="#" class="tooltip-info" ' +
+                        'data-rel="tooltip" title="Compartilhar" data-original-title="Compartilhar" '+
+                        'data-toggle="modal" data-target="#shareModal" ' +  
+						'data-baseid="' + base.metadata.name+ '">'+
+                    '<span class="blue">'+
+                        '<i class="fa fa-share fa-lg"></i>'+
+                    '</span>'+
+                    '</a>'+
         '</div>'+
     '</div>');
 }
@@ -235,14 +239,16 @@ $("#datatable").dataTable({
 
     $("#shareModal").on("show.bs.modal", function(event){
         var recipient = $(event.relatedTarget).data('baseid');
-        $(event.currentTarget).find('#username_share').val(recipient);
+        $(event.currentTarget).find('#base_share').val(recipient);
+		$('#base_share').val(recipient);
+		$('#username_share').val('');
     });
 
 
     $("#share_button").click(function(){
     	var data = {
-    		'usernames_share' : $('#username_share').val(),
-    		'base_share' : 'base_teste11'
+    		'usernames' : $('#username_share').val(),
+    		'base' : $('#base_share').val()
     	};
 
         $.ajax({
@@ -252,10 +258,16 @@ $("#datatable").dataTable({
                 cache: false,
                 success: function(data, textStatus, jqXHR ){
     				console.log("Requsição enviada com sucesso!");
+					$("#shareModal").modal('toggle');
                 },
                 error: function(jqXHR, textStatus, errorThrown){
                     console.log(jqXHR, textStatus, errorThrown)
-                    Utils.error('Por favor Tente novamente mais tarde!');
+					//console.log(JSON.parse(jqXHR['responseText']));
+					if(jqXHR['responseText'] != ''){
+						Utils.error(jqXHR['responseText']);
+					}else{
+                        Utils.error('Por favor Tente novamente mais tarde!');
+					}
                 }
         });	
     });

@@ -54,3 +54,6 @@ def make_base_routes(config):
     config.add_view(view=BaseView, attr='delete_reg_path',route_name='delete_reg_path', request_method='DELETE', permission='view')
     config.add_route('delete_reg', 'base/{base}/explore/{id}', factory=BaseFactory)
     config.add_view(view=BaseView, attr='delete_reg',route_name='delete_reg', request_method='DELETE', permission='view')
+
+    config.add_route('share_base', 'base/share', factory=BaseFactory)
+    config.add_view(view=BaseView, attr='share_base',route_name='share_base', request_method='POST', permission='view')

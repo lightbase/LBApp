@@ -57,16 +57,24 @@
 		<h4 class="modal-title" id="shareModal">Compartilhar base</h4>
 	      </div>
 	      <div class="modal-body">
-    		<form>
+    		<form class="form-horizontal" role="form">
     		  <div class="form-group">
-    		    <label for="username_share" class="control-label">Username:</label>
-    		    <input type="text" id="username_share" size="30" maxlength="30"/>
+    		    <label for="base_share" class="col-sm-3 control-label no-padding-right">Base</label>
+				<div class="col-sm-9">
+				  <input type="text" id="base_share" readOnly=true/> 
+				</div>
+			</div>
+    		<div class="form-group">
+    		    <label for="username_share" class="col-sm-3 control-label no-padding-right">Usuário</label>
+				<div class="col-sm-9">
+    		      <input type="text" id="username_share" size="30" maxlength="30"/>
+				</div>
     		  </div>
     		</form>
 	      </div>
 	      <div class="modal-footer">
 		<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-		<button type="button" id="share_button" class="btn btn-primary">Compartilhar</button>
+		<button type="button" id="share_button" class="btn btn-success">Compartilhar</button>
 	      </div>
 	    </div>
 	  </div>
