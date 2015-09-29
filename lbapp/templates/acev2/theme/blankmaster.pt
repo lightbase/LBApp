@@ -13,6 +13,7 @@
     <!-- bootstrap & fontawesome -->
     <link rel="stylesheet" href="${request.route_url('home')}templates/acev2/static/ace/assets/css/bootstrap.css"/>
     <link rel="stylesheet" href="${request.route_url('home')}templates/acev2/static/ace/assets/css/font-awesome.css"/>
+
     
 
     <!-- page specific plugin styles -->
@@ -20,12 +21,15 @@
     <!-- text fonts -->
     <link rel="stylesheet" href="${request.route_url('home')}templates/acev2/static/ace/assets/css/ace-fonts.css"/>
     <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Maven+Pro' rel='stylesheet' type='text/css'>
 
     <!-- ace styles -->
     <link rel="stylesheet" href="${request.route_url('home')}templates/acev2/static/ace/assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style"/>
 
     <!-- Custom CSS Login Page -->
 	<link rel="stylesheet" href="${request.route_url('home')}templates/acev2/static/ace/assets/css/login-neo.css"/>
+    
+    <!--Custom CSS for Carousel Effect-->
 	
     <!--[if lte IE 9]>
     <link rel="stylesheet" href="${request.route_url('home')}templates/acev2/static/ace/assets/css/ace-part2.css"
@@ -67,11 +71,10 @@
         <script type="text/javascript">
                     if('ontouchstart' in document.documentElement) document.write('\x3Cscript src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.mobile.custom.js">\x3C/script>');
         </script>
-    <!--
-    <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.js"></script>-->
+
     <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery-2.0.3.min.js"></script>
     
-    <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/bootstrap.js"></script>
+    <script type="text/javascript" src="${request.route_url('home')}templates/acev2/static/ace/assets/js/bootstrap.js"></script>
 
     <!-- page specific plugin scripts -->
 
@@ -101,6 +104,7 @@
     <script type="text/javascript" src="${request.route_url('home')}templates/acev2/static/ace/assets/js/ace/ace.settings-skin.js"></script>
     <script type="text/javascript" src="${request.route_url('home')}templates/acev2/static/ace/assets/js/ace/ace.widget-on-reload.js"></script>
     <script type="text/javascript" src="${request.route_url('home')}templates/acev2/static/ace/assets/js/ace/ace.searchbox-autocomplete.js"></script>
+    <script src="${request.route_url('home')}templates/acev2/static/js/bootstrap-carousel.js"></script>
     <link rel="shortcut icon" href="${request.route_url('home')}templates/acev2/static/favicon.png" type="image/x-icon">
     <link rel="icon" href="${request.route_url('home')}templates/acev2/static/favicon.png" type="image/x-icon">
     <!-- inline scripts related to this page -->
@@ -115,8 +119,9 @@
     <!--<script src="${request.route_url('home')}templates/acev2/static/ace/docs/assets/js/rainbow.js"></script>
     <script src="${request.route_url('home')}templates/acev2/static/ace/docs/assets/js/language/generic.js"></script>
     <script src="${request.route_url('home')}templates/acev2/static/ace/docs/assets/js/language/html.js"></script>
-    <script src="${request.route_url('home')}templates/acev2/static/ace/docs/assets/js/language/css.js"></script>
-    <script src="${request.route_url('home')}templates/acev2/static/ace/docs/assets/js/language/javascript.js"></script>-->
+    <script src="${request.route_url('home')}templates/acev2/static/ace/docs/assets/js/language/css.js"></script></script>-->
+    <script src="${request.route_url('home')}templates/acev2/static/js/bootstrap-carousel.js">
+    <script src="${request.route_url('home')}templates/acev2/static/js/jquery-carousel.js">    
     <metal:content define-slot="javascript"/>
     
 

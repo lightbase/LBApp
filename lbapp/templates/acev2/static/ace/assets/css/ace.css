@@ -12,6 +12,16 @@ body {
   line-height: 1.5;
 }
 
+/*******/
+
+#owl-demo .item img{
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/*******/
+
 .main-container:before {
   display: block;
   content: "";
@@ -419,6 +429,9 @@ pre.prettyprint {
   color: #D8341A;
 }
 
+.greenLightbase{
+  color: #24A699;
+}
 .light-yellowLightbase{
   color: #D6D4AB !important;
 }
@@ -1075,6 +1088,10 @@ pre.prettyprint {
   border-bottom-color: #D8341A;
 }
 
+.header.lbgreen {
+  border-bottom-color: #24A699;
+}
+
 .header.blue {
   border-bottom-color: #d5e3ef;
 }
@@ -1134,6 +1151,8 @@ pre.prettyprint {
   -ms-transform: scale(1.2);
   transform: scale(1.2);
 }
+
+/*lightbase*/
 .navbar {
   margin: 0;
   padding-left: 0;
@@ -1143,14 +1162,14 @@ pre.prettyprint {
   -webkit-box-shadow: none;
   box-shadow: none;
   min-height: 90px;
-  background: #2E9888;
+  background: white;
 }
 .navbar .navbar-text,
 .navbar .navbar-link {
-  color: #ffffff;
+  color: white;
 }
 .navbar .navbar-brand {
-  color: #ffffff;
+  color: #2E9888;
   font-size: 24px;
   text-shadow: none;
   padding-top: 30px;
@@ -1195,15 +1214,16 @@ pre.prettyprint {
   font-size: 10px;
 }
 .borderLB{
-  border: 1px solid #2E6F68;
+  border: 2px solid #2E6F68;
 }
 
 .ace-nav > li:first-child {
   border-left-width: 0;
 }
+/*Lightbase*/
 .ace-nav > li > a {
   background-color: #2e6589;
-  color: #FFF;
+  color: #808284;
   display: block;
   line-height: inherit;
   text-align: center;
@@ -5510,8 +5530,8 @@ fieldset[disabled] .btn-default.active {
 /* Login button */
 .btn-primary,
 .btn-primary:focus {
-  background-color: #D8341A  !important;
-  border-color:  #D8341A;
+  background-color: #24A699  !important;
+  border-color:  #24A699;
   box-shadow: 0px 0px 10px #666;
 }
 
@@ -8783,7 +8803,7 @@ input[type="color"]:focus {
   -webkit-box-shadow: none;
   box-shadow: none;
   color: #696969;
-  border-color: #D8341A;
+  border-color: #24A699;
   background-color: #EDEDED;
   outline: none;
 }
@@ -8951,7 +8971,7 @@ span.input-icon {
   right: 3px;
 }
 .input-icon > input:focus + .ace-icon {
-  color: #D8341A;
+  color: #24A699;
 }
 .input-icon ~ .help-inline {
   padding-left: 8px;
@@ -12520,7 +12540,7 @@ aFontSize{
   border-bottom: none;
   box-shadow: 0px 0px 10px 0px #B8B6B7;
   padding-top: 10px;
-  background-color: #D8341A;
+  background-color: #24A699;
   -moz-transform: scale(0,1) translate(-150px);
   -webkit-transform: scale(0,1) translate(-150px);
   -o-transform: scale(0,1) translate(-150px);
@@ -12564,7 +12584,7 @@ aFontSize{
 }
 .login-box .toolbar {
   /*background: #5090C1;*/
-  background: #D8341A;
+  background: #24A699;
   border-top: 2px solid #D3D1D1;
 }
 .login-box .toolbar > div {
@@ -19089,9 +19109,9 @@ input.typeahead.scrollable ~ .tt-dropdown-menu {
   .hidden-320 {
     display: none !important;
   }
-}
+} 
 .no-skin {
-  background-image: url("../../../img/gavetas-bg-05.png");
+  /*background-image: url("../../../img/gavetas-bg-05.png");*/
   background-size: auto 100%;
   background-repeat: no-repeat;
   /**
