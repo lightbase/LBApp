@@ -37,5 +37,5 @@ development.ini
 .project
 .pydevproject
 lbapp.wsgi
-heroku.ini
-runapp.py
+#heroku.ini
+#runapp.py
