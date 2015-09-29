@@ -8,7 +8,6 @@
             <link id="get_registries_route" href="${request.route_url('get_registries', base='_base')}">
             <link id="delete_reg_route" href="${request.route_url('delete_reg', base='_base', id='_id')}">
             <link id="delete_reg_path_route" href="${request.route_url('delete_reg_path', base='_base', id='_id', path='_path')}">
-            <link id="create_reg" href="${request.route_url('create_reg_json', base='_base')}">
             <div class="hidden" id="base-name">${request.matchdict.get('base')}</div>
             <style media="screen" type="text/css">
                 div.innerDetails { display: none }
