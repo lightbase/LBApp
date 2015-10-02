@@ -37,6 +37,9 @@ class UserView():
             email_user = self.request.params.get('email_user'),
             passwd_user= utils.hash_password(self.request.params.get('passwd_user'))
         )
+        print('com'+data['passwd_user'])
+        print('sem--->'+self.request.params.get('passwd_user'))
+
 
         print("Criando usuário :" + data['id_user'])
         response = self.factory.register(**data)
