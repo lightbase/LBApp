@@ -1,4 +1,4 @@
-<metal:main use-macro="load: ../master-login-neo.pt">
+<metal:main use-macro="load: ../master-login.pt">
     <metal:content fill-slot="title">
         LightBase Login
     </metal:content>

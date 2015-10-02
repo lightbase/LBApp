@@ -29,6 +29,9 @@
     <!-- Custom CSS Login Page -->
 	<link rel="stylesheet" href="${request.route_url('home')}templates/acev2/static/ace/assets/css/login-neo.css"/>
     
+    <!-- Custom CSS Lightbase Page -->
+    <link rel="stylesheet" href="${request.route_url('home')}templates/acev2/static/css/lightbase.css"/>
+
     <!--Custom CSS for Carousel Effect-->
 	
     <!--[if lte IE 9]>
