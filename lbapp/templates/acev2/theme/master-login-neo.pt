@@ -265,7 +265,7 @@
                                                         </label>
                                                         <label class="block clearfix">
                                                             <span class="block input-icon input-icon-right">
-                                                                <input type="password" id="passwd_user" class="form-control" placeholder="Senha" />
+                                                                <input type="password" id="register_passwd_user" class="form-control" placeholder="Senha" />
                                                                 <i class="ace-icon fa fa-lock"></i>
                                                             </span>
                                                         </label>

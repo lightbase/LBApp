@@ -90,7 +90,7 @@ $(document).ready(function(){
         var data = {
             'name_user': $('#name').val(),
             'email_user': $('#email').val(),
-            'passwd_user': $('#passwd_user').val(),
+            'passwd_user': $('#register_passwd_user').val(),
         };
 		var default_redirect = getLoginURL();
 
