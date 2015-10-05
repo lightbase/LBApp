@@ -1,23 +1,49 @@
-<metal:main use-macro="load: master.pt">
+<metal:main use-macro="load: master-public.pt">
     <metal:content fill-slot="title">
-        Inicio
+        <metal:content define-slot="title"/>
     </metal:content>
-    <metal:content fill-slot="dash">
-        <li>
-            <i class="ace-icon fa fa-home home-icon"></i>
-            <a href="${request.route_url('list_bases')}">Home</a>
-        </li>
+    <metal:content fill-slot="css">
+        <metal:content define-slot="css"/>
     </metal:content>
-    <metal:content fill-slot="page-header">
-       <span class="fa fa-home"></span> Início
-    </metal:content>
-    <metal:content fill-slot="content">
-        <div class="well well-sm">
-            <h4 class="lighter no-margin-bottom">
-                <ul>
-                    <li><a href="${request.route_url('list_bases')}"> Lista de Bases</a></li>
-                </ul>
-            </h4>
+
+
+<metal:content fill-slot="content">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            <!--Green/Blue-->
+            <div class="item active" style="background-color: #24a699;">
+                <span class="helper"></span>
+                <img src="${request.route_url('home')}templates/acev2/static/img/conheca-lightbase.png" alt="Conheça o Lightbase" width="auto" height="auto">
+            </div>
+            <!--Orange-->
+            <div class="item" style="background-color: #F26F46;">
+                <span class="helper"></span>
+                <img src="${request.route_url('home')}templates/acev2/static/img/organize.png" alt="Organize" width="auto" height="auto">
+            </div>
+            <!--Green-->
+            <div class="item" style="background-color: #66BB6A; ">
+                <span class="helper"></span>
+                <img src="${request.route_url('home')}templates/acev2/static/img/analise.png" alt="Analise" width="auto" height="auto">
+            </div>
+            <!--Blue-->
+            <div class="item" style="background-color: #43B3E6;">
+                <span class="helper"></span>
+                <img src="${request.route_url('home')}templates/acev2/static/img/encontre.png" alt="Encontre" width="auto" height="auto">
+            </div>
         </div>
-    </metal:content>
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+        </div>
+
+</metal:content>
 </metal:main>

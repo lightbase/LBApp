@@ -4,6 +4,7 @@ from lbapp.views.base import BaseView
 
 def make_base_routes(config):
 
+
     config.add_route('get_base', 'base/{base}/get', factory=BaseFactory)
     config.add_view(view=BaseView, attr='get_base', route_name='get_base', request_method='GET', permission='view')
 
@@ -57,3 +58,4 @@ def make_base_routes(config):
 
     config.add_route('share_base', 'base/share', factory=BaseFactory)
     config.add_view(view=BaseView, attr='share_base',route_name='share_base', request_method='POST', permission='view')
+ 

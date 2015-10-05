@@ -1,0 +1,49 @@
+<metal:main use-macro="load: blankmaster.pt">
+    <metal:content fill-slot="title">
+        <metal:content define-slot="title"/>
+    </metal:content>
+    <metal:content fill-slot="css">
+        <metal:content define-slot="css"/>
+    </metal:content>
+
+
+<metal:content fill-slot="content">
+ 
+        <metal:macro use-macro="load: topo.pt">
+
+        <metal:content define-slot="content"/>
+
+
+</metal:content>
+
+<metal:content fill-slot="javascript">
+
+
+         <!--[if !IE]> -->
+            
+
+                <script type="text/javascript">
+                    window.jQuery || document.write('\x3Cscript src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.js">\x3C/script>');
+                </script>
+            
+            <!-- <![endif]-->
+
+            <!--[if IE]>
+        <script type="text/javascript">
+         window.jQuery || document.write("\x3Cscript src='../assets/js/jquery1x.js'>\x3C/script>");
+        </script>
+        <![endif]-->
+
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/ace-extra.min.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.validate.min.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/js/login.js"></script>
+
+        <!-- inline scripts related to this page -->
+
+
+        <script type="text/javascript">
+    </script>
+    <metal:content define-slot="javascript"/>
+   </metal:content>
+
+</metal:main>
