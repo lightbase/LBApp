@@ -58,39 +58,17 @@
                                 AJUDA
                             </a>
                         </li>
-                        <!-- #section:basics/navbar.user_menu -->
-                            <li class="green">
-
-                                <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                                    <span class="fa fa-user"></span>&nbsp ${request.session['id_app_user']}
-                                    <i class="ace-icon fa fa-caret-down"></i>
-                                </a>
-
-                                <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-                                    <li>
-                                        <a href="#">
-                                            <i class="ace-icon fa fa-cog"></i>
-                                            Settings
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="profile.html">
-                                            <i class="ace-icon fa fa-user"></i>
-                                            Profile
-                                        </a>
-                                    </li>
-
-                                    <li class="divider"></li>
-
-                                    <li>
-                                        <a id="logout_action" class="post" href="/logout" >
-                                            <i class="ace-icon fa fa-power-off"></i>
-                                            Logout
-                                        </a>
-                                    </li>
-                                </ul>
+                        <li class="transparent borderLB">
+                            <a  href="#">
+                                REGISTRE-SE
+                            </a>
                         </li>
+                        
+                        <li class="transparent borderLB">
+                            <a   href="/login">
+                                LOGIN
+                            </a>
+                        </li>                                               
 
                         <!-- /section:basics/navbar.user_menu -->
                     </ul>

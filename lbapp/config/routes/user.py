@@ -9,7 +9,7 @@ def make_user_routes(config):
     config.add_view(view=UserView, attr='login', route_name='login', request_method='POST')
 
     config.add_route('logout', 'logout', factory=UserFactory)
-    config.add_view(view=UserView, attr='logout', route_name='logout', request_method='POST')
+    config.add_view(view=UserView, attr='logout', route_name='logout', request_method='GET')
 
     config.add_route('register', 'register', factory=UserFactory)
     #config.add_view(route_name='register', request_method='GET', renderer='templates/routes/register.pt')

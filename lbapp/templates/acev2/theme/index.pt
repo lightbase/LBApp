@@ -16,22 +16,49 @@
             <!--Green/Blue-->
             <div class="item active" style="background-color: #24a699;">
                 <span class="helper"></span>
-                <img src="${request.route_url('home')}templates/acev2/static/img/conheca-lightbase.png" alt="Conheça o Lightbase" width="auto" height="auto">
+                <div class="col-md-4">
+                    <img src="${request.route_url('home')}templates/acev2/static/img/conheca-lightbase.png" alt="Conheça o Lightbase" width="auto" height="auto">
+                </div>
+                <div class="col-md-8 slideshow-text">
+                    <h2>muitas informações para guardar?<br/>
+                    muitos dados para analisar?</h2>
+                    <h3 class="conheca">conheça o light<span>base</span></h3>
+                    <h4>uma nova forma de <span>organizar, analisar</span><br/>
+                    <span>e encontrar</span> o que você precisa</h4>
+                </div>
             </div>
             <!--Orange-->
             <div class="item" style="background-color: #F26F46;">
                 <span class="helper"></span>
-                <img src="${request.route_url('home')}templates/acev2/static/img/organize.png" alt="Organize" width="auto" height="auto">
+                <div class="col-md-4">
+                    <img src="${request.route_url('home')}templates/acev2/static/img/organize.png" alt="Organize" width="auto" height="auto">
+                </div>
+                <div class="col-md-6 slideshow-text">
+                    <h1 class="organize">ORGANIZE</h1>
+                    <h3 class="organize">Crie formulários para armazenar informações <br/>de forma ordenada e fácil</h3>
+                </div>
             </div>
             <!--Green-->
             <div class="item" style="background-color: #66BB6A; ">
                 <span class="helper"></span>
-                <img src="${request.route_url('home')}templates/acev2/static/img/analise.png" alt="Analise" width="auto" height="auto">
+                <div class="col-md-4">
+                    <img src="${request.route_url('home')}templates/acev2/static/img/analise.png" alt="Organize" width="auto" height="auto">
+                </div>
+                <div class="col-md-6 slideshow-text">
+                    <h1 class="analise">ANALISE</h1>
+                    <h3 class="analise">Tenha dados concretos baseados nas informações <br/>armazenadas para tomar as melhores decisões</h3>
+                </div>
             </div>
             <!--Blue-->
             <div class="item" style="background-color: #43B3E6;">
                 <span class="helper"></span>
-                <img src="${request.route_url('home')}templates/acev2/static/img/encontre.png" alt="Encontre" width="auto" height="auto">
+                <div class="col-md-4">
+                    <img src="${request.route_url('home')}templates/acev2/static/img/encontre.png" alt="Organize" width="auto" height="auto">
+                </div>
+                <div class="col-md-6 slideshow-text">
+                    <h1 class="encontre">ENCONTRE</h1>
+                    <h3 class="encontre">Otimize o seu tempo e consiga a informação que <br/>procura de forma rápida e eficiente.</h3>
+                </div>
             </div>
         </div>
         <!-- Left and right controls -->
