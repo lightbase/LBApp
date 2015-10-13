@@ -23,7 +23,8 @@ $(document).ready(function(){
         },
     });
 
-        $("#login_button").click(function(){
+    $("#login_button").click(function(){
+        $('#pleaseWaitDialog').show();
 
         //if (!form.valid()) return false;
         var data = {
@@ -40,7 +41,7 @@ $(document).ready(function(){
             data : data,
             cache: false,
             success: function(data, textStatus, jqXHR ){
-                console.log("RequisiÃ§Ã£o enviada com sucesso");
+                console.log("Requisição enviada com sucesso");
 				if(path_url.indexOf('login') != -1 || path_url == '/'){
 					console.log("Redirecionando default : " + getURLResource(default_path));
 					window.location.href = getURLResource(default_path);
@@ -50,9 +51,11 @@ $(document).ready(function(){
 				}
             },
             error: function(jqXHR, textStatus, errorThrown){
+                $('#pleaseWaitDialog').hide();
+
                 console.log(jqXHR, textStatus, errorThrown);
-				console.log("ExceÃ§Ã£o : ");
-				// TODO : Criar funÃ§Ã£o javascript que recebe o Response Text e renderiza
+				console.log("Exceção : ");
+				// TODO : Criar função javascript que recebe o Response Text e renderiza
 				console.log(jqXHR['responseText']);
 				alert(jqXHR['responseText']);
 				//var exception = JSON.parse(jqXHR['responseText']);
@@ -60,6 +63,7 @@ $(document).ready(function(){
                 //Utils.error('Por favor Tente novamente mais tarde!');
             }
         });
+
     });
 
     var formregister = $('#formRegister');
@@ -74,10 +78,10 @@ $(document).ready(function(){
         },
         messages:{
             user : {
-                required : "Obrigatorio."
+                required : "Obrigatório."
             },
             passwd : {
-                required : "Obigatorio"
+                required : "Obrigatório."
             },
         },
         highlight: function (e) {
@@ -85,7 +89,7 @@ $(document).ready(function(){
         },
     });
     $("#register_button").click(function(){
-
+        $('#pleaseWaitDialog').show();
         //if (!form.valid()) return false;
         var data = {
             'name_user': $('#name').val(),
@@ -100,13 +104,17 @@ $(document).ready(function(){
             data : data,
             cache: false,
             success: function(data, textStatus, jqXHR ){
-                console.log("RequisiÃ§Ã£o enviada com sucesso");
-					window.location.href = default_redirect;
+                $('#pleaseWaitDialog').hide();
+                console.log("Requisição enviada com sucesso");
+				window.location.href = default_redirect;
+
             },
             error: function(jqXHR, textStatus, errorThrown){
+                $('#pleaseWaitDialog').hide();
+
                 console.log(jqXHR, textStatus, errorThrown);
-				console.log("ExceÃ§Ã£o : ");
-				// TODO : Criar funÃ§Ã£o javascript que recebe o Response Text e renderiza
+				console.log("Exceção : ");
+				// TODO : Criar função javascript que recebe o Response Text e renderiza
 				console.log(jqXHR['responseText']);
 				var exception = JSON.parse(jqXHR['responseText']);
 				alert(exception['error_message']);
@@ -115,7 +123,7 @@ $(document).ready(function(){
         });
     });
 
-
+  
 
 });
 
@@ -130,4 +138,3 @@ function getLoginURL(){
 function getRegisterURL(){
 	return getURLResource("/register");
 }
-

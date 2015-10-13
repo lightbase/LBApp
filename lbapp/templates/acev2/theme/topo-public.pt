@@ -59,13 +59,13 @@
                             </a>
                         </li>
                         <li class="transparent borderLB">
-                            <a  href="#">
+                            <a  href="${request.route_url('home')}register">
                                 REGISTRE-SE
                             </a>
                         </li>
                         
                         <li class="transparent borderLB">
-                            <a   href="/login">
+                            <a  href="${request.route_url('home')}login">
                                 LOGIN
                             </a>
                         </li>                                               

@@ -12,11 +12,11 @@
     </metal:content>
 
 <metal:content fill-slot="content">
-<metal:macro use-macro="load: topo.pt">
+    <metal:macro use-macro="load: topo.pt">
 
 
-<!-- /section:basics/navbar.layout -->
-<div class="main-container" id="main-container">
+    <!-- /section:basics/navbar.layout -->
+    <div class="main-container" id="main-container">
     <script type="text/javascript">
         try {
             ace.settings.check('main-container', 'fixed')

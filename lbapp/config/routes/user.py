@@ -12,8 +12,12 @@ def make_user_routes(config):
     config.add_view(view=UserView, attr='logout', route_name='logout', request_method='GET')
 
     config.add_route('register', 'register', factory=UserFactory)
-    #config.add_view(route_name='register', request_method='GET', renderer='templates/routes/register.pt')
+    config.add_view(route_name='register', request_method='GET', renderer='templates/routes/register.pt')
     config.add_view(view=UserView, attr='register', route_name='register', request_method='POST')
+
+    config.add_route('forgot-password', 'forgot-password', factory=UserFactory)
+    config.add_view(route_name='forgot-password', request_method='GET', renderer='templates/routes/forgot-password.pt')
+    config.add_view(view=UserView, attr='forgot-password', route_name='forgot-password', request_method='POST')
 
     config.add_route('profile', 'profile/{user}', factory=UserFactory)
     config.add_view(view=UserView, attr='profile', route_name='profile', request_method='GET', renderer='templates/user/profile.pt', permission='view')
