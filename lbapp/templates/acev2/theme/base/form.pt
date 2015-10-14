@@ -3,28 +3,12 @@
         LightBase - Criar Base
     </metal:content>
     <metal:content fill-slot="page-header">
-        <span class="fa fa-list-alt"></span> Criar Base
-        <div class="btn-group" style="margin-left: 70%">
-            <button data-toggle="dropdown" class="btn btn-mini btn-primary dropdown-toggle">
-                <i class="fa fa-cloud-upload fa-2x"></i>
-            </button>
-            <ul class="dropdown-menu pull-right">
-            	<li>
-                    <a href="${request.route_url('list_bases')}">Lista de Base</a>
-                </li>
-                <li>
-                    <a href="${request.route_url('home')}base/new">Criar Base</a>
-                </li>
-                <li>
-                    <a href="${request.route_url('home')}base/new/json">Criar Base usando Json</a>
-                </li>
-            </ul>
-        </div>
+
     </metal:content>
     
     <metal:content fill-slot="dash">
         <li>
-            <i class="ace-icon fa fa-home home-icon"></i>
+            <i class="ace-icon fa fa-star fa-2x fa-inverse" style="color: #ed683d"></i>
             <a href="${request.route_url('home')}">Home</a>
         </li>
         <li>
@@ -43,38 +27,20 @@
     <metal:content fill-slot="content">
         <div id="widgets">
             <!--PAGE CONTENT BEGINS-->
-            <div class="container">
 				<div class="row clearfix">
-					<div class="col-md-6">
+					<div class="col-md-12">
 						<div class="clearfix">
-							<h2>Nova Base</h2> <button type="button" id="save-data" onclick="salvar()">Salvar Base</button>
-							<hr>
+						
 							<div id="build">
 								<form id="target" class="form-horizontal"></form>
 							</div>
 						</div>
 					</div>
-					<div class="col-md-6">
-						<h2>Componentes</h2>
-						<hr>
-						<div class="tabbable">
-							<ul class="nav nav-tabs" id="formtabs">
-								<!-- Tab nav -->
-							</ul>
-							<form class="form-horizontal" id="components">
-								<fieldset>
-									<div class="tab-content">
-										<!-- Tabs of snippets go here -->
-									</div>
-								</fieldset>
-							</form>
-						</div>
-					</div>
 				</div><!-- <div class="row clearfix"> -->
-			</div> <!--<div class="container"> -->
             <!--PAGE CONTENT ENDS-->
         </div>
-
+         <h2>Nova Base</h2> <button type="button" id="save-data" onclick="salvar()">Salvar Base</button>
+        <hr>
     </metal:content>
     
     <metal:content fill-slot="css">
@@ -87,6 +53,22 @@
         <script data-main="${request.route_url('home')}templates/acev2/static/form/assets/js/main.js"
 		              src="${request.route_url('home')}templates/acev2/static/form/assets/js/deps/require.js"></script>
     </metal:content>
-
+    <metal:content fill-slot="left-column">
+           <div class="col-md-6">
+                        <hr>
+                        <div class="tabbable">
+                            <ul class="nav nav-tabs" id="formtabs">
+                                <!-- Tab nav -->
+                            </ul>
+                            <form class="form-horizontal" id="components">
+                                <fieldset>
+                                    <div class="tab-content">
+                                        <!-- Tabs of snippets go here -->
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+            </div>
+    </metal:content>
 </metal:main>
 

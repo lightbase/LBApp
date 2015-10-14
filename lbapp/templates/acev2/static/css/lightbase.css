@@ -100,3 +100,15 @@ padding-left: 10%;
 .carousel-control.left {
 	background-image:none;
 }
+.content-box {
+	background-color:#e8e7e7;
+}
+.breadcrumbs {
+	background-color:inherit;
+	padding: 13px 0px 11px 5px;
+}
+.no-skin .sidebar{
+	border:0;
+	background-color:inherit;
+}
+

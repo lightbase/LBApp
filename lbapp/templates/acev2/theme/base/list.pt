@@ -94,4 +94,6 @@
         <script src="${request.route_url('home')}templates/acev2/static/js/lib/utils.js"></script>
         <script src="${request.route_url('home')}templates/acev2/static/js/base/list_bases.js"></script>
     </metal:content>
+
+
 </metal:main>

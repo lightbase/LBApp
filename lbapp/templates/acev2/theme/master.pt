@@ -16,7 +16,7 @@
 
 
     <!-- /section:basics/navbar.layout -->
-    <div class="main-container" id="main-container">
+    <div class="main-container content-box" id="main-container">
     <script type="text/javascript">
         try {
             ace.settings.check('main-container', 'fixed')
@@ -26,29 +26,12 @@
 
     <!-- #section:basics/sidebar -->
     <div id="sidebar" class="sidebar responsive">
-        <script type="text/javascript">
-            try {
-                ace.settings.check('sidebar', 'fixed')
-            } catch (e) {
-            }
-        </script>
-        
-		
-        <div class="sidebar-shortcuts" id="sidebar-shortcuts" style="background-color: #D4E0D1">
-        	<!-- 4 botões coloridos acima do Menu esquerdo -->
-
-			<!-- 4 botões coloridos acima do Menu esquerdo -->    
-	
-	        </div>
+    
         <!-- /.sidebar-shortcuts -->
+        <metal:content define-slot="left-column">
+            <metal:macro use-macro="load: menu.pt">
+        </metal:content>
 
-        <metal:macro use-macro="load: menu.pt">
-
-        <!-- #section:basics/sidebar.layout.minimize -->
-        <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
-            <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left"
-               data-icon2="ace-icon fa fa-angle-double-right"></i>
-        </div>
 
         <!-- /section:basics/sidebar.layout.minimize -->
         <script type="text/javascript">
@@ -60,10 +43,10 @@
     </div>
 
     <!-- /section:basics/sidebar -->
-    <div class="main-content">
+    <div class="main-content ">
         <div class="main-content-inner">
             <!-- #section:basics/content.breadcrumbs -->
-            <div class="breadcrumbs" id="breadcrumbs" style="background-color: #D4E0D1">
+            <div class="breadcrumbs" id="breadcrumbs">
                 <script type="text/javascript">
                     try {
                         ace.settings.check('breadcrumbs', 'fixed')
