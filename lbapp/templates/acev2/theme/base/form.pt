@@ -9,9 +9,6 @@
     <metal:content fill-slot="dash">
         <li>
             <i class="ace-icon fa fa-star fa-2x fa-inverse" style="color: #ed683d"></i>
-            <a href="${request.route_url('home')}">Home</a>
-        </li>
-        <li>
             <a href="${request.route_url('home')}base/new">Criar Base</a>
         </li>
     </metal:content>
@@ -39,7 +36,7 @@
 				</div><!-- <div class="row clearfix"> -->
             <!--PAGE CONTENT ENDS-->
         </div>
-         <h2>Nova Base</h2> <button type="button" id="save-data" onclick="salvar()">Salvar Base</button>
+         <button type="button" id="save-data" class="btn btn-danger btn-block" onclick="salvar()">Salvar Base</button>
         <hr>
     </metal:content>
     

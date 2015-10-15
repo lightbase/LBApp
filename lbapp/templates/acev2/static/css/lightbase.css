@@ -112,3 +112,8 @@ padding-left: 10%;
 	background-color:inherit;
 }
 
+.component {width:70%;}
+.breadcrumb  li  a {
+    font-size: 22px;
+    color: #666;
+}
