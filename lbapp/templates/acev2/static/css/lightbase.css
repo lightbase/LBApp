@@ -110,10 +110,45 @@ padding-left: 10%;
 .no-skin .sidebar{
 	border:0;
 	background-color:inherit;
+	margin-top: 27px;
 }
 
 .component {width:70%;}
 .breadcrumb  li  a {
     font-size: 22px;
     color: #666;
+}
+label {color: #ED683D;}
+textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"] {
+	border-left: 2px solid #ED683D;
+	background-color: #fff;
+}
+
+.nav-tabs  li.active  a, .nav-tabs  li.active  a:hover, .nav-tabs  li.active  a:focus {
+	border-top:0;
+	box-shadow:none;
+
+}
+
+.nav-tabs  li {
+    margin-bottom: -1px;
+    width: 100%;
+}
+
+.nav-tabs li a, .nav-tabs li a:focus {
+	background-color:none;
+}
+
+.nav-tabs li a, .nav-tabs li a:focus {
+		border-color: #ED683D ;
+}
+.tab-content {
+	border:0;
+}
+.nav-tabs  li a, .nav-tabs  li  a:focus {
+	color: #ED683D;
+}
+
+.nav-tabs li a:hover {
+		background-color:none;
 }

@@ -33,13 +33,7 @@
         </metal:content>
 
 
-        <!-- /section:basics/sidebar.layout.minimize -->
-        <script type="text/javascript">
-            try {
-                ace.settings.check('sidebar', 'collapsed')
-            } catch (e) {
-            }
-        </script>
+
     </div>
 
     <!-- /section:basics/sidebar -->
@@ -106,7 +100,7 @@
     <div class="footer">
         <div class="footer-inner">
             <!-- #section:basics/footer -->
-            <div class="footer-content">
+            <!--<div class="footer-content">
 						<span class="bigger-120">
 							&copy; 2014-2015
 						</span>
@@ -125,7 +119,7 @@
                                 <i class="ace-icon fa fa-rss-square orange bigger-150"></i>
                             </a>
 						</span>
-            </div>
+            </div>-->
 
             <!-- /section:basics/footer -->
         </div>
