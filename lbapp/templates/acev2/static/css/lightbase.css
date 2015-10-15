@@ -133,6 +133,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 .nav-tabs  li {
     margin-bottom: -1px;
     width: 100%;
+	border-bottom: 2px solid #ED683D ;
 }
 
 .nav-tabs li a, .nav-tabs li a:focus {
@@ -140,7 +141,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 }
 
 .nav-tabs li a, .nav-tabs li a:focus {
-		border-color: #ED683D ;
+	border:0;
 }
 .tab-content {
 	border:0;

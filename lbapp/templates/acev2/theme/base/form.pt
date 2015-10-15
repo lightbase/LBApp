@@ -9,7 +9,10 @@
     <metal:content fill-slot="dash">
         <li>
             <i class="ace-icon fa fa-star fa-2x fa-inverse" style="color: #ed683d"></i>
-            <a href="${request.route_url('home')}base/new">Criar Base</a>
+            <a href="${request.route_url('home')}base/list">Bases</a>
+        </li>
+        <li>
+           <span>Criar Base</span>
         </li>
     </metal:content>
     
