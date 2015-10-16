@@ -92,15 +92,15 @@
     </metal:content>
     
     <metal:content fill-slot="javascript">
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/x-editable/bootstrap-editable.js"></script>   
         <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/bootbox.min.js"></script>
-		<script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/x-editable/bootstrap-editable.min.js"></script>		
 		<!--datatable plugin -->
-                <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/dataTables/jquery.dataTables.js"></script>
-                <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/dataTables/jquery.dataTables.bootstrap.js"></script>
-                <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/dataTables/extensions/TableTools/js/dataTables.tableTools.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/dataTables/jquery.dataTables.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/dataTables/jquery.dataTables.bootstrap.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/dataTables/extensions/TableTools/js/dataTables.tableTools.js"></script>
         <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/dataTables/extensions/ColVis/js/dataTables.colVis.js"></script>
 		<!--gritter plugin (alert messages) -->
-		<script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.gritter.min.js"></script>		
+		<!--<script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.gritter.min.js"></script>-->		
 		<!--validate plugin-->
 		<script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.validate.min.js"></script>
 		<!--dropzone plugin-->
@@ -111,6 +111,7 @@
 		<!--Explorer-->
 		<script src="${request.route_url('home')}templates/acev2/static/js/lib/utils.js"></script>
 		<script src="${request.route_url('home')}templates/acev2/static/js/lib/fields.js"></script>
+
 		<script src="${request.route_url('home')}templates/acev2/static/js/base/explorer.js"></script>
         
     </metal:content>

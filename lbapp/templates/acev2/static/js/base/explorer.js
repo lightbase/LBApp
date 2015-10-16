@@ -237,7 +237,7 @@ var config_editables = function(editables){
         $(editable).attr('data-pk', tr_id.split('-')[1]);
         $(editable).on('hidden', function(e, reason){
             if(reason === 'save' || reason === 'nochange') {
-            	console.log("save2="+editable_id);
+                console.log("save2="+editable_id);
                 var next = $(this).parent('td').next().find('.editable');
                 next.editable('show');
             }
@@ -367,7 +367,7 @@ RegForm.prototype = $.extend({ }, Cell.prototype, {
     },
 
     editable_tpl: function (struct) {
-    	console.log("editable_tpl");
+        console.log("editable_tpl");
         var a = '<a href="javascript:void(0)" '+
            ' data-type="'+struct.datatype.toLowerCase()+'"'+
            ' data-title="'+struct.name+'"'+
@@ -375,7 +375,7 @@ RegForm.prototype = $.extend({ }, Cell.prototype, {
         var editable = $(a).editable();
         $(editable).on('hidden', function(e, reason){
             if(reason === 'save' || reason === 'nochange') {
-            	console.log("save = "+struct.name);
+                console.log("save = "+struct.name);
                 var next = $(this).parent('td').parent('tr').next().find('.editable');
                 next.editable('show');
             }
@@ -404,7 +404,7 @@ console.log("html="+label);
         wrapper.append(this.header_tpl(label)).append(table);
 
         $(base.content).each(function (i, struct) {
-        	console.log("DENTRO ........... "+struct);
+            console.log("DENTRO ........... "+struct);
             if (struct.field){
                 var row = $(self.row_tpl(struct.field, self.editable_tpl(struct.field)));
                 tbody.append(row);
@@ -435,7 +435,7 @@ console.log("html="+label);
     },
 
     validate: function () {
-    	console.log("validating ....");
+        console.log("validating ....");
         var data = { };
         var self = this;
 
@@ -454,12 +454,12 @@ console.log("html="+label);
     },
 
     submit: function (dataReceived) {
-    	var base = $('#base-name').text();    	
-    	$.ajax({
+        var base = $('#base-name').text();      
+        $.ajax({
             type: 'post',
             url: '/base/'+base+'/doc',
             data: {
-            	value: JSON.stringify(dataReceived)
+                value: JSON.stringify(dataReceived)
             },
             async: false,
             success: function (data, textStatus, jqXHR) {
@@ -481,7 +481,7 @@ console.log("html="+label);
  * DataTable Data Scripts 
  */
 var get_table_data = function (base, depth) {
-	console.log("get_table_data");
+    console.log("get_table_data");
     var table_data = {
         base: base,
         name: base.metadata.name,
@@ -567,7 +567,7 @@ var get_inner_table = function (table, registries, par_id) {
  */
 
 var fnRowCallback = function (table_data) {
-	console.log("fnRowCallback ... "+table_data);
+    console.log("fnRowCallback ... "+table_data);
     return function (nRow, aData, iDisplayIndex) {
         var editables = $(nRow).find('.editable');
         var $action_td = $(nRow).find('.action-buttons');
@@ -690,4 +690,3 @@ var explorer = $("#datatable").dataTable({
         "sZeroRecords": "Não foram encontrados registros"
     }
 });
-
