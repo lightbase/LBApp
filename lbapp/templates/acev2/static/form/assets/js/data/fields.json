@@ -16,20 +16,10 @@
         "type": "hidden",
         "value": "Text"
       },
-      "placeholder": {
-        "label": "Placeholder",
-        "type": "input",
-        "value": "placeholder"
-      },
       "description": {
         "label": "Descrição",
         "type": "input",
-        "value": "placeholder"
-      },
-      "size": {
-        "label": "Tamanho Máximo",
-        "type": "number",
-        "value": 80
+        "value": "Descrição"
       },
       "required": {
         "label": "Obrigatório",
