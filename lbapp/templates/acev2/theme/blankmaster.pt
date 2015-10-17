@@ -76,7 +76,6 @@
         </script>
 
     <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery-2.0.3.min.js"></script>
-    
     <script type="text/javascript" src="${request.route_url('home')}templates/acev2/static/ace/assets/js/bootstrap.js"></script>
 
     <!-- page specific plugin scripts -->
@@ -123,8 +122,8 @@
     <script src="${request.route_url('home')}templates/acev2/static/ace/docs/assets/js/language/generic.js"></script>
     <script src="${request.route_url('home')}templates/acev2/static/ace/docs/assets/js/language/html.js"></script>
     <script src="${request.route_url('home')}templates/acev2/static/ace/docs/assets/js/language/css.js"></script></script>-->
-    <script src="${request.route_url('home')}templates/acev2/static/js/bootstrap-carousel.js">
-    <script src="${request.route_url('home')}templates/acev2/static/js/jquery-carousel.js">    
+    <script src="${request.route_url('home')}templates/acev2/static/js/bootstrap-carousel.js"></script>
+    <!--<script src="${request.route_url('home')}templates/acev2/static/js/jquery-carousel.js"> -->
     <metal:content define-slot="javascript"/>
     
 
