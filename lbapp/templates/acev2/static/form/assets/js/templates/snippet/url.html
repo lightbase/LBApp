@@ -3,6 +3,6 @@
   <label class="control-label" for="<%- id %>"><%- label %></label>
   <div class="controls">
     <input id="<%- id %>" name="<%- id %>" type="url" 
-    	placeholder="<%- placeholder %>" <% if(required) {%> required <% } %> />
+    	placeholder=<% if(typeof placeholder != 'undefined') {%> "<%-placeholder%>" <% }else{ %>""<% } %> <% if(required) {%> required <% } %> />
   </div>
 </div>

@@ -7,10 +7,11 @@ function($, _, Backbone, SnippetModel, SnippetsCollection, MyFormSnippetView) {
 			this.on("add", this.giveUniqueId);
 		},
 		giveUniqueId : function(snippet) {
+            console.log("incluindo ID único..");
 			if (!snippet.get("fresh")) {
 				return;
 			}
-			snippet.set("fresh", false);
+
 			var snippetType = snippet.attributes.fields.id.value;
 
 			if (typeof this.counter[snippetType] === "undefined") {
@@ -19,12 +20,14 @@ function($, _, Backbone, SnippetModel, SnippetsCollection, MyFormSnippetView) {
 				this.counter[snippetType] += 1;
 			}
 
-			snippet.setField("id", snippetType + "-" + this.counter[snippetType]);
+			snippet.setField("id", snippetType + this.counter[snippetType]);
 
 			if (typeof snippet.get("fields")["id2"] !== "undefined") {
 				snippet.setField("id2", snippetType + "2-" + this.counter[snippetType]);
 			}
-		},
+            snippet.set("fresh", false);
+
+		},''
 		containsFileType : function() {
 			return !(typeof this.find(function(snippet) {
 				return snippet.attributes.title === "File Button"
@@ -46,6 +49,7 @@ function($, _, Backbone, SnippetModel, SnippetsCollection, MyFormSnippetView) {
 		toLightbase : function(){
 			// form data is the first element (idx 0)
 			var formData = this.at(0);
+            console.log("Tamanho this.at : " + this.length);
 			var base = {
 				"metadata" : {
 					"file_ext" : false,
@@ -63,6 +67,7 @@ function($, _, Backbone, SnippetModel, SnippetsCollection, MyFormSnippetView) {
 			
 			// contents begin at idx 1
 			for(i=1; i < this.length; i++){
+                console.log(i + " " + this.at(i).getValues());
 				base['content'].push(this.at(i).toLightbase());
 			}
 						

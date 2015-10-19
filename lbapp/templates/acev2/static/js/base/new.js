@@ -1,7 +1,7 @@
 var base_form;
 //var baseModel;
 
-function validateBase(){
+    function validateBase(){
 	var obj = base_form;//$.parseJSON( baseJson );
 	console.log('********** base_form='+base_form);
 	var errors = [];
@@ -57,7 +57,7 @@ function validateContents(obj, errors){
 function validateSnippet(attrs){
 	var errors = [];
 	
-	console.log("validateSnippet: "+JSON.stringify(attrs));
+	console.log("validateSnippet JS: "+JSON.stringify(attrs));
 	
 	var fields = attrs['fields'];
 	var value = null;
@@ -106,6 +106,7 @@ function fieldNameExists(name){
 	return false;
 }
 
+// TODO : Agrupar em um arquivo de LIB validações da base.
 function validateNameId(name){
 	return /^[a-z_][a-z0-9_]*$/.test(name);
 }

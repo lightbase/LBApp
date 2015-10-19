@@ -2,16 +2,18 @@ define([ "jquery", "underscore", "backbone",
          "collections/snippets", "collections/my-form-snippets", 
          "views/tab", "views/my-form", 
          "text!data/fields.json", "text!data/groups.json", 
-         "text!data/default.json", "text!data/arquivos.json", 
+         "text!data/arquivos.json",
          "text!templates/app/render.html" 
 ],function($, _, Backbone, SnippetsCollection, 
 		MyFormSnippetsCollection, 
 		TabView, MyFormView, 
 		fieldsJSON, groupsJSON, 
-		defaultJSON, arquivosJSON, 
+		arquivosJSON,
 		renderTab) {
 	return {
 		initialize : function() {
+            console.log("Montando campos..");
+            console.log("Campos : " + JSON.parse(fieldsJSON));
 			// Bootstrap tabs from json.
 			new TabView({
 				title : "Campos",
@@ -21,14 +23,17 @@ define([ "jquery", "underscore", "backbone",
 				title : "Arquivos",
 				collection : new SnippetsCollection(JSON.parse(arquivosJSON))
 			});
+
 			new TabView({
 				title : "Grupos",
 				collection : new SnippetsCollection(JSON.parse(groupsJSON))
 			});
+            /*
 			new TabView({
 				title : "Padrão",
 				collection : new SnippetsCollection(JSON.parse(defaultJSON))
 			});
+			*/
 			new TabView({
 				title : "Ver HTML",
 				content : renderTab

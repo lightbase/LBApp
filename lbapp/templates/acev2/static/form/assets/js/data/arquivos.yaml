@@ -15,12 +15,12 @@
     accept:
       label  : Arquivos aceitos
       type   : input
-      value  : 
+      value  :
     placeholder:
       label  : Placeholder
       type   : input
       value  : Selecione o arquivo
-    decription:
+    description:
       label  : Descrição
       type   : input
       value  :  
@@ -50,7 +50,7 @@
     datatype:            
       type   : hidden
       value  : Image
-    decription:
+    description:
       label  : Descrição
       type   : input
       value  :  
@@ -80,7 +80,7 @@
     datatype:            
       type   : hidden
       value  : Sound
-    decription:
+    description:
       label  : Descrição
       type   : input
       value  :  
@@ -110,7 +110,7 @@
     datatype:            
       type   : hidden
       value  : Image
-    decription:
+    description:
       label  : Descrição
       type   : input
       value  :  

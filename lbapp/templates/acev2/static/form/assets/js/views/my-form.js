@@ -20,6 +20,7 @@ function($, _, Backbone, TempSnippetView, PubSub, _renderForm) {
 		}, 
 		
 		render : function() {
+            console.log("Evento para ações do mouse");
 			// Render Snippet Views
 			this.$el.empty();
 			var that = this;
@@ -31,8 +32,9 @@ function($, _, Backbone, TempSnippetView, PubSub, _renderForm) {
 			});
 			
 			// update global var
+            //console.log("Estou renderizando o meu form");
 			base_form = this.collection.toLightbase();
-			console.log("BASE="+JSON.stringify(base_form));
+			console.log("BASE = "+JSON.stringify(base_form));
 
 			// create a dictionary with some values to be rendered
 			var values = {
@@ -45,7 +47,8 @@ function($, _, Backbone, TempSnippetView, PubSub, _renderForm) {
 			};
 
 			// descomentar se quiser "ver" o form ...
-			// $("#render_form").html(values['text']);
+            console.log("FORM : " + values['text']);
+			// $("#renderform").html(values['text']);
 			$("#render").val(that.renderForm(values));
 			$("#json_form").html(values['formJSON']);
 			$("#json_base").html(values['baseJSON']);

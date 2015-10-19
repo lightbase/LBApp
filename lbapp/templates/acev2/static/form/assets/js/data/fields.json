@@ -97,22 +97,7 @@
       "description": {
         "label": "Descrição",
         "type": "input",
-        "value": "placeholder"
-      },
-      "min": {
-        "label": "Tamanho Mínimo",
-        "type": "number",
-        "value": -1
-      },
-      "max": {
-        "label": "Tamanho Máximo",
-        "type": "number",
-        "value": -1
-      },
-      "decimal": {
-        "label": "Permite decimal",
-        "type": "checkbox",
-        "value": false
+        "value": "Descrição..."
       },
       "required": {
         "label": "Obrigatório",
@@ -215,7 +200,7 @@
       "id": {
         "label": "ID / Nome",
         "type": "input",
-        "value": "data"
+        "value": "hora"
       },
       "label": {
         "label": "Apelido",
@@ -229,7 +214,7 @@
       "description": {
         "label": "Descrição",
         "type": "input",
-        "value": "placeholder"
+        "value": "Descrição..."
       },
       "required": {
         "label": "Obrigatório",
@@ -265,15 +250,11 @@
         "type": "hidden",
         "value": "Email"
       },
-      "placeholder": {
-        "label": "Placeholder",
-        "type": "input",
-        "value": "placeholder"
-      },
-      "decription": {
+
+      "description": {
         "label": "Descrição",
         "type": "input",
-        "value": "placeholder"
+        "value": "Descrição.."
       },
       "required": {
         "label": "Obrigatório",
@@ -309,15 +290,10 @@
         "type": "hidden",
         "value": "Url"
       },
-      "placeholder": {
-        "label": "Placeholder",
-        "type": "input",
-        "value": "http://..."
-      },
-      "decription": {
+      "description": {
         "label": "Descrição",
         "type": "input",
-        "value": "placeholder"
+        "value": "Descrição..."
       },
       "required": {
         "label": "Obrigatório",
@@ -358,7 +334,7 @@
         "type": "textarea",
         "value": null
       },
-      "decription": {
+      "description": {
         "label": "Descrição",
         "type": "input",
         "value": null
