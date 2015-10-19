@@ -27,7 +27,7 @@ function($, _, Backbone, SnippetModel, SnippetsCollection, MyFormSnippetView) {
 			}
             snippet.set("fresh", false);
 
-		},''
+		},
 		containsFileType : function() {
 			return !(typeof this.find(function(snippet) {
 				return snippet.attributes.title === "File Button"
