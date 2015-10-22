@@ -3,9 +3,10 @@
  * Editable Defaults 
  */
 
-$.fn.editable.defaults.ajaxOptions = {type: "PUT"};
+//$.fn.editable.defaults.ajaxOptions = {type: "PUT"};
+//$.fn.editable.defaults.url= window.location;
 $.fn.editable.defaults.mode = 'popup';
-$.fn.editable.defaults.url= window.location;
+
 
 /*
  * Routes definitions 
@@ -14,6 +15,7 @@ $.fn.editable.defaults.url= window.location;
 var get_route = function(route, id, path){
 
     var base = $('#base-name').text();
+    console.log('obtendo route : ' + route);
     var routes = {
         'get_base': $('link#get_base_route').attr('href').replace('_base', base),
         'get_registries': $('link#get_registries_route').attr('href').replace('_base', base),
@@ -23,6 +25,7 @@ var get_route = function(route, id, path){
             .replace('_id', id).replace('_path', path),
         'create_reg': $('link#create_reg').attr('href').replace('_base', base)
     }
+    console.log('rota obtida  :'  + routes[route]);
     return routes[route];
 };
 
@@ -46,19 +49,27 @@ var plus_buttons_tpl = function(){
     ];
 };
 
-var action_buttons_tpl = function(){
+/**
+ * Retorna o template para a coluna padrão da tabela, que será utilizado na renderização de cada
+ * linha da tabela.
+ * @returns {string} template da coluna padrão
+ */
+var get_default_column_actions_tpl = function(){
+    // TODO : Corrigir ícones
     return '<div class="hidden-phone visible-desktop action-buttons">'+
-        '<a class="grey view-reg" href="javascript:void(0)">'+
-            '<i class="icon-file bigger-130"></i>'+
+        '<a class="blue view-reg" href="javascript:void(0)">'+
+            '<i class="fa fa-search-plus fa-lg"></i>'+
         '</a>'+
         '<a class="green edit-reg" href="javascript:void(0)">'+
-            '<i class="icon-pencil bigger-130"></i>'+
+            '<i class="fa fa-edit fa-lg"></i>'+
         '</a>'+
         '<a class="red delete-reg" href="javascript:void(0)">'+
-            '<i class="icon-trash bigger-130"></i>'+
+            '<i class="fa fa-trash fa-lg"></i>'+
         '</a>'+
-    '</div>'+
-    '<div class="hidden-desktop visible-phone">'+
+    '</div>'
+    // TODO : Verificar  por que aparece no desktop e corrigir css para mobile
+    /*
+    +'<div class="hidden-desktop visible-phone">'+
         '<div class="inline position-relative">'+
             '<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">'+
                 '<i class="icon-caret-down icon-only bigger-120"></i>'+
@@ -85,25 +96,31 @@ var action_buttons_tpl = function(){
                     '<a href="javascript:void(0)" class="tooltip-error delete-reg" ' +
                         'data-rel="tooltip" title="Deletar" data-original-title="Delete">'+
                     '<span class="red">'+
-                        '<i class="icon-trash bigger-120"></i>'+
+                        '<i class="icon-trash bigger-120">Deletar</i>'+
                     '</span>'+
                     '</a>'+
                 '</li>'+
             '</ul>'+
         '</div>'+
     '</div>';
+    */
 }
 
-var default_column_tpl = function () {
+/**
+ * Retorna a coluna padrão da tabela, que é a primeira coluna, que possui o link para inserção de registro.
+ * Na renderização de cada linha, será renderizado o que foi definido em mRender.
+ * @returns {{sTitle: string, sClass: string, bSortable: boolean, sWidth: string, sDefaultContent: string, mData: string, mRender: Function}}
+ */
+var get_default_column_table = function () {
     return {
         "sTitle": '<a class="add-reg icon-plus-sign bigger-120" href="javascript:void(0);" data-tooltip="tooltip" title="Adicionar registro">+</a>',
         "sClass": '',
         "bSortable": false,
-        "sWidth": "7%",
+        "sWidth": "9%",
         "sDefaultContent": "",
         "mData": '',
         "mRender": function (data, type, source) {
-            return action_buttons_tpl();
+            return get_default_column_actions_tpl();
         }
     }
 };
@@ -144,12 +161,12 @@ var sDom_tpl = function () {
 var view_reg_event = function(e){
     var registry = e.data;
     delete registry[''];
-    bootbox.dialog('<h3 class="blue">JSON</h3>' +
-        '<pre>' + Utils.formatJson(registry) + '</pre>',
-    [{
+    bootbox.dialog(
+    {
+        "message" : '<h3 class="blue">JSON</h3>' + '<pre>' + Utils.formatJson(registry) + '</pre>',
         "label" : "Fechar",
         "class" : "btn-small btn-primary",
-    }]);
+    });
 };
 
 var edit_reg_event = function(e){
@@ -164,26 +181,32 @@ var delete_reg_event = function(e){
         var url = get_route('delete_reg_path', id_reg, to_path(real_path));
     else
         var url = get_route('delete_reg', id_reg);
-    bootbox.dialog('<h3 class="red">Deletar registro?</h3>', [{
-        "label" : "Deletar",
-        "class" : "btn btn-danger",
-        callback: function() {
-            $.ajax({
-                type: 'DELETE',
-                url: url,
-                success: function(data, textStatus, jqXHR ){
-                    window.location.reload();
-                },
-                error: function(jqXHR, textStatus, errorThrown){
-                    Utils.error();
+    bootbox.dialog( {
+        message : '<h3 class="red">Deseja realmente deletar o registro ?</h3>',
+        buttons : {
+            confirm : {
+                label: "Sim",
+                className: "btn btn-danger",
+                callback: function () {
+                    $.ajax({
+                        type: 'DELETE',
+                        url: url,
+                        success: function (data, textStatus, jqXHR) {
+                            // Registro deletado com sucesso
+                            $("#datatable").dataTable().fnDraw();
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log('Erro ao deletar registros..');
+                        }
+                    });
                 }
-            });
+            },
+            cancel : {
+            label : "Não",
+            class : "btn btn-light"
+            }
         }
-        },{
-            "label" : "Cancelar",
-            "class" : "btn btn-light",
-        }]
-    );
+    });
 };
 
 var download_file_event = function(e){
@@ -225,27 +248,37 @@ var to_path = function(str){
 };
 
 var config_editables = function(editables){
+    console.log('Configurando editables...' + JSON.stringify(editables));
     $(editables).each(function(i, editable){
 
+        // Forma id do elemento : reg-<id>-<descrição campo>
         var tr_id = $(editable).closest('tr').attr('id');
         var editable_id = tr_id + '-' + $(editable).attr('data-title');
+
         var path = editable_id.split('-').slice(2).join('-');
         var real_path = to_path(path);
 
         $(editable).attr('name', editable_id);
         $(editable).attr('id', real_path);
         $(editable).attr('data-pk', tr_id.split('-')[1]);
+        /* Não será necessário, pois células não serão editáveis
         $(editable).on('hidden', function(e, reason){
             if(reason === 'save' || reason === 'nochange') {
                 console.log("save2="+editable_id);
                 var next = $(this).parent('td').next().find('.editable');
                 next.editable('show');
             }
-        });
+        });*/
         $(editable).editable('toggleDisabled');
     })
 };
 
+/**
+ * Representa uma célula da tabela
+ * @param struct estrutura na qual a célula faz referência
+ * @param data dado da célula
+ * @constructor
+ */
 var Cell = function (struct, data){
     this.init(struct, data);
 };
@@ -259,8 +292,16 @@ Cell.prototype = {
 
     wrapper_tpl: '<div class="multi"></div>',
 
-    editable_tpl: function (data){
-        if (data == undefined) data = this.data;
+    /**
+     * Retorna o template do elemento HTML que será renderizado para cada célula
+     * da tabela, no qual irá mostrar o valor do campo.
+     * @param data
+     * @returns {string}
+     */
+    get_cell_tpl: function (data){
+        if (data == undefined) {
+            data = this.data;
+        }
         return '<a href="javascript:void(0)" '+
            ' data-type="'+this.struct.datatype.toLowerCase()+'"'+
            ' data-title="'+this.struct.name+'"'+
@@ -268,7 +309,7 @@ Cell.prototype = {
     },
 
     file_download_tpl: function (file) {
-        var edit_tpl = $(this.editable_tpl());
+        var edit_tpl = $(this.get_cell_tpl());
         if (file){
             edit_tpl.addClass('file-content');
             edit_tpl.html('<span class="blue">' + file.nome_doc + '</span>');
@@ -277,24 +318,29 @@ Cell.prototype = {
     },
 
     json_tpl: function (json) {
-        var edit_tpl = $(this.editable_tpl());
+        var edit_tpl = $(this.get_cell_tpl());
         edit_tpl.addClass('json-content');
         edit_tpl.html('<span class="blue">JSON</span>');
         return '<div data-field-alias="'+this.struct.alias+'" class="hidden">'+
             Utils.stringify(json)+'</div>' + this.to_html(edit_tpl);
     },
 
+    /**
+     * Obtém o conteúdo padrão de cada célula. Na renderização de cada celula, é adicionado
+     * informações a esse template para identificar o valor da célula.
+     * @returns {*|string}
+     */
     get_content: function (){
         var field = Fields.get_field(this.struct);
-        if (this.struct.multivalued)
+        if (this.struct.multivalued) {
             var content = this.get_multi_content(field);
-        else if (field instanceof Fields.mapping.FileDataType)
+        }else if (field instanceof Fields.mapping.FileDataType) {
             var content = this.file_download_tpl(this.data);
-        else if (field instanceof Fields.mapping.JsonDataType)
+        }else if (field instanceof Fields.mapping.JsonDataType) {
             var content = this.json_tpl(this.data);
-        else
-            var content = this.editable_tpl();
-        console.log("get_content="+content);
+        }else {
+            var content = this.get_cell_tpl();
+        }
         return content;
     },
 
@@ -314,7 +360,7 @@ Cell.prototype = {
         }
         else if (Utils.type_of(this.data) == 'array'){
             this.data.forEach(function(val){
-                var editable_tpl = self.editable_tpl(val);
+                var editable_tpl = self.get_cell_tpl(val);
                 self.add_to_wrapper(wrapper, editable_tpl);
             });
         }
@@ -366,16 +412,31 @@ RegForm.prototype = $.extend({ }, Cell.prototype, {
         return row;
     },
 
-    editable_tpl: function (struct) {
-        console.log("editable_tpl");
+    /**
+     * Método responsável por gerar o elemento HTML que irá conter o
+     * valor de um campo do registro da base.
+     * @param field Campo no qual se refere o valor
+     * @returns {*|jQuery}
+     */
+    editable_tpl: function (field) {
+        var dataTypeField = field.datatype.toLowerCase();
+        console.log("montando para o campo " + field.name + " do tipo " + field.datatype.toLowerCase());
+
         var a = '<a href="javascript:void(0)" '+
-           ' data-type="'+struct.datatype.toLowerCase()+'"'+
-           ' data-title="'+struct.name+'"'+
+           ' data-type="'+field.datatype.toLowerCase()+'"';
+           if(dataTypeField == 'date'){
+               a = a + ' data-format="dd/mm/yyyy"';
+           }
+           a = a + ' data-title="'+field.name+'"'+
            ' class="editable editable-click"></a>';
+        console.log('HTML gerado para mostrar campo : ' + a);
         var editable = $(a).editable();
+        console.log('HTML gerado para mostrar campo : ' + editable.prop('outerHTML'));
         $(editable).on('hidden', function(e, reason){
+            console.log('reason2 : ' + reason)
             if(reason === 'save' || reason === 'nochange') {
-                console.log("save = "+struct.name);
+                console.log("save = "+field.name);
+                // Mostra o próximo campo editável.
                 var next = $(this).parent('td').parent('tr').next().find('.editable');
                 next.editable('show');
             }
@@ -384,8 +445,17 @@ RegForm.prototype = $.extend({ }, Cell.prototype, {
         return editable;
     },
 
+    /**
+     * Monta o HTML que será utilizado para exibir o formulário de inclusão de um
+     * registro da base.
+     * @param base base na qual será incluso o registro
+     * @param table_id ID do elemento da tabela no qual será inserido o registro
+     * @param label
+     * @returns {*|jQuery|HTMLElement}
+     */
     html: function (base, table_id, label) {
-console.log("html="+label);
+        console.log('Tratando evento de confirmar inserção de registro...');
+
         if (!base) {
             base = this.base;
             label = this.base.metadata.alias || this.base.metadata.name;
@@ -403,6 +473,8 @@ console.log("html="+label);
         var wrapper = $(this.wrapper_tpl);
         wrapper.append(this.header_tpl(label)).append(table);
 
+        // Para cada campo da base monta uma tabela(HTML), que será o formulário
+        // de inserção de registro.
         $(base.content).each(function (i, struct) {
             console.log("DENTRO ........... "+struct);
             if (struct.field){
@@ -441,10 +513,15 @@ console.log("html="+label);
 
         $(this.editables).each(function (i, editable) {
             var table_id = editable.parents('table').attr('id');
+
             var field_name = editable.attr('data-title');
+            console.log('field name : ' + field_name);
             var path = table_id.split('-');
+            console.log('path : ' + path);
+
+            console.log('HTML : ' + $(editable).outerHTML);
+            console.log('HTML : ' + $(editable).parent().html());
             var value = $(editable).editable('getValue', true);
-            console.log("validate: "+field_name+"="+this.value);
             path.push(field_name);
             path = path.slice(1); // remove base
             self.set_value(data, path, value)
@@ -454,6 +531,7 @@ console.log("html="+label);
     },
 
     submit: function (dataReceived) {
+        console.log("fazendo requisição para inserir registro..")
         var base = $('#base-name').text();      
         $.ajax({
             type: 'post',
@@ -463,45 +541,58 @@ console.log("html="+label);
             },
             async: false,
             success: function (data, textStatus, jqXHR) {
-                bootbox.dialog("Obrigado! O registro foi salvo com sucesso!", [{
+                console.log('Registro inserido com sucesso!');
+                bootbox.alert("Registro inserido com sucesso!", function(){});
+                $("#datatable").dataTable().fnDraw();
+                /*bootbox.dialog([{
+                    "message" : "Obrigado! O registro foi salvo com sucesso!"
                     "label": "OK",
-                    "class": "btn-small btn-primary",
-                    "href": '/base/'+base+'/explore',
+                    "class": "btn-small btn-primary"
+
                 }]);
+                */
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                 console.log(jqXHR, textStatus, errorThrown)
-                 Utils.error('Por favor Tente novamente mais tarde!');
+                 console.log(jqXHR, textStatus, errorThrown);
+                var response = JSON.parse(jqXHR['responseText']);
+                // TODO Padornizar componente para mostrar erro.
+                bootbox.alert("Erro ao tentar inserir registro! <br>Tipo  :   " + response.type + "<br>Mensagem : " + response.error_message , function(){});
             }
         });
     }
 });
 
-/*
- * DataTable Data Scripts 
+/**
+ * Obtém os metadados da tabela
+ * @param base base  ou grupo na qual se refere as informações
+ * @param depth
+ * @returns {{base: *, name: (base.metadata.name|*), alias: (field.field.alias|*|a.alias), description: (base.metadata.description|*), multivalued: *, columns: *[], inner_tables: Array}}
  */
-var get_table_data = function (base, depth) {
-    console.log("get_table_data");
-    var table_data = {
+var get_table_metadata = function (base, depth) {
+    var table_metadata = {
         base: base,
         name: base.metadata.name,
         alias: base.metadata.alias,
         description: base.metadata.description,
         multivalued: base.metadata.multivalued,
-        columns: [default_column_tpl()],
+        columns: [get_default_column_table()],
         inner_tables: [ ] 
     };
+
+    // Adiciona as colunas definidas na base.
+    // Somente deixa visível as 5 primeiras colunas.
     base.content.forEach(function(struct, index){
         if (struct.field){
-            if ($.inArray('Ordenado', struct.field.indices) != -1 || 
-                $.inArray('Unico', struct.field.indices) != -1)
-                var bSortable = true;  
-            else
-                var bSortable = false;  
+            if ($.inArray('Ordenado', struct.field.indices) != -1 ||
+                $.inArray('Unico', struct.field.indices) != -1) {
+                var bSortable = true;
+            }else {
+                var bSortable = false;
+            }
 
             var bVisible = index > 5? false: true;
 
-            table_data.columns.push({
+            table_metadata.columns.push({
                 "sTitle": '<a data-toggle="tooltip" title="" data-original-title="'+
                     struct.field.description+'">'+struct.field.alias+'</a>',
                 //"sClass": 'ws word',
@@ -525,13 +616,14 @@ var get_table_data = function (base, depth) {
                 alias: struct.group.metadata.alias,
                 description: struct.group.metadata.description,
                 multivalued: struct.group.metadata.multivalued,
-                content: get_table_data(struct.group, struct.group.metadata.name)
+                content: get_table_metadata(struct.group, struct.group.metadata.name)
             };
-            table_data.inner_tables.push(inner_table);
+            table_metadata.inner_tables.push(inner_table);
         }
     });
-    return table_data;
+    return table_metadata;
 };
+
 
 var get_inner_table = function (table, registries, par_id) {
     var title_class = table.multivalued? 'add-reg icon-plus-sign bigger-120': '';
@@ -562,35 +654,45 @@ var get_inner_table = function (table, registries, par_id) {
     return $(inner_wrapper_tpl()).append(data_table);
 };
 
-/*
- * DataTable Callbacks
+/**
+ * This function allows you to 'post process' each row after it have been generated for each table draw,
+ * but before it is rendered on screen. This function might be used for setting the row class name etc.
+ * @param table_data table data
+ * @returns {Function}
  */
-
 var fnRowCallback = function (table_data) {
-    console.log("fnRowCallback ... "+table_data);
     return function (nRow, aData, iDisplayIndex) {
+        // Obtém o template do elememento HTML que representa o valor
         var editables = $(nRow).find('.editable');
+        // Obtém as ações padrões definidas na primeira coluna
         var $action_td = $(nRow).find('.action-buttons');
-        var $hidden_ul = $(nRow).find('ul');
+        // TODO : Corrigir para mobile
+        //var $hidden_ul = $(nRow).find('ul');
         var oTable = this;
 
-        if (oTable.attr('id') == 'datatable')
-            var row_id = 'reg-' + aData._metadata.id_reg;
-        else if(table_data.multivalued)
+        if (oTable.attr('id') == 'datatable') {
+            var row_id = 'reg-' + aData._metadata.id_doc;
+        } else if (table_data.multivalued) {
             var row_id = oTable.attr('id') + '-' + iDisplayIndex;
-        else
+        } else {
             var row_id = oTable.attr('id');
+        }
+
         $(nRow).attr('id', row_id);
 
         config_editables(editables);
         $('[data-toggle="tooltip"]').tooltip();
 
+        // Para cada elemento HTML da div action-buttons (default_column_actions_tpl),
+        // associa um evento .
         $action_td.find('.view-reg').click(  aData, view_reg_event);
         $action_td.find('.edit-reg').click(  aData, edit_reg_event);
         $action_td.find('.delete-reg').click(aData, delete_reg_event);
-        $hidden_ul.find('.view-reg').click(  aData, view_reg_event);
-        $hidden_ul.find('.edit-reg').click(  aData, edit_reg_event);
-        $hidden_ul.find('.delete-reg').click(aData, delete_reg_event);
+        //$hidden_ul.find('.view-reg').click(  aData, view_reg_event);
+        //$hidden_ul.find('.edit-reg').click(  aData, edit_reg_event);
+        //$hidden_ul.find('.delete-reg').click(aData, delete_reg_event);
+
+        // TODO :Verifica se está funcionando
         editables.filter('.file-content').click(download_file_event);
         editables.filter('.json-content').click(display_json_event);
 
@@ -626,17 +728,24 @@ var fnRowCallback = function (table_data) {
     };
 };
 
+/**
+ * This function is called on every 'draw' event, and allows you to dynamically modify any aspect you want about the created DOM.
+ * @param base base na qual a tabela se refere
+ * @returns {Function}
+ */
 var fnDrawCallback = function (base) {
     return function (oSettings) {
         $(this).find('.add-reg').click(function (e) {
+            console.log("event: " + e.type);
             var form = new RegForm(base);
             bootbox.confirm(form.html(), function(result) {
                 if (result) {
                     var data = form.validate();
+                    console.log('validado..');
                     if (data) form.submit(data);
                     else return false;
                 }
-            }); 
+            });
         });
     };
 };
@@ -652,13 +761,19 @@ $.ajax({
     url: get_route('get_base'),
     async: false,
     success: function(data, textStatus, jqXHR ){
+        console.log('indo buscar base ...');
         BASE = JSON.parse(data);
+        console.log('base encontrada : ' + Utils.stringify(BASE));
     },
+    error: function(jqXHR, textStatus, errorThrown){
+        console.error("Erro ao obter a base...");
+    }
 });
 
-var TABLE_DATA = get_table_data(BASE);
 
-var explorer = $("#datatable").dataTable({
+var TABLE_DATA = get_table_metadata(BASE);
+
+var dataTable = $("#datatable").dataTable({
     "bJQueryUI": false,
     "bProcessing": true,
     "bServerSide": true,
