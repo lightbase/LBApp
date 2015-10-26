@@ -1,0 +1,133 @@
+<metal:main use-macro="load: ../master.pt">
+    <metal:content fill-slot="title">
+        LightBase - Lista de Bases 
+    </metal:content>
+    <metal:content fill-slot="left-column">
+
+    </metal:content>
+    <metal:content fill-slot="dash">
+        <li>
+            <i class="ace-icon fa fa-star fa-2x fa-inverse" style="color: #ed683d"></i>
+            <a href="${request.route_url('home')}base/list">Bases</a>
+        </li>
+        <li>
+           <span>Suas Bases</span>
+        </li>
+
+    </metal:content>
+    <metal:content fill-slot="head">
+            <link id="edit_base_route" href="${request.route_url('edit_base', base='_base')}">
+            <link id="config_base_route" href="${request.route_url('config_base', base='_base')}">
+            <link id="delete_base_route" href="${request.route_url('delete_base', base='_base')}">
+            <link id="explore_base_route" href="${request.route_url('explore_base', base='_base')}">
+            <link id="list_base_route" href="${request.route_url('list_bases')}">
+    </metal:content>
+    <metal:content fill-slot="content">
+    <div id="freewall" class="free-wall">
+                <div class="item size22 level1">
+                    <div class="padding">
+                        <h2>Suas bases Lightbase</h2>
+                        <div>Crie ou administre suas bases aqui.</div>
+                    </div>  
+                </div>
+
+                <div class="size22 level1" data-fixSize="0" data-nested=".size11" data-cellW="150" data-cellH="150" data-gutterX="10" id="bases">
+                    <div class="item size11" id="base1"><a href="${request.route_url('home')}base/new"><i class="ace-icon fa fa-plus-circle fa-5x fa-inverse"></i></a></div>
+                    <div class="item size11" id="base2"><a href="${request.route_url('home')}base/new"><i class="ace-icon fa fa-plus-circle fa-5x fa-inverse"></i></a></div>
+                    <div class="item size11" id="base3"><a href="${request.route_url('home')}base/new"><i class="ace-icon fa fa-plus-circle fa-5x fa-inverse"></i></a></div>
+                    <div class="item size11" id="base4"><a href="${request.route_url('home')}base/new"><i class="ace-icon fa fa-plus-circle fa-5x fa-inverse"></i></a></div>
+                </div>
+
+                <div class="size22 level1" data-nested=".size11" data-cellW="150" data-cellH="150" data-gutterX="10" >
+                    <div class="item size11"><a href="${request.route_url('home')}base/new"><i class="ace-icon fa fa-plus-circle fa-5x fa-inverse"></i></a></div>
+                    <div class="item size11"><a href="${request.route_url('home')}base/table"><i class="ace-icon fa fa-list fa-5x fa-inverse"></i></a></div>
+                </div>
+    </div>
+	<div class="modal fade" id="shareModal">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title" id="shareModal">Compartilhar base</h4>
+	      </div>
+	      <div class="modal-body">
+    		<form class="form-horizontal" role="form">
+    		  <div class="form-group">
+    		    <label for="base_share" class="col-sm-3 control-label no-padding-right">Base</label>
+				<div class="col-sm-9">
+				  <input type="text" id="base_share" readOnly=true/> 
+				</div>
+			</div>
+    		<div class="form-group">
+    		    <label for="username_share" class="col-sm-3 control-label no-padding-right">Usuário</label>
+				<div class="col-sm-9">
+    		      <input type="text" id="username_share" size="30" maxlength="30"/>
+				</div>
+    		  </div>
+    		</form>
+	      </div>
+	      <div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		<button type="button" id="share_button" class="btn btn-success">Compartilhar</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+    </metal:content>
+    <metal:content fill-slot="css">
+        <link href="${request.route_url('home')}templates/acev2/static/ace/custom/datatable_custom.css" rel="stylesheet"/>
+        <link href="${request.route_url('home')}templates/acev2/static/css/list-bases-metro.css" rel="stylesheet">
+        <link href="${request.route_url('home')}templates/acev2/static/css/metro-style/metro-style.css" rel="stylesheet">
+        <link href="${request.route_url('home')}templates/acev2/static/css/metro-style/style.css" rel="stylesheet">
+    </metal:content>
+    <metal:content fill-slot="javascript">
+        <link href="${request.route_url('home')}templates/acev2/static/ace/assets/css/jquery.gritter.css" rel="stylesheet"/>
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.gritter.min.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/dataTables/jquery.dataTables.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/dataTables/jquery.dataTables.bootstrap.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/dataTables/extensions/TableTools/js/dataTables.tableTools.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/dataTables/extensions/ColVis/js/dataTables.colVis.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/bootbox.min.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/js/lib/utils.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/js/metro-style/freewall.js"></script>
+        <script src="${request.route_url('home')}templates/acev2/static/js/base/list_bases_metro.js"></script>
+        <script type="text/javascript">
+                var colour = [
+                            "rgb(142, 68, 173)",
+                            "rgb(243, 156, 18)",
+                            "rgb(211, 84, 0)",
+                            "rgb(0, 106, 63)",
+                            "rgb(41, 128, 185)",
+                            "rgb(192, 57, 43)",
+                            "rgb(135, 0, 0)",
+                            "rgb(39, 174, 96)"
+                        ];
+                        
+                        $(".free-wall .item").each(function() {
+                            var backgroundColor = colour[colour.length * Math.random() << 0];
+                            $(this).css({
+                                backgroundColor: backgroundColor
+                            });
+                        });
+
+                        $(function() {
+                            var wall = new Freewall("#freewall");
+                            wall.reset({
+                                selector: '.level1',
+                                cellW: 320,
+                                cellH: 160,
+                                fixSize: 0,
+                                gutterX: 20,
+                                gutterY: 10,
+                                onResize: function() {
+                                    wall.fitZone();
+                                }
+                            });
+                            wall.fitZone();
+                            $(window).trigger("resize");
+                        });
+        </script>
+    </metal:content>
+
+
+</metal:main>

@@ -38,7 +38,11 @@ def make_base_routes(config):
     config.add_view(view=BaseView, attr='delete_base', route_name='delete_base', request_method='DELETE', permission='view')
 
     config.add_route('list_bases', 'base/list', factory=BaseFactory)
-    config.add_view(view=BaseView, attr='list_bases', route_name='list_bases', request_method='GET', renderer='templates/routes/list.pt', permission='view')
+    config.add_view(view=BaseView, attr='list_bases', route_name='list_bases', request_method='GET', renderer='templates/routes/list-bases-metro.pt', permission='view')
+
+    config.add_route('list_bases_table', 'base/table', factory=BaseFactory)
+    config.add_view(view=BaseView, attr='list_bases_table', route_name='list_bases_table', request_method='GET', renderer='templates/routes/list-bases-table.pt', permission='view')
+
 
     config.add_route('config_base', 'base/{base}/config', factory=BaseFactory)
     config.add_view(view=BaseView, attr='config_base', route_name='config_base', request_method='PUT', permission='view')

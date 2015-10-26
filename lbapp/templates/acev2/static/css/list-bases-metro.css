@@ -1,0 +1,7 @@
+.sidebar + .main-content {
+	margin-left: 5px;
+}
+
+.sidebar {
+    width: 1px;
+}

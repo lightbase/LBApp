@@ -48,7 +48,7 @@
             </div>
             <!--PAGE CONTENT ENDS-->
         </div>
-
+        
 	<div class="modal fade" id="shareModal">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
@@ -93,6 +93,7 @@
         <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/bootbox.min.js"></script>
         <script src="${request.route_url('home')}templates/acev2/static/js/lib/utils.js"></script>
         <script src="${request.route_url('home')}templates/acev2/static/js/base/list_bases.js"></script>
+
     </metal:content>
 
 

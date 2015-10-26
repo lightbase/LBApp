@@ -43,6 +43,16 @@ class BaseView():
 
         return {'theme': theme}
         
+    def list_bases_table(self):
+        """ Get all bases 
+        """
+        theme = 'acev2'
+        
+        if self.request.params:
+            results = self.factory.list_base(**self.request.params)
+            return Response(json.dumps(results))
+
+        return {'theme': theme}
 
     def create_base(self):
         """ Create base
