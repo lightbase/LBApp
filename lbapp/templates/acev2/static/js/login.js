@@ -104,7 +104,6 @@ $(document).ready(function(){
             data : data,
             cache: false,
             success: function(data, textStatus, jqXHR ){
-                $('#pleaseWaitDialog').hide();
                 console.log("Requisição enviada com sucesso");
 				window.location.href = default_redirect;
 

@@ -59,6 +59,7 @@ class UserFactory(RequestFactory):
         if 'app_user' in self.request.session:
             del self.request.session['app_user']
         self.request.session.changed()
+
         return Response(charset='utf8', headers=headers)
 
     def register(self, **data):
