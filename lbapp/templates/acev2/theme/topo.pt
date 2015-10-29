@@ -61,7 +61,7 @@
                         <!-- #section:basics/navbar.user_menu -->
                             <li class="green">
 
-                                <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+                                <a data-toggle="dropdown" href="#" class="dropdown-toggle user-email">
                                     <span class="fa fa-user"></span>&nbsp ${request.session['id_app_user']}
                                     <i class="ace-icon fa fa-caret-down"></i>
                                 </a>

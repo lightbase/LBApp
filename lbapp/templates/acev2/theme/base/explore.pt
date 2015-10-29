@@ -28,36 +28,55 @@
     <!-- Definição do breadcrumb -->
     <metal:content fill-slot="dash">
         <li>
-            <i class="ace-icon fa fa-home home-icon"></i>
-            <a href="${request.route_url('home')}">Home</a>
+            <i class="ace-icon fa fa-star fa-2x fa-inverse" style="color: #ed683d"></i>
+            <a href="${request.route_url('home')}base/list">Bases</a>
         </li>
-
         <li>
-            <a href="${request.route_url('list_bases')}">Explorar Base</a>
+           <span>${request.matchdict['base']}</span>
         </li>
     </metal:content>
 
     <!-- Definição do page-header -->
 	<metal:content fill-slot="page-header">
-        <span class="fa fa-list-alt"></span> Explorar Base
-        <div class="btn-group" style="margin-left: 70%">
-            <button data-toggle="dropdown" class="btn btn-mini btn-primary dropdown-toggle">
-                <i class="fa fa-cloud-upload fa-2x"></i>
-            </button>
-            <ul class="dropdown-menu pull-right">
-                <li>
-                    <a href="${request.route_url('home')}base/new">Criar Base</a>
-                </li>
-                <!--
-                TODO : Arrumar tela de criação de base através de JSON, pois não está funcionando
-                <li>
-                    <a href="${request.route_url('home')}base/new/json">Criar Base usando Json</a>
-                </li>
-                -->
-            </ul>
-        </div>
-    </metal:content>
 
+    </metal:content>
+    <metal:content fill-slot="left-column">
+             <ul class="nav nav-list">
+                <li>
+                    <a href="${request.route_url('home')}base/${request.matchdict['base']}/explore">
+                        <i class="menu-icon fa fa-home"></i>
+                        <span class="menu-text"> Dados </span>
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
+                <li class="">
+                    <a href="${request.route_url('home')}base/${request.matchdict['base']}/explore">
+                        <i class="menu-icon fa fa-list-alt"></i>
+                        <span class="menu-text"> Formulários </span>
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
+                <li class="">
+                    <a href="${request.route_url('home')}base/${request.matchdict['base']}/explore">
+                        <i class="menu-icon fa fa-list"></i>
+                        <span class="menu-text"> Relatórios </span>
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
+                <li class="">
+                    <a href="${request.route_url('home')}base/${request.matchdict['base']}/explore">
+                        <i class="menu-icon fa fa-list"></i>
+                        <span class="menu-text"> Busca </span>
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
+            </ul><!-- /.nav-list -->
+
+    </metal:content>
     <!-- Definição do conteúdo da página -->
     <metal:content fill-slot="content">
         <div id="widgets">
@@ -65,7 +84,7 @@
             <div class="row-fluid">
 	            <div class="row-fluid page-header position-relative">
 	                <span class="span6">
-	                    <h1>Explorar Base ${request.matchdict['base']}</h1>
+	                    <h1>Base ${request.matchdict['base']}</h1>
 	                </span>
 	            </div>
             </div>

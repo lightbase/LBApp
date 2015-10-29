@@ -110,7 +110,7 @@ padding-left: 10%;
 .no-skin .sidebar{
 	border:0;
 	background-color:inherit;
-	margin-top: 27px;
+	margin-top: 67px;
 }
 
 .component {width:70%;}
@@ -152,4 +152,9 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 
 .nav-tabs li a:hover {
 		background-color:none;
+}
+
+
+.user-email {
+	color:#fff !important;
 }
