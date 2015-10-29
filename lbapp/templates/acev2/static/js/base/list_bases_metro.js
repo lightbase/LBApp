@@ -22,7 +22,7 @@ $.ajax({
             var images = ["http://static.bolsademulher.com/sites/default/files/styles/big-featured/public/bicicleta-faz-bem.jpg?itok=zucKeUUu", "http://cursosgratis.blog.br/wp-content/uploads/2012/02/comunicempresarial.jpg", "http://media-cdn.tripadvisor.com/media/photo-s/03/07/61/63/grande-hotel-campos-do.jpg", "http://www.seguronoticias.com/wp-content/uploads/2015/09/sa%C3%BAde-m%C3%A9dico.jpg"]
             $.each(BASE.aaData, function(i, base) {
                 var html = '';
-                var size = '300';
+                var size = '350';
                 if(i == 0) {
                     size = '600';
                 }
