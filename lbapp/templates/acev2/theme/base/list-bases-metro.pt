@@ -23,26 +23,35 @@
             <link id="list_base_route" href="${request.route_url('list_bases')}">
     </metal:content>
     <metal:content fill-slot="content">
-    <div id="freewall" class="free-wall">
-                <div class="item size22 level1">
+    <div class="col-md-1"></div>
+    <div id="freewall" class="free-wall col-md-10" style="margin-top:50px">
+                <div class="item size22 level1" id="base1">
                     <div class="padding">
                         <h2>Suas bases Lightbase</h2>
                         <div>Crie ou administre suas bases aqui.</div>
                     </div>  
                 </div>
-
-                <div class="size22 level1" data-fixSize="0" data-nested=".size11" data-cellW="150" data-cellH="150" data-gutterX="10" id="bases">
-                    <div class="item size11" id="base1"><a href="${request.route_url('home')}base/new"><i class="ace-icon fa fa-plus-circle fa-5x fa-inverse"></i></a></div>
-                    <div class="item size11" id="base2"><a href="${request.route_url('home')}base/new"><i class="ace-icon fa fa-plus-circle fa-5x fa-inverse"></i></a></div>
-                    <div class="item size11" id="base3"><a href="${request.route_url('home')}base/new"><i class="ace-icon fa fa-plus-circle fa-5x fa-inverse"></i></a></div>
-                    <div class="item size11" id="base4"><a href="${request.route_url('home')}base/new"><i class="ace-icon fa fa-plus-circle fa-5x fa-inverse"></i></a></div>
+                <div class="item size21 level1" id="base2">
+                        <a href="${request.route_url('home')}base/new"><i class="ace-icon fa fa-plus-circle fa-5x fa-inverse"></i></a>
                 </div>
+                <div class="item size21 level1" id="base3">
+                        <a href="${request.route_url('home')}base/new"><i class="ace-icon fa fa-plus-circle fa-5x fa-inverse"></i></a>
+                </div>
+                <div class="item size21 level1" id="base4">
+                        <a href="${request.route_url('home')}base/new"><i class="ace-icon fa fa-plus-circle fa-5x fa-inverse"></i></a>
+                </div>
+                <!--<div class="item size21 level1" id="base5" data-fixSize="0" data-nested=".size11" data-gutterX="10">
+                        <a href="${request.route_url('home')}base/new"><i class="ace-icon fa fa-plus-circle fa-5x fa-inverse"></i></a>
+                </div>-->
 
-                <div class="size22 level1" data-nested=".size11" data-cellW="150" data-cellH="150" data-gutterX="10" >
+
+                <div class="size21 level1" data-nested=".size11" data-cellW="150" data-cellH="150" data-gutterX="10">
                     <div class="item size11"><a href="${request.route_url('home')}base/new"><i class="ace-icon fa fa-plus-circle fa-5x fa-inverse"></i></a></div>
                     <div class="item size11"><a href="${request.route_url('home')}base/table"><i class="ace-icon fa fa-list fa-5x fa-inverse"></i></a></div>
                 </div>
     </div>
+    <div class="col-md-1"></div>
+
 	<div class="modal fade" id="shareModal">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
@@ -93,14 +102,11 @@
         <script src="${request.route_url('home')}templates/acev2/static/js/base/list_bases_metro.js"></script>
         <script type="text/javascript">
                 var colour = [
-                            "rgb(142, 68, 173)",
-                            "rgb(243, 156, 18)",
-                            "rgb(211, 84, 0)",
-                            "rgb(0, 106, 63)",
-                            "rgb(41, 128, 185)",
-                            "rgb(192, 57, 43)",
-                            "rgb(135, 0, 0)",
-                            "rgb(39, 174, 96)"
+                            "#65bc6a",
+                            "#f36f46",
+                            "#faa62a",
+                            "#775ba7",
+                            "#28a79a"
                         ];
                         
                         $(".free-wall .item").each(function() {

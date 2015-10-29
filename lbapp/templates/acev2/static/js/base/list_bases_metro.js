@@ -19,12 +19,19 @@ $.ajax({
       success: function(data, textStatus, jqXHR ){
             console.log('indo buscar base ...');
             BASE = JSON.parse(data);
-            var j = 1;
+            var images = ["http://static.bolsademulher.com/sites/default/files/styles/big-featured/public/bicicleta-faz-bem.jpg?itok=zucKeUUu", "http://cursosgratis.blog.br/wp-content/uploads/2012/02/comunicempresarial.jpg", "http://media-cdn.tripadvisor.com/media/photo-s/03/07/61/63/grande-hotel-campos-do.jpg", "http://www.seguronoticias.com/wp-content/uploads/2015/09/sa%C3%BAde-m%C3%A9dico.jpg"]
             $.each(BASE.aaData, function(i, base) {
                 var html = '';
-                html += '<div class="padding"><h2><a href="'+get_route(base.metadata.name, 'explore_base')+'">'+base.metadata.name+'</h2></a></div>';
-                j++;
+                var size = '300';
+                if(i == 0) {
+                    size = '600';
+                }
+                html += '<div class="padding lead"><h2><a href="'+get_route(base.metadata.name, 'explore_base')+'">'+base.metadata.name+'</h2></a></div>';
                 $("#base"+(i+1)).html(html);
+                $("#base"+(i+1)).css({ 
+                    backgroundImage: "url('"+images[i]+"')", 
+                    backgroundSize: size+"px"
+                });
 
             });
       },
