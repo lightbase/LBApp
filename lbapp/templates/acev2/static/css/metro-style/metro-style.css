@@ -30,6 +30,10 @@ body {
 .size2-2 {
 	line-height: 85px;
 }
+.size21 {
+    line-height: 184px;
+    text-align: center;
+}
 /***********************img-demo***************************/
 
 .wallpaper {
