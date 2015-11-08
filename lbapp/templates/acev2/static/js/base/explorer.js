@@ -3,9 +3,8 @@
  * Editable Defaults 
  */
 
-//$.fn.editable.defaults.ajaxOptions = {type: "PUT"};
-//$.fn.editable.defaults.url= window.location;
-$.fn.editable.defaults.mode = 'popup';
+//$.fn.editable.defaults.mode = 'popup';
+$.fn.editable.defaults.mode = 'inline';
 
 
 /*
@@ -155,7 +154,7 @@ var sDom_tpl = function () {
 };
 
 /*
- * Events
+ * Eventos relacionados a cada linha de registros.
  */
 
 var view_reg_event = function(e){
@@ -170,7 +169,30 @@ var view_reg_event = function(e){
 };
 
 var edit_reg_event = function(e){
-    $(this).closest('tr').find('.editable').editable('toggleDisabled');
+    // JSON que irá conter todos os registros da linha.
+    // id_reg irá representar o ID do registro a ser editado.
+    var rowValue = {};
+    rowValue['id_reg'] = $(this).closest('tr').attr('id');
+
+    // TODO : Verificar como será feito para uma base grande onde
+    // TODO : todas as colunas não estão contidas na tabela
+    $(this).closest('tr').find('.editable').each(function(i, cell){
+        var cell = $(cell);
+        rowValue[cell.data('title')] = cell.text();
+    });
+
+    var form = new RegForm(TABLE_DATA.base, rowValue);
+
+    bootbox.confirm(form.html(), function(result) {
+        console.log('result : ' + result);
+        if (result) {
+            var data = form.validate();
+            console.log('validado..');
+            if (data) form.update(data);
+            else return false;
+        }
+    });
+
 };
 
 var delete_reg_event = function(e){
@@ -248,7 +270,6 @@ var to_path = function(str){
 };
 
 var config_editables = function(editables){
-    console.log('Configurando editables...' + JSON.stringify(editables));
     $(editables).each(function(i, editable){
 
         // Forma id do elemento : reg-<id>-<descrição campo>
@@ -383,20 +404,23 @@ Cell.prototype = {
 
 }; 
 
-var RegForm = function (base) {
-    this.init(base);
+var RegForm = function (base, values) {
+    this.init(base, values);
 };
 
 RegForm.prototype = $.extend({ }, Cell.prototype, {
 
-    init: function(base){
+    init: function(base, values){
         this.base = base;
+        this.values = values;
+        this.edition = false;
+        if(values !== undefined){
+            this.edition = true;
+        }
+        this.editables = [ ];
     },
 
-    editables: [ ],
-
     wrapper_tpl: '<div class="new-reg"></div>',
-
     icon_tpl: '<i class="icon-double-angle-right grey"></i>',
 
     header_tpl: function (label) {
@@ -420,18 +444,23 @@ RegForm.prototype = $.extend({ }, Cell.prototype, {
      */
     editable_tpl: function (field) {
         var dataTypeField = field.datatype.toLowerCase();
-        console.log("montando para o campo " + field.name + " do tipo " + field.datatype.toLowerCase());
+        //console.log("montando para o campo " + field.name + " do tipo " + field.datatype.toLowerCase());
 
         var a = '<a href="javascript:void(0)" '+
            ' data-type="'+field.datatype.toLowerCase()+'"';
-           if(dataTypeField == 'date'){
-               a = a + ' data-format="dd/mm/yyyy"';
-           }
-           a = a + ' data-title="'+field.name+'"'+
-           ' class="editable editable-click"></a>';
-        console.log('HTML gerado para mostrar campo : ' + a);
+        if(dataTypeField == 'date'){
+           a = a + ' data-format="dd/mm/yyyy"';
+        }
+        a = a + ' data-title="'+field.name+'" class="editable editable-click">';
+        if (this.values !== undefined){
+            a = a + this.values[field.name];
+        }
+        a = a + '</a>';
+
+        //console.log('HTML gerado para mostrar campo : ' + a);
+        // TODO : Alterar editable para colocar propriedade dependendo do campo.
         var editable = $(a).editable();
-        console.log('HTML gerado para mostrar campo : ' + editable.prop('outerHTML'));
+        //console.log('HTML gerado para mostrar campo : ' + editable.prop('outerHTML'));
         $(editable).on('hidden', function(e, reason){
             console.log('reason2 : ' + reason)
             if(reason === 'save' || reason === 'nochange') {
@@ -453,9 +482,7 @@ RegForm.prototype = $.extend({ }, Cell.prototype, {
      * @param label
      * @returns {*|jQuery|HTMLElement}
      */
-    html: function (base, table_id, label) {
-        console.log('Tratando evento de confirmar inserção de registro...');
-
+    html: function (base, table_id, label, valores) {
         if (!base) {
             base = this.base;
             label = this.base.metadata.alias || this.base.metadata.name;
@@ -476,7 +503,6 @@ RegForm.prototype = $.extend({ }, Cell.prototype, {
         // Para cada campo da base monta uma tabela(HTML), que será o formulário
         // de inserção de registro.
         $(base.content).each(function (i, struct) {
-            console.log("DENTRO ........... "+struct);
             if (struct.field){
                 var row = $(self.row_tpl(struct.field, self.editable_tpl(struct.field)));
                 tbody.append(row);
@@ -513,14 +539,10 @@ RegForm.prototype = $.extend({ }, Cell.prototype, {
 
         $(this.editables).each(function (i, editable) {
             var table_id = editable.parents('table').attr('id');
-
-            var field_name = editable.attr('data-title');
-            console.log('field name : ' + field_name);
+            var field_name = editable.data('title');
             var path = table_id.split('-');
-            console.log('path : ' + path);
 
-            console.log('HTML : ' + $(editable).outerHTML);
-            console.log('HTML : ' + $(editable).parent().html());
+            //console.log('HTML : ' + $(editable).parent().html());
             var value = $(editable).editable('getValue', true);
             path.push(field_name);
             path = path.slice(1); // remove base
@@ -531,8 +553,7 @@ RegForm.prototype = $.extend({ }, Cell.prototype, {
     },
 
     submit: function (dataReceived) {
-        console.log("fazendo requisição para inserir registro..")
-        var base = $('#base-name').text();      
+        var base = $('#base-name').text();
         $.ajax({
             type: 'post',
             url: '/base/'+base+'/doc',
@@ -544,19 +565,37 @@ RegForm.prototype = $.extend({ }, Cell.prototype, {
                 console.log('Registro inserido com sucesso!');
                 bootbox.alert("Registro inserido com sucesso!", function(){});
                 $("#datatable").dataTable().fnDraw();
-                /*bootbox.dialog([{
-                    "message" : "Obrigado! O registro foi salvo com sucesso!"
-                    "label": "OK",
-                    "class": "btn-small btn-primary"
-
-                }]);
-                */
             },
             error: function (jqXHR, textStatus, errorThrown) {
                  console.log(jqXHR, textStatus, errorThrown);
                 var response = JSON.parse(jqXHR['responseText']);
                 // TODO Padornizar componente para mostrar erro.
-                bootbox.alert("Erro ao tentar inserir registro! <br>Tipo  :   " + response.type + "<br>Mensagem : " + response.error_message , function(){});
+                bootbox.alert('Erro ao tentar inserir registro! <br>Tipo  :   ' + response.type + '<br>Mensagem : ' + response.error_message , function(){});
+            }
+        });
+    },
+
+    update: function (dataReceived) {
+        var base = $('#base-name').text();
+        var id_reg = this.values['id_reg'].split('-')[1];
+
+        $.ajax({
+            type:'put',
+            url: '/base/'+base+'/explore',
+            data: {
+                id: id_reg,
+                value: JSON.stringify(dataReceived)
+            },
+            async: false,
+            success: function (data, textStatus, jqXHR) {
+                console.log('Registro atualizado com sucesso!');
+                bootbox.alert("Registro atualizado com sucesso!", function(){});
+                $("#datatable").dataTable().fnDraw();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                var response = JSON.parse(jqXHR['responseText']);
+                // TODO Padornizar componente para mostrar erro.
+                bootbox.alert('Erro ao tentar inserir registro! <br>Tipo  :   ' + response.type + '<br>Mensagem : ' + response.error_message , function(){});
             }
         });
     }
@@ -581,6 +620,8 @@ var get_table_metadata = function (base, depth) {
 
     // Adiciona as colunas definidas na base.
     // Somente deixa visível as 5 primeiras colunas.
+    // Para cada coluna define em mRender a função utilizada
+    // para renderizar cada célula
     base.content.forEach(function(struct, index){
         if (struct.field){
             if ($.inArray('Ordenado', struct.field.indices) != -1 ||
@@ -735,10 +776,11 @@ var fnRowCallback = function (table_data) {
  */
 var fnDrawCallback = function (base) {
     return function (oSettings) {
-        $(this).find('.add-reg').click(function (e) {
+        $(this).find('.add-reg').off().on('click', function (e) {
             console.log("event: " + e.type);
             var form = new RegForm(base);
             bootbox.confirm(form.html(), function(result) {
+                console.log('result : ' + result);
                 if (result) {
                     var data = form.validate();
                     console.log('validado..');
@@ -761,9 +803,8 @@ $.ajax({
     url: get_route('get_base'),
     async: false,
     success: function(data, textStatus, jqXHR ){
-        console.log('indo buscar base ...');
         BASE = JSON.parse(data);
-        console.log('base encontrada : ' + Utils.stringify(BASE));
+        //console.log('base encontrada : ' + Utils.stringify(BASE));
     },
     error: function(jqXHR, textStatus, errorThrown){
         console.error("Erro ao obter a base...");

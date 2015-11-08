@@ -135,6 +135,20 @@ class BaseView():
         response = self.factory.create_registry_path(id, path, data)
         return Response(response.text, status=response.status_code)
 
+    def update_reg(self):
+        """ Update registry
+        """
+        required = ['id', 'value']
+        values = self.request.params
+
+        for req in required:
+            if req not in values:
+                raise Exception('Required param %s not found in request' % req)
+        id = values['id']
+        value = {'value': values['value']}
+        response = self.factory.edit_registry(id, value)
+        return Response(response.text, status=response.status_code)
+
     def update_reg_path(self):
         """ Update registry path
         """
