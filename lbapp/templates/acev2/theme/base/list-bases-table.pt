@@ -21,14 +21,12 @@
     </metal:content>
     <metal:content fill-slot="dash">
         <li>
-            <i class="ace-icon fa fa-home home-icon"></i>
-            <a href="${request.route_url('list_bases')}">Home</a>
+            <i class="ace-icon fa fa-star fa-2x fa-inverse" style="color: #ed683d"></i>
+            <a href="${request.route_url('home')}base/list">Bases</a>
         </li>
-
         <li>
-            <a href="${request.route_url('list_bases')}">Lista de Bases</a>
+           <span>Lista de bases</span>
         </li>
-
     </metal:content>
     <metal:content fill-slot="head">
             <link id="edit_base_route" href="${request.route_url('edit_base', base='_base')}">
@@ -54,7 +52,7 @@
 	    <div class="modal-content">
 	      <div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		<h4 class="modal-title" id="shareModal">Compartilhar base</h4>
+		<h4 class="modal-title">Compartilhar base</h4>
 	      </div>
 	      <div class="modal-body">
     		<form class="form-horizontal" role="form">

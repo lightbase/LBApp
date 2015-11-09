@@ -56,9 +56,9 @@ $("#share_button").click(function(){
     	var data = {
     		'usernames' : $('#username_share').val(),
     		'base' : $('#base_share').val()
-};
+        };
 
-$.ajax({
+        $.ajax({
         type : 'POST',
         url : '/base/share',
         data : data,
