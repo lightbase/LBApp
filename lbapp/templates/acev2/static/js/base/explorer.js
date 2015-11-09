@@ -184,10 +184,10 @@ var edit_reg_event = function(e){
     var form = new RegForm(TABLE_DATA.base, rowValue);
 
     bootbox.confirm(form.html(), function(result) {
-        console.log('result : ' + result);
+        //console.log('result : ' + result);
         if (result) {
             var data = form.validate();
-            console.log('validado..');
+            //console.log('validado..');
             if (data) form.update(data);
             else return false;
         }
@@ -292,6 +292,120 @@ var config_editables = function(editables){
         });*/
         $(editable).editable('toggleDisabled');
     })
+};
+
+var getFieldEditableOptions = function(field, value){
+    var options = {};
+    var datatype = field.datatype.toLowerCase();
+    // Funções de validações
+    var requiredField = function(){
+      if(field.required){
+        if (value !== undefined && value.trim() == '') {
+            return 'This field is required';
+        }
+      }
+    };
+    var isEmailValid = function(value){
+        var re = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if(!re.test(value)){
+            return 'This field isn\'t a valid email address.';
+        };
+    };
+
+    var isUrlValid = function(value){
+        var re = /^HTTP|HTTP|http(s)?:\/\/(www\.)?[A-Za-z0-9]+([\-\.]{1}[A-Za-z0-9]+)*\.[A-Za-z]{2,40}(:[0-9]{1,40})?(\/.*)?$/;
+        if(!re.test(value)){
+            return 'This field isn\'t a valid URL.';
+        };
+    };
+
+    var isNumberValid = function(value){
+      var re = /^-{0,1}\d*$/;
+      if(!re.test(value)){
+          return 'This field isn\'t a valid number.';
+      };
+    };
+
+    var isDecimalValid = function(value){
+      var re = /^-{0,1}\d*\.{0,1}\d+$/;
+      if(!re.test(value)){
+          return 'This field isn\'t a valid decimal.';
+      };
+    };
+
+    var functions = {};
+    functions['email'] = isEmailValid;
+    functions['url'] = isUrlValid;
+    functions['integer'] = isNumberValid;
+    functions['decimal'] = isDecimalValid;
+
+    var defaultOptions = {
+        type : datatype,
+        title : field.name,
+        value : value,
+        validate : function(value){
+            requiredField();
+            // Validar outros campos
+            var functionValida = functions[datatype];
+            if(functionValida !== undefined){
+                var retorno = functionValida(value);
+                if(retorno !== undefined){
+                    return retorno;
+                }
+            }
+        }
+    };
+    options['date'] = {
+        type : 'combodate',
+        title : field.name,
+        value : value,
+        format: 'DD/MM/YYYY',
+        viewFormat: 'DD/MM/YYYY',
+        template: 'DD/MM/YYYY',
+        combodate :{
+            maxYear : 2020
+        },
+        validate : function(value){
+            requiredField();
+            // Validar outros campos
+        }
+    };
+    options['datetime'] = {
+        type : 'combodate',
+        title : field.name,
+        value : value,
+        format: 'DD/MM/YYYY hh:mm:ss',
+        viewFormat: 'DD/MM/YYYY hh:mm:ss',
+        template: 'DD/MM/YYYY hh:mm:ss',
+        combodate :{
+            maxYear : 2020,
+            minuteStep: 1
+        },
+        validate : function(value){
+            requiredField();
+            // Validar outros campos
+        }
+    };
+    options['ime'] = {
+        type : 'combodate',
+        title : field.name,
+        value : value,
+        format: 'hh:mm:ss',
+        viewFormat: 'hh:mm:ss',
+        template: 'hh:mm:ss',
+        combodate :{
+            minuteStep: 1
+        },
+        validate : function(value){
+            requiredField();
+            // Validar outros campos
+        }
+    };
+    if(options[datatype]){
+        return options[datatype];
+    }else{
+        return defaultOptions;
+    }
 };
 
 /**
@@ -444,27 +558,36 @@ RegForm.prototype = $.extend({ }, Cell.prototype, {
      */
     editable_tpl: function (field) {
         var dataTypeField = field.datatype.toLowerCase();
-        //console.log("montando para o campo " + field.name + " do tipo " + field.datatype.toLowerCase());
-
-        var a = '<a href="javascript:void(0)" '+
-           ' data-type="'+field.datatype.toLowerCase()+'"';
-        if(dataTypeField == 'date'){
-           a = a + ' data-format="dd/mm/yyyy"';
-        }
-        a = a + ' data-title="'+field.name+'" class="editable editable-click">';
+        /*if(dataTypeField === 'date'){
+            dataTypeField = 'combodate';
+        }*/
+        var a = '<a href="#" '
+        //+ ' data-type="'+dataTypeField+'"'
+        //if(dataTypeField == 'date'){
+        //   a = a + ' data-format="dd/mm/yyyy"';
+        //}
+        + ' data-title = "'+field.name+'"'
+        +' class="editable editable-click">';
+        var valor;
         if (this.values !== undefined){
-            a = a + this.values[field.name];
+            valor = this.values[field.name];
+            a = a + valor;
+
         }
         a = a + '</a>';
 
         //console.log('HTML gerado para mostrar campo : ' + a);
         // TODO : Alterar editable para colocar propriedade dependendo do campo.
-        var editable = $(a).editable();
+        var editable = $(a).editable(getFieldEditableOptions(field, valor));
+        /*
+        if(dataTypeField == 'date') {
+            console.log('campo data..');
+
+        }*/
+
         //console.log('HTML gerado para mostrar campo : ' + editable.prop('outerHTML'));
         $(editable).on('hidden', function(e, reason){
-            console.log('reason2 : ' + reason)
             if(reason === 'save' || reason === 'nochange') {
-                console.log("save = "+field.name);
                 // Mostra o próximo campo editável.
                 var next = $(this).parent('td').parent('tr').next().find('.editable');
                 next.editable('show');
@@ -517,7 +640,6 @@ RegForm.prototype = $.extend({ }, Cell.prototype, {
     },
 
     set_value: function (object, path, value) {
-
         path.forEach(function (node, index) {
             if (index == path.length - 1){
                 object[node] = value;
@@ -533,7 +655,8 @@ RegForm.prototype = $.extend({ }, Cell.prototype, {
     },
 
     validate: function () {
-        console.log("validating ....");
+        //console.log("validating ....");
+        // TODO : Validar novamente os campos, pois pode ter campo está vazio.
         var data = { };
         var self = this;
 
@@ -544,6 +667,20 @@ RegForm.prototype = $.extend({ }, Cell.prototype, {
 
             //console.log('HTML : ' + $(editable).parent().html());
             var value = $(editable).editable('getValue', true);
+            //console.log('valor anterio : ' + value);
+            //console.log('tipo : ' + $(editable).editable('option', 'type'));
+
+            var type = $(editable).data('editable').input['type'];
+            //console.log('Realizando parse para tipo : ' + type);
+            if( type !== undefined) {
+                if (type == 'combodate') {
+                    value = moment(value).format($(editable).data('editable').input['options']['format']);
+                    console.log('valor posterior : ' + value);
+                }else if(type == 'integer'){
+                    value = Number(value);
+                    console.log('valor posterior : ' + value);
+                }
+            }
             path.push(field_name);
             path = path.slice(1); // remove base
             self.set_value(data, path, value)
