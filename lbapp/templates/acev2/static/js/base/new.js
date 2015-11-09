@@ -138,7 +138,10 @@ function salvar(){
         	alert('Obrigado! Sua base foi salva com sucesso!');		           
         },
         error: function (jqXHR, textStatus, errorThrown) {
-             console.log(jqXHR, textStatus, errorThrown)
+            var response = JSON.parse(jqXHR['responseText']);
+            var message = response.error_message;
+            bootbox.alert("erro ao salvar base : " + message);
+
              //Utils.error('Por favor Tente novamente mais tarde!');
         }
 	});

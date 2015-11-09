@@ -132,6 +132,8 @@
         <!-- Editable plugin-->
         <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/x-editable/bootstrap-editable.js"></script>   
         <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/bootbox.min.js"></script>
+        <!-- Tratamento de datas -->
+        <script src="${request.route_url('home')}templates/acev2/static/js/lib/moment.js"></script>
 		<!--datatable plugin -->
         <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/dataTables/jquery.dataTables.js"></script>
         <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/dataTables/jquery.dataTables.bootstrap.js"></script>
