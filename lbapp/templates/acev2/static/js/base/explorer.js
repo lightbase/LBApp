@@ -386,7 +386,7 @@ var getFieldEditableOptions = function(field, value){
             // Validar outros campos
         }
     };
-    options['ime'] = {
+    options['time'] = {
         type : 'combodate',
         title : field.name,
         value : value,
