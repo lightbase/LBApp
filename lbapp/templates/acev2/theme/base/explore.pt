@@ -67,8 +67,8 @@
                     <b class="arrow"></b>
                 </li>
                 <li class="">
-                    <a href="${request.route_url('home')}base/${request.matchdict['base']}/explore">
-                        <i class="menu-icon fa fa-list"></i>
+                    <a href="${request.route_url('home')}base/${request.matchdict['base']}/search">
+                        <i class="menu-icon fa fa-search"></i>
                         <span class="menu-text"> Busca </span>
                     </a>
 
@@ -140,11 +140,11 @@
         <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/dataTables/extensions/TableTools/js/dataTables.tableTools.js"></script>
         <script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/dataTables/extensions/ColVis/js/dataTables.colVis.js"></script>
 		<!--gritter plugin (alert messages) -->
-		<!--<script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.gritter.min.js"></script>-->		
+		<!--<script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.gritter.min.js"></script>-->
 		<!--validate plugin-->
 		<script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.validate.min.js"></script>
 		<!--dropzone plugin-->
-		<script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/dropzone.min.js"></script>		
+		<script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/dropzone.min.js"></script>
 		<!--bootstrap-wysiwyg plugin-->
 		<script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/bootstrap-wysiwyg.min.js"></script>
 		<script src="${request.route_url('home')}templates/acev2/static/ace/assets/js/jquery.hotkeys.min.js"></script>
@@ -152,8 +152,11 @@
 		<script src="${request.route_url('home')}templates/acev2/static/js/lib/utils.js"></script>
 		<script src="${request.route_url('home')}templates/acev2/static/js/lib/fields.js"></script>
 
+		<!--Jquery Masks-->
+		<script src="${request.route_url('home')}templates/acev2/static/js/lib/jquery.mask.js"></script>
+
 		<script src="${request.route_url('home')}templates/acev2/static/js/base/explorer.js"></script>
-        
+
     </metal:content>
 </metal:main>
 

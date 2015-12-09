@@ -355,6 +355,11 @@ var getFieldEditableOptions = function(field, value){
             }
         }
     };
+	options['date'] = {
+		type : 'text',
+		tpl : '<input type="text" class="date-mask"/>'
+	};
+	/*
     options['date'] = {
         type : 'combodate',
         title : field.name,
@@ -370,6 +375,7 @@ var getFieldEditableOptions = function(field, value){
             // Validar outros campos
         }
     };
+   */
     options['datetime'] = {
         type : 'combodate',
         title : field.name,
@@ -983,3 +989,7 @@ var dataTable = $("#datatable").dataTable({
         "sZeroRecords": "Não foram encontrados registros"
     }
 });
+
+$(document).on("focus", ".date-mask", function () {
+	    $(this).mask("00/00/0000");
+})
