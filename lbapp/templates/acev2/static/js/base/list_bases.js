@@ -1,3 +1,4 @@
+$(document).ready(function(){
 
 var get_route = function(base, route){
     var routes = {
@@ -275,6 +276,7 @@ $("#datatable").dataTable({
     });
 
 
+});
 
 
 
