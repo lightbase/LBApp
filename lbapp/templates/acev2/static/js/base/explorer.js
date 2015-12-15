@@ -176,7 +176,7 @@ var edit_reg_event = function(e){
 
     // TODO : Verificar como será feito para uma base grande onde
     // TODO : todas as colunas não estão contidas na tabela
-    $(this).closest('tr').find('.editable').each(function(i, cell){
+    $(this).closest('tr').find('.cell_info').each(function(i, cell){
         var cell = $(cell);
         rowValue[cell.data('title')] = cell.text();
     });
@@ -359,54 +359,15 @@ var getFieldEditableOptions = function(field, value){
 		type : 'text',
 		tpl : '<input type="text" class="date-mask"/>'
 	};
-	/*
-    options['date'] = {
-        type : 'combodate',
-        title : field.name,
-        value : value,
-        format: 'DD/MM/YYYY',
-        viewFormat: 'DD/MM/YYYY',
-        template: 'DD/MM/YYYY',
-        combodate :{
-            maxYear : 2020
-        },
-        validate : function(value){
-            requiredField();
-            // Validar outros campos
-        }
-    };
-   */
-    options['datetime'] = {
-        type : 'combodate',
-        title : field.name,
-        value : value,
-        format: 'DD/MM/YYYY hh:mm:ss',
-        viewFormat: 'DD/MM/YYYY hh:mm:ss',
-        template: 'DD/MM/YYYY hh:mm:ss',
-        combodate :{
-            maxYear : 2020,
-            minuteStep: 1
-        },
-        validate : function(value){
-            requiredField();
-            // Validar outros campos
-        }
-    };
-    options['time'] = {
-        type : 'combodate',
-        title : field.name,
-        value : value,
-        format: 'hh:mm:ss',
-        viewFormat: 'hh:mm:ss',
-        template: 'hh:mm:ss',
-        combodate :{
-            minuteStep: 1
-        },
-        validate : function(value){
-            requiredField();
-            // Validar outros campos
-        }
-    };
+	options['time'] = {
+		type : 'text',
+		tpl : '<input type="text" class="time-mask" />'
+	};
+	options['datetime'] = {
+		type : 'text',
+		tpl : '<input type="text" class="date_time-mask" />'
+	};
+
     if(options[datatype]){
         return options[datatype];
     }else{
@@ -443,10 +404,11 @@ Cell.prototype = {
         if (data == undefined) {
             data = this.data;
         }
-        return '<a href="javascript:void(0)" '+
+        return '<div class="cell_info"'+
            ' data-type="'+this.struct.datatype.toLowerCase()+'"'+
            ' data-title="'+this.struct.name+'"'+
-           ' class="editable editable-click">'+data+'</a>';
+           //' class="editable editable-click">'+data+'</a>';
+           ' >'+data+'</div>';
     },
 
     file_download_tpl: function (file) {
@@ -847,7 +809,7 @@ var get_inner_table = function (table, registries, par_id) {
 var fnRowCallback = function (table_data) {
     return function (nRow, aData, iDisplayIndex) {
         // Obtém o template do elememento HTML que representa o valor
-        var editables = $(nRow).find('.editable');
+        var editables = $(nRow).find('.cell_info');
         // Obtém as ações padrões definidas na primeira coluna
         var $action_td = $(nRow).find('.action-buttons');
         // TODO : Corrigir para mobile
@@ -864,7 +826,7 @@ var fnRowCallback = function (table_data) {
 
         $(nRow).attr('id', row_id);
 
-        config_editables(editables);
+        //config_editables(editables);
         $('[data-toggle="tooltip"]').tooltip();
 
         // Para cada elemento HTML da div action-buttons (default_column_actions_tpl),
@@ -990,6 +952,13 @@ var dataTable = $("#datatable").dataTable({
     }
 });
 
+// Máscaras de datas
 $(document).on("focus", ".date-mask", function () {
 	    $(this).mask("00/00/0000");
+})
+$(document).on("focus", ".date_time-mask", function () {
+	    $(this).mask("00/00/0000 00:00:00");
+})
+$(document).on("focus", ".time-mask", function () {
+	    $(this).mask("00:00:00");
 })
